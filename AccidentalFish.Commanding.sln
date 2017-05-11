@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DDB55A76
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Tests.Unit", "AccidentalFish.Commanding.Tests.Unit\AccidentalFish.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Http", "AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

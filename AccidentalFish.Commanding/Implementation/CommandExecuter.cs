@@ -16,31 +16,36 @@ namespace AccidentalFish.Commanding.Implementation
             _commandRegistry = commandRegistry;
         }
 
-        public async Task ExecuteAsync<T>(T command) where T : class
+        public async Task<TResult> ExecuteAsync<T, TResult>(T command) where T : class
         {
             IReadOnlyCollection<PrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors<T>();
+            TResult result = default(TResult);
 
             foreach (PrioritisedCommandActor actorTemplate in actors)
             {
+                
                 object baseActor = _dependencyResolver.Resolve(actorTemplate.CommandActorType);
-                ICommandActor<T> actor = baseActor as ICommandActor<T>;
+                ICommandActor<T, TResult> actor = baseActor as ICommandActor<T, TResult>;
                 if (actor != null)
                 {
-                    await actor.ExecuteAsync(command);
+                    result = await actor.ExecuteAsync(command, result);
                 }
                 else
                 {
-                    ICommandChainActor<T> chainActor = baseActor as ICommandChainActor<T>;
+                    ICommandChainActor<T, TResult> chainActor = baseActor as ICommandChainActor<T, TResult>;
                     if (chainActor != null)
                     {
-                        bool shouldContinue = await chainActor.ExecuteAsync(command);
-                        if (!shouldContinue)
+                        CommandChainActorResult<TResult> chainResult = await chainActor.ExecuteAsync(command, result);
+                        result = chainResult.Result;
+                        if (chainResult.ShouldStop)
                         {
                             break;
                         }
                     }
                 }
             }
+
+            return result;
         }
     }
 }

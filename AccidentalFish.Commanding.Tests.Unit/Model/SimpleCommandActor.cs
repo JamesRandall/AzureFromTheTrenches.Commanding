@@ -2,11 +2,11 @@
 
 namespace AccidentalFish.Commanding.Tests.Unit.Model
 {
-    internal class SimpleCommandActor : ICommandActor<SimpleCommand>
+    internal class SimpleCommandActor : ICommandActor<SimpleCommand, SimpleResult>
     {
-        public Task ExecuteAsync(SimpleCommand command)
+        public Task<SimpleResult> ExecuteAsync(SimpleCommand command, SimpleResult previousResult)
         {
-            return Task.FromResult(0);
+            return Task.FromResult(new SimpleResult());
         }
     }
 }

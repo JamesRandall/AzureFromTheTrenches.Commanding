@@ -1,33 +1,41 @@
 ﻿using System.Threading.Tasks;
+using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Implementation
 {
     internal class CommandDispatcher : ICommandDispatcher
     {
         private readonly ICommandRegistry _commandRegistry;
-        private readonly ICommandExecuter _commandExecuter;
 
         public CommandDispatcher(ICommandRegistry commandRegistry, ICommandExecuter commandExecuter)
         {
             _commandRegistry = commandRegistry;
-            _commandExecuter = commandExecuter;
+            AssociatedExecuter = commandExecuter;
         }
 
-        public async Task<bool> DispatchAsync<T>(T command) where T : class
+        public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
         {
-            bool shouldExecuteImmediately = true;
-            ICommandDispatcher dispatcher = _commandRegistry.GetCommandDispatcher<T>();
+            CommandResult<TResult> dispatchResult = null;
+            ICommandDispatcher dispatcher = _commandRegistry.GetCommandDispatcher<TCommand>();
+            ICommandExecuter executer = null;
             if (dispatcher != null)
             {
-                shouldExecuteImmediately = await dispatcher.DispatchAsync(command);
+                dispatchResult = await dispatcher.DispatchAsync<TCommand, TResult>(command);
+                executer = dispatcher.AssociatedExecuter;
             }
 
-            if (shouldExecuteImmediately)
+            if (dispatchResult != null && dispatchResult.DeferExecution)
             {
-                await _commandExecuter.ExecuteAsync(command);
+                return new CommandResult<TResult>(default(TResult), true);
             }
 
-            return shouldExecuteImmediately;
+            if (executer == null)
+            {
+                executer = AssociatedExecuter;
+            }
+            return new CommandResult<TResult>(await executer.ExecuteAsync<TCommand,TResult>(command), false);            
         }
+
+        public ICommandExecuter AssociatedExecuter { get; }
     }
 }

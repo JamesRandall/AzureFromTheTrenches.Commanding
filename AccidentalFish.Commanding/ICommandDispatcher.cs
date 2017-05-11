@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding
 {
@@ -13,9 +14,15 @@ namespace AccidentalFish.Commanding
         /// <summary>
         /// Dispatches a command and returns true if the command was immediately executed
         /// </summary>
-        /// <typeparam name="T">The type of the command</typeparam>
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <typeparam name="TResult">The type of the result</typeparam>
         /// <param name="command">The command</param>
-        /// <returns>True if the command was executed, false if the dispatcher utilises a deferred execution model</returns>
-        Task<bool> DispatchAsync<T>(T command) where T : class;
+        /// <returns>Result of the command</returns>
+        Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class;
+
+        /// <summary>
+        /// The dispatchers associated executer
+        /// </summary>
+        ICommandExecuter AssociatedExecuter { get; }
     }
 }

@@ -11,8 +11,9 @@ namespace AccidentalFish.Commanding
         /// Executes the given command
         /// </summary>
         /// <typeparam name="T">The type of the command</typeparam>
+        /// <typeparam name="TResult">The type of the result</typeparam>
         /// <param name="command">The command to execute</param>
         /// <returns>Awaitable task</returns>
-        Task ExecuteAsync<T>(T command) where T : class;
+        Task<TResult> ExecuteAsync<T, TResult>(T command) where T : class;
     }
 }
