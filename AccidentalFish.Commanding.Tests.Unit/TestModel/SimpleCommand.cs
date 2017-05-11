@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Tests.Unit.Model
+﻿namespace AccidentalFish.Commanding.Tests.Unit.TestModel
 {
     internal class SimpleCommand
     {

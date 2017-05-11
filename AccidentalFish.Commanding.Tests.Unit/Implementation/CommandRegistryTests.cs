@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using AccidentalFish.Commanding.Implementation;
-using AccidentalFish.Commanding.Tests.Unit.Model;
+using AccidentalFish.Commanding.Tests.Unit.TestModel;
+using Moq;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Tests.Unit
+namespace AccidentalFish.Commanding.Tests.Unit.Implementation
 {
     public class CommandRegistryTests
     {
@@ -20,6 +21,36 @@ namespace AccidentalFish.Commanding.Tests.Unit
             // Assert
             var result = registry.GetPrioritisedCommandActors<SimpleCommand>();
             Assert.Equal(result.Single().CommandActorType, typeof(SimpleCommandActor));
+        }
+
+        [Fact]
+        public void DispatcherIsRegisteredWithActor()
+        {
+            // Arrange
+            var registry = new CommandRegistry();
+            var dispatcher = new Mock<ICommandDispatcher>();
+
+            // Act
+            registry.Register<SimpleCommand, SimpleCommandActor>(dispatcher:dispatcher.Object);
+
+            // Assert
+            var result = registry.GetCommandDispatcher<SimpleCommand>();
+            Assert.Equal(result, dispatcher.Object);
+        }
+
+        [Fact]
+        public void DispatcherIsRegisteredWithoutActor()
+        {
+            // Arrange
+            var registry = new CommandRegistry();
+            var dispatcher = new Mock<ICommandDispatcher>();
+
+            // Act
+            registry.Register<SimpleCommand>(dispatcher.Object);
+
+            // Assert
+            var result = registry.GetCommandDispatcher<SimpleCommand>();
+            Assert.Equal(result, dispatcher.Object);
         }
 
         [Theory]

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding.Tests.Unit.Model
+namespace AccidentalFish.Commanding.Tests.Unit.TestModel
 {
     internal class SimpleCommandActor : ICommandActor<SimpleCommand, SimpleResult>
     {
