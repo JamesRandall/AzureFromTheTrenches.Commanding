@@ -16,23 +16,24 @@ namespace AccidentalFish.Commanding.Implementation
             _commandRegistry = commandRegistry;
         }
 
-        public async Task<TResult> ExecuteAsync<T, TResult>(T command) where T : class
+        public async Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class
         {
-            IReadOnlyCollection<PrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors<T>();
+            IReadOnlyCollection<PrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors<TCommand>();
+            if (actors == null || actors.Count == 0) throw new MissingCommandActorRegistrationException(command.GetType(), "No command actors registered for execution of command");
             TResult result = default(TResult);
 
             foreach (PrioritisedCommandActor actorTemplate in actors)
             {
                 
                 object baseActor = _dependencyResolver.Resolve(actorTemplate.CommandActorType);
-                ICommandActor<T, TResult> actor = baseActor as ICommandActor<T, TResult>;
+                ICommandActor<TCommand, TResult> actor = baseActor as ICommandActor<TCommand, TResult>;
                 if (actor != null)
                 {
                     result = await actor.ExecuteAsync(command, result);
                 }
                 else
                 {
-                    ICommandChainActor<T, TResult> chainActor = baseActor as ICommandChainActor<T, TResult>;
+                    ICommandChainActor<TCommand, TResult> chainActor = baseActor as ICommandChainActor<TCommand, TResult>;
                     if (chainActor != null)
                     {
                         CommandChainActorResult<TResult> chainResult = await chainActor.ExecuteAsync(command, result);

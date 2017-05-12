@@ -6,7 +6,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.TestModel
     {
         public Task<SimpleResult> ExecuteAsync(SimpleCommand command, SimpleResult previousResult)
         {
-            return Task.FromResult(new SimpleResult());
+            previousResult.Actors.Add(GetType());
+            return Task.FromResult(previousResult);
         }
     }
 }

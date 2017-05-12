@@ -4,21 +4,21 @@ namespace AccidentalFish.Commanding
 {
     public class MissingCommandActorRegistrationException : Exception
     {
-        public MissingCommandActorRegistrationException(Type type)
+        public MissingCommandActorRegistrationException(Type commandType)
         {
-            Type = type;
+            CommandType = commandType;
         }
 
-        public MissingCommandActorRegistrationException(Type type, string message) : base(message)
+        public MissingCommandActorRegistrationException(Type commandType, string message) : base(message)
         {
-            Type = type;
+            CommandType = commandType;
         }
 
-        public MissingCommandActorRegistrationException(Type type, string message, Exception innerException) : base(message, innerException)
+        public MissingCommandActorRegistrationException(Type commandType, string message, Exception innerException) : base(message, innerException)
         {
-            Type = type;
+            CommandType = commandType;
         }
 
-        public Type Type { get; }
+        public Type CommandType { get; }
     }
 }

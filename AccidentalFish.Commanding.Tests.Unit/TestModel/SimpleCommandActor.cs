@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AccidentalFish.Commanding.Tests.Unit.TestModel
 {
@@ -6,7 +8,11 @@ namespace AccidentalFish.Commanding.Tests.Unit.TestModel
     {
         public Task<SimpleResult> ExecuteAsync(SimpleCommand command, SimpleResult previousResult)
         {
-            return Task.FromResult(new SimpleResult());
+            SimpleResult result = new SimpleResult
+            {
+                Actors = new List<Type> {GetType()}
+            };
+            return Task.FromResult(result);
         }
     }
 }
