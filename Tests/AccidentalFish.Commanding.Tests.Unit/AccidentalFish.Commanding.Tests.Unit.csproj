@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
   </ItemGroup>
 
   <ItemGroup>

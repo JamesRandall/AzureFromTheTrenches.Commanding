@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding", "AccidentalFish.Commanding\AccidentalFish.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding", "Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Tests.Unit", "AccidentalFish.Commanding.Tests.Unit\AccidentalFish.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Tests.Unit", "Tests\AccidentalFish.Commanding.Tests.Unit\AccidentalFish.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Http", "AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Http", "Source\AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.AzureStorage", "AccidentalFish.Commanding.Azure\AccidentalFish.Commanding.AzureStorage.csproj", "{82ADA52C-B564-452D-A8AB-81C0EA073197}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.AzureStorage", "Source\AccidentalFish.Commanding.Azure\AccidentalFish.Commanding.AzureStorage.csproj", "{82ADA52C-B564-452D-A8AB-81C0EA073197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Queue", "AccidentalFish.Commanding.Queue\AccidentalFish.Commanding.Queue.csproj", "{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Queue", "Source\AccidentalFish.Commanding.Queue\AccidentalFish.Commanding.Queue.csproj", "{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
