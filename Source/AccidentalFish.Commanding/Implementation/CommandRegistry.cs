@@ -7,10 +7,16 @@ namespace AccidentalFish.Commanding.Implementation
 {
     internal class CommandRegistry : ICommandRegistry
     {
+        private readonly Action<Type> _commandActorContainerRegistration;
         private readonly Dictionary<Type, SortedSet<PrioritisedCommandActor>> _actors = new Dictionary<Type, SortedSet<PrioritisedCommandActor>>();
         private readonly Dictionary<Type, ICommandDispatcher> _commandDispatchers = new Dictionary<Type, ICommandDispatcher>();
 
-        public void Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, ICommandDispatcher dispatcher = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>
+        public CommandRegistry(Action<Type> commandActorContainerRegistration = null)
+        {
+            _commandActorContainerRegistration = commandActorContainerRegistration;
+        }
+
+        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, ICommandDispatcher dispatcher = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>
         {
             SortedSet<PrioritisedCommandActor> set;
             if (!_actors.TryGetValue(typeof(TCommand), out set))
@@ -24,11 +30,17 @@ namespace AccidentalFish.Commanding.Implementation
             {
                 _commandDispatchers[typeof(TCommand)] = dispatcher;
             }
+
+            // Register the actor with a container if that is needed
+            _commandActorContainerRegistration?.Invoke(typeof(TCommandActor));
+
+            return this;
         }
 
-        public void Register<TCommand>(ICommandDispatcher dispatcher) where TCommand : class
+        public ICommandRegistry Register<TCommand>(ICommandDispatcher dispatcher) where TCommand : class
         {
-            _commandDispatchers[typeof(TCommand)] = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));            
+            _commandDispatchers[typeof(TCommand)] = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
+            return this;
         }
 
         public IReadOnlyCollection<PrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class

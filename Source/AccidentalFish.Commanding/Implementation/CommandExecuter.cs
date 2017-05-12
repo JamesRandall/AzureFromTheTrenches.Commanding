@@ -7,13 +7,14 @@ namespace AccidentalFish.Commanding.Implementation
 {
     internal class CommandExecuter : ICommandExecuter
     {
-        private readonly IDependencyResolver _dependencyResolver;
         private readonly ICommandRegistry _commandRegistry;
+        private readonly ICommandActorFactory _commandActorFactory;
 
-        public CommandExecuter(IDependencyResolver dependencyResolver, ICommandRegistry commandRegistry)
+        public CommandExecuter(ICommandRegistry commandRegistry,
+            ICommandActorFactory commandActorFactory)
         {
-            _dependencyResolver = dependencyResolver;
             _commandRegistry = commandRegistry;
+            _commandActorFactory = commandActorFactory;
         }
 
         public async Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class
@@ -24,8 +25,7 @@ namespace AccidentalFish.Commanding.Implementation
 
             foreach (PrioritisedCommandActor actorTemplate in actors)
             {
-                
-                object baseActor = _dependencyResolver.Resolve(actorTemplate.CommandActorType);
+                object baseActor = _commandActorFactory.Create(actorTemplate.CommandActorType);
                 ICommandActor<TCommand, TResult> actor = baseActor as ICommandActor<TCommand, TResult>;
                 if (actor != null)
                 {
