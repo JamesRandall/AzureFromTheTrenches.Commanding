@@ -22,6 +22,7 @@ namespace AccidentalFish.Commanding.Http
         {
             dependencyResolver.Register<IHttpCommandSerializer, TSerializer>();
             dependencyResolver.Register<IUriCommandQueryBuilder, UriCommandQueryBuilder>();
+            dependencyResolver.Register<IHttpCommandDispatcherFactory, HttpCommandDispatcherFactory>();
         }
     }
 }
