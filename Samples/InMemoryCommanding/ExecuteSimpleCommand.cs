@@ -18,8 +18,9 @@ namespace InMemoryCommanding
             {
                 Message = "Hello"
             };
-            CountResult result = (CountResult)await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(command);
+            CountResult result = await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(command);
             Console.WriteLine($"{result.Count} actors called");
+            Console.WriteLine("\nPress a key to continue...");
         }
 
         private static ICommandDispatcher Configure()

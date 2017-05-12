@@ -1,4 +1,6 @@
-﻿namespace AccidentalFish.Commanding.Model
+﻿using System;
+
+namespace AccidentalFish.Commanding.Model
 {
     public sealed class CommandResult<TResult>
     {
@@ -12,7 +14,7 @@
 
         public bool DeferExecution { get; }
 
-        public static explicit operator TResult(CommandResult<TResult> commandResult)
+        public static implicit operator TResult(CommandResult<TResult> commandResult)
         {
             return commandResult.Result;
         }
