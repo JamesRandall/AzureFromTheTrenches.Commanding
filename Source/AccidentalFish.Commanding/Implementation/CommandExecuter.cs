@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.DependencyResolver;
@@ -41,6 +43,37 @@ namespace AccidentalFish.Commanding.Implementation
                         if (chainResult.ShouldStop)
                         {
                             break;
+                        }
+                    }
+                    else
+                    {
+                        // this allows commands dispatched with no expectation of a result to be executed
+                        // regardless of the actor definitions
+                        // it doesn't currently deal with chained commands
+                        if (typeof(TResult) == typeof(NoResult) && baseActor is ICommandActorBase<TCommand>)
+                        {
+                            // TODO: When these are encountered compile and cache emitted code
+                            TypeInfo typeInfo = baseActor.GetType().GetTypeInfo();
+                            MethodInfo methodInfo = typeInfo.GetDeclaredMethod("ExecuteAsync");
+                            ParameterInfo[] parameterInfos = methodInfo?.GetParameters();
+                            if (parameterInfos?.Length == 2 && parameterInfos[0].ParameterType == typeof(TCommand))
+                            {
+                                object resultParameter = null;
+                                if (parameterInfos[1].ParameterType.GetTypeInfo().IsValueType)
+                                {
+                                    resultParameter = Activator.CreateInstance(parameterInfos[1].ParameterType);
+                                }
+                                Task methodTaskResult = (Task) methodInfo.Invoke(baseActor, new[] {command, resultParameter});
+                                await methodTaskResult;
+                            }
+                            else
+                            {
+                                throw new UnableToExecuteActorException("Malformed actor");
+                            }
+                        }
+                        else
+                        {
+                            throw new UnableToExecuteActorException("Unexpected result type");
                         }
                     }
                 }

@@ -21,6 +21,14 @@ namespace AccidentalFish.Commanding
         Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class;
 
         /// <summary>
+        /// Dispatches a command and returns true if the command was immediately executed
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <param name="command">The command</param>
+        /// <returns>Result of the command</returns>
+        Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class;
+
+        /// <summary>
         /// The dispatchers associated executer
         /// </summary>
         ICommandExecuter AssociatedExecuter { get; }

@@ -15,6 +15,11 @@ namespace AccidentalFish.Commanding.Http.Implementation
             return Task.FromResult(new CommandResult<TResult>(default(TResult), false));
         }
 
+        public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class
+        {
+            return DispatchAsync<TCommand, NoResult>(command);
+        }
+
         public ICommandExecuter AssociatedExecuter { get; }
     }
 }

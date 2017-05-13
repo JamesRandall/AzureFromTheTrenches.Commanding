@@ -2,7 +2,7 @@
 
 namespace AccidentalFish.Commanding.Model
 {
-    public sealed class CommandResult<TResult>
+    public sealed class CommandResult<TResult> : ICommandResult
     {
         public CommandResult(TResult result, bool deferExecution)
         {

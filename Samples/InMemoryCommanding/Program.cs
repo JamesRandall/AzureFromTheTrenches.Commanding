@@ -19,10 +19,14 @@ namespace InMemoryCommanding
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.D1:
+#pragma warning disable 4014
                         ExecuteSimpleCommand.Run();
+#pragma warning restore 4014
                         break;
                     case ConsoleKey.D2:
+#pragma warning disable 4014
                         PushToStackWithDispatcher.Run();
+#pragma warning restore 4014
                         break;
                 }
                 if (keyInfo.Key != ConsoleKey.Escape)

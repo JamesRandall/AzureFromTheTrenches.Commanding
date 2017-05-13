@@ -35,6 +35,49 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         }
 
         [Fact]
+        public async Task ExecutesWithTheNoResultType()
+        {
+            // Arrange
+            Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
+            Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
+            registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
+                new List<PrioritisedCommandActor>
+                {
+                    new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
+                });
+
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+
+            // Act
+            await executer.ExecuteAsync<SimpleCommand, NoResult>(new SimpleCommand());
+
+            // Assert - the lack of exception is assertion enough
+        }
+
+        [Fact]
+        public async Task UnexpectedResultTypeThrowsException()
+        {
+            // Arrange
+            Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
+            Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
+            registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
+                new List<PrioritisedCommandActor>
+                {
+                    new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
+                });
+
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+
+            // Act
+            UnableToExecuteActorException ex = await Assert.ThrowsAsync<UnableToExecuteActorException>(async () => await executer.ExecuteAsync<SimpleCommand, SimpleCommand>(new SimpleCommand()));
+
+            // Assert
+            Assert.Equal(ex.Message, "Unexpected result type");
+        }
+
+        [Fact]
         public async Task MissingCommandActorsThrowsException()
         {
             // Arrange

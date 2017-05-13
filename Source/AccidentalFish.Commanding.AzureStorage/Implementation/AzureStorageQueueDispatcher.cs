@@ -23,6 +23,11 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             return new CommandResult<TResult>(default(TResult), true);
         }
 
+        public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class
+        {
+            return DispatchAsync<TCommand, NoResult>(command);
+        }
+
         public ICommandExecuter AssociatedExecuter => null;
     }
 }

@@ -20,6 +20,7 @@ namespace InMemoryCommanding
             };
             CountResult result = await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(command);
             Console.WriteLine($"{result.Count} actors called");
+            await dispatcher.DispatchAsync(command);
             Console.WriteLine("\nPress a key to continue...");
         }
 
