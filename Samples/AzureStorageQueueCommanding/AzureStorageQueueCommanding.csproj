@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Azure\AccidentalFish.Commanding.AzureStorage.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.AzureStorage\AccidentalFish.Commanding.AzureStorage.csproj" />
     <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Queue\AccidentalFish.Commanding.Queue.csproj" />
     <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
   </ItemGroup>

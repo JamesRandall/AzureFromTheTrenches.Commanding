@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding", "Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Tests.Unit", "Tests\AccidentalFish.Commanding.Tests.Unit\AccidentalFish.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Http", "Source\AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.AzureStorage", "Source\AccidentalFish.Commanding.Azure\AccidentalFish.Commanding.AzureStorage.csproj", "{82ADA52C-B564-452D-A8AB-81C0EA073197}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Queue", "Source\AccidentalFish.Commanding.Queue\AccidentalFish.Commanding.Queue.csproj", "{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}"
 EndProject
@@ -28,6 +26,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpCommanding.Model", "Samples\HttpCommanding.Model\HttpCommanding.Model.csproj", "{73E0CF28-7771-40F4-86BB-DB07410B1B3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageQueueCommanding", "Samples\AzureStorageQueueCommanding\AzureStorageQueueCommanding.csproj", "{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{3AD7A2DA-9E32-4CB6-ABE7-8DD1D67CF868}"
+	ProjectSection(SolutionItems) = preProject
+		package-nuget.ps1 = package-nuget.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.AzureStorage", "Source\AccidentalFish.Commanding.AzureStorage\AccidentalFish.Commanding.AzureStorage.csproj", "{A1B8DB62-5361-4183-9C83-213ED7291B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +52,6 @@ Global
 		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82ADA52C-B564-452D-A8AB-81C0EA073197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82ADA52C-B564-452D-A8AB-81C0EA073197}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82ADA52C-B564-452D-A8AB-81C0EA073197}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82ADA52C-B564-452D-A8AB-81C0EA073197}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +76,10 @@ Global
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
