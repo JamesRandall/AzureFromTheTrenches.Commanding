@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpCommanding.Client", "Sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpCommanding.Model", "Samples\HttpCommanding.Model\HttpCommanding.Model.csproj", "{73E0CF28-7771-40F4-86BB-DB07410B1B3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageQueueCommanding", "Samples\AzureStorageQueueCommanding\AzureStorageQueueCommanding.csproj", "{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +86,6 @@ Global
 		{69A8AFAB-793D-4F84-9C90-4A78BAD009EB} = {7DE6809C-7B48-400D-B6F9-ECD29A3C053B}
 		{56486174-995B-4577-AF85-497E850715AD} = {7DE6809C-7B48-400D-B6F9-ECD29A3C053B}
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E} = {7DE6809C-7B48-400D-B6F9-ECD29A3C053B}
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 	EndGlobalSection
 EndGlobal

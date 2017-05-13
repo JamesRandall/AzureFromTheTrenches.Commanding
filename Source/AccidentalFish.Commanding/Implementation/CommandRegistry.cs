@@ -9,14 +9,14 @@ namespace AccidentalFish.Commanding.Implementation
     {
         private readonly Action<Type> _commandActorContainerRegistration;
         private readonly Dictionary<Type, SortedSet<PrioritisedCommandActor>> _actors = new Dictionary<Type, SortedSet<PrioritisedCommandActor>>();
-        private readonly Dictionary<Type, ICommandDispatcher> _commandDispatchers = new Dictionary<Type, ICommandDispatcher>();
+        private readonly Dictionary<Type, Func<ICommandDispatcher>> _commandDispatchers = new Dictionary<Type, Func<ICommandDispatcher>>();
 
         public CommandRegistry(Action<Type> commandActorContainerRegistration = null)
         {
             _commandActorContainerRegistration = commandActorContainerRegistration;
         }
 
-        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, ICommandDispatcher dispatcher = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>
+        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>
         {
             SortedSet<PrioritisedCommandActor> set;
             if (!_actors.TryGetValue(typeof(TCommand), out set))
@@ -26,9 +26,9 @@ namespace AccidentalFish.Commanding.Implementation
             }
 
             set.Add(new PrioritisedCommandActor(order, typeof(TCommandActor)));
-            if (dispatcher != null)
+            if (dispatcherFactoryFunc != null)
             {
-                _commandDispatchers[typeof(TCommand)] = dispatcher;
+                _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc;
             }
 
             // Register the actor with a container if that is needed
@@ -37,9 +37,9 @@ namespace AccidentalFish.Commanding.Implementation
             return this;
         }
 
-        public ICommandRegistry Register<TCommand>(ICommandDispatcher dispatcher) where TCommand : class
+        public ICommandRegistry Register<TCommand>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : class
         {
-            _commandDispatchers[typeof(TCommand)] = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
+            _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc ?? throw new ArgumentNullException(nameof(dispatcherFactoryFunc));
             return this;
         }
 
@@ -53,11 +53,11 @@ namespace AccidentalFish.Commanding.Implementation
             return set.ToList();
         }
 
-        public ICommandDispatcher GetCommandDispatcher<T>() where T : class
+        public Func<ICommandDispatcher> GetCommandDispatcherFactory<T>() where T : class
         {
-            ICommandDispatcher dispatcher;
-            _commandDispatchers.TryGetValue(typeof(T), out dispatcher);
-            return dispatcher;
+            Func<ICommandDispatcher> dispatcherFactoryFunc;
+            _commandDispatchers.TryGetValue(typeof(T), out dispatcherFactoryFunc);
+            return dispatcherFactoryFunc;
         }
     }
 }

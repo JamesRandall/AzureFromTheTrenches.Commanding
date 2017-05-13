@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding
@@ -10,16 +11,16 @@ namespace AccidentalFish.Commanding
         /// </summary>
         /// <typeparam name="TCommand">The type of the command</typeparam>
         /// <typeparam name="TCommandActor">The type of the command actor</typeparam>
-        /// <param name="dispatcher">Optional command dispatcher</param>
+        /// <param name="dispatcherFactoryFunc">Optional command dispatcher factory function</param>
         /// <param name="order">Execution order of the actor</param>
-        ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, ICommandDispatcher dispatcher = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>;
+        ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>;
 
         /// <summary>
         /// Register a command with a dispatcher but no actor. Typically this is used when the command actors are deferred via a queue or that are remotely executed
         /// </summary>
-        /// <typeparam name="TCommand"></typeparam>
-        /// <param name="dispatcher"></param>
-        ICommandRegistry Register<TCommand>(ICommandDispatcher dispatcher) where TCommand : class;
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <param name="dispatcherFactoryFunc">Command dispatcher factory function</param>
+        ICommandRegistry Register<TCommand>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : class;
 
         /// <summary>
         /// Returns the prioritised set of command actors (first to execute is first in the collection)
@@ -32,7 +33,7 @@ namespace AccidentalFish.Commanding
         /// Gets the command dispatcher for the command
         /// </summary>
         /// <typeparam name="T">The type of the command</typeparam>
-        /// <returns>A command dispatcher if one is registered, null if none is</returns>
-        ICommandDispatcher GetCommandDispatcher<T>() where T : class;
+        /// <returns>A function able to create a command dispatcher if one is registered, null if none is</returns>
+        Func<ICommandDispatcher> GetCommandDispatcherFactory<T>() where T : class;
     }
 }

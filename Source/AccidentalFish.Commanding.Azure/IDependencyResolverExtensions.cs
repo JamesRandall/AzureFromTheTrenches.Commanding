@@ -21,7 +21,8 @@ namespace AccidentalFish.Commanding.AzureStorage
         private static void Register<TSerializer>(this IDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueCommandSerializer
         {
             dependencyResolver.Register<IAzureStorageQueueCommandSerializer, TSerializer>();
-
+            dependencyResolver.Register<IAzureStorageCommandQueueProcessorFactory, AzureStorageCommandQueueProcessorFactory>();
+            dependencyResolver.Register<IAzureStorageQueueDispatcherFactory, AzureStorageQueueDispatcherFactory>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AccidentalFish.Commanding.Http
             IHttpCommandSerializer httpCommandSerializer = null,
             IUriCommandQueryBuilder uriCommandQueryBuilder = null) where TCommand : class
         {
-            registry.Register<TCommand>(new HttpCommandDispatcher(new HttpCommandExecuter(uri, httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(), uriCommandQueryBuilder ?? new UriCommandQueryBuilder())));
+            registry.Register<TCommand>(() => new HttpCommandDispatcher(new HttpCommandExecuter(uri, httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(), uriCommandQueryBuilder ?? new UriCommandQueryBuilder())));
         }
     }
 }

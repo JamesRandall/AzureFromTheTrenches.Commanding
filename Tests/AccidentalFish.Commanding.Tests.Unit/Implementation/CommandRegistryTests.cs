@@ -28,14 +28,14 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             var registry = new CommandRegistry();
-            var dispatcher = new Mock<ICommandDispatcher>();
+            ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommand, SimpleCommandActor>(dispatcher:dispatcher.Object);
+            registry.Register<SimpleCommand, SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcher<SimpleCommand>();
-            Assert.Equal(result, dispatcher.Object);
+            var result = registry.GetCommandDispatcherFactory<SimpleCommand>();
+            Assert.Equal(result, DispatcherFunc);
         }
 
         [Fact]
@@ -43,14 +43,14 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             var registry = new CommandRegistry();
-            var dispatcher = new Mock<ICommandDispatcher>();
+            ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommand>(dispatcher.Object);
+            registry.Register<SimpleCommand>(DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcher<SimpleCommand>();
-            Assert.Equal(result, dispatcher.Object);
+            var result = registry.GetCommandDispatcherFactory<SimpleCommand>();
+            Assert.Equal(result, DispatcherFunc);
         }
 
         [Theory]

@@ -29,7 +29,7 @@ namespace HttpCommanding.Client
             resolver.BuildServiceProvider();
 
             IHttpCommandDispatcherFactory httpCommandDispatcherFactory = resolver.Resolve<IHttpCommandDispatcherFactory>();
-            registry.Register<UpdatePersonalDetailsCommand>(httpCommandDispatcherFactory.Create(uri, HttpMethod.Put));
+            registry.Register<UpdatePersonalDetailsCommand>(() => httpCommandDispatcherFactory.Create(uri, HttpMethod.Put));
 
             ICommandDispatcher dispatcher = resolver.Resolve<ICommandDispatcher>();
             return dispatcher;

@@ -34,7 +34,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object);
             SimpleCommand command = new SimpleCommand();
-            registry.Setup(x => x.GetCommandDispatcher<SimpleCommand>()).Returns(commandDispatcher.Object);
+            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, true));
 
             // Act
@@ -54,7 +54,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> associatedExecuter = new Mock<ICommandExecuter>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object);
             SimpleCommand command = new SimpleCommand();
-            registry.Setup(x => x.GetCommandDispatcher<SimpleCommand>()).Returns(commandDispatcher.Object);
+            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, false));
             commandDispatcher.SetupGet(x => x.AssociatedExecuter).Returns(associatedExecuter.Object);
 

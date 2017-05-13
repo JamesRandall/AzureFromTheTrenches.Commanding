@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Implementation
@@ -16,10 +17,11 @@ namespace AccidentalFish.Commanding.Implementation
         public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
         {
             CommandResult<TResult> dispatchResult = null;
-            ICommandDispatcher dispatcher = _commandRegistry.GetCommandDispatcher<TCommand>();
+            Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory<TCommand>();
             ICommandExecuter executer = null;
-            if (dispatcher != null)
+            if (dispatcherFunc != null)
             {
+                ICommandDispatcher dispatcher = dispatcherFunc();
                 dispatchResult = await dispatcher.DispatchAsync<TCommand, TResult>(command);
                 executer = dispatcher.AssociatedExecuter;
             }

@@ -51,7 +51,7 @@ namespace InMemoryCommanding
         {
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
             resolver.UseCommanding(type => resolver.Register(type, type))
-                .Register<OutputToConsoleCommand>(new StackDispatcher(stack));
+                .Register<OutputToConsoleCommand>(() => new StackDispatcher(stack));
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();
         }
