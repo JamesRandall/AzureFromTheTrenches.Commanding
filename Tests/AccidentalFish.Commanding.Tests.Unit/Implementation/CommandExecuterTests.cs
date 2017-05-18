@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AccidentalFish.Commanding.Implementation;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.Commanding.Tests.Unit.TestModel;
-using AccidentalFish.DependencyResolver;
 using Moq;
 using Xunit;
 
@@ -18,6 +17,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
                 new List<PrioritisedCommandActor>
@@ -25,13 +25,13 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
 
             // Act
             SimpleResult result = await executer.ExecuteAsync<SimpleCommand, SimpleResult>(new SimpleCommand());
 
             // Assert
-            Assert.Equal(result.Actors.Single(), typeof(SimpleCommandActor));
+            Assert.Equal(typeof(SimpleCommandActor), result.Actors.Single());
         }
 
         [Fact]
@@ -40,6 +40,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
                 new List<PrioritisedCommandActor>
@@ -47,12 +48,14 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
+            SimpleCommand command = new SimpleCommand();
 
             // Act
-            await executer.ExecuteAsync<SimpleCommand, NoResult>(new SimpleCommand());
+            await executer.ExecuteAsync<SimpleCommand, NoResult>(command);
 
-            // Assert - the lack of exception is assertion enough
+            // Assert
+            noResultCommandActorBaseExecuter.Verify(x => x.ExecuteAsync(It.IsAny<object>(), It.Is<object>(c => c == command)));
         }
 
         [Fact]
@@ -61,6 +64,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
                 new List<PrioritisedCommandActor>
@@ -68,13 +72,13 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
 
             // Act
             UnableToExecuteActorException ex = await Assert.ThrowsAsync<UnableToExecuteActorException>(async () => await executer.ExecuteAsync<SimpleCommand, SimpleCommand>(new SimpleCommand()));
 
             // Assert
-            Assert.Equal(ex.Message, "Unexpected result type");
+            Assert.Equal("Unexpected result type", ex.Message);
         }
 
         [Fact]
@@ -83,14 +87,15 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns<List<PrioritisedCommandActor>>(null);
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
 
             // Act and assert
             MissingCommandActorRegistrationException ex = await Assert.ThrowsAsync<MissingCommandActorRegistrationException>(async () => await executer.ExecuteAsync<SimpleCommand, SimpleResult>(new SimpleCommand()));
-            Assert.Equal(ex.CommandType, typeof(SimpleCommand));
+            Assert.Equal(typeof(SimpleCommand), ex.CommandType);
         }
 
         [Fact]
@@ -99,6 +104,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActorThatHalts))).Returns(new SimpleCommandActorThatHalts());
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActorTwo))).Returns(new SimpleCommandActorTwo());
@@ -110,14 +116,14 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(2, typeof(SimpleCommandActorTwo))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
 
             // Act
             SimpleResult result = await executer.ExecuteAsync<SimpleCommand, SimpleResult>(new SimpleCommand());
 
             // Assert
             // if the third command had run their would be two items in the list and .single would throw an exception
-            Assert.Equal(result.Actors.Single(), typeof(SimpleCommandActor)); 
+            Assert.Equal(typeof(SimpleCommandActor), result.Actors.Single()); 
         }
 
         [Fact]
@@ -126,6 +132,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<INoResultCommandActorBaseExecuter> noResultCommandActorBaseExecuter = new Mock<INoResultCommandActorBaseExecuter>();
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
             actorFactory.Setup(x => x.Create(typeof(SimpleCommandActorTwo))).Returns(new SimpleCommandActorTwo());
             registry.Setup(x => x.GetPrioritisedCommandActors<SimpleCommand>()).Returns(
@@ -135,16 +142,16 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(1, typeof(SimpleCommandActorTwo))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, noResultCommandActorBaseExecuter.Object);
 
             // Act
             SimpleResult result = await executer.ExecuteAsync<SimpleCommand, SimpleResult>(new SimpleCommand());
 
             // Assert
             // if the third command had run their would be two items in the list and .single would throw an exception
-            Assert.Equal(result.Actors.First(), typeof(SimpleCommandActor));
-            Assert.Equal(result.Actors.Last(), typeof(SimpleCommandActorTwo));
-            Assert.Equal(result.Actors.Count, 2);
+            Assert.Equal(typeof(SimpleCommandActor), result.Actors.First());
+            Assert.Equal(typeof(SimpleCommandActorTwo), result.Actors.Last());
+            Assert.Equal(2, result.Actors.Count);
         }
     }
 }

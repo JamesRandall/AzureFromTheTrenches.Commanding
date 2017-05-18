@@ -32,6 +32,8 @@ namespace AccidentalFish.Commanding
             }
 
             ICommandActorFactory commandActorFactory = new CommandActorFactory(commandActorFactoryFunc ?? dependencyResolver.Resolve);
+            INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
+            dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
             dependencyResolver.RegisterInstance(commandActorFactory);
             dependencyResolver.Register<ICommandDispatcher, CommandDispatcher>();
             dependencyResolver.Register<ICommandExecuter, CommandExecuter>();

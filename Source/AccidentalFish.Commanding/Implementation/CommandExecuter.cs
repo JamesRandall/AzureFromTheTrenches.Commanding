@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Model;
@@ -11,12 +12,15 @@ namespace AccidentalFish.Commanding.Implementation
     {
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandActorFactory _commandActorFactory;
+        private readonly INoResultCommandActorBaseExecuter _noResultCommandActorBaseExecuter;
 
         public CommandExecuter(ICommandRegistry commandRegistry,
-            ICommandActorFactory commandActorFactory)
+            ICommandActorFactory commandActorFactory,
+            INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter)
         {
             _commandRegistry = commandRegistry;
             _commandActorFactory = commandActorFactory;
+            _noResultCommandActorBaseExecuter = noResultCommandActorBaseExecuter;
         }
 
         public async Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class
@@ -52,24 +56,7 @@ namespace AccidentalFish.Commanding.Implementation
                         // it doesn't currently deal with chained commands
                         if (typeof(TResult) == typeof(NoResult) && baseActor is ICommandActorBase<TCommand>)
                         {
-                            // TODO: When these are encountered compile and cache emitted code
-                            TypeInfo typeInfo = baseActor.GetType().GetTypeInfo();
-                            MethodInfo methodInfo = typeInfo.GetDeclaredMethod("ExecuteAsync");
-                            ParameterInfo[] parameterInfos = methodInfo?.GetParameters();
-                            if (parameterInfos?.Length == 2 && parameterInfos[0].ParameterType == typeof(TCommand))
-                            {
-                                object resultParameter = null;
-                                if (parameterInfos[1].ParameterType.GetTypeInfo().IsValueType)
-                                {
-                                    resultParameter = Activator.CreateInstance(parameterInfos[1].ParameterType);
-                                }
-                                Task methodTaskResult = (Task) methodInfo.Invoke(baseActor, new[] {command, resultParameter});
-                                await methodTaskResult;
-                            }
-                            else
-                            {
-                                throw new UnableToExecuteActorException("Malformed actor");
-                            }
+                            await _noResultCommandActorBaseExecuter.ExecuteAsync(baseActor, command);
                         }
                         else
                         {
