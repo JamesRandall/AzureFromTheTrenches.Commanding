@@ -7,6 +7,9 @@ namespace AccidentalFish.Commanding
     // ReSharper disable once InconsistentNaming
     public static class IDependencyResolverExtensions
     {
+        private static ICommandRegistry _registry = null;
+        private static readonly object RegistryLockObject = new object();
+
         /// <summary>
         /// Registers the commanding system in an ioc container.
         /// If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
@@ -20,17 +23,15 @@ namespace AccidentalFish.Commanding
             Action<Type> commandActorContainerRegistration = null,
             Func<Type, object> commandActorFactoryFunc = null)
         {
-            ICommandRegistry registry = null;
-            if (!dependencyResolver.IsRegistered<ICommandRegistry>())
+            lock (RegistryLockObject) // the registry is always shared, but vagaries of different IoC containers mean its not good enough to rely on dependecy resolver checks
             {
-                registry = new CommandRegistry(commandActorContainerRegistration);
-                dependencyResolver.RegisterInstance(registry);
+                if (_registry == null)
+                {
+                    _registry = new CommandRegistry(commandActorContainerRegistration);
+                    dependencyResolver.RegisterInstance(_registry);
+                }
             }
-            else
-            {
-                registry = dependencyResolver.Resolve<ICommandRegistry>();
-            }
-
+            
             ICommandActorFactory commandActorFactory = new CommandActorFactory(commandActorFactoryFunc ?? dependencyResolver.Resolve);
             INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
             dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
@@ -38,7 +39,7 @@ namespace AccidentalFish.Commanding
             dependencyResolver.Register<ICommandDispatcher, CommandDispatcher>();
             dependencyResolver.Register<ICommandExecuter, CommandExecuter>();
             
-            return registry;
+            return _registry;
         }
     }
 }
