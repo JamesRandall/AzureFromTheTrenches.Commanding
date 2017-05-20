@@ -26,7 +26,10 @@ if ($pushLocal)
 
 if ($pushNuget)
 {
-	.\nuget push *.nupkg -source nuget.org
+	dotnet nuget push .\Source\AccidentalFish.Commanding\bin\debug\*.nupkg --source nuget.org
+	dotnet nuget push .\Source\AccidentalFish.Commanding.AzureStorage\bin\debug\*.nupkg --source nuget.org
+	dotnet nuget push .\Source\AccidentalFish.Commanding.Http\bin\debug\*.nupkg --source nuget.org
+	dotnet nuget push .\Source\AccidentalFish.Commanding.Queue\bin\debug\*.nupkg --source nuget.org
 }
 
 if ($cleanup)
