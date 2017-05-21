@@ -160,7 +160,7 @@ The IHttpCommandSerializer interface defines methods for serializing, deserializ
 _Note: you'd be correct in assuming I've got some additional functionality coming that allows you to set up the REST API for a command automatically without the above boilerplate controller and action handler_
 
 ## Azure Queue Dispatch and Execution
-_(Note: Service bus equivelants will be available as soon as the Microsoft Service Bus package for .NET Standard exits preview)_
+_(Note: Service bus equivalants will be available as soon as the Microsoft Service Bus package for .NET Standard exits preview)_
 
 A [sample is available](https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageQueueCommanding) that illustrates this however I'll also cover the important points below. I'm going to assume a couple of things in the below:
 
