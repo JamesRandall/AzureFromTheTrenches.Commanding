@@ -18,14 +18,16 @@ namespace AccidentalFish.Commanding
         /// <param name="dependencyResolver">The dependency resolver to register in</param>
         /// <param name="commandActorContainerRegistration">Optional ioc container action</param>
         /// <param name="commandActorFactoryFunc">An optional function that if supplied will be used to create actors based on their type, if null then the dependency resolver will be used</param>
+        /// <param name="resetRegistry">Defaults to false, set to true to remove any previous command registry</param>
         /// <returns></returns>
         public static ICommandRegistry UseCommanding(this IDependencyResolver dependencyResolver,
             Action<Type> commandActorContainerRegistration = null,
-            Func<Type, object> commandActorFactoryFunc = null)
+            Func<Type, object> commandActorFactoryFunc = null,
+            bool resetRegistry = false)
         {
             lock (RegistryLockObject) // the registry is always shared, but vagaries of different IoC containers mean its not good enough to rely on dependecy resolver checks
             {
-                if (_registry == null)
+                if (_registry == null || resetRegistry)
                 {
                     _registry = new CommandRegistry(commandActorContainerRegistration);                    
                 }
@@ -43,6 +45,6 @@ namespace AccidentalFish.Commanding
             dependencyResolver.Register<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
             
             return _registry;
-        }
+        }        
     }
 }

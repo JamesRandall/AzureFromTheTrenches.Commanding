@@ -16,9 +16,6 @@ namespace AzureStorageQueueCommanding
 {
     class Program
     {
-        private const string StorageAccountConnectionString =
-                "YOUR-STORAGE-ACCOUNT-STRING";
-
         static void Main(string[] args)
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -44,7 +41,7 @@ namespace AzureStorageQueueCommanding
 
         private static async Task<CloudQueue> ConfigureQueue()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(StorageAccountConnectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
             CloudQueue queue = queueClient.GetQueueReference("outputtoconsolecommandqueue");
             await queue.CreateIfNotExistsAsync();

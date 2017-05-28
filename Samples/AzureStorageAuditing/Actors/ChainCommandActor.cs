@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Model;
-using InMemoryCommanding.Commands;
+using AzureStorageAuditing.Commands;
 
-namespace InMemoryCommanding.Actors
+namespace AzureStorageAuditing.Actors
 {
     class ChainCommandActor : ICommandActor<ChainCommand, NoResult>
     {

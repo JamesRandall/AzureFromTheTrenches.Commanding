@@ -9,7 +9,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             CloudTable auditByDateDescTable, CloudBlobContainer commandPayloadContainer)
         {
             AuditByCorrelationIdTable = auditByCorrelationIdTable;
-            AuditByDateDescTable = AuditByDateDescTable;
+            AuditByDateDescTable = auditByDateDescTable;
             CommandPayloadContainer = commandPayloadContainer;
         }
 

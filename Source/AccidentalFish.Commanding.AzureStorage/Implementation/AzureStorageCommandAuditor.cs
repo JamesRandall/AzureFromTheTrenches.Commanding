@@ -35,6 +35,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
                 CorrelationId = context.CorrelationId,
                 Depth = context.Depth,
                 PartitionKey = CommandAuditByDateDescItem.GetPartitionKey(recordedAt),
+                RecordedAtUtc = recordedAt,
                 RowKey = CommandAuditByDateDescItem.GetRowKey(commandId)
             };
             CommandAuditByCorrelationIdItem byCorrelationId = new CommandAuditByCorrelationIdItem
@@ -48,11 +49,15 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             };
             string json = JsonConvert.SerializeObject(command);
             CloudBlockBlob blob = _blobContainer.GetBlockBlobReference($"{commandId}.json");
-            await Task.WhenAll(
+            /*await Task.WhenAll(
                 _auditByDateDescTable.ExecuteAsync(TableOperation.Insert(byDateDesc)),
                 _auditByCorrelationIdTable.ExecuteAsync(TableOperation.Insert(byCorrelationId)),
                 blob.UploadTextAsync(json)
-            );
+            );*/
+
+            await _auditByDateDescTable.ExecuteAsync(TableOperation.Insert(byDateDesc));
+            await _auditByCorrelationIdTable.ExecuteAsync(TableOperation.Insert(byCorrelationId));
+            await blob.UploadTextAsync(json);
         }
     }
 }

@@ -4,7 +4,6 @@ using AccidentalFish.Commanding;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
-using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
@@ -44,7 +43,7 @@ namespace InMemoryCommanding
         private static ICommandDispatcher Configure()
         {
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            resolver.UseCommanding(type => resolver.Register(type, type))
+            resolver.UseCommanding(type => resolver.Register(type, type), resetRegistry:true) // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 .Register<ChainCommand, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
