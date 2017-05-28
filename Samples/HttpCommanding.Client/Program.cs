@@ -15,7 +15,9 @@ namespace HttpCommanding.Client
         static void Main(string[] args)
         {
             ICommandDispatcher dispatcher = Configure();
+#pragma warning disable 4014
             ExecuteHttpCommand(dispatcher);
+#pragma warning restore 4014
             Console.ReadKey();            
         }
 

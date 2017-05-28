@@ -9,6 +9,7 @@ namespace AccidentalFish.Commanding.Tests.Performance.Console
 {
     class Program
     {
+        private static MicrosoftNetStandardDependencyResolver _resolver;
         private const int CommandsToExecute = 10000000;
         static void Main(string[] args)
         {
@@ -51,11 +52,11 @@ namespace AccidentalFish.Commanding.Tests.Performance.Console
 
         private static ICommandDispatcher Configure()
         {
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            resolver.UseCommanding(type => resolver.Register(type, type))
+            _resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            _resolver.UseCommanding(type => _resolver.Register(type, type))
                 .Register<SimpleCommand, SimpleActor>();
-            resolver.BuildServiceProvider();
-            return resolver.Resolve<ICommandDispatcher>();
+            _resolver.BuildServiceProvider();
+            return _resolver.Resolve<ICommandDispatcher>();
         }
 
         public static async Task ExecuteCommandsWithResults()

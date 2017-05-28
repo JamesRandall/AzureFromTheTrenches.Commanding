@@ -22,7 +22,9 @@ namespace AzureStorageQueueCommanding
         static void Main(string[] args)
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+#pragma warning disable 4014
             RunDemo(cancellationTokenSource);            
+#pragma warning restore 4014
             Console.ReadKey();
             cancellationTokenSource.Cancel();
         }

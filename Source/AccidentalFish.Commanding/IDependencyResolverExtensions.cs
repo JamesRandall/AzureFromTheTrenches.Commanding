@@ -27,17 +27,20 @@ namespace AccidentalFish.Commanding
             {
                 if (_registry == null)
                 {
-                    _registry = new CommandRegistry(commandActorContainerRegistration);
-                    dependencyResolver.RegisterInstance(_registry);
+                    _registry = new CommandRegistry(commandActorContainerRegistration);                    
                 }
+                dependencyResolver.RegisterInstance(_registry);
             }
             
             ICommandActorFactory commandActorFactory = new CommandActorFactory(commandActorFactoryFunc ?? dependencyResolver.Resolve);
             INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
             dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
             dependencyResolver.RegisterInstance(commandActorFactory);
+            dependencyResolver.Register<ICommandAuditorFactory, NullCommandAuditorFactory>();
+            dependencyResolver.Register<ICommandScopeManager, AsyncLocalCommandScopeManager>();
             dependencyResolver.Register<ICommandDispatcher, CommandDispatcher>();
             dependencyResolver.Register<ICommandExecuter, CommandExecuter>();
+            dependencyResolver.Register<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
             
             return _registry;
         }
