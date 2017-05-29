@@ -97,107 +97,13 @@ Take a look at the samples and then more advanced usage is outlined further down
 4. Dispatching to and executing from Azure Storage queues
 <https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageQueueCommanding>
 
-## HTTP Dispatch and Execution
+## Advanced Usage
 
-To understand this it's best to look at the [client sample](https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/HttpCommanding.Client) and the [server sample](https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/HttpCommanding.Web) however I'll cover getting started with this here. First you'll need to add the NuGet package:
+Further usage scenarios can be found in the [wiki](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki) including:
 
-    Install-Package AccidentalFish.Commanding.Http
-
-Registration of a command is, optionally, slightly different if you want to use HTTP as you don't need to register an actor and you'll also need to install the HTTP handlers:
-
-    resolver.UseHttpCommanding();
-    resolver.BuildServiceProvider(); // only required if you are using a IoC container that requires a build step
-    IHttpCommandDispatcherFactory httpCommandDispatcherFactory = resolver.Resolve<IHttpCommandDispatcherFactory>();
-    registry.Register<AddCommand>(() => httpCommandDispatcherFactory.Create(uri, HttpMethod.Put));
-
-There's nothing stopping you registering an actor too - but it won't do anything as the provided dispatcher will simply not execute actors locally (though it is possible to write a dispatcher that does execute locally and dispatch remotely). Note also above that you can specify both URI and HTTP verb for the command.
-
-Dispatching the command is exactly the same as for in process immediate execution (other than that it will take a little longer):
-
-    MathResult mathResult = await commandDispatcher.DispatchAsync<AddCommand, MathResult>(new AddCommand { FirstNumber = 5, SecondNumber = 6});
-    Console.WriteLine(mathResult.Value);
-
-Hopefully the above illustrates how you can change how commands are executed without changing your code, instead like with an IoC container, just the configuration.
-
-To execute the command in the HTTP server (and I'm assuming you're using Web API or ASP.Net Core MVC in the below) then you need to inject an instance of _ICommandExecuter_ into your controller and execute the command (you could also use the _ICommandDispatcher_ interface if you wish to take advantage of its broader functionality). In ASP.Net Core MVC this looks like the below:
-
-    [Route("api/[controller]")]
-    public class AddController : Controller
-    {
-        private readonly ICommandExecuter _commandExecuter;
-
-        public AddController(ICommandExecuter commandExecuter)
-        {
-            _commandExecuter = commandExecuter;
-        }
-
-        [HttpPut]
-        public async Task<MathResult> Put([FromBody]AddCommand command)
-        {
-            UpdateResult result = await _commandExecuter.ExecuteAsync<AddCommand, MathResult>(command);
-            return result;
-        }        
-    }
-
-There's nothing special about the configuration on the server side. In fact it looks exactly like our in memory example from earlier but simply sits in the _ConfigureServices_ method of the ASP.Net Core startup class:
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Add framework services.
-        services.AddMvc();
-        MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(services);
-        resolver.UseCommanding(type => resolver.Register(type, type))
-            .Register<UpdatePersonalDetailsCommand, UpdatePersonalDetailsCommandActor>();
-        resolver.BuildServiceProvider();
-    }
-
-By default the built in serializer use JSON however you can supply an alternative serializer by implementing the IHttpCommandSerializer interface and registering it when you install HTTP commanding, for example:
-
-    resolver.UseHttpCommanding<MyCustomSerializer>();
-
-The IHttpCommandSerializer interface defines methods for serializing, deserializing and stating the MIME / media type.
-
-_Note: you'd be correct in assuming I've got some additional functionality coming that allows you to set up the REST API for a command automatically without the above boilerplate controller and action handler_
-
-## Azure Queue Dispatch and Execution
-_(Note: Service bus equivalants will be available as soon as the Microsoft Service Bus package for .NET Standard exits preview)_
-
-A [sample is available](https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageQueueCommanding) that illustrates this however I'll also cover the important points below. I'm going to assume a couple of things in the below:
-
-1. You have a queue of type CloudQueue called myQueue:
-    CloudQueue myQueue = .... queue from CloudQueueClient ....;
-2. That your dispatch and reciept are in different systems (for example a REST API dispatches the command and a Web Job processes it)
-
-To get started you'll need to install a couple of NuGet packages in both the dispatch and process halves (so in our example in the REST API and the Web Job):
-
-    Install-Package AccidentalFish.Commanding.Queue
-    Install-Package AccidentalFish.Commanding.AzureStorage
-
-And then install the queue based commanding system:
-
-    resolver.UseCommandQueues().UseAzureStorageCommanding();
-
-On the dispatch side registering (our REST API) a command is a little more complicated with a queue as you need to supply the Azure Storage Queue dispatcher as a custom dispatcher:
-
-    ICommandDispatcher QueueDispatcher() => resolver.Resolve<IAzureStorageQueueDispatcherFactory>().Create(queue);
-    registry.Register<AddCommand>(QueueDispatcher);
-
-You'll note in the above I don't specify a result type. Queue dispatch is currently one way only. Dispatching a command is the same as ever:
-
-    await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
-
-On the queue processing side (our Web Job) again you need to install the queue based commanding system and register our command with it's actor.
-
-    ICommandRegistry registry = resolver.UseCommanding(type => resolver.Register(type, type));
-    resolver.UseCommandQueues().UseAzureStorageCommanding();
-    registry.Register<AddCommand, AddCommandActor>();
-
-Although you could write code to pull items from the queue and execute them much as we did with HTTP Helper systems are provided that will watch a queue (with a backoff algorithm) and dispatch the items that appear for execution. You configure them as below:
-
-    IAzureStorageCommandQueueProcessorFactory listenerFactory = resolver.Resolve<IAzureStorageCommandQueueProcessorFactory>();
-    Task longRunningTask = listenerFactory.Start<AddCommand, AddCommand>(queue, cancellationTokenSource.Token);
-
-You need to manage the task execution and make sure your Web Job doesn't quit but that's a pretty standard pattern for a Web Job that I won't cover here.
+* [Configuration Options](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Configuration-Options)
+* [HTTP Execution and Dispatch](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/HTTP-Dispatch-and-Execution)
+* [Azure Queue Dispatch and Execution](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Azure-Queue-Dispatch-and-Execution)
 
 ## Support
 

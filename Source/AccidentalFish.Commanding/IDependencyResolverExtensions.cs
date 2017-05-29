@@ -23,6 +23,27 @@ namespace AccidentalFish.Commanding
         /// the commandActorContainerRegistration should be used to perform the type registration for the actor
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver to register inside</param>
+        /// <param name="commandActorContainerRegistration">
+        /// Unless an alternative implementation of ICommandActorFactory is supplied then actors are created through the dependency resolver
+        /// but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection
+        /// and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandActorContainerRegistration
+        /// action that registers the actors in the container. For example using an IServiceCollection instance of serviceCollection:
+        ///     resolver.UseCommanding(type => services.AddTransient(type, type));
+        /// </param>
+        /// <returns>The dependency resolver</returns>
+        public static ICommandRegistry UseCommanding(this IDependencyResolver dependencyResolver,
+            Action<Type> commandActorContainerRegistration)
+        {
+            return UseCommanding(dependencyResolver,
+                new Options {CommandActorContainerRegistration = commandActorContainerRegistration});
+        }
+
+        /// <summary>
+        /// Registers the commanding system in an ioc container.
+        /// If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
+        /// the commandActorContainerRegistration should be used to perform the type registration for the actor
+        /// </summary>
+        /// <param name="dependencyResolver">The dependency resolver to register inside</param>
         /// <param name="options">Configuration options for the commanding system</param>
         /// <returns>The dependency resolver</returns>
         public static ICommandRegistry UseCommanding(this IDependencyResolver dependencyResolver,
