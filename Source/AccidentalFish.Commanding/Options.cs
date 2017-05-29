@@ -31,7 +31,7 @@ namespace AccidentalFish.Commanding
         public Action<Type> CommandActorContainerRegistration { get; set; }
         /// <summary>
         /// By default actors are created through the dependency resolver but if a function is assigned to the CommandActorFactoryFunc
-        /// propert then that function will be called to instantiate an actor.
+        /// property then that function will be called to instantiate an actor.
         /// </summary>
         public Func<Type, object> CommandActorFactoryFunc { get; set; }
         /// <summary>
