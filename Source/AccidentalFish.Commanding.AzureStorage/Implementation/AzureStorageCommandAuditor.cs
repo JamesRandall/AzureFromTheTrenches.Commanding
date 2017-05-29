@@ -9,18 +9,15 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {
     class AzureStorageCommandAuditor : ICommandAuditor
     {
-        private readonly CloudTable _auditByDateDescTable;
-        private readonly CloudTable _auditByCorrelationIdTable;
-        private readonly CloudBlobContainer _blobContainer;
+        private readonly ICloudStorageProvider _cloudStorageProvider;
+        private readonly IStorageStrategy _storageStrategy;
 
         public AzureStorageCommandAuditor(
-            CloudTable auditByDateDescTable,
-            CloudTable auditByCorrelationIdTable,
-            CloudBlobContainer blobContainer)
+            ICloudStorageProvider cloudStorageProvider,
+            IStorageStrategy storageStrategy)
         {
-            _auditByDateDescTable = auditByDateDescTable;
-            _auditByCorrelationIdTable = auditByCorrelationIdTable;
-            _blobContainer = blobContainer;
+            _cloudStorageProvider = cloudStorageProvider;
+            _storageStrategy = storageStrategy;
         }
 
         public async Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class
@@ -31,33 +28,40 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
 
             CommandAuditByDateDescItem byDateDesc = new CommandAuditByDateDescItem
             {
+                AdditionalProperties = context.AdditionalProperties,
                 CommandType = commandType,
                 CorrelationId = context.CorrelationId,
                 Depth = context.Depth,
-                PartitionKey = CommandAuditByDateDescItem.GetPartitionKey(recordedAt),
-                RecordedAtUtc = recordedAt,
-                RowKey = CommandAuditByDateDescItem.GetRowKey(commandId)
+                CommandId = commandId,
+                RecordedAtUtc = recordedAt                
             };
+            byDateDesc.PartitionKey = _storageStrategy.GetPartitionKey(byDateDesc);
+            byDateDesc.RowKey = _storageStrategy.GetRowKey(byDateDesc);
             CommandAuditByCorrelationIdItem byCorrelationId = new CommandAuditByCorrelationIdItem
             {
-                CommandId = commandId,
+                AdditionalProperties = context.AdditionalProperties,
                 CommandType = commandType,
+                CorrelationId = context.CorrelationId,
                 Depth = context.Depth,
-                PartitionKey = CommandAuditByCorrelationIdItem.GetPartitionKey(context.CorrelationId),
-                RecordedAtUtc = recordedAt,
-                RowKey = CommandAuditByCorrelationIdItem.GetRowKey(recordedAt, commandId)
+                CommandId = commandId,
+                RecordedAtUtc = recordedAt
             };
+            byCorrelationId.PartitionKey = _storageStrategy.GetPartitionKey(byCorrelationId);
+            byCorrelationId.RowKey = _storageStrategy.GetRowKey(byCorrelationId);
             string json = JsonConvert.SerializeObject(command);
-            CloudBlockBlob blob = _blobContainer.GetBlockBlobReference($"{commandId}.json");
-            /*await Task.WhenAll(
-                _auditByDateDescTable.ExecuteAsync(TableOperation.Insert(byDateDesc)),
-                _auditByCorrelationIdTable.ExecuteAsync(TableOperation.Insert(byCorrelationId)),
-                blob.UploadTextAsync(json)
-            );*/
 
-            await _auditByDateDescTable.ExecuteAsync(TableOperation.Insert(byDateDesc));
-            await _auditByCorrelationIdTable.ExecuteAsync(TableOperation.Insert(byCorrelationId));
-            await blob.UploadTextAsync(json);
+            Task<CloudBlobContainer> blobContainerTask = _cloudStorageProvider.GetBlobContainer();
+            Task<CloudTable> byDateTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byDateDesc));
+            Task<CloudTable> byCorrelationIdTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byCorrelationId));
+
+            await Task.WhenAll(blobContainerTask, byDateTableTask, byCorrelationIdTableTask);
+
+            CloudBlockBlob blob = blobContainerTask.Result.GetBlockBlobReference($"{commandId}.json");
+            await Task.WhenAll(
+                byDateTableTask.Result.ExecuteAsync(TableOperation.Insert(byDateDesc)),
+                byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId)),
+                blob.UploadTextAsync(json)
+            );
         }
     }
 }

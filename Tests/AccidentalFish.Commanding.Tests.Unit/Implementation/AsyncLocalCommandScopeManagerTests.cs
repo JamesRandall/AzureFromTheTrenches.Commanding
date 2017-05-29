@@ -121,5 +121,23 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Assert.NotEqual(initialContext, secondContext);
             Assert.NotEqual(initialContext.CorrelationId, secondContext.CorrelationId);
         }
+
+        [Fact]
+        public void GetCurrentReturnsCurrentWithoutModification()
+        {
+            // Arrange
+            Mock<ICommandCorrelationIdProvider> correlationIdProvider = new Mock<ICommandCorrelationIdProvider>();
+            Mock<ICommandContextEnrichment> commandContextEnrichment = new Mock<ICommandContextEnrichment>();
+            correlationIdProvider.Setup(x => x.Create()).Returns("someid");
+            AsyncLocalCommandScopeManager manager = new AsyncLocalCommandScopeManager(correlationIdProvider.Object, commandContextEnrichment.Object);
+
+            // Act
+            manager.Enter();
+            ICommandContext context = manager.GetCurrent();
+
+            // Assert
+            Assert.Equal("someid", context.CorrelationId);
+            Assert.Equal(0, context.Depth);
+        }
     }
 }

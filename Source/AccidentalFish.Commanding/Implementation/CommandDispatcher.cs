@@ -8,16 +8,16 @@ namespace AccidentalFish.Commanding.Implementation
     {
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandScopeManager _commandScopeManager;
-        private readonly ICommandAuditorFactory _commandAuditorFactory;
+        private readonly ICommandAuditor _auditor;
 
         public CommandDispatcher(ICommandRegistry commandRegistry,
             ICommandExecuter commandExecuter,
             ICommandScopeManager commandScopeManager,
-            ICommandAuditorFactory commandAuditorFactory)
+            ICommandAuditPipeline auditPipeline)
         {
             _commandRegistry = commandRegistry;
             _commandScopeManager = commandScopeManager;
-            _commandAuditorFactory = commandAuditorFactory;
+            _auditor = auditPipeline as ICommandAuditor;
             AssociatedExecuter = commandExecuter;
         }
 
@@ -30,10 +30,9 @@ namespace AccidentalFish.Commanding.Implementation
                 ICommandExecuter executer = null;
                 ICommandDispatcher dispatcher = null;
 
-                ICommandAuditor auditor = _commandAuditorFactory.Create<TCommand>();
-                if (auditor != null)
+                if (_auditor != null)
                 {
-                    await auditor.Audit(command, context);
+                    await _auditor.Audit(command, context);
                 }
 
                 try

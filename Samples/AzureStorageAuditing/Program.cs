@@ -1,17 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.AzureStorage;
-using AccidentalFish.Commanding.Model;
+using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using AzureStorageAuditing.Actors;
 using AzureStorageAuditing.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Queue;
-using Microsoft.WindowsAzure.Storage.Table;
 
 namespace AzureStorageAuditing
 {
@@ -22,40 +20,46 @@ namespace AzureStorageAuditing
 
         static void Main(string[] args)
         {
+            do
+            {
+                Console.WriteLine("1. Use single table storage strategy");
+                Console.WriteLine("2. Use per day table storage strategy");
+                ConsoleKeyInfo info = Console.ReadKey();
+
+                IStorageStrategy storageStrategy = info.Key == ConsoleKey.D1 ? (IStorageStrategy)new SingleTableStrategy() : new TablePerDayStrategy();
+
 #pragma warning disable 4014
-            RunDemo();
+                RunDemo(storageStrategy);
 #pragma warning restore 4014
-            Console.ReadKey();
+                Console.ReadKey();
+            } while (true);            
         }
 
-        private static async Task RunDemo()
+        private static async Task RunDemo(IStorageStrategy storageStrategy)
         {
-            ICommandDispatcher dispatcher = await Configure();
+            ICommandDispatcher dispatcher = Configure(storageStrategy);
             await dispatcher.DispatchAsync(new ChainCommand());
         }
 
-        private static async Task<ICommandDispatcher> Configure()
+        private static int _counter = -1;
+
+        private static ICommandDispatcher Configure(IStorageStrategy storageStrategy)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference("commandauditpayload");
-            CloudTable byDate = tableClient.GetTableReference("commandauditbydate");
-            CloudTable byCorrelationId = tableClient.GetTableReference("commandauditbycorrelationid");
-            await blobContainer.CreateIfNotExistsAsync();
-            await byDate.CreateIfNotExistsAsync();
-            await byCorrelationId.CreateIfNotExistsAsync();
-
+            
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
             {
                 CommandActorContainerRegistration = type => resolver.Register(type, type),
-                Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
-            };
+                Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required                
+                Enrichers = new [] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)Enricher }
+            };            
+
             resolver.UseCommanding(options)
                 .Register<ChainCommand, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>();
-            resolver.UseAzureStorageCommandAuditing(byCorrelationId, byDate, blobContainer);
+            resolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy);
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();
         }

@@ -12,6 +12,8 @@ namespace AccidentalFish.Commanding
         private static readonly object RegistryLockObject = new object();
         private static ICommandContextEnrichment _contextEnrichment = null;
         private static readonly object EnrichmentLockObject = new object();
+        private static ICommandAuditPipeline _auditorPipeline = null;
+        private static readonly object AuditorPipelineLockObject = new object();
 
         /// <summary>
         /// Registers the commanding system in an ioc container.
@@ -51,6 +53,15 @@ namespace AccidentalFish.Commanding
                 dependencyResolver.RegisterInstance(_contextEnrichment);
             }
 
+            lock (AuditorPipelineLockObject)
+            {
+                if (_auditorPipeline == null || options.Reset)
+                {
+                    _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t));
+                }
+                dependencyResolver.RegisterInstance(_auditorPipeline);
+            }
+
             ICommandActorFactory commandActorFactory = new CommandActorFactory(options.CommandActorFactoryFunc ?? dependencyResolver.Resolve);
             INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
             dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
@@ -63,6 +74,20 @@ namespace AccidentalFish.Commanding
             dependencyResolver.Register<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
             
             return _registry;
-        }        
+        }
+
+        public static IDependencyResolver RegisterCommandingAuditor<TAuditorImpl>(this IDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
+        {
+            lock (AuditorPipelineLockObject)
+            {
+                if (_auditorPipeline == null)
+                {
+                    throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
+                }
+                _auditorPipeline.RegisterAuditor<TAuditorImpl>();
+            }
+            dependencyResolver.Register<TAuditorImpl, TAuditorImpl>();
+            return dependencyResolver;
+        }
     }
 }

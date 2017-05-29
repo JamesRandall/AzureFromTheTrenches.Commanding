@@ -1,6 +1,8 @@
 ﻿using System;
 using AccidentalFish.Commanding.AzureStorage.Implementation;
+using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.DependencyResolver;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 
@@ -28,18 +30,33 @@ namespace AccidentalFish.Commanding.AzureStorage
             dependencyResolver.Register<IAzureStorageQueueDispatcherFactory, AzureStorageQueueDispatcherFactory>();
         }
 
+        /// <summary>
+        /// Sets up azure storage command auditing
+        /// </summary>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <param name="cloudStorageAccount">The cloud storage account to use for storage</param>
+        /// <param name="commandPayloadContainer">(Optional) The blob container that </param>
+        /// <param name="storageStrategy"></param>
+        /// <returns></returns>
         public static IDependencyResolver UseAzureStorageCommandAuditing(this IDependencyResolver dependencyResolver,
-            CloudTable auditByCorrelationIdTable,
-            CloudTable auditByDateDescTable,
-            CloudBlobContainer commandPayloadContainer)
+            CloudStorageAccount cloudStorageAccount,            
+            CloudBlobContainer commandPayloadContainer = null,
+            IStorageStrategy storageStrategy = null)
         {
-            if (auditByCorrelationIdTable == null) throw new ArgumentNullException(nameof(auditByCorrelationIdTable));
-            if (auditByDateDescTable == null) throw new ArgumentNullException(nameof(auditByDateDescTable));
-            if (commandPayloadContainer == null) throw new ArgumentNullException(nameof(commandPayloadContainer));
+            CloudTableClient cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
+            if (commandPayloadContainer == null)
+            {
+                commandPayloadContainer = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference("commandauditbydate");
+            }
+            if (storageStrategy == null)
+            {
+                storageStrategy = new SingleTableStrategy();
+            }
 
-            IAzureStorageCommandAuditorConfiguration configuration = new AzureStorageCommandAuditorConfiguration(auditByCorrelationIdTable, auditByDateDescTable, commandPayloadContainer);
-            dependencyResolver.RegisterInstance(configuration);
-            dependencyResolver.Register<ICommandAuditorFactory, AzureStorageCommandAuditorFactory>();
+            ICloudStorageProvider cloudStorageProvider = new CloudStorageProvider(cloudTableClient, commandPayloadContainer);
+            dependencyResolver.RegisterInstance(cloudStorageProvider);
+            dependencyResolver.RegisterInstance(storageStrategy);
+            dependencyResolver.RegisterCommandingAuditor<AzureStorageCommandAuditor>();
             return dependencyResolver;
         }
     }

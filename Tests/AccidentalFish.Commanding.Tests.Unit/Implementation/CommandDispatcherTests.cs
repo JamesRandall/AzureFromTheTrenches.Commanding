@@ -17,8 +17,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock< ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -35,9 +35,9 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object,commandContextManager.Object, auditorFactory.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object,commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, true));
@@ -56,10 +56,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICommandExecuter> associatedExecuter = new Mock<ICommandExecuter>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, false));
@@ -80,8 +80,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -98,8 +98,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -116,8 +116,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             executer.Setup(x => x.ExecuteAsync<SimpleCommand, SimpleResult>(command)).Throws(new InvalidOperationException());
 
@@ -138,10 +138,9 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandAuditorFactory> auditorFactory = new Mock<ICommandAuditorFactory>();
-            Mock<ICommandAuditor> auditor = new Mock<ICommandAuditor>();
-            auditorFactory.Setup(x => x.Create<SimpleCommand>()).Returns(auditor.Object);            
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorFactory.Object);
+            Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<ICommandAuditor> auditor = auditorPipeline.As<ICommandAuditor>();
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             auditor.Setup(x => x.Audit(command, null)).Callback(() =>
             {

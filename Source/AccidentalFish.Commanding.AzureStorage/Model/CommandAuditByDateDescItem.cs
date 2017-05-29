@@ -1,29 +1,12 @@
-﻿using System;
-using Microsoft.WindowsAzure.Storage.Table;
-
-namespace AccidentalFish.Commanding.AzureStorage.Model
+﻿namespace AccidentalFish.Commanding.AzureStorage.Model
 {
-    internal class CommandAuditByDateDescItem : TableEntity
+    /// <summary>
+    /// This class only extends the base class with type information to allow us to
+    /// apply strategies with compile time type information as opposed to runtime.
+    /// The latter being much slower.
+    /// </summary>
+    public class CommandAuditByDateDescItem : AbstractCommandAuditTableEntity
     {
-        public DateTime RecordedAtUtc { get; set; }
-
-        public string CommandType { get; set; }
-
-        public string CorrelationId { get; set; }
-
-        public int Depth { get; set; }
-
-        [IgnoreProperty]
-        public Guid CommandId => Guid.Parse(RowKey);
-
-        public static string GetPartitionKey(DateTime utcNow)
-        {
-            return $"{DateTime.MaxValue.Ticks - utcNow.Ticks:D19}";
-        }
-
-        public static string GetRowKey(Guid commandId)
-        {
-            return commandId.ToString();
-        }
+        
     }
 }
