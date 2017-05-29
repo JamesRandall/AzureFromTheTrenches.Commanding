@@ -16,7 +16,7 @@ namespace AccidentalFish.Commanding
             CommandActorContainerRegistration = null;
             CommandActorFactoryFunc = null;
             Reset = false;
-            AuditRootCommandOnly = false;
+            AuditRootCommandOnly = null;
             Enrichers = null;
         }
 
@@ -51,8 +51,11 @@ namespace AccidentalFish.Commanding
         /// <summary>
         /// By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
         /// event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
-        /// of that root command. Set this property to true to audit only the root commands.
+        /// of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+        /// commands.
+        /// 
+        /// Note: this can only be set (i.e. a none null value) once in any registration sequence unless combined with Reset as true
         /// </summary>
-        public bool AuditRootCommandOnly { get; set; }
+        public bool? AuditRootCommandOnly { get; set; }
     }
 }

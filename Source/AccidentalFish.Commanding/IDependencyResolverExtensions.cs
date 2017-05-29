@@ -14,6 +14,8 @@ namespace AccidentalFish.Commanding
         private static readonly object EnrichmentLockObject = new object();
         private static ICommandAuditPipeline _auditorPipeline = null;
         private static readonly object AuditorPipelineLockObject = new object();
+        private static ICommandDispatcherOptions _dispatcherOptions = null;
+        private static readonly object DispatchOptionsLockObject = new object();
 
         /// <summary>
         /// Registers the commanding system in an ioc container.
@@ -60,6 +62,26 @@ namespace AccidentalFish.Commanding
                     _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t));
                 }
                 dependencyResolver.RegisterInstance(_auditorPipeline);
+            }
+
+            lock (DispatchOptionsLockObject)
+            {
+                if (_dispatcherOptions == null || options.Reset)
+                {
+                    _dispatcherOptions = new CommandDispatcherOptions(options.AuditRootCommandOnly);
+                }
+                else
+                {
+                    if (options.AuditRootCommandOnly.HasValue)
+                    {
+                        if (_dispatcherOptions.AuditRootCommandOnly.HasValue)
+                        {
+                            throw new AuditConfigurationException("The AuditRootCommandOnly option has already been specified");
+                        }
+                        _dispatcherOptions = new CommandDispatcherOptions(options.AuditRootCommandOnly);
+                    }
+                }
+                dependencyResolver.RegisterInstance(_dispatcherOptions);
             }
 
             ICommandActorFactory commandActorFactory = new CommandActorFactory(options.CommandActorFactoryFunc ?? dependencyResolver.Resolve);

@@ -13,6 +13,7 @@ namespace InMemoryCommanding
                 Console.WriteLine("1. Execute simple command");
                 Console.WriteLine("2. Push to stack with dispatcher");
                 Console.WriteLine("3. Simple auditing example (write to console)");
+                Console.WriteLine("4. Simple auditing example, root command only (write to console)");
                 Console.WriteLine("");
                 Console.WriteLine("Esc - quit");
                 keyInfo = Console.ReadKey();
@@ -32,7 +33,13 @@ namespace InMemoryCommanding
 
                     case ConsoleKey.D3:
 #pragma warning disable 4014
-                        ConsoleAuditing.Run();
+                        ConsoleAuditing.Run(false);
+#pragma warning restore 4014
+                        break;
+
+                    case ConsoleKey.D4:
+#pragma warning disable 4014
+                        ConsoleAuditing.Run(true);
 #pragma warning restore 4014
                         break;
                 }

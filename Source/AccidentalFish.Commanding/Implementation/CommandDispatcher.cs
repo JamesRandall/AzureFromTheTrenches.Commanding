@@ -8,15 +8,18 @@ namespace AccidentalFish.Commanding.Implementation
     {
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandScopeManager _commandScopeManager;
+        private readonly ICommandDispatcherOptions _options;
         private readonly ICommandAuditor _auditor;
 
         public CommandDispatcher(ICommandRegistry commandRegistry,
             ICommandExecuter commandExecuter,
             ICommandScopeManager commandScopeManager,
-            ICommandAuditPipeline auditPipeline)
+            ICommandAuditPipeline auditPipeline,
+            ICommandDispatcherOptions options)
         {
             _commandRegistry = commandRegistry;
             _commandScopeManager = commandScopeManager;
+            _options = options;
             _auditor = auditPipeline as ICommandAuditor;
             AssociatedExecuter = commandExecuter;
         }
@@ -32,7 +35,12 @@ namespace AccidentalFish.Commanding.Implementation
 
                 if (_auditor != null)
                 {
-                    await _auditor.Audit(command, context);
+                    bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
+
+                    if (context.Depth == 0 || !auditRootCommandOnly)
+                    {
+                        await _auditor.Audit(command, context);
+                    }
                 }
 
                 try

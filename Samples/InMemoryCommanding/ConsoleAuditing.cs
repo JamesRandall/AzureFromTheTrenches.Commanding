@@ -28,27 +28,19 @@ namespace InMemoryCommanding
         }
     }
 
-    internal class ConsoleAuditorFactory : ICommandAuditorFactory
-    {
-        public ICommandAuditor Create<TCommand>() where TCommand : class
-        {
-            return new ConsoleAuditor();
-        }
-    }
-
     static class ConsoleAuditing
     {
         private static int _counter = -1;
 
-        public static async Task Run()
+        public static async Task Run(bool auditRootOnly)
         {
-            ICommandDispatcher dispatcher = Configure();
+            ICommandDispatcher dispatcher = Configure(auditRootOnly);
             ChainCommand command = new ChainCommand();
             await dispatcher.DispatchAsync(command);
             Console.WriteLine("\nPress a key to continue...");
         }
 
-        private static ICommandDispatcher Configure()
+        private static ICommandDispatcher Configure(bool auditRootOnly)
         {
             // we use an enricher that simply updates a counter each time enrichment occurs
             // as enrichment only occurs when the context is created this will start at 0 when the console auditing example is first run and
@@ -61,13 +53,14 @@ namespace InMemoryCommanding
                 CommandActorContainerRegistration = type => resolver.Register(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 Enrichers = new[]
-                    {(Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>) Enricher}
+                    {(Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>) Enricher},
+                AuditRootCommandOnly = auditRootOnly
             };
             resolver.UseCommanding(options) 
                 .Register<ChainCommand, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
-            resolver.Register<ICommandAuditorFactory, ConsoleAuditorFactory>();
+            resolver.RegisterCommandingAuditor<ConsoleAuditor>();
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();
         }
