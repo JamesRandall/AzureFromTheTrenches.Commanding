@@ -13,14 +13,17 @@ namespace AccidentalFish.Commanding.Implementation
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandActorFactory _commandActorFactory;
         private readonly INoResultCommandActorBaseExecuter _noResultCommandActorBaseExecuter;
+        private readonly ICommandScopeManager _commandScopeManager;
 
         public CommandExecuter(ICommandRegistry commandRegistry,
             ICommandActorFactory commandActorFactory,
-            INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter)
+            INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter,
+            ICommandScopeManager commandScopeManager)
         {
             _commandRegistry = commandRegistry;
             _commandActorFactory = commandActorFactory;
             _noResultCommandActorBaseExecuter = noResultCommandActorBaseExecuter;
+            _commandScopeManager = commandScopeManager;
         }
 
         public async Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class
@@ -29,41 +32,51 @@ namespace AccidentalFish.Commanding.Implementation
             if (actors == null || actors.Count == 0) throw new MissingCommandActorRegistrationException(command.GetType(), "No command actors registered for execution of command");
             TResult result = default(TResult);
 
+            int actorIndex = 0;
             foreach (PrioritisedCommandActor actorTemplate in actors)
             {
-                object baseActor = _commandActorFactory.Create(actorTemplate.CommandActorType);
-                ICommandActor<TCommand, TResult> actor = baseActor as ICommandActor<TCommand, TResult>;
-                if (actor != null)
+                try
                 {
-                    result = await actor.ExecuteAsync(command, result);
-                }
-                else
-                {
-                    ICommandChainActor<TCommand, TResult> chainActor = baseActor as ICommandChainActor<TCommand, TResult>;
-                    if (chainActor != null)
+                    object baseActor = _commandActorFactory.Create(actorTemplate.CommandActorType);
+                    ICommandActor<TCommand, TResult> actor = baseActor as ICommandActor<TCommand, TResult>;
+                    if (actor != null)
                     {
-                        CommandChainActorResult<TResult> chainResult = await chainActor.ExecuteAsync(command, result);
-                        result = chainResult.Result;
-                        if (chainResult.ShouldStop)
-                        {
-                            break;
-                        }
+                        result = await actor.ExecuteAsync(command, result);
                     }
                     else
                     {
-                        // this allows commands dispatched with no expectation of a result to be executed
-                        // regardless of the actor definitions
-                        // it doesn't currently deal with chained commands
-                        if (typeof(TResult) == typeof(NoResult) && baseActor is ICommandActorBase<TCommand>)
+                        ICommandChainActor<TCommand, TResult> chainActor = baseActor as ICommandChainActor<TCommand, TResult>;
+                        if (chainActor != null)
                         {
-                            await _noResultCommandActorBaseExecuter.ExecuteAsync(baseActor, command);
+                            CommandChainActorResult<TResult> chainResult = await chainActor.ExecuteAsync(command, result);
+                            result = chainResult.Result;
+                            if (chainResult.ShouldStop)
+                            {
+                                break;
+                            }
                         }
                         else
                         {
-                            throw new UnableToExecuteActorException("Unexpected result type");
+                            // this allows commands dispatched with no expectation of a result to be executed
+                            // regardless of the actor definitions
+                            // it doesn't currently deal with chained commands
+                            if (typeof(TResult) == typeof(NoResult) && baseActor is ICommandActorBase<TCommand>)
+                            {
+                                await _noResultCommandActorBaseExecuter.ExecuteAsync(baseActor, command);
+                            }
+                            else
+                            {
+                                throw new UnableToExecuteActorException("Unexpected result type");
+                            }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    ICommandContext context = _commandScopeManager.GetCurrent();
+                    throw new CommandExecutionException<TCommand>(command, actorTemplate.CommandActorType, actorIndex, context?.Copy(), "Error occurred during command execution", ex);
+                }
+                actorIndex++;
             }
 
             return result;

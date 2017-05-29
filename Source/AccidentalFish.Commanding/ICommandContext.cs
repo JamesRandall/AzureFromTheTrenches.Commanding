@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AccidentalFish.Commanding
 {
@@ -10,8 +8,12 @@ namespace AccidentalFish.Commanding
 
         int Depth { get; }
 
+        IReadOnlyDictionary<string, object> AdditionalProperties { get; }
+
         int Increment();
 
         int Decrement();
+
+        ICommandContext Copy();
     }
 }

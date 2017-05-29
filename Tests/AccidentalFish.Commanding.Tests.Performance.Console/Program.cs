@@ -53,7 +53,12 @@ namespace AccidentalFish.Commanding.Tests.Performance.Console
         private static ICommandDispatcher Configure()
         {
             _resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            _resolver.UseCommanding(type => _resolver.Register(type, type))
+            Options options = new Options
+            {
+                CommandActorContainerRegistration = type => _resolver.Register(type, type),
+                Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
+            };
+            _resolver.UseCommanding(options)
                 .Register<SimpleCommand, SimpleActor>();
             _resolver.BuildServiceProvider();
             return _resolver.Resolve<ICommandDispatcher>();

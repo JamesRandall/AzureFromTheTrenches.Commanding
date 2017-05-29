@@ -27,7 +27,12 @@ namespace InMemoryCommanding
         private static ICommandDispatcher Configure()
         {
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            resolver.UseCommanding(type => resolver.Register(type, type))
+            Options options = new Options
+            {
+                CommandActorContainerRegistration = type => resolver.Register(type, type),
+                Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
+            };
+            resolver.UseCommanding(options)
                 .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
             resolver.BuildServiceProvider();

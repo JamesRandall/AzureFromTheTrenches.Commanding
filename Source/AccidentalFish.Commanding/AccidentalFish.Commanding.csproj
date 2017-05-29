@@ -13,9 +13,9 @@
     <PackageProjectUrl>https://github.com/JamesRandall/AccidentalFish.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
     <PackageId>AccidentalFish.Commanding</PackageId>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

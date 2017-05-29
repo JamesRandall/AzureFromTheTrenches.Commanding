@@ -26,7 +26,11 @@ namespace HttpCommanding.Client
             Uri uri = new Uri("http://localhost:52933/api/personalDetails");
 
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            ICommandRegistry registry = resolver.UseCommanding(type => resolver.Register(type, type));
+            Options options = new Options
+            {
+                CommandActorContainerRegistration = type => resolver.Register(type, type),
+            };
+            ICommandRegistry registry = resolver.UseCommanding(options);
             resolver.UseHttpCommanding();
             resolver.BuildServiceProvider();
 

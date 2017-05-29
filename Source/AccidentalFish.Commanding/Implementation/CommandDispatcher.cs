@@ -26,27 +26,36 @@ namespace AccidentalFish.Commanding.Implementation
             ICommandContext context = _commandScopeManager.Enter();
             try
             {
+                CommandResult<TResult> dispatchResult = null;
+                ICommandExecuter executer = null;
+                ICommandDispatcher dispatcher = null;
+
                 ICommandAuditor auditor = _commandAuditorFactory.Create<TCommand>();
                 if (auditor != null)
                 {
                     await auditor.Audit(command, context);
                 }
 
-                CommandResult<TResult> dispatchResult = null;
-                Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory<TCommand>();
-                ICommandExecuter executer = null;
-                if (dispatcherFunc != null)
+                try
                 {
-                    ICommandDispatcher dispatcher = dispatcherFunc();
-                    dispatchResult = await dispatcher.DispatchAsync<TCommand, TResult>(command);
-                    executer = dispatcher.AssociatedExecuter;
-                }
+                    Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory<TCommand>();
+                    if (dispatcherFunc != null)
+                    {
+                        dispatcher = dispatcherFunc();
+                        dispatchResult = await dispatcher.DispatchAsync<TCommand, TResult>(command);
+                        executer = dispatcher.AssociatedExecuter;
+                    }
 
-                if (dispatchResult != null && dispatchResult.DeferExecution)
+                    if (dispatchResult != null && dispatchResult.DeferExecution)
+                    {
+                        return new CommandResult<TResult>(default(TResult), true);
+                    }
+                }
+                catch (Exception ex)
                 {
-                    return new CommandResult<TResult>(default(TResult), true);
+                    throw new CommandDispatchException<TCommand>(command, context.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
                 }
-
+                
                 if (executer == null)
                 {
                     executer = AssociatedExecuter;
@@ -57,7 +66,6 @@ namespace AccidentalFish.Commanding.Implementation
             {
                 _commandScopeManager.Exit();
             }
-                      
         }
 
         public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
@@ -17,6 +19,10 @@ namespace InMemoryCommanding
             Console.WriteLine($"Type: {command.GetType()}");
             Console.WriteLine($"Correlation ID: {context.CorrelationId}");
             Console.WriteLine($"Depth: {context.Depth}");
+            foreach (KeyValuePair<string, object> enrichedProperty in context.AdditionalProperties)
+            {
+                Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
+            }
             Console.ForegroundColor = previousColor;
             return Task.FromResult(0);
         }
@@ -32,6 +38,8 @@ namespace InMemoryCommanding
 
     static class ConsoleAuditing
     {
+        private static int _counter = -1;
+
         public static async Task Run()
         {
             ICommandDispatcher dispatcher = Configure();
@@ -42,8 +50,20 @@ namespace InMemoryCommanding
 
         private static ICommandDispatcher Configure()
         {
+            // we use an enricher that simply updates a counter each time enrichment occurs
+            // as enrichment only occurs when the context is created this will start at 0 when the console auditing example is first run and
+            // will increment by 1 on each subsequent run
+            IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> {{"Counter", Interlocked.Increment(ref _counter)}};
+
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-            resolver.UseCommanding(type => resolver.Register(type, type), resetRegistry:true) // we reset the registry because we allow repeat runs, in a normal app this isn't required
+            Options options = new Options
+            {
+                CommandActorContainerRegistration = type => resolver.Register(type, type),
+                Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
+                Enrichers = new[]
+                    {(Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>) Enricher}
+            };
+            resolver.UseCommanding(options) 
                 .Register<ChainCommand, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();

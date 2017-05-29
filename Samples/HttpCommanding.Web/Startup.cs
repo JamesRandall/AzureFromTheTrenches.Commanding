@@ -30,7 +30,11 @@ namespace HttpCommanding.Web
             // Add framework services.
             services.AddMvc();
             MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(services);
-            resolver.UseCommanding(type => resolver.Register(type, type))
+            Options options = new Options
+            {
+                CommandActorContainerRegistration = type => resolver.Register(type, type)
+            };
+            resolver.UseCommanding(options)
                 .Register<UpdatePersonalDetailsCommand, UpdatePersonalDetailsCommandActor>();
             resolver.BuildServiceProvider();
         }
