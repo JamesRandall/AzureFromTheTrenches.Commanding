@@ -4,30 +4,30 @@ namespace AccidentalFish.Commanding
 {
     public class CommandDispatchException<TCommand> : Exception where TCommand : class
     {
-        public CommandDispatchException(TCommand command, ICommandContext commandContext, Type dispatcherType)
+        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType)
         {
             Command = command;
-            CommandContext = commandContext;
+            CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
         
-        public CommandDispatchException(TCommand command, ICommandContext commandContext, Type dispatcherType, string message) : base(message)
+        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message) : base(message)
         {
             Command = command;
-            CommandContext = commandContext;
+            CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
 
-        public CommandDispatchException(TCommand command, ICommandContext commandContext, Type dispatcherType, string message, Exception innerException) : base(message, innerException)
+        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message, Exception innerException) : base(message, innerException)
         {
             Command = command;
-            CommandContext = commandContext;
+            CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
 
         public TCommand Command { get; }
 
-        public ICommandContext CommandContext { get; }
+        public ICommandDispatchContext CommandDispatchContext { get; }
 
         public Type DispatcherType { get; }
     }

@@ -4,11 +4,11 @@ using System.Threading;
 
 namespace AccidentalFish.Commanding.Model
 {
-    internal sealed class CommandContext : ICommandContext
+    internal sealed class CommandDispatchContext : ICommandDispatchContext
     {
         private int _depth;
 
-        public CommandContext(string correlationId, IReadOnlyDictionary<string, object> additionalProperties)
+        public CommandDispatchContext(string correlationId, IReadOnlyDictionary<string, object> additionalProperties)
         {
             CorrelationId = correlationId;
             AdditionalProperties = additionalProperties;
@@ -31,10 +31,10 @@ namespace AccidentalFish.Commanding.Model
             return Interlocked.Decrement(ref _depth);
         }
 
-        public ICommandContext Copy()
+        public ICommandDispatchContext Copy()
         {
             IReadOnlyDictionary<string, object> copiedDictionary = AdditionalProperties.ToDictionary(x => x.Key, x => x.Value);
-            CommandContext copy = new CommandContext(CorrelationId, copiedDictionary) {_depth = _depth};
+            CommandDispatchContext copy = new CommandDispatchContext(CorrelationId, copiedDictionary) {_depth = _depth};
             return copy;
         }
     }

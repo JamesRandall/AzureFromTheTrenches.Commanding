@@ -53,7 +53,7 @@ namespace AzureStorageAuditing
             {
                 CommandActorContainerRegistration = type => resolver.Register(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required                
-                Enrichers = new [] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)Enricher }
+                Enrichers = new [] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };            
 
             resolver.UseCommanding(options)

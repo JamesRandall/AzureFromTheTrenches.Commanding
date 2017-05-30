@@ -20,7 +20,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class
+            public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("FirstAuditor");
                 return Task.FromResult(0);
@@ -36,7 +36,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class
+            public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("SecondAuditor");
                 return Task.FromResult(0);
@@ -52,7 +52,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             pipeline.RegisterAuditor<FirstAuditor>();
 
             // Act
-            await pipeline.Audit(new SimpleCommand(), new CommandContext("someid", new Dictionary<string, object>()));
+            await pipeline.Audit(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems.Single());
@@ -68,7 +68,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             pipeline.RegisterAuditor<SecondAuditor>();
 
             // Act
-            await pipeline.Audit(new SimpleCommand(), new CommandContext("someid", new Dictionary<string, object>()));
+            await pipeline.Audit(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems[0]);

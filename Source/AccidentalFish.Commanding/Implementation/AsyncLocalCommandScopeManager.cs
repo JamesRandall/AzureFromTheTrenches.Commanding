@@ -6,24 +6,24 @@ namespace AccidentalFish.Commanding.Implementation
     internal class AsyncLocalCommandScopeManager : ICommandScopeManager
     {
         private readonly ICommandCorrelationIdProvider _commandCorrelationIdProvider;
-        private readonly ICommandContextEnrichment _commandContextEnrichment;
-        private static readonly AsyncLocal<CommandContext> AsyncLocalCommandContext = new AsyncLocal<CommandContext>();
+        private readonly ICommandDispatchContextEnrichment _commandDispatchContextEnrichment;
+        private static readonly AsyncLocal<CommandDispatchContext> AsyncLocalCommandContext = new AsyncLocal<CommandDispatchContext>();
 
         public AsyncLocalCommandScopeManager(ICommandCorrelationIdProvider commandCorrelationIdProvider,
-            ICommandContextEnrichment commandContextEnrichment)
+            ICommandDispatchContextEnrichment commandDispatchContextEnrichment)
         {
             _commandCorrelationIdProvider = commandCorrelationIdProvider;
-            _commandContextEnrichment = commandContextEnrichment;
+            _commandDispatchContextEnrichment = commandDispatchContextEnrichment;
         }
 
-        public ICommandContext Enter()
+        public ICommandDispatchContext Enter()
         {
             // NOTE: this only deals with the common case (so far exclusive case) of a command dispatch sequence being
             // initiated with a single command. If multiple commands needed to be simulataneously this would need work
             if (AsyncLocalCommandContext.Value == null)
             {
                 // this starts us off with a depth of 0
-                AsyncLocalCommandContext.Value = new CommandContext(_commandCorrelationIdProvider.Create(), _commandContextEnrichment.GetAdditionalProperties());
+                AsyncLocalCommandContext.Value = new CommandDispatchContext(_commandCorrelationIdProvider.Create(), _commandDispatchContextEnrichment.GetAdditionalProperties());
             }
             else
             {
@@ -43,7 +43,7 @@ namespace AccidentalFish.Commanding.Implementation
             }
         }
 
-        public ICommandContext GetCurrent()
+        public ICommandDispatchContext GetCurrent()
         {
             return AsyncLocalCommandContext.Value;
         }

@@ -43,11 +43,11 @@ namespace AccidentalFish.Commanding
         public bool Reset { get; set; }
         /// <summary>
         /// It can be useful to include additional properties in the command context, for example the Application Insights Operation ID.
-        /// This can be done by setting this property to a set of enrichment functions - these functions are called in sequence and
+        /// This can be done by setting this property to a set of enrichment objects - these are called in sequence and
         /// are passed the current state of the command contexts enriched properties and can return a dictionary of properties to insert.
         /// If the returned dictionary contains a property that already exists it will be replaced in the command context property bag.
         /// </summary>
-        public IEnumerable<Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>> Enrichers { get; set; }
+        public IEnumerable<ICommandDispatchContextEnricher> Enrichers { get; set; }
         /// <summary>
         /// By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
         /// event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result

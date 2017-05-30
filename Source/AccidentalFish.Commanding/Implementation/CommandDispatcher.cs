@@ -26,7 +26,7 @@ namespace AccidentalFish.Commanding.Implementation
 
         public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
         {
-            ICommandContext context = _commandScopeManager.Enter();
+            ICommandDispatchContext dispatchContext = _commandScopeManager.Enter();
             try
             {
                 CommandResult<TResult> dispatchResult = null;
@@ -37,9 +37,9 @@ namespace AccidentalFish.Commanding.Implementation
                 {
                     bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
 
-                    if (context.Depth == 0 || !auditRootCommandOnly)
+                    if (dispatchContext.Depth == 0 || !auditRootCommandOnly)
                     {
-                        await _auditor.Audit(command, context);
+                        await _auditor.Audit(command, dispatchContext);
                     }
                 }
 
@@ -60,7 +60,7 @@ namespace AccidentalFish.Commanding.Implementation
                 }
                 catch (Exception ex)
                 {
-                    throw new CommandDispatchException<TCommand>(command, context.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
+                    throw new CommandDispatchException<TCommand>(command, dispatchContext.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
                 }
                 
                 if (executer == null)

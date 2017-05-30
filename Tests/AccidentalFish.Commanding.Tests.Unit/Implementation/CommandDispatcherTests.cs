@@ -149,10 +149,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandAuditor> auditor = auditorPipeline.As<ICommandAuditor>();
             Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
-            CommandContext commandContext = new CommandContext("someid", new Dictionary<string, object>());
-            commandContextManager.Setup(x => x.Enter()).Returns(commandContext);
+            CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
+            commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();
-            auditor.Setup(x => x.Audit(command, commandContext)).Callback(() =>
+            auditor.Setup(x => x.Audit(command, commandDispatchContext)).Callback(() =>
             {
                 auditExecutionIndex = executionOrder;
                 executionOrder++;
@@ -167,7 +167,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
 
             // Assert
-            auditor.Verify(x => x.Audit(command, commandContext), Times.Once);
+            auditor.Verify(x => x.Audit(command, commandDispatchContext), Times.Once);
             Assert.Equal(0, auditExecutionIndex);
             Assert.Equal(1, executeExecutionIndex);
         }

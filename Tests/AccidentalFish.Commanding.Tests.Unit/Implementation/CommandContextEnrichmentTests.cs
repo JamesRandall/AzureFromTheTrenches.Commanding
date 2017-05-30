@@ -12,7 +12,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string,object> existing) => new Dictionary<string, object>{{"Hello", "World"}};
-            CommandContextEnrichment subject = new CommandContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)Enricher });
+            CommandDispatchContextEnrichment subject = new CommandDispatchContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)Enricher });
 
             // Act
             IReadOnlyDictionary<string, object> result = subject.GetAdditionalProperties();
@@ -27,7 +27,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "Hello", "World" } };
-            CommandContextEnrichment subject = new CommandContextEnrichment(new List<ICommandContextEnricher>());
+            CommandDispatchContextEnrichment subject = new CommandDispatchContextEnrichment(new List<ICommandDispatchContextEnricher>());
             subject.AddEnrichers(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)Enricher });
 
             // Act
@@ -44,7 +44,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             IReadOnlyDictionary<string, object> FirstEnricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "Hello", "World" } };
             IReadOnlyDictionary<string, object> SecondEnricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "Rabbit", "Hat" } };
-            CommandContextEnrichment subject = new CommandContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)FirstEnricher });
+            CommandDispatchContextEnrichment subject = new CommandDispatchContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)FirstEnricher });
             subject.AddEnrichers(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)SecondEnricher });
 
             // Act
@@ -62,7 +62,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Arrange
             IReadOnlyDictionary<string, object> FirstEnricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "Hello", "World" } };
             IReadOnlyDictionary<string, object> SecondEnricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "Hello", "Hat" } };
-            CommandContextEnrichment subject = new CommandContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)FirstEnricher });
+            CommandDispatchContextEnrichment subject = new CommandDispatchContextEnrichment(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)FirstEnricher });
             subject.AddEnrichers(new[] { (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)SecondEnricher });
 
             // Act
@@ -85,7 +85,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 return new Dictionary<string, object> { { "Rabbit", "Hat" } };
             }
 
-            CommandContextEnrichment subject = new CommandContextEnrichment(new[]
+            CommandDispatchContextEnrichment subject = new CommandDispatchContextEnrichment(new[]
             {
                 (Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>)FirstEnricher,
                 SecondEnricher

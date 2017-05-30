@@ -4,6 +4,6 @@ namespace AccidentalFish.Commanding
 {
     public interface ICommandAuditor
     {
-        Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class;
+        Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class;
     }
 }

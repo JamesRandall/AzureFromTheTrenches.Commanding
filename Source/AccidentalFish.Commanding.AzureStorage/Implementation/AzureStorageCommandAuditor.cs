@@ -20,7 +20,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _storageStrategy = storageStrategy;
         }
 
-        public async Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class
+        public async Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
         {
             DateTime recordedAt = DateTime.UtcNow;
             Guid commandId = Guid.NewGuid();
@@ -28,10 +28,10 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
 
             CommandAuditByDateDescItem byDateDesc = new CommandAuditByDateDescItem
             {
-                AdditionalProperties = context.AdditionalProperties,
+                AdditionalProperties = dispatchContext.AdditionalProperties,
                 CommandType = commandType,
-                CorrelationId = context.CorrelationId,
-                Depth = context.Depth,
+                CorrelationId = dispatchContext.CorrelationId,
+                Depth = dispatchContext.Depth,
                 CommandId = commandId,
                 RecordedAtUtc = recordedAt                
             };
@@ -39,10 +39,10 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             byDateDesc.RowKey = _storageStrategy.GetRowKey(byDateDesc);
             CommandAuditByCorrelationIdItem byCorrelationId = new CommandAuditByCorrelationIdItem
             {
-                AdditionalProperties = context.AdditionalProperties,
+                AdditionalProperties = dispatchContext.AdditionalProperties,
                 CommandType = commandType,
-                CorrelationId = context.CorrelationId,
-                Depth = context.Depth,
+                CorrelationId = dispatchContext.CorrelationId,
+                Depth = dispatchContext.Depth,
                 CommandId = commandId,
                 RecordedAtUtc = recordedAt
             };

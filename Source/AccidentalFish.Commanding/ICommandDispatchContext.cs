@@ -2,7 +2,7 @@
 
 namespace AccidentalFish.Commanding
 {
-    public interface ICommandContext
+    public interface ICommandDispatchContext
     {
         string CorrelationId { get; }
 
@@ -14,6 +14,6 @@ namespace AccidentalFish.Commanding
 
         int Decrement();
 
-        ICommandContext Copy();
+        ICommandDispatchContext Copy();
     }
 }

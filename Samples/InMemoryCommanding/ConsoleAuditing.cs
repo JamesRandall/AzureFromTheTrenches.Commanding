@@ -12,14 +12,14 @@ namespace InMemoryCommanding
 {
     internal class ConsoleAuditor : ICommandAuditor
     {
-        public Task Audit<TCommand>(TCommand command, ICommandContext context) where TCommand : class
+        public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Type: {command.GetType()}");
-            Console.WriteLine($"Correlation ID: {context.CorrelationId}");
-            Console.WriteLine($"Depth: {context.Depth}");
-            foreach (KeyValuePair<string, object> enrichedProperty in context.AdditionalProperties)
+            Console.WriteLine($"Correlation ID: {dispatchContext.CorrelationId}");
+            Console.WriteLine($"Depth: {dispatchContext.Depth}");
+            foreach (KeyValuePair<string, object> enrichedProperty in dispatchContext.AdditionalProperties)
             {
                 Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
             }
@@ -53,7 +53,7 @@ namespace InMemoryCommanding
                 CommandActorContainerRegistration = type => resolver.Register(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 Enrichers = new[]
-                    {(Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>) Enricher},
+                    { new FunctionWrapperCommandDispatchContextEnricher(Enricher) },
                 AuditRootCommandOnly = auditRootOnly
             };
             resolver.UseCommanding(options) 

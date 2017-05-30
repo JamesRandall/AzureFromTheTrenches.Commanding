@@ -73,8 +73,8 @@ namespace AccidentalFish.Commanding.Implementation
                 }
                 catch (Exception ex)
                 {
-                    ICommandContext context = _commandScopeManager.GetCurrent();
-                    throw new CommandExecutionException<TCommand>(command, actorTemplate.CommandActorType, actorIndex, context?.Copy(), "Error occurred during command execution", ex);
+                    ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
+                    throw new CommandExecutionException<TCommand>(command, actorTemplate.CommandActorType, actorIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
                 }
                 actorIndex++;
             }

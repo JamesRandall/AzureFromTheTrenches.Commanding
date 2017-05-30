@@ -1,9 +1,10 @@
 ﻿namespace AccidentalFish.Commanding.Implementation
 {
+    // the intention is to eventually make this a public replaceable interface
     internal interface ICommandScopeManager
     {
-        ICommandContext Enter();
+        ICommandDispatchContext Enter();
         void Exit();
-        ICommandContext GetCurrent();
+        ICommandDispatchContext GetCurrent();
     }
 }

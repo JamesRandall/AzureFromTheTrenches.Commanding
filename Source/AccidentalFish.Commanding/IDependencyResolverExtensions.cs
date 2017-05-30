@@ -10,7 +10,7 @@ namespace AccidentalFish.Commanding
     {
         private static ICommandRegistry _registry = null;
         private static readonly object RegistryLockObject = new object();
-        private static ICommandContextEnrichment _contextEnrichment = null;
+        private static ICommandDispatchContextEnrichment _dispatchContextEnrichment = null;
         private static readonly object EnrichmentLockObject = new object();
         private static ICommandAuditPipeline _auditorPipeline = null;
         private static readonly object AuditorPipelineLockObject = new object();
@@ -65,15 +65,15 @@ namespace AccidentalFish.Commanding
             // on dependecy resolver checks for an existing registration
             lock (EnrichmentLockObject) 
             {
-                if (_contextEnrichment == null || options.Reset)
+                if (_dispatchContextEnrichment == null || options.Reset)
                 {
-                    _contextEnrichment = new CommandContextEnrichment(options.Enrichers ?? new List<Func<IReadOnlyDictionary<string, object>, IReadOnlyDictionary<string, object>>>());
+                    _dispatchContextEnrichment = new CommandDispatchContextEnrichment(options.Enrichers ?? new List<ICommandDispatchContextEnricher>());
                 }
                 else if (options.Enrichers != null)
                 {
-                    _contextEnrichment.AddEnrichers(options.Enrichers);
+                    _dispatchContextEnrichment.AddEnrichers(options.Enrichers);
                 }
-                dependencyResolver.RegisterInstance(_contextEnrichment);
+                dependencyResolver.RegisterInstance(_dispatchContextEnrichment);
             }
 
             lock (AuditorPipelineLockObject)
