@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Implementation;
@@ -20,10 +21,15 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("FirstAuditor");
                 return Task.FromResult(0);
+            }
+
+            public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+            {
+                throw new NotImplementedException();
             }
         }
 
@@ -36,10 +42,15 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("SecondAuditor");
                 return Task.FromResult(0);
+            }
+
+            public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+            {
+                throw new NotImplementedException();
             }
         }
 

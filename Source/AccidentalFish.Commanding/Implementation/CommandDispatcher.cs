@@ -9,7 +9,7 @@ namespace AccidentalFish.Commanding.Implementation
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandScopeManager _commandScopeManager;
         private readonly ICommandDispatcherOptions _options;
-        private readonly ICommandAuditor _auditor;
+        private readonly ICommandAuditPipeline _auditor;
 
         public CommandDispatcher(ICommandRegistry commandRegistry,
             ICommandExecuter commandExecuter,
@@ -20,7 +20,7 @@ namespace AccidentalFish.Commanding.Implementation
             _commandRegistry = commandRegistry;
             _commandScopeManager = commandScopeManager;
             _options = options;
-            _auditor = auditPipeline as ICommandAuditor;
+            _auditor = auditPipeline;
             AssociatedExecuter = commandExecuter;
         }
 

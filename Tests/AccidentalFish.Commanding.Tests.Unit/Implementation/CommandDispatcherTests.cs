@@ -152,7 +152,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();
-            auditor.Setup(x => x.Audit(command, commandDispatchContext)).Callback(() =>
+            auditor.Setup(x => x.AuditWithCommandPayload(command, commandDispatchContext)).Callback(() =>
             {
                 auditExecutionIndex = executionOrder;
                 executionOrder++;
@@ -167,7 +167,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
 
             // Assert
-            auditor.Verify(x => x.Audit(command, commandDispatchContext), Times.Once);
+            auditor.Verify(x => x.AuditWithCommandPayload(command, commandDispatchContext), Times.Once);
             Assert.Equal(0, auditExecutionIndex);
             Assert.Equal(1, executeExecutionIndex);
         }

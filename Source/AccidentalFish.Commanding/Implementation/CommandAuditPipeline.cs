@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AccidentalFish.Commanding.Implementation
 {
-    internal class CommandAuditPipeline : ICommandAuditPipeline, ICommandAuditor
+    internal class CommandAuditPipeline : ICommandAuditPipeline
     {
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
         private readonly List<Type> _registeredAuditors = new List<Type>();
@@ -30,7 +30,7 @@ namespace AccidentalFish.Commanding.Implementation
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.Audit(command, dispatchContext));
+                auditTasks.Add(auditor.AuditWithCommandPayload(command, dispatchContext));
             }
             await Task.WhenAll(auditTasks);
         }

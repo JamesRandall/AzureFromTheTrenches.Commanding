@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using AccidentalFish.Commanding.AzureStorage.Implementation;
 using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.DependencyResolver;
@@ -47,7 +49,7 @@ namespace AccidentalFish.Commanding.AzureStorage
             CloudTableClient cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
             if (commandPayloadContainer == null)
             {
-                commandPayloadContainer = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference("commandauditbydate");
+                commandPayloadContainer = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference("commandauditpayload");
             }
             if (storageStrategy == null)
             {
@@ -66,18 +68,29 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// where there are multiple auditors or storage mechanisms in the audit pipeline as it enables
         /// execution of the command dispatch pipeline to rapidly continue but still with a guarantee
         /// that the command will be audited.
+        /// 
+        /// Generally when configuring this auditor no other auditors are configured - but you can.
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver</param>
-        /// <param name="queue">The queue to </param>
+        /// <param name="queue">The queue to audit via</param>
+        /// <param name="blobContainer">The blob container to store the payload to</param>
         /// <param name="storageStrategy"></param>
         /// <returns></returns>
         public static IDependencyResolver UseAzureStorageCommandAuditing(this IDependencyResolver dependencyResolver,
             CloudQueue queue,
+            CloudBlobContainer blobContainer,
             IStorageStrategy storageStrategy = null)
         {
-            ICloudQueueProvider cloudQueueProvider = new CloudQueueProvider(queue);
+            ICloudQueueProvider cloudQueueProvider = new CloudQueueProvider(queue, blobContainer);
             dependencyResolver.RegisterInstance(cloudQueueProvider);
             dependencyResolver.RegisterCommandingAuditor<AzureStorageQueueCommandAuditor>();
+            return dependencyResolver;
+        }
+
+        
+        public static IDependencyResolver UseAzureStorageAuditQueueProcessor(this IDependencyResolver dependencyResolver)
+        {
+
             return dependencyResolver;
         }
     }

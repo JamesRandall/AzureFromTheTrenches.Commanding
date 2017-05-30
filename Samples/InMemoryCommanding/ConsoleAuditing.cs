@@ -12,7 +12,7 @@ namespace InMemoryCommanding
 {
     internal class ConsoleAuditor : ICommandAuditor
     {
-        public Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        public Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -25,6 +25,11 @@ namespace InMemoryCommanding
             }
             Console.ForegroundColor = previousColor;
             return Task.FromResult(0);
+        }
+
+        public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+        {
+            throw new NotImplementedException();
         }
     }
 

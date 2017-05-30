@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.AzureStorage.Model;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 
@@ -16,12 +17,24 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _cloudQueueProvider = cloudQueueProvider;
         }
 
-        public async Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        public async Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        {
+            
+            Guid commandId = Guid.NewGuid();
+            string commandType = command.GetType().AssemblyQualifiedName;
+            string json = JsonConvert.SerializeObject(command);
+            CloudBlobContainer blobContainer = _cloudQueueProvider.BlobContainer;
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference($"{commandId}.json");
+
+            await Task.WhenAll(
+                blob.UploadTextAsync(json),
+                AuditWithNoPayload(commandId, commandType, dispatchContext));
+        }
+
+        public async Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
         {
             CloudQueue queue = _cloudQueueProvider.Queue;
             DateTime recordedAt = DateTime.UtcNow;
-            Guid commandId = Guid.NewGuid();
-            string commandType = command.GetType().AssemblyQualifiedName;
 
             AuditQueueItem item = new AuditQueueItem
             {

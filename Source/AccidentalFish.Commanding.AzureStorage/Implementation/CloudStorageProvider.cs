@@ -14,7 +14,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
         private readonly CloudTableClient _tableClient;
         private readonly CloudBlobContainer _commandPayloadContainer;
         private readonly ConcurrentDictionary<string, CloudTable> _cloudTables = new ConcurrentDictionary<string, CloudTable>();
-        private volatile bool _hasAttemptedCreation = false;
+        private volatile bool _hasAttemptedCreation;
 
         public CloudStorageProvider(CloudTableClient tableClient, CloudBlobContainer commandPayloadContainer)
         {
@@ -24,7 +24,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
 
         public async Task<CloudTable> GetTable(string tableName)
         {
-            CloudTable cloudTable = null;
+            CloudTable cloudTable;
             if (!_cloudTables.TryGetValue(tableName, out cloudTable))
             {
                 cloudTable = _tableClient.GetTableReference(tableName);

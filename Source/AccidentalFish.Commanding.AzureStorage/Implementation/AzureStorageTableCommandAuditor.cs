@@ -20,12 +20,21 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _storageStrategy = storageStrategy;
         }
 
-        public async Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        public async Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        {
+            string commandType = command.GetType().AssemblyQualifiedName;
+            Guid commandId = Guid.NewGuid();
+            string json = JsonConvert.SerializeObject(command);
+            CloudBlobContainer blobContainer = await _cloudStorageProvider.GetBlobContainer();
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference($"{commandId}.json");
+
+            await Task.WhenAll(blob.UploadTextAsync(json),
+                AuditWithNoPayload(commandId, commandType, dispatchContext));
+        }
+
+        public async Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
         {
             DateTime recordedAt = DateTime.UtcNow;
-            Guid commandId = Guid.NewGuid();
-            string commandType = command.GetType().AssemblyQualifiedName;
-
             CommandAuditByDateDescItem byDateDesc = new CommandAuditByDateDescItem
             {
                 AdditionalProperties = dispatchContext.AdditionalProperties,
@@ -48,19 +57,16 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             };
             byCorrelationId.PartitionKey = _storageStrategy.GetPartitionKey(byCorrelationId);
             byCorrelationId.RowKey = _storageStrategy.GetRowKey(byCorrelationId);
-            string json = JsonConvert.SerializeObject(command);
-
-            Task<CloudBlobContainer> blobContainerTask = _cloudStorageProvider.GetBlobContainer();
+            
             Task<CloudTable> byDateTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byDateDesc));
             Task<CloudTable> byCorrelationIdTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byCorrelationId));
 
-            await Task.WhenAll(blobContainerTask, byDateTableTask, byCorrelationIdTableTask);
+            await Task.WhenAll(byDateTableTask, byCorrelationIdTableTask);
 
-            CloudBlockBlob blob = blobContainerTask.Result.GetBlockBlobReference($"{commandId}.json");
+            
             await Task.WhenAll(
                 byDateTableTask.Result.ExecuteAsync(TableOperation.Insert(byDateDesc)),
-                byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId)),
-                blob.UploadTextAsync(json)
+                byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId))
             );
         }
     }
