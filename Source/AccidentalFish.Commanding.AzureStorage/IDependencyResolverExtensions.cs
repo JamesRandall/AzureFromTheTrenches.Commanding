@@ -4,6 +4,7 @@ using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.DependencyResolver;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace AccidentalFish.Commanding.AzureStorage
@@ -31,7 +32,7 @@ namespace AccidentalFish.Commanding.AzureStorage
         }
 
         /// <summary>
-        /// Sets up azure storage command auditing
+        /// Sets up azure storage command auditing for direct output to tables
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver</param>
         /// <param name="cloudStorageAccount">The cloud storage account to use for storage</param>
@@ -56,7 +57,27 @@ namespace AccidentalFish.Commanding.AzureStorage
             ICloudStorageProvider cloudStorageProvider = new CloudStorageProvider(cloudTableClient, commandPayloadContainer);
             dependencyResolver.RegisterInstance(cloudStorageProvider);
             dependencyResolver.RegisterInstance(storageStrategy);
-            dependencyResolver.RegisterCommandingAuditor<AzureStorageCommandAuditor>();
+            dependencyResolver.RegisterCommandingAuditor<AzureStorageTableCommandAuditor>();
+            return dependencyResolver;
+        }
+
+        /// <summary>
+        /// Sets up azure storage command auditing for output to a queue. This is best suited for scenarios
+        /// where there are multiple auditors or storage mechanisms in the audit pipeline as it enables
+        /// execution of the command dispatch pipeline to rapidly continue but still with a guarantee
+        /// that the command will be audited.
+        /// </summary>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <param name="queue">The queue to </param>
+        /// <param name="storageStrategy"></param>
+        /// <returns></returns>
+        public static IDependencyResolver UseAzureStorageCommandAuditing(this IDependencyResolver dependencyResolver,
+            CloudQueue queue,
+            IStorageStrategy storageStrategy = null)
+        {
+            ICloudQueueProvider cloudQueueProvider = new CloudQueueProvider(queue);
+            dependencyResolver.RegisterInstance(cloudQueueProvider);
+            dependencyResolver.RegisterCommandingAuditor<AzureStorageQueueCommandAuditor>();
             return dependencyResolver;
         }
     }

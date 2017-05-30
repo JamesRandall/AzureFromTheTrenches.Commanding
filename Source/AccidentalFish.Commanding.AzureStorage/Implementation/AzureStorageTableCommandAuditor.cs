@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {
-    class AzureStorageCommandAuditor : ICommandAuditor
+    class AzureStorageTableCommandAuditor : ICommandAuditor
     {
         private readonly ICloudStorageProvider _cloudStorageProvider;
         private readonly IStorageStrategy _storageStrategy;
 
-        public AzureStorageCommandAuditor(
+        public AzureStorageTableCommandAuditor(
             ICloudStorageProvider cloudStorageProvider,
             IStorageStrategy storageStrategy)
         {
