@@ -11,14 +11,14 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
     {
         private readonly Func<Exception, Task<bool>> _dequeErrorHandler;
         private readonly IAsynchronousBackoffPolicy _backoffPolicy;
-        private readonly IAzureStorageQueueCommandSerializer _serializer;
+        private readonly IAzureStorageQueueSerializer _serializer;
         private readonly CloudQueue _queue;
         private readonly Action<string> _logger;
         private readonly Func<QueueItem<T>, Task<bool>> _handleReceivedItemAsyncFunc;
 
         public AzureStorageQueueBackoffProcessor(
             IAsynchronousBackoffPolicy backoffPolicy,
-            IAzureStorageQueueCommandSerializer serializer,
+            IAzureStorageQueueSerializer serializer,
             CloudQueue queue,
             Func<QueueItem<T>, Task<bool>> handleReceivedItemAsyncFunc,
             Action<string> logger = null,

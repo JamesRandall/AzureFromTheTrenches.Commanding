@@ -14,7 +14,7 @@ namespace AccidentalFish.Commanding.AzureStorage
     // ReSharper disable once InconsistentNaming
     public static class IDependencyResolverExtensions
     {
-        public static IDependencyResolver UseAzureStorageCommanding<TSerializer>(this IDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueCommandSerializer
+        public static IDependencyResolver UseAzureStorageCommanding<TSerializer>(this IDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
         {
             Register<TSerializer>(dependencyResolver);
             return dependencyResolver;
@@ -22,13 +22,13 @@ namespace AccidentalFish.Commanding.AzureStorage
 
         public static IDependencyResolver UseAzureStorageCommanding(this IDependencyResolver dependencyResolver)
         {
-            Register<JsonCommandSerializer>(dependencyResolver);
+            Register<JsonSerializer>(dependencyResolver);
             return dependencyResolver;
         }
 
-        private static void Register<TSerializer>(this IDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueCommandSerializer
+        private static void Register<TSerializer>(this IDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
         {
-            dependencyResolver.Register<IAzureStorageQueueCommandSerializer, TSerializer>();
+            dependencyResolver.Register<IAzureStorageQueueSerializer, TSerializer>();
             dependencyResolver.Register<IAzureStorageCommandQueueProcessorFactory, AzureStorageCommandQueueProcessorFactory>();
             dependencyResolver.Register<IAzureStorageQueueDispatcherFactory, AzureStorageQueueDispatcherFactory>();
         }
@@ -73,12 +73,17 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver</param>
         /// <param name="queue">The queue to audit via</param>
-        /// <param name="blobContainer">The blob container to store the payload to</param>
+        /// <param name="blobContainer">The blob container to store the payload to. If this is set then the
+        /// payload is stored before the item is queued, if left null then the payload will be serialized
+        /// into the queue item. The default setting of null is the more performant and common case, setting
+        /// the container here is only useful for very large command payloads that won't fit inside a queue
+        /// item.
+        /// </param>
         /// <param name="storageStrategy"></param>
         /// <returns></returns>
         public static IDependencyResolver UseAzureStorageCommandAuditing(this IDependencyResolver dependencyResolver,
             CloudQueue queue,
-            CloudBlobContainer blobContainer,
+            CloudBlobContainer blobContainer = null,
             IStorageStrategy storageStrategy = null)
         {
             ICloudQueueProvider cloudQueueProvider = new CloudQueueProvider(queue, blobContainer);

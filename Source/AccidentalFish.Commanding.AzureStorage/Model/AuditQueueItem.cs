@@ -16,5 +16,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Model
         public Guid CommandId { get; set; }
         
         public Dictionary<string, string> AdditionalProperties { get; set; }
+
+        public string CommandPayloadJson { get; set; }
     }
 }

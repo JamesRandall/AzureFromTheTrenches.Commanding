@@ -21,7 +21,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("FirstAuditor");
                 return Task.FromResult(0);
@@ -42,7 +42,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
             {
                 _auditItems.Add("SecondAuditor");
                 return Task.FromResult(0);
@@ -61,9 +61,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             List<string> auditItems = new EditableList<string>();
             CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems));
             pipeline.RegisterAuditor<FirstAuditor>();
+            Guid commandId = Guid.NewGuid();
 
             // Act
-            await pipeline.Audit(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
+            await pipeline.Audit(new SimpleCommand(), commandId, new CommandDispatchContext("someid", new Dictionary<string, object>()));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems.Single());
@@ -77,9 +78,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems));
             pipeline.RegisterAuditor<FirstAuditor>();
             pipeline.RegisterAuditor<SecondAuditor>();
+            Guid commandId = Guid.NewGuid();
 
             // Act
-            await pipeline.Audit(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
+            await pipeline.Audit(new SimpleCommand(), commandId, new CommandDispatchContext("someid", new Dictionary<string, object>()));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems[0]);

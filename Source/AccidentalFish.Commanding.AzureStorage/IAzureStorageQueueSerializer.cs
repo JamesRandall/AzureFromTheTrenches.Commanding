@@ -1,6 +1,6 @@
 ﻿namespace AccidentalFish.Commanding.AzureStorage
 {
-    public interface IAzureStorageQueueCommandSerializer
+    public interface IAzureStorageQueueSerializer
     {
         /// <summary>
         /// Serialize the given object to a string

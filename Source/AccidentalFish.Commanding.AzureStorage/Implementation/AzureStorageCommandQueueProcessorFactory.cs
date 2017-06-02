@@ -10,11 +10,11 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
     {
         private readonly ICommandQueueProcessor _commandQueueProcessor;
         private readonly IAsynchronousBackoffPolicyFactory _backoffPolicyFactory;
-        private readonly IAzureStorageQueueCommandSerializer _serializer;
+        private readonly IAzureStorageQueueSerializer _serializer;
 
         public AzureStorageCommandQueueProcessorFactory(ICommandQueueProcessor commandQueueProcessor,
             IAsynchronousBackoffPolicyFactory backoffPolicyFactory,
-            IAzureStorageQueueCommandSerializer serializer)
+            IAzureStorageQueueSerializer serializer)
         {
             _commandQueueProcessor = commandQueueProcessor;
             _backoffPolicyFactory = backoffPolicyFactory;

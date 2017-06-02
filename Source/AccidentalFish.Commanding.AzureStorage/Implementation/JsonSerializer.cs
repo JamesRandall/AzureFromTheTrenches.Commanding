@@ -2,7 +2,7 @@
 
 namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {
-    internal class JsonCommandSerializer : IAzureStorageQueueCommandSerializer
+    internal class JsonSerializer : IAzureStorageQueueSerializer
     {
         public string Serialize(object obj)
         {

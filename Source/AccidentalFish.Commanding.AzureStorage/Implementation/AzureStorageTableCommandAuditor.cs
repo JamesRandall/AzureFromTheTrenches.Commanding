@@ -20,10 +20,9 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _storageStrategy = storageStrategy;
         }
 
-        public async Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        public async Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
         {
             string commandType = command.GetType().AssemblyQualifiedName;
-            Guid commandId = Guid.NewGuid();
             string json = JsonConvert.SerializeObject(command);
             CloudBlobContainer blobContainer = await _cloudStorageProvider.GetBlobContainer();
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference($"{commandId}.json");

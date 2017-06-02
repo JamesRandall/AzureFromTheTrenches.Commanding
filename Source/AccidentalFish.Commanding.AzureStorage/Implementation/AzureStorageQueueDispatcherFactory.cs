@@ -4,9 +4,9 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {
     class AzureStorageQueueDispatcherFactory : IAzureStorageQueueDispatcherFactory
     {
-        private readonly IAzureStorageQueueCommandSerializer _serializer;
+        private readonly IAzureStorageQueueSerializer _serializer;
 
-        public AzureStorageQueueDispatcherFactory(IAzureStorageQueueCommandSerializer serializer)
+        public AzureStorageQueueDispatcherFactory(IAzureStorageQueueSerializer serializer)
         {
             _serializer = serializer;
         }

@@ -37,9 +37,9 @@ namespace AccidentalFish.Commanding.Implementation
                 {
                     bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
 
-                    if (dispatchContext.Depth == 0 || !auditRootCommandOnly)
+                    if (!auditRootCommandOnly || dispatchContext.Depth == 0)
                     {
-                        await _auditor.Audit(command, dispatchContext);
+                        await _auditor.Audit(command, Guid.NewGuid(), dispatchContext);
                     }
                 }
 

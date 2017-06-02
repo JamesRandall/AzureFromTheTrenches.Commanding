@@ -18,7 +18,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
+            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();            
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
             SimpleCommand command = new SimpleCommand();
@@ -146,13 +146,12 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandAuditor> auditor = auditorPipeline.As<ICommandAuditor>();
             Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
             CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();
-            auditor.Setup(x => x.AuditWithCommandPayload(command, commandDispatchContext)).Callback(() =>
+            auditorPipeline.Setup(x => x.Audit(command, It.IsAny<Guid>(), commandDispatchContext)).Callback(() =>
             {
                 auditExecutionIndex = executionOrder;
                 executionOrder++;
@@ -167,7 +166,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
 
             // Assert
-            auditor.Verify(x => x.AuditWithCommandPayload(command, commandDispatchContext), Times.Once);
+            auditorPipeline.Verify(x => x.Audit(command, It.IsAny<Guid>(), commandDispatchContext), Times.Once);
             Assert.Equal(0, auditExecutionIndex);
             Assert.Equal(1, executeExecutionIndex);
         }

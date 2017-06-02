@@ -15,7 +15,7 @@ namespace AccidentalFish.Commanding
         /// <param name="command">The command</param>
         /// <param name="dispatchContext">The dispatch context</param>
         /// <returns></returns>
-        Task AuditWithCommandPayload<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class;
+        Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class;
         /// <summary>
         /// Implementations should use this to store command index data only
         /// </summary>

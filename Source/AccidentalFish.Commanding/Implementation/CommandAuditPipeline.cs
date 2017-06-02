@@ -24,13 +24,13 @@ namespace AccidentalFish.Commanding.Implementation
             _registeredAuditors.Add(typeof(TAuditorImpl));
         }
 
-        public async Task Audit<TCommand>(TCommand command, ICommandDispatchContext dispatchContext) where TCommand : class
+        public async Task Audit<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
         {
             IReadOnlyCollection<ICommandAuditor> auditors = GetAuditors();
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.AuditWithCommandPayload(command, dispatchContext));
+                auditTasks.Add(auditor.AuditWithCommandPayload(command, commandId, dispatchContext));
             }
             await Task.WhenAll(auditTasks);
         }

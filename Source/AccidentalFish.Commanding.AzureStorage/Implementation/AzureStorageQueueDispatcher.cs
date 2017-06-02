@@ -7,9 +7,9 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
     class AzureStorageQueueDispatcher : ICommandDispatcher
     {
         private readonly CloudQueue _queue;
-        private readonly IAzureStorageQueueCommandSerializer _serializer;
+        private readonly IAzureStorageQueueSerializer _serializer;
 
-        public AzureStorageQueueDispatcher(CloudQueue queue, IAzureStorageQueueCommandSerializer serializer)
+        public AzureStorageQueueDispatcher(CloudQueue queue, IAzureStorageQueueSerializer serializer)
         {
             _queue = queue;
             _serializer = serializer;
