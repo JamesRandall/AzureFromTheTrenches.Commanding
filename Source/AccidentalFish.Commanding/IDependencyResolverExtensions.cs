@@ -80,7 +80,7 @@ namespace AccidentalFish.Commanding
             {
                 if (_auditorPipeline == null || options.Reset)
                 {
-                    _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t));
+                    _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t), dependencyResolver.Resolve<ICommandAuditSerializer>);
                 }
                 dependencyResolver.RegisterInstance(_auditorPipeline);
             }
@@ -115,6 +115,7 @@ namespace AccidentalFish.Commanding
             dependencyResolver.Register<ICommandDispatcher, CommandDispatcher>();
             dependencyResolver.Register<ICommandExecuter, CommandExecuter>();
             dependencyResolver.Register<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
+            dependencyResolver.Register<ICommandAuditSerializer, CommandAuditSerializer>();
             
             return _registry;
         }
@@ -127,7 +128,8 @@ namespace AccidentalFish.Commanding
                 {
                     throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
                 }
-                _auditorPipeline.RegisterAuditor<TAuditorImpl>();
+                IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
+                registration.RegisterAuditor<TAuditorImpl>();
             }
             dependencyResolver.Register<TAuditorImpl, TAuditorImpl>();
             return dependencyResolver;

@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Implementation
 {
-    internal class CommandAuditPipeline : ICommandAuditPipeline
+    internal class CommandAuditPipeline : ICommandAuditPipeline, IAuditorRegistration
     {
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
+        private readonly Func<ICommandAuditSerializer> _auditorSerializerFunc;
         private readonly List<Type> _registeredAuditors = new List<Type>();
         private volatile IReadOnlyCollection<ICommandAuditor> _auditors = null;
         private readonly object _auditorCreationLock = new object();
 
-        public CommandAuditPipeline(Func<Type, ICommandAuditor> auditorFactoryFunc)
+        public CommandAuditPipeline(Func<Type, ICommandAuditor> auditorFactoryFunc, Func<ICommandAuditSerializer> auditorSerializerFunc)
         {
             _auditorFactoryFunc = auditorFactoryFunc;
+            _auditorSerializerFunc = auditorSerializerFunc;
         }
 
         
@@ -26,11 +29,27 @@ namespace AccidentalFish.Commanding.Implementation
 
         public async Task Audit<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
         {
+            ICommandAuditSerializer serializer = _auditorSerializerFunc();
+            AuditItem auditItem = new AuditItem
+            {
+                AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
+                CommandId = commandId,
+                CommandType = command.GetType().AssemblyQualifiedName,
+                CorrelationId = dispatchContext.CorrelationId,
+                Depth = dispatchContext.Depth,
+                DispatchedUtc = DateTime.UtcNow,
+                SerializedCommand = serializer.Serialize(command)
+            };
+            await Audit(auditItem);
+        }
+
+        public async Task Audit(AuditItem auditItem)
+        {
             IReadOnlyCollection<ICommandAuditor> auditors = GetAuditors();
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.AuditWithCommandPayload(command, commandId, dispatchContext));
+                auditTasks.Add(auditor.Audit(auditItem));
             }
             await Task.WhenAll(auditTasks);
         }

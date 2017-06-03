@@ -27,12 +27,12 @@ namespace AccidentalFish.Commanding.AzureStorage.Strategies
 
         public string GetPartitionKey(CommandAuditByDateDescItem tableEntity)
         {
-            return tableEntity.RecordedAtUtc.ToString("yyyyMMddHH", CultureInfo.InvariantCulture);
+            return tableEntity.DispatchedAtUtc.ToString("yyyyMMddHH", CultureInfo.InvariantCulture);
         }
 
         public string GetRowKey(CommandAuditByDateDescItem tableEntity)
         {
-            return $"{DateTime.MaxValue.Ticks - tableEntity.RecordedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
+            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
         }
 
         public string GetPartitionKey(CommandAuditByCorrelationIdItem tableEntity)
@@ -42,7 +42,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Strategies
 
         public string GetRowKey(CommandAuditByCorrelationIdItem tableEntity)
         {
-            return $"{DateTime.MaxValue.Ticks - tableEntity.RecordedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
+            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
         }
     }
 }

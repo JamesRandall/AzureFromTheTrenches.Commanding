@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.AzureStorage.Model;
+using AccidentalFish.Commanding.Model;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
-using Newtonsoft.Json;
 
 namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {
@@ -20,53 +20,54 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _storageStrategy = storageStrategy;
         }
 
-        public async Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
+        private async Task AuditPayload(string payload, Guid commandId)
         {
-            string commandType = command.GetType().AssemblyQualifiedName;
-            string json = JsonConvert.SerializeObject(command);
             CloudBlobContainer blobContainer = await _cloudStorageProvider.GetBlobContainer();
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference($"{commandId}.json");
 
-            await Task.WhenAll(blob.UploadTextAsync(json),
-                AuditWithNoPayload(commandId, commandType, dispatchContext));
+            await blob.UploadTextAsync(payload);
         }
 
-        public async Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+        public async Task Audit(AuditItem auditItem)
         {
-            DateTime recordedAt = DateTime.UtcNow;
+            if (!string.IsNullOrWhiteSpace(auditItem.SerializedCommand))
+            {
+                await AuditPayload(auditItem.SerializedCommand, auditItem.CommandId);
+            }
+
             CommandAuditByDateDescItem byDateDesc = new CommandAuditByDateDescItem
             {
-                AdditionalProperties = dispatchContext.AdditionalProperties,
-                CommandType = commandType,
-                CorrelationId = dispatchContext.CorrelationId,
-                Depth = dispatchContext.Depth,
-                CommandId = commandId,
-                RecordedAtUtc = recordedAt                
+                AdditionalProperties = auditItem.AdditionalProperties,
+                CommandType = auditItem.CommandType,
+                CorrelationId = auditItem.CorrelationId,
+                Depth = auditItem.Depth,
+                CommandId = auditItem.CommandId,
+                DispatchedAtUtc = auditItem.DispatchedUtc
             };
             byDateDesc.PartitionKey = _storageStrategy.GetPartitionKey(byDateDesc);
             byDateDesc.RowKey = _storageStrategy.GetRowKey(byDateDesc);
             CommandAuditByCorrelationIdItem byCorrelationId = new CommandAuditByCorrelationIdItem
             {
-                AdditionalProperties = dispatchContext.AdditionalProperties,
-                CommandType = commandType,
-                CorrelationId = dispatchContext.CorrelationId,
-                Depth = dispatchContext.Depth,
-                CommandId = commandId,
-                RecordedAtUtc = recordedAt
+                AdditionalProperties = auditItem.AdditionalProperties,
+                CommandType = auditItem.CommandType,
+                CorrelationId = auditItem.CorrelationId,
+                Depth = auditItem.Depth,
+                CommandId = auditItem.CommandId,
+                DispatchedAtUtc = auditItem.DispatchedUtc
             };
             byCorrelationId.PartitionKey = _storageStrategy.GetPartitionKey(byCorrelationId);
             byCorrelationId.RowKey = _storageStrategy.GetRowKey(byCorrelationId);
-            
+
             Task<CloudTable> byDateTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byDateDesc));
             Task<CloudTable> byCorrelationIdTableTask = _cloudStorageProvider.GetTable(_storageStrategy.GetTableName(byCorrelationId));
 
             await Task.WhenAll(byDateTableTask, byCorrelationIdTableTask);
 
-            
+
             await Task.WhenAll(
                 byDateTableTask.Result.ExecuteAsync(TableOperation.Insert(byDateDesc)),
                 byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId))
             );
-        }
+        }        
     }
 }

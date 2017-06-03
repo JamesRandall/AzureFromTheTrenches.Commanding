@@ -56,7 +56,7 @@ namespace AzureStorageQueueCommanding
                 CommandActorContainerRegistration = type => resolver.Register(type, type)                
             };
             ICommandRegistry registry = resolver.UseCommanding(options);
-            resolver.UseCommandQueues().UseAzureStorageCommanding();
+            resolver.UseQueues().UseAzureStorageCommanding();
 
             ICommandDispatcher QueueDispatcher() => resolver.Resolve<IAzureStorageQueueDispatcherFactory>().Create(queue);
             registry.Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>(dispatcherFactoryFunc: QueueDispatcher)

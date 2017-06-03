@@ -6,6 +6,7 @@ using AccidentalFish.Commanding.Implementation;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.Commanding.Tests.Unit.TestModel;
 using Castle.Components.DictionaryAdapter;
+using Moq;
 using Xunit;
 
 namespace AccidentalFish.Commanding.Tests.Unit.Implementation
@@ -21,15 +22,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task Audit(AuditItem auditItem)
             {
                 _auditItems.Add("FirstAuditor");
                 return Task.FromResult(0);
-            }
-
-            public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
-            {
-                throw new NotImplementedException();
             }
         }
 
@@ -42,16 +38,11 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
+            public Task Audit(AuditItem auditItem)
             {
                 _auditItems.Add("SecondAuditor");
                 return Task.FromResult(0);
-            }
-
-            public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
-            {
-                throw new NotImplementedException();
-            }
+            }            
         }
 
         [Fact]
@@ -59,7 +50,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             List<string> auditItems = new EditableList<string>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems));
+            Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
             pipeline.RegisterAuditor<FirstAuditor>();
             Guid commandId = Guid.NewGuid();
 
@@ -75,7 +67,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
         {
             // Arrange
             List<string> auditItems = new EditableList<string>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems));
+            Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems), () => serializer.Object);
             pipeline.RegisterAuditor<FirstAuditor>();
             pipeline.RegisterAuditor<SecondAuditor>();
             Guid commandId = Guid.NewGuid();

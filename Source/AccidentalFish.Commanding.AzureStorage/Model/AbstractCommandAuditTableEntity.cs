@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
@@ -8,7 +7,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Model
 {
     public class AbstractCommandAuditTableEntity : TableEntity
     {
-        public DateTime RecordedAtUtc { get; set; }
+        public DateTime DispatchedAtUtc { get; set; }
 
         public string CommandType { get; set; }
 
@@ -19,7 +18,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Model
         public Guid CommandId { get; set; }
 
         [IgnoreProperty]
-        public IReadOnlyDictionary<string, object> AdditionalProperties { get; set; }
+        public IReadOnlyDictionary<string, string> AdditionalProperties { get; set; }
 
         public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
@@ -30,7 +29,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Model
                 foreach (var kvp in AdditionalProperties)
                 {
                     string keyName = existingProperties.Contains(kvp.Key) ? $"e{kvp.Key}" : kvp.Key;
-                    results.Add(keyName, new EntityProperty(kvp.Value.ToString()));
+                    results.Add(keyName, new EntityProperty(kvp.Value));
                 }
             }
             return results;

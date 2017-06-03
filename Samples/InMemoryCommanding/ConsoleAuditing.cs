@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Model;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
@@ -12,14 +13,14 @@ namespace InMemoryCommanding
 {
     internal class ConsoleAuditor : ICommandAuditor
     {
-        public Task AuditWithCommandPayload<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
+        public Task Audit(AuditItem item)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"Type: {command.GetType()}");
-            Console.WriteLine($"Correlation ID: {dispatchContext.CorrelationId}");
-            Console.WriteLine($"Depth: {dispatchContext.Depth}");
-            foreach (KeyValuePair<string, object> enrichedProperty in dispatchContext.AdditionalProperties)
+            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Correlation ID: {item.CorrelationId}");
+            Console.WriteLine($"Depth: {item.Depth}");
+            foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
             {
                 Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
             }

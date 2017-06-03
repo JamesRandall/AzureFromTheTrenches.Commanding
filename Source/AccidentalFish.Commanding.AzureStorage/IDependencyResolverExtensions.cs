@@ -77,7 +77,8 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// payload is stored before the item is queued, if left null then the payload will be serialized
         /// into the queue item. The default setting of null is the more performant and common case, setting
         /// the container here is only useful for very large command payloads that won't fit inside a queue
-        /// item.
+        /// item. If the payload is stored in the blob container specified here then there will be no way
+        /// for downstream auditors to access it from the AuditItem model - it will be null.
         /// </param>
         /// <param name="storageStrategy"></param>
         /// <returns></returns>
@@ -86,16 +87,30 @@ namespace AccidentalFish.Commanding.AzureStorage
             CloudBlobContainer blobContainer = null,
             IStorageStrategy storageStrategy = null)
         {
-            ICloudQueueProvider cloudQueueProvider = new CloudQueueProvider(queue, blobContainer);
-            dependencyResolver.RegisterInstance(cloudQueueProvider);
+            ICloudAuditQueueProvider cloudAuditQueueProvider = new CloudAuditQueueProvider(queue, null);
+            ICloudAuditQueueBlobContainerProvider cloudAuditQueueBlobContainerProvider = new CloudAuditQueueBlobContainerProvider(blobContainer);
+            dependencyResolver.RegisterInstance(cloudAuditQueueProvider);
+            dependencyResolver.RegisterInstance(cloudAuditQueueBlobContainerProvider);
+            dependencyResolver.Register<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
             dependencyResolver.RegisterCommandingAuditor<AzureStorageQueueCommandAuditor>();
             return dependencyResolver;
         }
 
-        
-        public static IDependencyResolver UseAzureStorageAuditQueueProcessor(this IDependencyResolver dependencyResolver)
+        /// <summary>
+        /// Registers the IAzureStorageCommandQueueProcessorFactory interface through which a audit queue processor task can be
+        /// started
+        /// </summary>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <param name="queue">The queue to dequeue from</param>
+        /// <param name="deadLetterQueue">An optional dead letter queue to place items in if errors repeatedly occur in item processing</param>
+        /// <returns>The dependency resovler</returns>
+        public static IDependencyResolver UseAzureStorageAuditQueueProcessor(this IDependencyResolver dependencyResolver,
+            CloudQueue queue, CloudQueue deadLetterQueue = null)
         {
-
+            ICloudAuditQueueProvider cloudAuditQueueProvider = new CloudAuditQueueProvider(queue, deadLetterQueue);
+            dependencyResolver.RegisterInstance(cloudAuditQueueProvider);
+            dependencyResolver.Register<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
+            dependencyResolver.Register<IAzureStorageAuditQueueProcessorFactory, AzureStorageAuditQueueProcessorFactory>();
             return dependencyResolver;
         }
     }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Model;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AccidentalFish.Commanding
 {
-    internal interface ICommandAuditPipeline
+    public interface ICommandAuditPipeline
     {
-        void RegisterAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor;
         Task Audit<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class;
+        Task Audit(AuditItem auditItem);
     }
 }
