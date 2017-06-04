@@ -107,6 +107,7 @@ Further usage scenarios can be found in the [wiki](https://github.com/JamesRanda
 * [Configuration Options](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Configuration-Options)
 * [HTTP Execution and Dispatch](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/HTTP-Dispatch-and-Execution)
 * [Azure Queue Dispatch and Execution](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Azure-Queue-Dispatch-and-Execution)
+* [Auditing and Event Sourcing](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Auditing-and-Event-Sourcing)
 
 ## Support
 
