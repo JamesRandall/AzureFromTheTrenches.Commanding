@@ -1,6 +1,6 @@
 # AccidentalFish.Commanding
 
-A simple configuration based asynchronous commanding framework that abstracts code away from how the command is dispatched and, ultimately, executed. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them.
+A simple configuration based asynchronous commanding framework that abstracts code away from how the command is dispatched and, ultimately, executed. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them and the new v2 includes support for auditing (and through that event sourcing).
 
 The framework supports .NET Standard 1.4 (and higher) and so, at the time of writing, can be used with the following _minimum version_ runtimes:
 
@@ -96,6 +96,9 @@ Take a look at the samples and then more advanced usage is outlined further down
 
 4. Dispatching to and executing from Azure Storage queues
 <https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageQueueCommanding>
+
+5. Azure storage auditing
+<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageAuditing>
 
 ## Advanced Usage
 
