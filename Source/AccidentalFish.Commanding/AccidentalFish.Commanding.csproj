@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
     <PackageId>AccidentalFish.Commanding</PackageId>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Version>2.0.0</Version>
   </PropertyGroup>
 
