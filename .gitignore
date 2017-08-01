@@ -98,7 +98,6 @@ AppPackages/
 sql
 TestResults
 [Tt]est[Rr]esult*
-*.Cache
 ClientBin
 [Ss]tyle[Cc]op.*
 ~$*
@@ -119,5 +118,7 @@ AccidentalFish.Operations.Web/App_Data
 *.nupkg
 nuget-powershell
 nuget-cmdline
+
+*NCrunch*
 
 Help
