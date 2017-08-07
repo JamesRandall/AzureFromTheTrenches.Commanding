@@ -4,11 +4,11 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace AccidentalFish.Commanding.Cache.MemoryCache.Implementation
 {
-    class MemoryCacheWrapperImpl : ICacheWrapper
+    class MemoryCacheAdapter : ICacheAdapter
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MemoryCacheWrapperImpl(IMemoryCache memoryCache)
+        public MemoryCacheAdapter(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }

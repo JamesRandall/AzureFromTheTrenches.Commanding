@@ -5,11 +5,11 @@ using StackExchange.Redis;
 
 namespace AccidentalFish.Commanding.Cache.Redis.Implementation
 {
-    class RedisCacheWrapperImpl : ICacheWrapper
+    class RedisCacheAdapter : ICacheAdapter
     {
         private readonly Lazy<ConnectionMultiplexer> _multiplexer;
 
-        public RedisCacheWrapperImpl(Lazy<ConnectionMultiplexer> multiplexer)
+        public RedisCacheAdapter(Lazy<ConnectionMultiplexer> multiplexer)
         {
             _multiplexer = multiplexer;
         }

@@ -17,7 +17,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock< ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             SimpleCommand command = new SimpleCommand();
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
@@ -37,7 +37,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5));
             SimpleCommand command = new SimpleCommand();
             SimpleResult cachedResult = new SimpleResult
@@ -65,7 +65,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5));
             SimpleCommand command = new SimpleCommand();
             SimpleResult cachedResult = new SimpleResult
@@ -95,7 +95,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5), 1);
             SimpleCommand command = new SimpleCommand();
             SimpleResult cachedResult = new SimpleResult
@@ -125,7 +125,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             SimpleCommand command = new SimpleCommand();
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
@@ -145,7 +145,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             SimpleCommand command = new SimpleCommand();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5), 1);
             cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
@@ -163,7 +163,7 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
             Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheWrapper> cacheWrapper = new Mock<ICacheWrapper>();
+            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             SimpleCommand command = new SimpleCommand();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5), 1);
             cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);

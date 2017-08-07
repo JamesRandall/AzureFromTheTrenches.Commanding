@@ -9,17 +9,17 @@ namespace AccidentalFish.Commanding.Cache.Implementation
         private readonly ICacheKeyProvider _cacheKeyProvider;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ICacheOptionsProvider _cacheOptionsProvider;
-        private readonly ICacheWrapper _cacheWrapper;
+        private readonly ICacheAdapter _cacheAdapter;
 
         public CachedCommandDispatcher(ICacheKeyProvider cacheKeyProvider,
             ICommandDispatcher commandDispatcher,
             ICacheOptionsProvider cacheOptionsProvider,
-            ICacheWrapper cacheWrapper)
+            ICacheAdapter cacheAdapter)
         {
             _cacheKeyProvider = cacheKeyProvider;
             _commandDispatcher = commandDispatcher;
             _cacheOptionsProvider = cacheOptionsProvider;
-            _cacheWrapper = cacheWrapper;
+            _cacheAdapter = cacheAdapter;
         }
 
         public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
@@ -32,7 +32,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
 
             var cacheKey = CacheKey(command);
 
-            TResult result = await _cacheWrapper.Get<TResult>(cacheKey);
+            TResult result = await _cacheAdapter.Get<TResult>(cacheKey);
             if (result != null)
             {
                 return new CommandResult<TResult>(result, false);
@@ -44,7 +44,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
                 await options.Semaphore.WaitAsync();
                 try
                 {
-                    result = await _cacheWrapper.Get<TResult>(cacheKey);
+                    result = await _cacheAdapter.Get<TResult>(cacheKey);
                     if (result != null)
                     {
                         return new CommandResult<TResult>(result, false);
@@ -66,11 +66,11 @@ namespace AccidentalFish.Commanding.Cache.Implementation
 
             if (options.LifeTime != null)
             {
-                await _cacheWrapper.Set(cacheKey, executedResult.Result, options.LifeTime());
+                await _cacheAdapter.Set(cacheKey, executedResult.Result, options.LifeTime());
             }
             else if (options.ExpiresAtUtc != null)
             {
-                await _cacheWrapper.Set(cacheKey, executedResult.Result, options.ExpiresAtUtc());
+                await _cacheAdapter.Set(cacheKey, executedResult.Result, options.ExpiresAtUtc());
             }
             else
             {

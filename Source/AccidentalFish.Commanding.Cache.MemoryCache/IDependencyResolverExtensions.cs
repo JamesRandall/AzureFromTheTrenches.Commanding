@@ -8,7 +8,7 @@ namespace AccidentalFish.Commanding.Cache.MemoryCache
     {
         public static IDependencyResolver UseCommandMemoryCache(this IDependencyResolver resolver)
         {
-            resolver.Register<ICacheWrapper, MemoryCacheWrapperImpl>();
+            resolver.Register<ICacheAdapter, MemoryCacheAdapter>();
 
             return resolver;
         }

@@ -10,22 +10,22 @@ namespace AccidentalFish.Commanding.Cache.Redis
     {
         public static IDependencyResolver UseCommandRedisCache(this IDependencyResolver resolver, string connectionString)
         {
-            ICacheWrapper wrapper = new RedisCacheWrapperImpl(new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(connectionString)));
-            resolver.RegisterInstance(wrapper);
+            ICacheAdapter adapter = new RedisCacheAdapter(new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(connectionString)));
+            resolver.RegisterInstance(adapter);
             return resolver;
         }
 
         public static IDependencyResolver UseCommandRedisCache(this IDependencyResolver resolver, ConnectionMultiplexer multiplexer)
         {
-            ICacheWrapper wrapper = new RedisCacheWrapperImpl(new Lazy<ConnectionMultiplexer>(() => multiplexer));
-            resolver.RegisterInstance(wrapper);
+            ICacheAdapter adapter = new RedisCacheAdapter(new Lazy<ConnectionMultiplexer>(() => multiplexer));
+            resolver.RegisterInstance(adapter);
             return resolver;
         }
 
         public static IDependencyResolver UseCommandRedisCache(this IDependencyResolver resolver, Lazy<ConnectionMultiplexer> multiplexer)
         {
-            ICacheWrapper wrapper = new RedisCacheWrapperImpl(multiplexer);
-            resolver.RegisterInstance(wrapper);
+            ICacheAdapter adapter = new RedisCacheAdapter(multiplexer);
+            resolver.RegisterInstance(adapter);
             return resolver;
         }
     }
