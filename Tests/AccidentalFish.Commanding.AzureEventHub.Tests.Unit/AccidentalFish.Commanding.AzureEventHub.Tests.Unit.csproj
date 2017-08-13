@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>    
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -6,8 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="Moq" Version="4.7.10" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.AzureEventHub\AccidentalFish.Commanding.AzureEventHub.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
   </ItemGroup>
 
 </Project>
