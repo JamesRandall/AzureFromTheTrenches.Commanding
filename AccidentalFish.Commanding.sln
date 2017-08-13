@@ -46,7 +46,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache.Redis", "Source\AccidentalFish.Commanding.Cache.Redis\AccidentalFish.Commanding.Cache.Redis.csproj", "{4239534A-BC3C-4389-A686-46133C58F256}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.Cache.Tests.Unit", "Tests\AccidentalFish.Commanding.Cache.Tests.Unit\AccidentalFish.Commanding.Cache.Tests.Unit.csproj", "{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache.Tests.Unit", "Tests\AccidentalFish.Commanding.Cache.Tests.Unit\AccidentalFish.Commanding.Cache.Tests.Unit.csproj", "{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.AzureEventHub", "Source\AccidentalFish.Commanding.AzureEventHub\AccidentalFish.Commanding.AzureEventHub.csproj", "{D98AEB5F-42C5-4413-BA95-D4677AB7B097}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccidentalFish.Commanding.AzureEventHub.Tests.Unit", "Tests\AccidentalFish.Commanding.AzureEventHub.Tests.Unit\AccidentalFish.Commanding.AzureEventHub.Tests.Unit.csproj", "{DDAA95FB-15A4-469E-B237-B9A66F272A5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,6 +122,14 @@ Global
 		{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98AEB5F-42C5-4413-BA95-D4677AB7B097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98AEB5F-42C5-4413-BA95-D4677AB7B097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98AEB5F-42C5-4413-BA95-D4677AB7B097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98AEB5F-42C5-4413-BA95-D4677AB7B097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDAA95FB-15A4-469E-B237-B9A66F272A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDAA95FB-15A4-469E-B237-B9A66F272A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDAA95FB-15A4-469E-B237-B9A66F272A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDAA95FB-15A4-469E-B237-B9A66F272A5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +145,6 @@ Global
 		{40F2AF7D-3480-4644-8B3E-AE52FECD6F93} = {C4FBA3E4-9D8C-4B0C-BABC-5745017A64EB}
 		{1D331B9B-5842-49E3-B66D-DE76D7F05A8E} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 		{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
+		{DDAA95FB-15A4-469E-B237-B9A66F272A5C} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
 	EndGlobalSection
 EndGlobal

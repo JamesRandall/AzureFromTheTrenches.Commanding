@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AccidentalFish.DependencyResolver" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+  </ItemGroup>
+
+</Project>
