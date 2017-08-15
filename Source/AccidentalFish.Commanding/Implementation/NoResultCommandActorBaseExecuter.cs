@@ -12,8 +12,7 @@ namespace AccidentalFish.Commanding.Implementation
 
         public async Task ExecuteAsync(object actorInstance, object command)
         {
-            Func<object, object, Task> executer;
-            if (!_compiledExecuters.TryGetValue(actorInstance.GetType(), out executer))
+            if (!_compiledExecuters.TryGetValue(actorInstance.GetType(), out Func<object, object, Task> executer))
             {
                 TypeInfo typeInfo = actorInstance.GetType().GetTypeInfo();
                 MethodInfo methodInfo = typeInfo.GetDeclaredMethod("ExecuteAsync");

@@ -1,6 +1,9 @@
 ﻿namespace AccidentalFish.Commanding.Cache.Tests.Unit.TestModel
 {
-    class SimpleCommand2
+    public class SimpleCommand2
     {
+        public int SomeValue { get; set; }
+
+        public int AnotherValue { get; set; }
     }
 }

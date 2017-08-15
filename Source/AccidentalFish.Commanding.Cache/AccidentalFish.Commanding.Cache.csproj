@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.1</Version>
+    <Authors>James Randall</Authors>
+    <Company>Accidental Fish Ltd.</Company>
+    <Product>AccidentalFish Commanding</Product>
+    <Description>Caching support for command execution</Description>
+    <Copyright>Copyright 2017 Accidental Fish Ltd.</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AccidentalFish.Commanding/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/JamesRandall/AccidentalFish.Commanding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
