@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Model;
+using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Abstractions.Model;
 
 namespace AccidentalFish.Commanding.Http.Implementation
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Queue;
+﻿using AccidentalFish.Commanding.Abstractions;
+using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace AccidentalFish.Commanding.AzureStorage.Implementation
 {

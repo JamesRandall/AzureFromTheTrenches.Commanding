@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.AzureStorage;
 using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.Commanding.Queue;

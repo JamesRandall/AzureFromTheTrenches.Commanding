@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Model
+﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
     /// <summary>
     /// Used to represent the result of deferred commands, just a syntax helper

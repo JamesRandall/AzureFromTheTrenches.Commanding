@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AccidentalFish.Commanding.Abstractions;
+using Newtonsoft.Json;
 
 namespace AccidentalFish.Commanding.Implementation
 {

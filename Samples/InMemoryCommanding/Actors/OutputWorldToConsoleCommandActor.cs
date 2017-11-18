@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
 

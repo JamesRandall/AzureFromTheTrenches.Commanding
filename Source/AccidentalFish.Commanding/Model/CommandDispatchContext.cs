@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding.Model
 {

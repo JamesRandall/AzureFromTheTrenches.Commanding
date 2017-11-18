@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Model;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandRegistry
     {

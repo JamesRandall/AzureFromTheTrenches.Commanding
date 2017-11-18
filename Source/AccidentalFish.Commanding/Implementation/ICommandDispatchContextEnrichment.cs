@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding.Implementation
 {

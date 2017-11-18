@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandDispatchContext
     {

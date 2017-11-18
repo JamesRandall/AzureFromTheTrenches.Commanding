@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Implementation

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace AccidentalFish.Commanding
+﻿namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandAuditSerializer
     {

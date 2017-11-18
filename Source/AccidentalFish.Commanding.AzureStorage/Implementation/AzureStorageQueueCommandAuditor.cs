@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.Model;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;

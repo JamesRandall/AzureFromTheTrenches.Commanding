@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Queue.Model;
 
 namespace AccidentalFish.Commanding.Queue.Implementation

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AccidentalFish.Commanding.Model
+﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
     public sealed class CommandResult<TResult> : ICommandResult
     {

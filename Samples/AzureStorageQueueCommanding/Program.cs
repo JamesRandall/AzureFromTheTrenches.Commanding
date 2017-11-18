@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.AzureStorage;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.Commanding.Queue;

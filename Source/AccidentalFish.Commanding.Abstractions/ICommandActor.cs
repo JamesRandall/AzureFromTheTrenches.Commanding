@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Model;
+using AccidentalFish.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     // NOTE: Both ICommandActorBase and ICommandActorResultBase are only used to provide generic type safety checks
     // and keep the command interface clean

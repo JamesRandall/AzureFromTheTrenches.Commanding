@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.Model;
 using AzureStorageQueueCommanding.Commands;
 

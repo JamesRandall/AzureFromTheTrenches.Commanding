@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Model;
+using AccidentalFish.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     /// <summary>
     /// The primary dispatch mechanism for commands. If a deferred dispatcher is not registered then the command will also be run at the point

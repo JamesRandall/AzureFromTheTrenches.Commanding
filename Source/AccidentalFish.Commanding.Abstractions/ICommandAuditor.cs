@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using AccidentalFish.Commanding.Model;
+﻿using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     /// <summary>
     /// Interface that auditors must implement

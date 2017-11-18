@@ -1,4 +1,5 @@
-﻿using AccidentalFish.Commanding.AzureEventHub.Model;
+﻿using AccidentalFish.Commanding.Abstractions.Model;
+using AccidentalFish.Commanding.AzureEventHub.Model;
 using AccidentalFish.Commanding.Model;
 using Newtonsoft.Json;
 

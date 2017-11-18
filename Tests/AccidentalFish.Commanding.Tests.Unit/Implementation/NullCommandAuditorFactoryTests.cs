@@ -1,4 +1,5 @@
-﻿using AccidentalFish.Commanding.Implementation;
+﻿using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Implementation;
 using AccidentalFish.Commanding.Tests.Unit.TestModel;
 using Xunit;
 

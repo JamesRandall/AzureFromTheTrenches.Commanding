@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Model;
+using AccidentalFish.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandAuditPipeline
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     /// <summary>
     /// Implementations of this interface are able to execute commands when no result type is specified

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Tests.Performance.Console.Model;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using Microsoft.Extensions.DependencyInjection;

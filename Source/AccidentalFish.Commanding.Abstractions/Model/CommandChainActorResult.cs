@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Model
+﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
     public sealed class CommandChainActorResult<TResult> : ICommandResult
     {

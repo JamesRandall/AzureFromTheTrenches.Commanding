@@ -1,4 +1,6 @@
-﻿namespace AccidentalFish.Commanding.Implementation
+﻿using AccidentalFish.Commanding.Abstractions;
+
+namespace AccidentalFish.Commanding.Implementation
 {
     internal interface IAuditorRegistration
     {

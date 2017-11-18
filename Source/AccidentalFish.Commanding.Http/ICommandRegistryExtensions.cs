@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Http.Implementation;
 
 namespace AccidentalFish.Commanding.Http

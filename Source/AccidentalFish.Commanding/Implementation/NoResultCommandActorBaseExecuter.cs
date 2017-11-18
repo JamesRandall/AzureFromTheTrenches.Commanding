@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding.Implementation
 {

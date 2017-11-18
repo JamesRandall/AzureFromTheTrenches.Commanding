@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 using Microsoft.AspNetCore.Mvc;

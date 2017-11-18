@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandActorFactory
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Implementation;
 using Xunit;
 

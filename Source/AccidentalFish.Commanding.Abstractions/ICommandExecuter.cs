@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding
+namespace AccidentalFish.Commanding.Abstractions
 {
     /// <summary>
     /// Implementations of this interface execute commands immediately using the registered set of actors

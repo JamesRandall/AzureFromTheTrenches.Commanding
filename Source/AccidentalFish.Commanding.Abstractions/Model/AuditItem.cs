@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AccidentalFish.Commanding.Model
+namespace AccidentalFish.Commanding.Abstractions.Model
 {
     public class AuditItem
     {

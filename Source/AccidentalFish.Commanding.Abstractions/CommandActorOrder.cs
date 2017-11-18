@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding
+﻿namespace AccidentalFish.Commanding.Abstractions
 {
     public class CommandActorOrder
     {

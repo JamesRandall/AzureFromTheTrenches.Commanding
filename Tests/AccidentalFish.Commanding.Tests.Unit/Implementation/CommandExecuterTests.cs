@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.Implementation;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.Commanding.Tests.Unit.TestModel;

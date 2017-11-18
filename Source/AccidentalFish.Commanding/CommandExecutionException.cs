@@ -1,4 +1,5 @@
 ﻿using System;
+using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding
 {
