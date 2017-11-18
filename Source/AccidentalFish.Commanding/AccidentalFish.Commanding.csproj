@@ -23,4 +23,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
