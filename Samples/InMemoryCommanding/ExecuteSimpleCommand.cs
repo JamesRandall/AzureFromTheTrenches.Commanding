@@ -12,6 +12,8 @@ namespace InMemoryCommanding
 {
     static class ExecuteSimpleCommand
     {
+        private static IServiceProvider _serviceProvider;
+
         public static async Task Run()
         {
             ICommandDispatcher dispatcher = Configure();
@@ -27,17 +29,22 @@ namespace InMemoryCommanding
 
         private static ICommandDispatcher Configure()
         {
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            ServiceCollection serviceCollection = new ServiceCollection();
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => resolver.Register(type, type),
+                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
-            resolver.UseCommanding(options)
+
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+
+            IDependencyResolverExtensions.UseCommanding(dependencyResolver, options)
                 .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
-            resolver.BuildServiceProvider();
-            return resolver.Resolve<ICommandDispatcher>();
+
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+
+            return _serviceProvider.GetService<ICommandDispatcher>();
         }
     }
 }

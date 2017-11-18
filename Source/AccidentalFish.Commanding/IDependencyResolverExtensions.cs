@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Implementation;
-using AccidentalFish.DependencyResolver;
 
 namespace AccidentalFish.Commanding
 {
@@ -32,11 +31,19 @@ namespace AccidentalFish.Commanding
         ///     resolver.UseCommanding(type => services.AddTransient(type, type));
         /// </param>
         /// <returns>The dependency resolver</returns>
-        public static ICommandRegistry UseCommanding(this IDependencyResolver dependencyResolver,
+        public static ICommandRegistry UseCommanding(CommandingDependencyResolver dependencyResolver,
             Action<Type> commandActorContainerRegistration)
         {
             return UseCommanding(dependencyResolver,
                 new Options {CommandActorContainerRegistration = commandActorContainerRegistration});
+        }
+
+        public static ICommandRegistry UseCommanding(Action<Type, object> registerInstance,
+            Action<Type, Type> typeMapping,
+            Func<Type, object> resolve,
+            Options options = null)
+        {
+            return UseCommanding(new CommandingDependencyResolver(registerInstance, typeMapping, resolve), options);
         }
 
         /// <summary>
@@ -47,24 +54,24 @@ namespace AccidentalFish.Commanding
         /// <param name="dependencyResolver">The dependency resolver to register inside</param>
         /// <param name="options">Configuration options for the commanding system</param>
         /// <returns>The dependency resolver</returns>
-        public static ICommandRegistry UseCommanding(this IDependencyResolver dependencyResolver,
+        public static ICommandRegistry UseCommanding(CommandingDependencyResolver dependencyResolver,
             Options options = null)
         {
             options = options ?? new Options();
             // the registry is always shared, but vagaries of different IoC containers mean its dangerous to rely
             // on dependecy resolver checks for an existing registration
-            lock (RegistryLockObject) 
+            lock (RegistryLockObject)
             {
                 if (_registry == null || options.Reset)
                 {
-                    _registry = new CommandRegistry(options.CommandActorContainerRegistration);                    
+                    _registry = new CommandRegistry(options.CommandActorContainerRegistration);
                 }
                 dependencyResolver.RegisterInstance(_registry);
             }
 
             // the enricher is always shared, but vagaries of different IoC containers mean its dangerous to rely
             // on dependecy resolver checks for an existing registration
-            lock (EnrichmentLockObject) 
+            lock (EnrichmentLockObject)
             {
                 if (_dispatchContextEnrichment == null || options.Reset)
                 {
@@ -114,18 +121,18 @@ namespace AccidentalFish.Commanding
             dependencyResolver.RegisterInstance(commandActorFactory);
             dependencyResolver.RegisterInstance(commandActorExecuter);
             dependencyResolver.RegisterInstance(commandActorChainExecuter);
-            
-            dependencyResolver.Register<ICommandAuditorFactory, NullCommandAuditorFactory>();
-            dependencyResolver.Register<ICommandScopeManager, AsyncLocalCommandScopeManager>();
-            dependencyResolver.Register<ICommandDispatcher, CommandDispatcher>();
-            dependencyResolver.Register<ICommandExecuter, CommandExecuter>();
-            dependencyResolver.Register<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
-            dependencyResolver.Register<ICommandAuditSerializer, CommandAuditSerializer>();
-            
+
+            dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();
+            dependencyResolver.TypeMapping<ICommandScopeManager, AsyncLocalCommandScopeManager>();
+            dependencyResolver.TypeMapping<ICommandDispatcher, CommandDispatcher>();
+            dependencyResolver.TypeMapping<ICommandExecuter, CommandExecuter>();
+            dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
+            dependencyResolver.TypeMapping<ICommandAuditSerializer, CommandAuditSerializer>();
+
             return _registry;
         }
 
-        public static IDependencyResolver RegisterCommandingAuditor<TAuditorImpl>(this IDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
+        public static void RegisterCommandingAuditor<TAuditorImpl>(CommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
         {
             lock (AuditorPipelineLockObject)
             {
@@ -136,8 +143,7 @@ namespace AccidentalFish.Commanding
                 IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
                 registration.RegisterAuditor<TAuditorImpl>();
             }
-            dependencyResolver.Register<TAuditorImpl, TAuditorImpl>();
-            return dependencyResolver;
+            dependencyResolver.TypeMapping<TAuditorImpl, TAuditorImpl>();
         }
     }
 }

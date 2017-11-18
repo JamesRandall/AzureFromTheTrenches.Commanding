@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
-using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
@@ -41,6 +39,8 @@ namespace InMemoryCommanding
     {
         private static int _counter = -1;
 
+        private static IServiceProvider ServiceProvider = null;
+
         public static async Task Run(bool auditRootOnly)
         {
             ICommandDispatcher dispatcher = Configure(auditRootOnly);
@@ -56,22 +56,24 @@ namespace InMemoryCommanding
             // will increment by 1 on each subsequent run
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> {{"Counter", Interlocked.Increment(ref _counter)}};
 
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            ServiceCollection serviceCollection = new ServiceCollection();
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => ServiceProvider);
+
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => resolver.Register(type, type),
+                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 Enrichers = new[]
                     { new FunctionWrapperCommandDispatchContextEnricher(Enricher) },
                 AuditRootCommandOnly = auditRootOnly
             };
-            resolver.UseCommanding(options) 
+            IDependencyResolverExtensions.UseCommanding(dependencyResolver, options) 
                 .Register<ChainCommand, NoResult, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
-            resolver.RegisterCommandingAuditor<ConsoleAuditor>();
-            resolver.BuildServiceProvider();
-            return resolver.Resolve<ICommandDispatcher>();
+            IDependencyResolverExtensions.RegisterCommandingAuditor<ConsoleAuditor>(dependencyResolver);
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+            return ServiceProvider.GetService<ICommandDispatcher>();
         }
     }
 }

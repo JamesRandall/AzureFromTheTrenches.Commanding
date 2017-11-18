@@ -33,6 +33,8 @@ namespace InMemoryCommanding
 
     static class PushToStackWithDispatcher
     {
+        private static IServiceProvider ServiceProvider;
+
         public static async Task Run()
         {
             Stack<object> stack = new Stack<object>();
@@ -51,16 +53,17 @@ namespace InMemoryCommanding
 
         private static ICommandDispatcher Configure(Stack<object> stack)
         {
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            ServiceCollection serviceCollection = new ServiceCollection();
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => ServiceProvider);
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => resolver.Register(type, type),
+                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
-            resolver.UseCommanding(options)
+            IDependencyResolverExtensions.UseCommanding(dependencyResolver, options)
                 .Register<OutputToConsoleCommand, CountResult>(() => new StackDispatcher(stack));
-            resolver.BuildServiceProvider();
-            return resolver.Resolve<ICommandDispatcher>();
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+            return ServiceProvider.GetService<ICommandDispatcher>();
         }
     }
 }
