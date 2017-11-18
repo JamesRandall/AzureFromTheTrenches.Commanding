@@ -22,20 +22,10 @@ namespace InMemoryCommanding
             _commandStack = commandStack;
         }
 
-        public Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
+        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
         {
             _commandStack.Push(command);
             return Task.FromResult(new CommandResult<TResult>(default(TResult), true));
-        }
-
-        public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class
-        {
-            return DispatchAsync<TCommand, NoResult>(command);
-        }
-
-        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
-        {
-            throw new NotImplementedException();
         }
 
         public ICommandExecuter AssociatedExecuter => null;
@@ -47,8 +37,8 @@ namespace InMemoryCommanding
         {
             Stack<object> stack = new Stack<object>();
             ICommandDispatcher dispatcher = Configure(stack);
-            await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(new OutputToConsoleCommand { Message = "Hello" });
-            await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(new OutputToConsoleCommand { Message = "World" });
+            await dispatcher.DispatchAsync(new OutputToConsoleCommand { Message = "Hello" });
+            await dispatcher.DispatchAsync(new OutputToConsoleCommand { Message = "World" });
 
             while (stack.Any())
             {
@@ -68,7 +58,7 @@ namespace InMemoryCommanding
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
             resolver.UseCommanding(options)
-                .Register<OutputToConsoleCommand>(() => new StackDispatcher(stack));
+                .Register<OutputToConsoleCommand, CountResult>(() => new StackDispatcher(stack));
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();
         }

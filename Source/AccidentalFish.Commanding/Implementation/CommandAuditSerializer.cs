@@ -5,7 +5,7 @@ namespace AccidentalFish.Commanding.Implementation
 {
     class CommandAuditSerializer : ICommandAuditSerializer
     {
-        public string Serialize<TCommand>(TCommand command) where TCommand : class
+        public string Serialize(ICommand command)
         {
             return JsonConvert.SerializeObject(command);
         }

@@ -9,6 +9,7 @@ using AccidentalFish.Commanding.Model;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
+using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
@@ -65,9 +66,9 @@ namespace InMemoryCommanding
                 AuditRootCommandOnly = auditRootOnly
             };
             resolver.UseCommanding(options) 
-                .Register<ChainCommand, ChainCommandActor>()
-                .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
-                .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
+                .Register<ChainCommand, NoResult, ChainCommandActor>()
+                .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
+                .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
             resolver.RegisterCommandingAuditor<ConsoleAuditor>();
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();

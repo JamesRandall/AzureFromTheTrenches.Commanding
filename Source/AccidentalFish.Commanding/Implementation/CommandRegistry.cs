@@ -16,11 +16,11 @@ namespace AccidentalFish.Commanding.Implementation
         {
             _commandActorContainerRegistration = commandActorContainerRegistration;
         }
-
-        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : class where TCommandActor : ICommandActorBase<TCommand>
+        
+        public ICommandRegistry Register<TCommand, TResult, TCommandActor>(int order = CommandActorOrder.Default,
+            Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : ICommand<TResult> where TCommandActor : ICommandActor<TCommand, TResult>
         {
-            SortedSet<PrioritisedCommandActor> set;
-            if (!_actors.TryGetValue(typeof(TCommand), out set))
+            if (!_actors.TryGetValue(typeof(TCommand), out var set))
             {
                 set = new SortedSet<PrioritisedCommandActor>();
                 _actors.Add(typeof(TCommand), set);
@@ -38,26 +38,24 @@ namespace AccidentalFish.Commanding.Implementation
             return this;
         }
 
-        public ICommandRegistry Register<TCommand>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : class
+        public ICommandRegistry Register<TCommand, TResult>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : ICommand<TResult>
         {
             _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc ?? throw new ArgumentNullException(nameof(dispatcherFactoryFunc));
             return this;
         }
 
-        public IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class
+        public IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors(ICommand command)
         {
-            SortedSet<PrioritisedCommandActor> set;
-            if (!_actors.TryGetValue(typeof(T), out set))
+            if (!_actors.TryGetValue(command.GetType(), out var set))
             {
                 return null;
             }
             return set.ToList();
         }
 
-        public Func<ICommandDispatcher> GetCommandDispatcherFactory<T>() where T : class
+        public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)
         {
-            Func<ICommandDispatcher> dispatcherFactoryFunc;
-            _commandDispatchers.TryGetValue(typeof(T), out dispatcherFactoryFunc);
+            _commandDispatchers.TryGetValue(command.GetType(), out var dispatcherFactoryFunc);
             return dispatcherFactoryFunc;
         }
     }

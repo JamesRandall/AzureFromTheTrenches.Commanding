@@ -6,7 +6,7 @@ namespace AccidentalFish.Commanding.Abstractions
 {
     public interface ICommandAuditPipeline
     {
-        Task Audit<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class;
+        Task Audit(ICommand command, Guid commandId, ICommandDispatchContext dispatchContext);
         Task Audit(AuditItem auditItem);
     }
 }

@@ -17,10 +17,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             var registry = new CommandRegistry();
 
             // Act
-            registry.Register<SimpleCommand, SimpleCommandActor>();
+            registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>();
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors<SimpleCommand>();
+            var result = registry.GetPrioritisedCommandActors<SimpleCommand, SimpleResult>();
             Assert.Equal(result.Single().CommandActorType, typeof(SimpleCommandActor));
         }
 
@@ -32,10 +32,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommand, SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
+            registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcherFactory<SimpleCommand>();
+            var result = registry.GetCommandDispatcherFactory<SimpleCommand, SimpleResult>();
             Assert.Equal(result, DispatcherFunc);
         }
 
@@ -47,10 +47,10 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommand>(DispatcherFunc);
+            registry.Register<SimpleCommand, SimpleResult>(DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcherFactory<SimpleCommand>();
+            var result = registry.GetCommandDispatcherFactory<SimpleCommand, SimpleResult>();
             Assert.Equal(result, DispatcherFunc);
         }
 
@@ -65,18 +65,18 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Act
             if (reverseRegistration)
             {
-                registry.Register<SimpleCommand, SimpleCommandActorTwo>(order: 1500);
-                registry.Register<SimpleCommand, SimpleCommandActor>(order: 1000);
+                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActorTwo>(order: 1500);
+                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(order: 1000);
             }
             else
             {
-                registry.Register<SimpleCommand, SimpleCommandActor>(order: 1000);
-                registry.Register<SimpleCommand, SimpleCommandActorTwo>(order: 1500);
+                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(order: 1000);
+                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActorTwo>(order: 1500);
             }
             
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors<SimpleCommand>();
+            var result = registry.GetPrioritisedCommandActors<SimpleCommand, SimpleResult>();
             Assert.Collection(result, pca =>
             {
                 if (pca.Priority != 1000) throw new Exception("Wrong order");

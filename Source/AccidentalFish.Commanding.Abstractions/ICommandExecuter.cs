@@ -14,6 +14,6 @@ namespace AccidentalFish.Commanding.Abstractions
         /// <typeparam name="TResult">The type of the result</typeparam>
         /// <param name="command">The command to execute</param>
         /// <returns>Awaitable task</returns>
-        Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class;
+        Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command);
     }
 }

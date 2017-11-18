@@ -1,6 +1,6 @@
 ﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
-    public sealed class CommandChainActorResult<TResult> : ICommandResult
+    public sealed class CommandChainActorResult<TResult>
     {
         public CommandChainActorResult(bool shouldStop, TResult result)
         {

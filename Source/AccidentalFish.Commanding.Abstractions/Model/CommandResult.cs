@@ -1,16 +1,23 @@
 ﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
-    public sealed class CommandResult<TResult> : ICommandResult
+    public class CommandResult
     {
-        public CommandResult(TResult result, bool deferExecution)
+        public CommandResult(bool deferExecution)
         {
-            Result = result;
             DeferExecution = deferExecution;
         }
 
-        public TResult Result { get; }
-
         public bool DeferExecution { get; }
+    }
+
+    public sealed class CommandResult<TResult> : CommandResult
+    {
+        public CommandResult(TResult result, bool deferExecution) : base(deferExecution)
+        {
+            Result = result;
+        }
+
+        public TResult Result { get; }
 
         public static implicit operator TResult(CommandResult<TResult> commandResult)
         {

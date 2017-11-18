@@ -12,23 +12,6 @@ namespace AccidentalFish.Commanding.Abstractions
     public interface ICommandDispatcher
     {
         /// <summary>
-        /// Dispatches a command and returns true if the command was immediately executed
-        /// </summary>
-        /// <typeparam name="TCommand">The type of the command</typeparam>
-        /// <typeparam name="TResult">The type of the result</typeparam>
-        /// <param name="command">The command</param>
-        /// <returns>Result of the command</returns>
-        Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class;
-
-        /// <summary>
-        /// Dispatches a command and returns true if the command was immediately executed
-        /// </summary>
-        /// <typeparam name="TCommand">The type of the command</typeparam>
-        /// <param name="command">The command</param>
-        /// <returns>Result of the command</returns>
-        Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class;
-
-        /// <summary>
         /// Dispatches a command and returns the response
         /// </summary>
         /// <typeparam name="TResult">Result of the command</typeparam>

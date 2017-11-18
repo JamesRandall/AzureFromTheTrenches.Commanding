@@ -3,30 +3,30 @@ using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding
 {
-    public class CommandDispatchException<TCommand> : Exception where TCommand : class
+    public class CommandDispatchException : Exception
     {
-        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType)
+        public CommandDispatchException(object command, ICommandDispatchContext commandDispatchContext, Type dispatcherType)
         {
             Command = command;
             CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
         
-        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message) : base(message)
+        public CommandDispatchException(object command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message) : base(message)
         {
             Command = command;
             CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
 
-        public CommandDispatchException(TCommand command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message, Exception innerException) : base(message, innerException)
+        public CommandDispatchException(object command, ICommandDispatchContext commandDispatchContext, Type dispatcherType, string message, Exception innerException) : base(message, innerException)
         {
             Command = command;
             CommandDispatchContext = commandDispatchContext;
             DispatcherType = dispatcherType;
         }
 
-        public TCommand Command { get; }
+        public object Command { get; }
 
         public ICommandDispatchContext CommandDispatchContext { get; }
 

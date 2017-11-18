@@ -44,8 +44,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object,commandContextManager.Object, auditorPipeline.Object, options.Object);
             SimpleCommand command = new SimpleCommand();
-            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
-            commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, true));
+            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand, SimpleResult>()).Returns(() => commandDispatcher.Object);
+            commandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, true));
 
             // Act
             await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
@@ -67,8 +67,8 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> associatedExecuter = new Mock<ICommandExecuter>();
             CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
             SimpleCommand command = new SimpleCommand();
-            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand>()).Returns(() => commandDispatcher.Object);
-            commandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, false));
+            registry.Setup(x => x.GetCommandDispatcherFactory<SimpleCommand, SimpleResult>()).Returns(() => commandDispatcher.Object);
+            commandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, false));
             commandDispatcher.SetupGet(x => x.AssociatedExecuter).Returns(associatedExecuter.Object);
 
             // Act
@@ -153,7 +153,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();
-            auditorPipeline.Setup(x => x.Audit(command, It.IsAny<Guid>(), commandDispatchContext)).Callback(() =>
+            auditorPipeline.Setup(x => x.Audit<SimpleCommand, SimpleResult>(command, It.IsAny<Guid>(), commandDispatchContext)).Callback(() =>
             {
                 auditExecutionIndex = executionOrder;
                 executionOrder++;
@@ -168,7 +168,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
 
             // Assert
-            auditorPipeline.Verify(x => x.Audit(command, It.IsAny<Guid>(), commandDispatchContext), Times.Once);
+            auditorPipeline.Verify(x => x.Audit<SimpleCommand, SimpleResult>(command, It.IsAny<Guid>(), commandDispatchContext), Times.Once);
             Assert.Equal(0, auditExecutionIndex);
             Assert.Equal(1, executeExecutionIndex);
         }

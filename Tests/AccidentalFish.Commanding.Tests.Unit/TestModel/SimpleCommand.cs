@@ -1,6 +1,8 @@
-﻿namespace AccidentalFish.Commanding.Tests.Unit.TestModel
+﻿using AccidentalFish.Commanding.Abstractions;
+
+namespace AccidentalFish.Commanding.Tests.Unit.TestModel
 {
-    internal class SimpleCommand
+    internal class SimpleCommand : ICommand<SimpleResult>
     {
         public string Message { get; set; }
     }

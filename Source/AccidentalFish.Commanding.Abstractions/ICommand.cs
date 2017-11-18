@@ -1,6 +1,11 @@
 ﻿namespace AccidentalFish.Commanding.Abstractions
 {
-    public interface ICommand<TResult>
+    public interface ICommand
+    {
+        
+    }
+
+    public interface ICommand<TResult> : ICommand
     {
     }
 }

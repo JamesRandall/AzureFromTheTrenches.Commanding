@@ -19,7 +19,7 @@ namespace InMemoryCommanding
             {
                 Message = "Hello"
             };
-            CountResult result = await dispatcher.DispatchAsync<OutputToConsoleCommand, CountResult>(command);
+            CountResult result = await dispatcher.DispatchAsync(command);
             Console.WriteLine($"{result.Count} actors called");
             await dispatcher.DispatchAsync(command);
             Console.WriteLine("\nPress a key to continue...");
@@ -34,8 +34,8 @@ namespace InMemoryCommanding
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
             resolver.UseCommanding(options)
-                .Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>()
-                .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
+                .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
+                .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
             resolver.BuildServiceProvider();
             return resolver.Resolve<ICommandDispatcher>();
         }

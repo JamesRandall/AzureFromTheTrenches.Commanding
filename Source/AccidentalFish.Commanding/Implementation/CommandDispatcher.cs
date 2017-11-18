@@ -25,8 +25,8 @@ namespace AccidentalFish.Commanding.Implementation
             _auditor = auditPipeline;
             AssociatedExecuter = commandExecuter;
         }
-
-        public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
+        
+        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
         {
             ICommandDispatchContext dispatchContext = _commandScopeManager.Enter();
             try
@@ -47,11 +47,11 @@ namespace AccidentalFish.Commanding.Implementation
 
                 try
                 {
-                    Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory<TCommand>();
+                    Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory(command);
                     if (dispatcherFunc != null)
                     {
                         dispatcher = dispatcherFunc();
-                        dispatchResult = await dispatcher.DispatchAsync<TCommand, TResult>(command);
+                        dispatchResult = await dispatcher.DispatchAsync(command);
                         executer = dispatcher.AssociatedExecuter;
                     }
 
@@ -62,29 +62,19 @@ namespace AccidentalFish.Commanding.Implementation
                 }
                 catch (Exception ex)
                 {
-                    throw new CommandDispatchException<TCommand>(command, dispatchContext.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
+                    throw new CommandDispatchException(command, dispatchContext.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
                 }
                 
                 if (executer == null)
                 {
                     executer = AssociatedExecuter;
                 }
-                return new CommandResult<TResult>(await executer.ExecuteAsync<TCommand, TResult>(command), false);
+                return new CommandResult<TResult>(await executer.ExecuteAsync(command), false);
             }
             finally
             {
                 _commandScopeManager.Exit();
             }
-        }
-
-        public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class
-        {
-            return DispatchAsync<TCommand, NoResult>(command);
-        }
-
-        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
-        {
-            throw new NotImplementedException();
         }
 
         public ICommandExecuter AssociatedExecuter { get; }

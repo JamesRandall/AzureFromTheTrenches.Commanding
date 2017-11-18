@@ -1,6 +1,6 @@
 ﻿namespace AccidentalFish.Commanding.Abstractions.Model
 {
-    public interface ICommandResult
+    /*public interface ICommandResult
     {
-    }
+    }*/
 }

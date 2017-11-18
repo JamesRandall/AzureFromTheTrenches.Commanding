@@ -2,6 +2,6 @@
 {
     public interface ICommandAuditSerializer
     {
-        string Serialize<TCommand>(TCommand command) where TCommand : class;
+        string Serialize(ICommand command);
     }
 }

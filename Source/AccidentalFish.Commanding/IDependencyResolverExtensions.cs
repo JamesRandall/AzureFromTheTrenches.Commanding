@@ -108,8 +108,12 @@ namespace AccidentalFish.Commanding
 
             ICommandActorFactory commandActorFactory = new CommandActorFactory(options.CommandActorFactoryFunc ?? dependencyResolver.Resolve);
             INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
+            ICommandActorExecuter commandActorExecuter = new CommandActorExecuter();
+            ICommandActorChainExecuter commandActorChainExecuter = new CommandActorChainExecuter();
             dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
             dependencyResolver.RegisterInstance(commandActorFactory);
+            dependencyResolver.RegisterInstance(commandActorExecuter);
+            dependencyResolver.RegisterInstance(commandActorChainExecuter);
             
             dependencyResolver.Register<ICommandAuditorFactory, NullCommandAuditorFactory>();
             dependencyResolver.Register<ICommandScopeManager, AsyncLocalCommandScopeManager>();

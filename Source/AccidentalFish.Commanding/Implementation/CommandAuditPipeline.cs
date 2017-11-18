@@ -29,7 +29,7 @@ namespace AccidentalFish.Commanding.Implementation
             _registeredAuditors.Add(typeof(TAuditorImpl));
         }
 
-        public async Task Audit<TCommand>(TCommand command, Guid commandId, ICommandDispatchContext dispatchContext) where TCommand : class
+        public async Task Audit(ICommand command, Guid commandId, ICommandDispatchContext dispatchContext)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             AuditItem auditItem = new AuditItem
