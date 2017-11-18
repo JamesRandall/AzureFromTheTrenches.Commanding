@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Implementation
@@ -43,7 +44,7 @@ namespace AccidentalFish.Commanding.Implementation
             return this;
         }
 
-        public IReadOnlyCollection<PrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class
+        public IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class
         {
             SortedSet<PrioritisedCommandActor> set;
             if (!_actors.TryGetValue(typeof(T), out set))

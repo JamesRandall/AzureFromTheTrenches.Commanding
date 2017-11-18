@@ -1,8 +1,9 @@
 ﻿using System;
+using AccidentalFish.Commanding.Abstractions;
 
 namespace AccidentalFish.Commanding.Model
 {
-    public sealed class PrioritisedCommandActor : IComparable
+    public sealed class PrioritisedCommandActor : IComparable, IPrioritisedCommandActor
     {
         internal PrioritisedCommandActor(int priority, Type commandActorType)
         {

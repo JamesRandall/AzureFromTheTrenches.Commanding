@@ -92,6 +92,11 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             return  _commandDispatcher.DispatchAsync(command);
         }
 
+        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICommandExecuter AssociatedExecuter => _commandDispatcher.AssociatedExecuter;
 
         private string CacheKey<TCommand>(TCommand command) where TCommand : class

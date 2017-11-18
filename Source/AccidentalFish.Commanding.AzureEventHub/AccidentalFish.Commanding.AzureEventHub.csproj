@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Version>3.0.0</Version>
+    <Authors>James Randall</Authors>
+    <Company>Accidental Fish Ltd.</Company>
+    <Product>AccidentalFish Commanding</Product>
+    <Description>Event hub adapter for commanding framework</Description>
+    <Copyright>Copyright 2017 Accidental Fish Ltd.</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AccidentalFish.Commanding/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/JamesRandall/AccidentalFish.Commanding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj" />
     <ProjectReference Include="..\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
   </ItemGroup>
 

@@ -80,6 +80,11 @@ namespace AccidentalFish.Commanding.Implementation
             return DispatchAsync<TCommand, NoResult>(command);
         }
 
+        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICommandExecuter AssociatedExecuter { get; }
     }
 }

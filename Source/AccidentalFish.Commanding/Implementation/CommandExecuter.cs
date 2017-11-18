@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Model;
 using AccidentalFish.DependencyResolver;
 
@@ -28,7 +29,7 @@ namespace AccidentalFish.Commanding.Implementation
 
         public async Task<TResult> ExecuteAsync<TCommand, TResult>(TCommand command) where TCommand : class
         {
-            IReadOnlyCollection<PrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors<TCommand>();
+            IReadOnlyCollection<IPrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors<TCommand>();
             if (actors == null || actors.Count == 0) throw new MissingCommandActorRegistrationException(command.GetType(), "No command actors registered for execution of command");
             TResult result = default(TResult);
 

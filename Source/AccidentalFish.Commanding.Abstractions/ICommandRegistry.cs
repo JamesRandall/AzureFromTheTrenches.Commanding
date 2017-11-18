@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding
@@ -27,7 +28,7 @@ namespace AccidentalFish.Commanding
         /// </summary>
         /// <typeparam name="T">Type of the command</typeparam>
         /// <returns>Set of command actors</returns>
-        IReadOnlyCollection<PrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class;
+        IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors<T>() where T : class;
 
         /// <summary>
         /// Gets the command dispatcher for the command
