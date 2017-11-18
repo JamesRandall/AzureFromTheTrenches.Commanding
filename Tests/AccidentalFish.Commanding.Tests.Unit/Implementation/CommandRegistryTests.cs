@@ -20,7 +20,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>();
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors(It.IsAny<ICommand>());
+            var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
             Assert.Equal(result.Single().CommandActorType, typeof(SimpleCommandActor));
         }
 
@@ -35,7 +35,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcherFactory(It.IsAny<ICommand>());
+            var result = registry.GetCommandDispatcherFactory(new SimpleCommand());
             Assert.Equal(result, DispatcherFunc);
         }
 
@@ -50,7 +50,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             registry.Register<SimpleCommand, SimpleResult>(DispatcherFunc);
 
             // Assert
-            var result = registry.GetCommandDispatcherFactory(It.IsAny<ICommand>());
+            var result = registry.GetCommandDispatcherFactory(new SimpleCommand());
             Assert.Equal(result, DispatcherFunc);
         }
 
@@ -76,7 +76,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors(It.IsAny<ICommand>());
+            var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
             Assert.Collection(result, pca =>
             {
                 if (pca.Priority != 1000) throw new Exception("Wrong order");

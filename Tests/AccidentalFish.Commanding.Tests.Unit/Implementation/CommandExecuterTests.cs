@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Abstractions.Model;
@@ -27,42 +26,16 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 new List<PrioritisedCommandActor>
                 {
                     new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
-                });
+                });            
 
             CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, scopeManager.Object, commandActorExecuter.Object, commandActorChainExecuter.Object);
+            SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
-            SimpleResult result = await executer.ExecuteAsync(new SimpleCommand());
+            await executer.ExecuteAsync(simpleCommand);
 
             // Assert
-            Assert.Equal(typeof(SimpleCommandActor), result.Actors.Single());
-        }
-
-        [Fact]
-        public async Task UnexpectedResultTypeThrowsException()
-        {
-            // Arrange
-            Mock<ICommandActorFactory> actorFactory = new Mock<ICommandActorFactory>();
-            Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
-            Mock<ICommandActorExecuter> commandActorExecuter = new Mock<ICommandActorExecuter>();
-            Mock<ICommandActorChainExecuter> commandActorChainExecuter = new Mock<ICommandActorChainExecuter>();
-            Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
-            actorFactory.Setup(x => x.Create(typeof(SimpleCommandActor))).Returns(new SimpleCommandActor());
-            registry.Setup(x => x.GetPrioritisedCommandActors(It.IsAny<ICommand>())).Returns(
-                new List<PrioritisedCommandActor>
-                {
-                    new PrioritisedCommandActor(0, typeof(SimpleCommandActor))
-                });
-
-            CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, scopeManager.Object, commandActorExecuter.Object, commandActorChainExecuter.Object);
-
-            // Act
-            CommandExecutionException<SimpleCommand> ex = await Assert.ThrowsAsync<CommandExecutionException<SimpleCommand>>(async () => await executer.ExecuteAsync(new SimpleCommand()));
-
-            // Assert
-            UnableToExecuteActorException innerException = ex.InnerException as UnableToExecuteActorException;
-            Assert.NotNull(innerException);
-            Assert.Equal("Unexpected result type", innerException.Message);
+            commandActorExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandActor>(), simpleCommand, It.IsAny<SimpleResult>()));
         }
 
         [Fact]
@@ -103,15 +76,21 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandActor(1, typeof(SimpleCommandActorThatHalts)),
                     new PrioritisedCommandActor(2, typeof(SimpleCommandActorTwo))
                 });
-
+            SimpleCommand simpleCommand = new SimpleCommand();
+            commandActorChainExecuter
+                .Setup(x => x.ExecuteAsync(It.IsAny<ICommandChainActor>(), simpleCommand, It.IsAny<SimpleResult>()))
+                .ReturnsAsync(new CommandChainActorResult<SimpleResult>(true, null));
+            
             CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, scopeManager.Object, commandActorExecuter.Object, commandActorChainExecuter.Object);
 
             // Act
-            SimpleResult result = await executer.ExecuteAsync(new SimpleCommand());
+            SimpleResult result = await executer.ExecuteAsync(simpleCommand);
 
             // Assert
-            // if the third command had run their would be two items in the list and .single would throw an exception
-            Assert.Equal(typeof(SimpleCommandActor), result.Actors.Single()); 
+            // we should run the first SimpleCommandActor as its not a chain command and won't be able to halt things and run the
+            // SImpleCommandActorThatHalts once - it will halt and prevent the second non chained actor being called
+            commandActorExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandActor>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Once);
+            commandActorChainExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandChainActor>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Exactly(1));
         }
 
         [Fact]
@@ -133,15 +112,15 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
                 });
 
             CommandExecuter executer = new CommandExecuter(registry.Object, actorFactory.Object, scopeManager.Object, commandActorExecuter.Object, commandActorChainExecuter.Object);
+            SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
-            SimpleResult result = await executer.ExecuteAsync(new SimpleCommand());
+            
+            SimpleResult result = await executer.ExecuteAsync(simpleCommand);
 
             // Assert
             // if the third command had run their would be two items in the list and .single would throw an exception
-            Assert.Equal(typeof(SimpleCommandActor), result.Actors.First());
-            Assert.Equal(typeof(SimpleCommandActorTwo), result.Actors.Last());
-            Assert.Equal(2, result.Actors.Count);
+            commandActorExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandActor>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Exactly(2));           
         }
     }
 }
