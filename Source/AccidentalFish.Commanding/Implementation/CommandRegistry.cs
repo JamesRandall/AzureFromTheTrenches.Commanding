@@ -29,24 +29,45 @@ namespace AccidentalFish.Commanding.Implementation
             return RegisterActor<TCommand, TCommandActor>(order, dispatcherFactoryFunc);
         }
 
+        public ICommandRegistry Register<TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommandActor : ICommandActorBase
+        {
+            Type commandActorBase = typeof(ICommandActorBase);
+            Type actorType = typeof(TCommandActor);
+            Type genericActorInterface = actorType.GetInterfaces().Single(x => x.IsGenericType && commandActorBase.IsAssignableFrom(x));
+
+            Type commandType = typeof(ICommand);
+            Type candidateCommandType = genericActorInterface.GenericTypeArguments.First();
+            if (!commandType.IsAssignableFrom(candidateCommandType))
+            {
+                throw new CommandRegistrationException($"Type {actorType.Name} must be a generic type and the first generic type must be the command");
+            }
+
+            return RegisterActor(candidateCommandType, actorType, order, dispatcherFactoryFunc);
+        }
+
         private ICommandRegistry RegisterActor<TCommand, TCommandActor>(int order, Func<ICommandDispatcher> dispatcherFactoryFunc)
             where TCommand : ICommand where TCommandActor : ICommandActor
         {
-            if (!_actors.TryGetValue(typeof(TCommand), out var set))
+            return RegisterActor(typeof(TCommand), typeof(TCommandActor), order, dispatcherFactoryFunc);
+        }
+
+        private ICommandRegistry RegisterActor(Type commandType, Type commandActorType, int order,
+            Func<ICommandDispatcher> dispatcherFactoryFunc)
+        {
+            if (!_actors.TryGetValue(commandType, out var set))
             {
                 set = new SortedSet<PrioritisedCommandActor>();
-                _actors.Add(typeof(TCommand), set);
+                _actors.Add(commandType, set);
             }
 
-            set.Add(new PrioritisedCommandActor(order, typeof(TCommandActor)));
+            set.Add(new PrioritisedCommandActor(order, commandActorType));
             if (dispatcherFactoryFunc != null)
             {
-                _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc;
+                _commandDispatchers[commandType] = dispatcherFactoryFunc;
             }
 
             // Register the actor with a container if that is needed
-            _commandActorContainerRegistration?.Invoke(typeof(TCommandActor));
-
+            _commandActorContainerRegistration?.Invoke(commandActorType);
             return this;
         }
 

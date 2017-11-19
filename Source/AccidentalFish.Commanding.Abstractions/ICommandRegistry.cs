@@ -27,6 +27,15 @@ namespace AccidentalFish.Commanding.Abstractions
             where TCommand : ICommand where TCommandActor : ICommandActor<TCommand>;
 
         /// <summary>
+        /// Register an actor against a command with no expected result
+        /// </summary>
+        /// <typeparam name="TCommandActor">The type of the command actor</typeparam>
+        /// <param name="dispatcherFactoryFunc">Optional command dispatcher factory function</param>
+        /// <param name="order">Execution order of the actor</param>
+        ICommandRegistry Register<TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null)
+            where TCommandActor : ICommandActorBase;
+
+        /// <summary>
         /// Register a command with a dispatcher but no actor. Typically this is used when the command actors are deferred via a queue or that are remotely executed
         /// </summary>
         /// <typeparam name="TCommand">The type of the command</typeparam>

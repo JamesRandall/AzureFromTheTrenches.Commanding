@@ -68,9 +68,9 @@ namespace InMemoryCommanding
                 AuditRootCommandOnly = auditRootOnly
             };
             dependencyResolver.UseCommanding(options) 
-                .Register<ChainCommand, NoResult, ChainCommandActor>()
-                .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
-                .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
+                .Register<ChainCommandActor>()
+                .Register<OutputWorldToConsoleCommandActor>()
+                .Register<OutputBigglesToConsoleCommandActor>();
             dependencyResolver.UseCommandingAuditor<ConsoleAuditor>();
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();
