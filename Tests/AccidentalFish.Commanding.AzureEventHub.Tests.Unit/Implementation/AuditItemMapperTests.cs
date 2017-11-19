@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.AzureEventHub.Implementation;
-using AccidentalFish.Commanding.Model;
 using Xunit;
 
 namespace AccidentalFish.Commanding.AzureEventHub.Tests.Unit.Implementation
