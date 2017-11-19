@@ -39,7 +39,7 @@ namespace HttpCommanding.Web
                 CommandActorContainerRegistration = type => services.AddTransient(type, type)
             };
             dependencyResolver.UseCommanding(options)
-                .Register<UpdatePersonalDetailsCommand, UpdateResult, UpdatePersonalDetailsCommandActor>();
+                .Register<UpdatePersonalDetailsCommandActor>();
             serviceProvider = services.BuildServiceProvider();
         }
 

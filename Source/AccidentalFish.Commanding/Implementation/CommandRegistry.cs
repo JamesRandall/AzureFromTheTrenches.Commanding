@@ -17,18 +17,6 @@ namespace AccidentalFish.Commanding.Implementation
             _commandActorContainerRegistration = commandActorContainerRegistration;
         }
         
-        public ICommandRegistry Register<TCommand, TResult, TCommandActor>(int order = CommandActorOrder.Default,
-            Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : ICommand<TResult> where TCommandActor : ICommandActor<TCommand, TResult>
-        {
-            return RegisterActor<TCommand, TCommandActor>(order, dispatcherFactoryFunc);
-        }
-
-        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default,
-            Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : ICommand where TCommandActor : ICommandActor<TCommand>
-        {
-            return RegisterActor<TCommand, TCommandActor>(order, dispatcherFactoryFunc);
-        }
-
         public ICommandRegistry Register<TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommandActor : ICommandActorBase
         {
             Type commandActorBase = typeof(ICommandActorBase);
@@ -43,12 +31,6 @@ namespace AccidentalFish.Commanding.Implementation
             }
 
             return RegisterActor(candidateCommandType, actorType, order, dispatcherFactoryFunc);
-        }
-
-        private ICommandRegistry RegisterActor<TCommand, TCommandActor>(int order, Func<ICommandDispatcher> dispatcherFactoryFunc)
-            where TCommand : ICommand where TCommandActor : ICommandActor
-        {
-            return RegisterActor(typeof(TCommand), typeof(TCommandActor), order, dispatcherFactoryFunc);
         }
 
         private ICommandRegistry RegisterActor(Type commandType, Type commandActorType, int order,

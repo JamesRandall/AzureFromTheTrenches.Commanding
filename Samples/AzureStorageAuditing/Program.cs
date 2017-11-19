@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.AzureStorage;
 using AccidentalFish.Commanding.AzureStorage.Strategies;
 using AccidentalFish.Commanding.Queue;
@@ -84,8 +83,8 @@ namespace AzureStorageAuditing
             };
 
             dependencyResolver.UseCommanding(options)
-                .Register<ChainCommand, NoResult, ChainCommandActor>()
-                .Register<OutputToConsoleCommand, DeferredCommandResult, OutputWorldToConsoleCommandActor>();
+                .Register<ChainCommandActor>()
+                .Register<OutputWorldToConsoleCommandActor>();
             dependencyResolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
@@ -115,8 +114,8 @@ namespace AzureStorageAuditing
             };
 
             dependencyResolver.UseCommanding(options)
-                .Register<ChainCommand, NoResult, ChainCommandActor>()
-                .Register<OutputToConsoleCommand, DeferredCommandResult, OutputWorldToConsoleCommandActor>();
+                .Register<ChainCommandActor>()
+                .Register<OutputWorldToConsoleCommandActor>();
             dependencyResolver.UseAzureStorageCommandAuditing(storageAccount);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();

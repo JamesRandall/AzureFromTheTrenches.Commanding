@@ -17,7 +17,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             var registry = new CommandRegistry();
 
             // Act
-            registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>();
+            registry.Register<SimpleCommandActor>();
 
             // Assert
             var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
@@ -32,7 +32,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
+            registry.Register<SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
             var result = registry.GetCommandDispatcherFactory(new SimpleCommand());
@@ -65,13 +65,13 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
             // Act
             if (reverseRegistration)
             {
-                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActorTwo>(order: 1500);
-                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(order: 1000);
+                registry.Register<SimpleCommandActorTwo>(order: 1500);
+                registry.Register<SimpleCommandActor>(order: 1000);
             }
             else
             {
-                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActor>(order: 1000);
-                registry.Register<SimpleCommand, SimpleResult, SimpleCommandActorTwo>(order: 1500);
+                registry.Register<SimpleCommandActor>(order: 1000);
+                registry.Register<SimpleCommandActorTwo>(order: 1500);
             }
             
 
