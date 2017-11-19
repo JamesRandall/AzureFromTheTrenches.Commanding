@@ -15,10 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AccidentalFish.DependencyResolver" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj" />
   </ItemGroup>
 

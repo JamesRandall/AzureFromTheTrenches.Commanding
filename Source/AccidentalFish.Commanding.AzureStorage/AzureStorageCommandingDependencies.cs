@@ -1,7 +1,6 @@
 ﻿using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.AzureStorage.Implementation;
 using AccidentalFish.Commanding.AzureStorage.Strategies;
-using AccidentalFish.DependencyResolver;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;

@@ -1,6 +1,8 @@
-﻿namespace AccidentalFish.Commanding.Cache.Tests.Unit.TestModel
+﻿using AccidentalFish.Commanding.Abstractions;
+
+namespace AccidentalFish.Commanding.Cache.Tests.Unit.TestModel
 {
-    public class SimpleCommand2
+    public class SimpleCommand2 : ICommand<SimpleResult>
     {
         public int SomeValue { get; set; }
 

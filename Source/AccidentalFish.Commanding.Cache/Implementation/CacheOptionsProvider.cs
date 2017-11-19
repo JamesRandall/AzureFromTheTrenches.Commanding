@@ -22,7 +22,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
         public CacheOptions Get<T>(T command)
         {
             CacheOptions result;
-            if (_options.TryGetValue(typeof(T), out result))
+            if (_options.TryGetValue(command.GetType(), out result))
             {
                 return result;
             }

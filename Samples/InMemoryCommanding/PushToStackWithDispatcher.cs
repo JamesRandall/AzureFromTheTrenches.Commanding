@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
-using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;

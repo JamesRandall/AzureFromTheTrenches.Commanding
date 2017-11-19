@@ -27,8 +27,7 @@ namespace AccidentalFish.Commanding.Cache.MemoryCache.Implementation
 
         public Task<T> Get<T>(string key)
         {
-            T result;
-            if (!_memoryCache.TryGetValue(key, out result))
+            if (!_memoryCache.TryGetValue(key, out T result))
             {
                 result = default(T);
             }

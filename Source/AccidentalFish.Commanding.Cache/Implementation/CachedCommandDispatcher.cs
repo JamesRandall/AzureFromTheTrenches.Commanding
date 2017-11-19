@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Abstractions.Model;
 
@@ -23,12 +22,12 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             _cacheAdapter = cacheAdapter;
         }
 
-        public async Task<CommandResult<TResult>> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class
+        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
         {
             CacheOptions options = _cacheOptionsProvider.Get(command);
             if (options == null)
             {
-                return await _commandDispatcher.DispatchAsync<TCommand, TResult>(command);
+                return await _commandDispatcher.DispatchAsync(command);
             }
 
             var cacheKey = CacheKey(command);
@@ -52,7 +51,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
                     }
                     else
                     {
-                        executedResult = await _commandDispatcher.DispatchAsync<TCommand, TResult>(command);
+                        executedResult = await _commandDispatcher.DispatchAsync(command);
                     }
                 }
                 finally
@@ -62,7 +61,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             }
             else
             {
-                executedResult = await _commandDispatcher.DispatchAsync<TCommand, TResult>(command);
+                executedResult = await _commandDispatcher.DispatchAsync(command);
             }
 
             if (options.LifeTime != null)
@@ -80,23 +79,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             }
             
             return executedResult;
-        }
-
-        public Task<CommandResult<NoResult>> DispatchAsync<TCommand>(TCommand command) where TCommand : class
-        {
-            CacheOptions options = _cacheOptionsProvider.Get(command);
-            if (options != null)
-            {
-                throw new CacheConfigurationException($"Results cannot be cached for an execution chain that produces no results. Command type {typeof(TCommand)}");
-            }
-
-            return  _commandDispatcher.DispatchAsync(command);
-        }
-
-        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public ICommandExecuter AssociatedExecuter => _commandDispatcher.AssociatedExecuter;
 

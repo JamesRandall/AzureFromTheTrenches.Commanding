@@ -14,7 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AccidentalFish.DependencyResolver" Version="1.0.0" />
     <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>

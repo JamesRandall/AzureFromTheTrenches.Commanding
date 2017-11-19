@@ -6,7 +6,6 @@ using Moq;
 using Xunit;
 using AccidentalFish.Commanding.Cache.Implementation;
 using AccidentalFish.Commanding.Cache.Tests.Unit.TestModel;
-using AccidentalFish.Commanding.Model;
 
 namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
 {
@@ -25,10 +24,10 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
+            await dispatcher.DispatchAsync(command);
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command));
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command));
             cacheWrapper.Verify(x => x.Get<SimpleResult>(It.IsAny<string>()), Times.Never);
         }
 
@@ -47,16 +46,16 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
                 ANumber = 2
             };
             cacheWrapper.Setup(x => x.Get<SimpleResult>(It.IsAny<string>())).ReturnsAsync(cachedResult);
-            cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
-            cacheKeyProvider.Setup(x => x.CacheKey(command)).Returns("akey");
+            cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
+            cacheKeyProvider.Setup(x => x.CacheKey(It.IsAny<ICommand>())).Returns("akey");
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
+            var result = await dispatcher.DispatchAsync(command);
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command), Times.Never);
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Never);
             Assert.Equal(2, result.Result.ANumber);
         }
 
@@ -74,18 +73,18 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             {
                 ANumber = 2
             };
-            cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
-            cacheKeyProvider.Setup(x => x.CacheKey(command)).Returns("akey");
+            cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
+            cacheKeyProvider.Setup(x => x.CacheKey(It.IsAny<ICommand>())).Returns("akey");
             cacheWrapper.Setup(x => x.Set("akey", It.IsAny<object>(), TimeSpan.FromMinutes(5))).Returns(Task.FromResult(0));
-            underlyingCommandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
+            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
+            var result = await dispatcher.DispatchAsync(command);
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command), Times.Once, "Underlying dispatched was not called");
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Once, "Underlying dispatched was not called");
             cacheWrapper.Verify(x => x.Set("akey", cachedResult, TimeSpan.FromMinutes(5)), Times.Once, "Result was not set in cache");
             Assert.Equal(2, result.Result.ANumber);
         }
@@ -104,18 +103,18 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             {
                 ANumber = 2
             };
-            cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
-            cacheKeyProvider.Setup(x => x.CacheKey(command)).Returns("akey");
+            cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
+            cacheKeyProvider.Setup(x => x.CacheKey(It.IsAny<ICommand>())).Returns("akey");
             cacheWrapper.Setup(x => x.Set("akey", It.IsAny<object>(), TimeSpan.FromMinutes(5))).Returns(Task.FromResult(0));
-            underlyingCommandDispatcher.Setup(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
+            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
+            var result = await dispatcher.DispatchAsync(command);
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync<SimpleCommand, SimpleResult>(command), Times.Once, "Underlying dispatched was not called");
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Once, "Underlying dispatched was not called");
             cacheWrapper.Verify(x => x.Set("akey", cachedResult, TimeSpan.FromMinutes(5)), Times.Once, "Result was not set in cache");
             Assert.Equal(2, result.Result.ANumber);
         }
@@ -141,24 +140,6 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
         }
 
         [Fact]
-        public async Task ThrowsExceptionWhenNoResultExpectedAndOptionsConfigured()
-        {
-            // Arrange
-            Mock<ICacheKeyProvider> cacheKeyProvider = new Mock<ICacheKeyProvider>();
-            Mock<ICommandDispatcher> underlyingCommandDispatcher = new Mock<ICommandDispatcher>();
-            Mock<ICacheOptionsProvider> cacheOptionsProvider = new Mock<ICacheOptionsProvider>();
-            Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
-            SimpleCommand command = new SimpleCommand();
-            CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5), 1);
-            cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
-
-            CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
-
-            // Act and assert
-            await Assert.ThrowsAsync< CacheConfigurationException>(() => dispatcher.DispatchAsync(command));
-        }
-
-        [Fact]
         public async Task ThrowsExceptionWhenNoCacheKeyReturned()
         {
             // Arrange
@@ -168,12 +149,12 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             Mock<ICacheAdapter> cacheWrapper = new Mock<ICacheAdapter>();
             SimpleCommand command = new SimpleCommand();
             CacheOptions options = new CacheOptions(typeof(SimpleCommand), TimeSpan.FromMinutes(5), 1);
-            cacheOptionsProvider.Setup(x => x.Get(command)).Returns(options);
+            cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act and assert
-            await Assert.ThrowsAsync<CacheKeyException>(() => dispatcher.DispatchAsync<SimpleCommand,SimpleResult>(command));
+            await Assert.ThrowsAsync<CacheKeyException>(() => dispatcher.DispatchAsync(command));
         }
     }
 }

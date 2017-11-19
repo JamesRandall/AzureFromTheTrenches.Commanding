@@ -1,10 +1,10 @@
-﻿using AccidentalFish.Commanding.Cache.Implementation;
-using AccidentalFish.DependencyResolver;
+﻿using AccidentalFish.Commanding.Abstractions;
+using AccidentalFish.Commanding.Cache.Implementation;
 
 namespace AccidentalFish.Commanding.Cache
 {
     // ReSharper disable once InconsistentNaming
-    public static class IDependencyResolverExtensions
+    public static class CacheCommandingDependencies
     {
         /// <summary>
         /// Sets up the cache with the default cache key provider that uses the command type, property names and property values to
@@ -13,7 +13,7 @@ namespace AccidentalFish.Commanding.Cache
         /// <param name="resolver">The dependency resolver</param>
         /// <param name="options">Cache options</param>
         /// <returns>The dependency resolver</returns>
-        public static IDependencyResolver UseCommandCache(this IDependencyResolver resolver,  params CacheOptions[] options)
+        public static ICommandingDependencyResolver UseCommandCache(this ICommandingDependencyResolver resolver,  params CacheOptions[] options)
         {
             return UseCommandCache(resolver, new PropertyCacheKeyProvider(new PropertyCacheKeyProviderCompiler()), options);
         }
@@ -25,11 +25,11 @@ namespace AccidentalFish.Commanding.Cache
         /// <param name="cacheKeyProvider">Instance of a cache key provider</param>
         /// <param name="options">Cache options</param>
         /// <returns>The dependency resolver</returns>
-        public static IDependencyResolver UseCommandCache(this IDependencyResolver resolver, ICacheKeyProvider cacheKeyProvider, params CacheOptions[] options)
+        public static ICommandingDependencyResolver UseCommandCache(this ICommandingDependencyResolver resolver, ICacheKeyProvider cacheKeyProvider, params CacheOptions[] options)
         {
             ICacheOptionsProvider cacheOptionsProvider = new CacheOptionsProvider(options);
             resolver.RegisterInstance(cacheOptionsProvider);
-            resolver.Register<ICachedCommandDispatcher, CachedCommandDispatcher>();
+            resolver.TypeMapping<ICachedCommandDispatcher, CachedCommandDispatcher>();
             resolver.RegisterInstance(cacheKeyProvider);
 
             return resolver;
