@@ -55,7 +55,8 @@ namespace AzureFromTheTrenches.Commanding
             {
                 if (_registry == null || options.Reset)
                 {
-                    _registry = new CommandRegistry(options.CommandActorContainerRegistration);
+                    Action<Type> resolverContainerRegistration = type => dependencyResolver.TypeMapping(type, type);
+                    _registry = new CommandRegistry(options.CommandActorContainerRegistration ?? resolverContainerRegistration);
                 }
                 dependencyResolver.RegisterInstance(_registry);
             }

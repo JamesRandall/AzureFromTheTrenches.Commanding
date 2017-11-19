@@ -29,6 +29,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
             return this;
         }
 
+        public CommandingDependencyResolver TypeMapping(Type type, Type impl) 
+        {
+            _typeMapping(type, impl);
+            return this;
+        }
+
         public TType Resolve<TType>()
         {
             return (TType)_resolve(typeof(TType));

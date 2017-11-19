@@ -77,7 +77,6 @@ namespace AzureStorageAuditing
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required                
                 Enrichers = new [] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
@@ -108,7 +107,6 @@ namespace AzureStorageAuditing
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required                
                 Enrichers = new[] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };

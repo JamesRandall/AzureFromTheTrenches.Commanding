@@ -30,12 +30,8 @@ namespace HttpCommanding.Client
             Uri uri = new Uri("http://localhost:52933/api/personalDetails");
             ServiceCollection serviceCollection = new ServiceCollection();
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
-            Options options = new Options
-            {
-                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
-            };
-
-            ICommandRegistry registry = dependencyResolver.UseCommanding(options);
+            
+            ICommandRegistry registry = dependencyResolver.UseCommanding();
             dependencyResolver.UseHttpCommanding();
             _serviceProvider = serviceCollection.BuildServiceProvider();
 

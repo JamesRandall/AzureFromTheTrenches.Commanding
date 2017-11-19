@@ -61,7 +61,6 @@ namespace InMemoryCommanding
 
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 Enrichers = new[]
                     { new FunctionWrapperCommandDispatchContextEnricher(Enricher) },

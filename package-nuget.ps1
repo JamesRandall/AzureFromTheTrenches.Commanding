@@ -21,7 +21,7 @@ rm .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg
 rm .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg
 rm .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg
 
-msbuild
+dotnet build .\AzureFromTheTrenches.Commanding.sln
 
 if ($pushLocal)
 {
@@ -37,12 +37,12 @@ if ($pushLocal)
 
 if ($pushNuget)
 {
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Http\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Queue\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg --source nuget.org
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg --source nuget.org
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Http\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Queue\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
 }
