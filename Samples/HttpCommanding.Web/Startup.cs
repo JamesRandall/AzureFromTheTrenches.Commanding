@@ -4,7 +4,6 @@ using AccidentalFish.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 using HttpCommanding.Web.Actors;
-using InMemoryCommanding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

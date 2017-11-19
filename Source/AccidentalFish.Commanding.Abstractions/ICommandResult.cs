@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Abstractions.Model
+﻿namespace AccidentalFish.Commanding.Abstractions
 {
     /*public interface ICommandResult
     {

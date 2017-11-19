@@ -2,7 +2,7 @@
 using AccidentalFish.Commanding.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InMemoryCommanding
+namespace AzureStorageAuditing
 {
     public static class ServiceCollectionExtensions
     {

@@ -2,7 +2,7 @@
 using AccidentalFish.Commanding.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InMemoryCommanding
+namespace AccidentalFish.Commanding.Tests.Performance.Console
 {
     public static class ServiceCollectionExtensions
     {

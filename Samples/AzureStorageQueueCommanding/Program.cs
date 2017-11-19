@@ -8,7 +8,6 @@ using AccidentalFish.Commanding.AzureStorage;
 using AccidentalFish.Commanding.Queue;
 using AzureStorageQueueCommanding.Actors;
 using AzureStorageQueueCommanding.Commands;
-using InMemoryCommanding;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;

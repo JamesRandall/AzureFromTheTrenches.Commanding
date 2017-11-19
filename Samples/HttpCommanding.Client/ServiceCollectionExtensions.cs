@@ -2,7 +2,7 @@
 using AccidentalFish.Commanding.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InMemoryCommanding
+namespace HttpCommanding.Client
 {
     public static class ServiceCollectionExtensions
     {

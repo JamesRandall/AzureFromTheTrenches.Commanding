@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Tests.Performance.Console.Model;
-using InMemoryCommanding;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AccidentalFish.Commanding.Tests.Performance.Console

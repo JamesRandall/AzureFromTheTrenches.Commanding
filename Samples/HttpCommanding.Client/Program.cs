@@ -6,7 +6,6 @@ using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Http;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
-using InMemoryCommanding;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HttpCommanding.Client
