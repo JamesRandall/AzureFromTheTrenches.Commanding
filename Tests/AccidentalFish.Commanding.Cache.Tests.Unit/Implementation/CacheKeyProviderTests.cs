@@ -12,18 +12,19 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
         {
             // Arrange
             Mock<IPropertyCacheKeyProviderCompiler> compiler = new Mock<IPropertyCacheKeyProviderCompiler>();
-            compiler.Setup(x => x.Compile<SimpleCommand>()).Returns(c => "hello");
+            Mock<ICacheKeyHash> cacheKeyHash = new Mock<ICacheKeyHash>();
+            compiler.Setup(x => x.Compile<SimpleCommand>(It.IsAny<ICacheKeyHash>())).Returns(c => "hello");
             SimpleCommand command = new SimpleCommand
             {
                 SomeValue = 1
             };            
-            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object);
+            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object, cacheKeyHash.Object);
 
             // Act
             subject.CacheKey(command);
 
             // Assert
-            compiler.Verify(x => x.Compile<SimpleCommand>(), Times.Once);
+            compiler.Verify(x => x.Compile<SimpleCommand>(cacheKeyHash.Object), Times.Once);
         }
 
         [Fact]
@@ -31,7 +32,8 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
         {
             // Arrange
             Mock<IPropertyCacheKeyProviderCompiler> compiler = new Mock<IPropertyCacheKeyProviderCompiler>();
-            compiler.Setup(x => x.Compile<SimpleCommand>()).Returns(c => "hello");
+            Mock<ICacheKeyHash> cacheKeyHash = new Mock<ICacheKeyHash>();
+            compiler.Setup(x => x.Compile<SimpleCommand>(It.IsAny<ICacheKeyHash>())).Returns(c => "hello");
             SimpleCommand command = new SimpleCommand
             {
                 SomeValue = 1
@@ -40,14 +42,14 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             {
                 SomeValue = 1
             };
-            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object);
+            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object, cacheKeyHash.Object);
 
             // Act
             subject.CacheKey(command);
             subject.CacheKey(command);
 
             // Assert
-            compiler.Verify(x => x.Compile<SimpleCommand>(), Times.Once);
+            compiler.Verify(x => x.Compile<SimpleCommand>(cacheKeyHash.Object), Times.Once);
         }
 
         [Fact]
@@ -55,8 +57,9 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
         {
             // Arrange
             Mock<IPropertyCacheKeyProviderCompiler> compiler = new Mock<IPropertyCacheKeyProviderCompiler>();
-            compiler.Setup(x => x.Compile<SimpleCommand>()).Returns(c => "hello");
-            compiler.Setup(x => x.Compile<SimpleCommand2>()).Returns(c => "hello");
+            Mock<ICacheKeyHash> cacheKeyHash = new Mock<ICacheKeyHash>();
+            compiler.Setup(x => x.Compile<SimpleCommand>(It.IsAny<ICacheKeyHash>())).Returns(c => "hello");
+            compiler.Setup(x => x.Compile<SimpleCommand2>(It.IsAny<ICacheKeyHash>())).Returns(c => "hello");
             SimpleCommand command = new SimpleCommand
             {
                 SomeValue = 1
@@ -65,15 +68,15 @@ namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
             {
                 SomeValue = 1
             };
-            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object);
+            ICacheKeyProvider subject = new PropertyCacheKeyProvider(compiler.Object, cacheKeyHash.Object);
 
             // Act
             subject.CacheKey(command);
             subject.CacheKey(command2);
 
             // Assert
-            compiler.Verify(x => x.Compile<SimpleCommand>(), Times.Exactly(1));
-            compiler.Verify(x => x.Compile<SimpleCommand2>(), Times.Exactly(1));
+            compiler.Verify(x => x.Compile<SimpleCommand>(cacheKeyHash.Object), Times.Exactly(1));
+            compiler.Verify(x => x.Compile<SimpleCommand2>(cacheKeyHash.Object), Times.Exactly(1));
         }
     }
 }

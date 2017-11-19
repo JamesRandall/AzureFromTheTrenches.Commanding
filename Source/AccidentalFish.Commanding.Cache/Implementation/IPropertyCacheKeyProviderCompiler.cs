@@ -4,6 +4,6 @@ namespace AccidentalFish.Commanding.Cache.Implementation
 {
     interface IPropertyCacheKeyProviderCompiler
     {
-        Func<TCommand, string> Compile<TCommand>();
+        Func<TCommand, string> Compile<TCommand>(ICacheKeyHash cacheKeyHash);
     }
 }

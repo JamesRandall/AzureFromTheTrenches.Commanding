@@ -8,12 +8,12 @@ namespace AccidentalFish.Commanding.Cache.Implementation
 {
     internal class PropertyCacheKeyProviderCompiler : IPropertyCacheKeyProviderCompiler
     {
-        public Func<TCommand, string> Compile<TCommand>()
+        public Func<TCommand, string> Compile<TCommand>(ICacheKeyHash cacheKeyHash)
         {
             Func<TCommand, string> compiledFunc = null;
             var commandParameter = Expression.Parameter(typeof(TCommand));
             MethodInfo toStringMethodInfo = typeof(object).GetTypeInfo().GetDeclaredMethod("ToString");
-            MethodInfo gethashcodeMethodInfo = typeof(object).GetTypeInfo().GetDeclaredMethod("GetHashCode");
+            MethodInfo gethashcodeMethodInfo = typeof(ICacheKeyHash).GetTypeInfo().GetDeclaredMethod("GetHash");
             PropertyInfo[] properties = typeof(TCommand).GetTypeInfo().DeclaredProperties.OrderBy(x => x.Name).ToArray();
             Expression[] concatParameters = new Expression[properties.Length*3 + 1];
             concatParameters[0] = Expression.Constant(typeof(TCommand).Name);
@@ -29,7 +29,7 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             
             
             Expression concatCall = Expression.Call(null, concatMethodInfo, Expression.NewArrayInit(typeof(string), concatParameters));
-            Expression gethashcodeCall = Expression.Call(Expression.Call(concatCall, gethashcodeMethodInfo), toStringMethodInfo);
+            Expression gethashcodeCall = Expression.Call(Expression.Constant(cacheKeyHash), gethashcodeMethodInfo, concatCall);
             var lambda = Expression.Lambda<Func<TCommand, string>>(gethashcodeCall, commandParameter);
             compiledFunc = lambda.Compile();
             

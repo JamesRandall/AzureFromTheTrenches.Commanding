@@ -15,7 +15,7 @@ namespace AccidentalFish.Commanding.Cache
         /// <returns>The dependency resolver</returns>
         public static ICommandingDependencyResolver UseCommandCache(this ICommandingDependencyResolver resolver,  params CacheOptions[] options)
         {
-            return UseCommandCache(resolver, new PropertyCacheKeyProvider(new PropertyCacheKeyProviderCompiler()), options);
+            return UseCommandCache(resolver, new PropertyCacheKeyProvider(new PropertyCacheKeyProviderCompiler(), new SimpleCacheKeyHash()), options);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace AccidentalFish.Commanding.Cache
             resolver.RegisterInstance(cacheOptionsProvider);
             resolver.TypeMapping<ICachedCommandDispatcher, CachedCommandDispatcher>();
             resolver.RegisterInstance(cacheKeyProvider);
-
+            
             return resolver;
         }
     }
