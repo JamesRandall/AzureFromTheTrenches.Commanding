@@ -25,6 +25,12 @@ namespace AccidentalFish.Commanding.Implementation
             _auditor = auditPipeline;
             AssociatedExecuter = commandExecuter;
         }
+
+        public async Task<CommandResult> DispatchAsync(ICommand command)
+        {
+            CommandResult<NoResult> result = await DispatchAsync(new NoResultCommandWrapper(command));
+            return result;
+        }
         
         public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
         {

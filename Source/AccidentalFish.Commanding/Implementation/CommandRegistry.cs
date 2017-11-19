@@ -20,6 +20,18 @@ namespace AccidentalFish.Commanding.Implementation
         public ICommandRegistry Register<TCommand, TResult, TCommandActor>(int order = CommandActorOrder.Default,
             Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : ICommand<TResult> where TCommandActor : ICommandActor<TCommand, TResult>
         {
+            return RegisterActor<TCommand, TCommandActor>(order, dispatcherFactoryFunc);
+        }
+
+        public ICommandRegistry Register<TCommand, TCommandActor>(int order = CommandActorOrder.Default,
+            Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommand : ICommand where TCommandActor : ICommandActor<TCommand>
+        {
+            return RegisterActor<TCommand, TCommandActor>(order, dispatcherFactoryFunc);
+        }
+
+        private ICommandRegistry RegisterActor<TCommand, TCommandActor>(int order, Func<ICommandDispatcher> dispatcherFactoryFunc)
+            where TCommand : ICommand where TCommandActor : ICommandActor
+        {
             if (!_actors.TryGetValue(typeof(TCommand), out var set))
             {
                 set = new SortedSet<PrioritisedCommandActor>();
@@ -48,7 +60,13 @@ namespace AccidentalFish.Commanding.Implementation
         {
             if (!_actors.TryGetValue(command.GetType(), out var set))
             {
-                return null;
+                if (command is NoResultCommandWrapper wrappedCommand)
+                {
+                    if (!_actors.TryGetValue(wrappedCommand.Command.GetType(), out set))
+                    {
+                        return null;
+                    }
+                }
             }
             return set.ToList();
         }

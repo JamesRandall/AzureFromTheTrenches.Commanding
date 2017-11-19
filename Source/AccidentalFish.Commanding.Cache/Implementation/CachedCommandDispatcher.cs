@@ -79,7 +79,13 @@ namespace AccidentalFish.Commanding.Cache.Implementation
             }
             
             return executedResult;
-        }        
+        }
+
+        public Task<CommandResult> DispatchAsync(ICommand command)
+        {
+            // we don't cache the results of commands with no results! - just pass it on
+            return _commandDispatcher.DispatchAsync(command);
+        }
 
         public ICommandExecuter AssociatedExecuter => _commandDispatcher.AssociatedExecuter;
 

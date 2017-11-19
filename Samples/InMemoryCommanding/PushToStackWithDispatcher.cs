@@ -26,6 +26,12 @@ namespace InMemoryCommanding
             return Task.FromResult(new CommandResult<TResult>(default(TResult), true));
         }
 
+        public Task<CommandResult> DispatchAsync(ICommand command)
+        {
+            _commandStack.Push(command);
+            return Task.FromResult(new CommandResult(true));
+        }
+
         public ICommandExecuter AssociatedExecuter => null;
     }
 

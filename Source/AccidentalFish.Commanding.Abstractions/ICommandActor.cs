@@ -18,6 +18,11 @@ namespace AccidentalFish.Commanding.Abstractions
         
     }
 
+    public interface ICommandActor<in TCommand> : ICommandActor where TCommand : ICommand
+    {
+        Task ExecuteAsync(TCommand command);
+    }
+
     public interface ICommandActor<in TCommand, TResult> : ICommandActor where TCommand : ICommand<TResult>
     {
         Task<TResult> ExecuteAsync(TCommand command, TResult previousResult);

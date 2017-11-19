@@ -24,6 +24,14 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             return new CommandResult<TResult>(default(TResult), true);
         }
 
+        public async Task<CommandResult> DispatchAsync(ICommand command)
+        {
+            string serializedCommand = _serializer.Serialize(command);
+            await _queue.AddMessageAsync(new CloudQueueMessage(serializedCommand));
+
+            return new CommandResult(true);
+        }
+
         public ICommandExecuter AssociatedExecuter => null;
     }
 }

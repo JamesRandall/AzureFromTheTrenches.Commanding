@@ -20,6 +20,13 @@ namespace AccidentalFish.Commanding.Abstractions
         Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command);
 
         /// <summary>
+        /// Dispatches a command with no expected payload result
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <returns>Command result</returns>
+        Task<CommandResult> DispatchAsync(ICommand command);
+
+        /// <summary>
         /// The dispatchers associated executer
         /// </summary>
         ICommandExecuter AssociatedExecuter { get; }
