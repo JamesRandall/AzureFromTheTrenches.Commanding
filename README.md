@@ -14,20 +14,16 @@ The framework supports .NET Standard 2.0 (and higher) and so, at the time of wri
 * Xamarin.Android 10.8
 * Universal Windows Platform 10.0.16299
 
-As such it can happily be used in a varierty of scenarios such as ASP.Net, ASP.Net Core, Console apps, Worker Roles, WebJobs etc.
+As such it can easily be used in a varierty of scenarios such as ASP.Net, ASP.Net Core, Console apps, Worker Roles, WebJobs etc.
 
 Additionally the framework is designed specifically for use with a dependency injection approach and can be used with any of the
-common dependency injectors (e.g. Autofac, Ninject, Unity, ASP.Net Core Services Container etc.).
+common dependency injectors (e.g. Autofac, Ninject, Unity, ASP.Net Core Services Container etc.) through the use of a simple adapter.
 
 ## Getting Started
 
 Firstly install the nuget package:
 
     Install-Package AzureFromTheTrenches.Commanding
-
-And install an adapter for your dependency resolver, for this documentation I'm going to assume the use of the Microsoft ASP.Net Core Services Container:
-
-    Install-Package AzureFromTheTrenches.DependencyResolver.MicrosoftNetStandard
 
 As an example let's create a command that adds two numbers together and returns a result:
 
@@ -58,22 +54,23 @@ Commands are acted on by actors and our add action looks like this:
 Having defined our command, result and actor, we need to register these with the commanding system. If you're just writing a console app you can do this in Program.cs but for more realistic usage you'd do this where you configure your IoC container - it's handy to think of command registrations as just another part of your applications configuration, besides which you'll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:
 
     IServiceCollection serviceCollection = new ServiceCollection();
-    MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
-    resolver.UseCommanding(type => resolver.Register(type, type))
-        .Register<AddCommand, AddCommandActor>();
-    IServiceProvider serviceProvider = resolver.BuildServiceProvider();
+    IServiceProvider serviceProvider = null;
+    ICommandingDependencyResolver commandingDependencyResolver = new CommandingDependencyResolver(
+        (type, instance) => serviceCollection.AddSingleton(type, instance),
+        (type, impl) => serviceCollection.AddTransient(type, impl),
+        type => serviceProvider.GetService(type)
+    );
+    commandingDependencyResolver.UseCommanding()
+        .Register<AddCommandActor>();
+    IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register commands and their actors. _(For the curious the lambda that is supplied to it registers actors as concrete types in the IoC container - this is only required for IoC containers that can't resolver arbitary concrete types)_
+The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register commands and their actors.
 
 To dispatch our command we need to get hold of the ICommandDispatcher interface and send the command. We'll do that and output the result to the console:
 
     ICommandDispatcher commandDispatcher = serviceProvider.GetService<ICommandDispatcher>();
-    MathResult mathResult = await commandDispatcher.DispatchAsync<AddCommand, MathResult>(new AddCommand { FirstNumber = 5, SecondNumber = 6});
+    MathResult mathResult = await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
     Console.WriteLine(mathResult.Value); // hopefully says 11
-
-If you don't care about a result you can shorten this a little:
-
-    await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
 
 And for simple usage that's it. The above is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your commands in the appropriate place.
 
