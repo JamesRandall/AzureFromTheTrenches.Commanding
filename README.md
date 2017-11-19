@@ -16,14 +16,8 @@ The framework supports .NET Standard 2.0 (and higher) and so, at the time of wri
 
 As such it can happily be used in a varierty of scenarios such as ASP.Net, ASP.Net Core, Console apps, Worker Roles, WebJobs etc.
 
-Additionally the framework is designed specifically for use with IoC containers and adapters are available for the below containers (the NuGet adapter package is in brackets):
-
-* Autofac (AccidentalFish.DependencyResolver.Autofac)
-* Ninject (AccidentalFish.DependencyResolver.Ninject)
-* Unity (AccidentalFish.DependencyResolver.Unity)
-* Microsoft ASP.NET Core Services Container (AccidentalFish.DependencyResolver.MicrosoftNetStandard)
-
-_I've found the configuration based approach to be particularly useful when growing a project over time allowing for the building of a modular monolith early in the lifecycle (useful for exploring user interface, product design, market fit etc.) that can be easily pulled apart into an SOA or microservice architecture should the need arise. Microservices are great but if they're used too early and in the wrong context (for example while you have a handful of customers and are trying to establish market fit) can be as much of a hinderance in early stage development as they are a help when you need to scale. Note to self... finish blog post on evolutionary architecture!_
+Additionally the framework is designed specifically for use with a dependency injection approach and can be used with any of the
+common dependency injectors (e.g. Autofac, Ninject, Unity, ASP.Net Core Services Container etc.).
 
 ## Getting Started
 
@@ -33,22 +27,20 @@ Firstly install the nuget package:
 
 And install an adapter for your dependency resolver, for this documentation I'm going to assume the use of the Microsoft ASP.Net Core Services Container:
 
-    Install-Package AccidentalFish.DependencyResolver.MicrosoftNetStandard
+    Install-Package AzureFromTheTrenches.DependencyResolver.MicrosoftNetStandard
 
-Although they don't have to be commands are best kept as just Plain Old Csharp Objects. They're best kept this way so that if you want to shift an in-memory command to a HTTP command it's super simple to do so. A command for adding two numbers together might look like this:
-
-    public class AddCommand
-    {
-        public int FirstNumber { get; set; }
-
-        public int SecondNumber { get; set; }
-    }
-
-The result of that command could be represented like this:
+As an example let's create a command that adds two numbers together and returns a result:
 
     public class MathResult
     {
         public int Value { get; set; }
+    }
+    
+    public class AddCommand : ICommand<MathResult>
+    {
+        public int FirstNumber { get; set; }
+
+        public int SecondNumber { get; set; }
     }
 
 Commands are acted on by actors and our add action looks like this:
