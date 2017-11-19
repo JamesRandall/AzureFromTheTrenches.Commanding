@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Queue;
 using Microsoft.WindowsAzure.Storage.Queue;
 
@@ -21,7 +22,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             _serializer = serializer;
         }
 
-        public Task Start<TCommand,TResult>(CloudQueue queue, CancellationToken cancellationToken, int maxDequeueCount = 10, Action<string> traceLogger = null) where TCommand : class
+        public Task Start<TCommand,TResult>(CloudQueue queue, CancellationToken cancellationToken, int maxDequeueCount = 10, Action<string> traceLogger = null) where TCommand : class, ICommand<TResult>
         {
             AzureStorageQueueBackoffProcessor<TCommand> queueProcessor = new AzureStorageQueueBackoffProcessor<TCommand>(
                 _backoffPolicyFactory.Create(),
@@ -33,7 +34,7 @@ namespace AccidentalFish.Commanding.AzureStorage.Implementation
             return queueProcessor.StartAsync(cancellationToken);
         }
 
-        public Task Start<TCommand, TResult>(CloudQueue queue, int maxDequeueCount = 10, Action<string> traceLogger = null) where TCommand : class
+        public Task Start<TCommand, TResult>(CloudQueue queue, int maxDequeueCount = 10, Action<string> traceLogger = null) where TCommand : class, ICommand<TResult>
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             return Start<TCommand, TResult>(queue, cancellationTokenSource.Token, maxDequeueCount, traceLogger);

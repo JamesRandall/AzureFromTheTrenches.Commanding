@@ -19,7 +19,7 @@ namespace AccidentalFish.Commanding.Queue.Implementation
             return Task.FromResult(true);
         }
 
-        public async Task<bool> HandleRecievedItemAsync<TCommand, TResult>(QueueItem<TCommand> item, int maxDequeueCount) where TCommand : class
+        public async Task<bool> HandleRecievedItemAsync<TCommand, TResult>(QueueItem<TCommand> item, int maxDequeueCount) where TCommand : class, ICommand<TResult>
         {
             try
             {
@@ -29,7 +29,7 @@ namespace AccidentalFish.Commanding.Queue.Implementation
                 {
                     queueableCommand.DequeueCount = item.DequeueCount;
                 }
-                Task commandTask = _commandExecuter.ExecuteAsync<TCommand, TResult>(item.Item);
+                Task commandTask = _commandExecuter.ExecuteAsync(item.Item);
                 while (!commandTask.Wait(TimeSpan.FromSeconds(10)))
                 {
                     await item.ExtendLeaseAsync();

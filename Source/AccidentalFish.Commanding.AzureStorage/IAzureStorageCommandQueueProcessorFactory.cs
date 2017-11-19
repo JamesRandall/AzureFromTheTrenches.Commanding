@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AccidentalFish.Commanding.Abstractions;
 using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace AccidentalFish.Commanding.AzureStorage
@@ -14,10 +15,10 @@ namespace AccidentalFish.Commanding.AzureStorage
         Task Start<TCommand, TResult>(CloudQueue queue,
             CancellationToken cancellationToken,
             int maxDequeueCount = 10,
-            Action<string> traceLogger = null) where TCommand : class;
+            Action<string> traceLogger = null) where TCommand : class, ICommand<TResult>;
 
         Task Start<TCommand, TResult>(CloudQueue queue,
             int maxDequeueCount = 10,
-            Action<string> traceLogger = null) where TCommand : class;
+            Action<string> traceLogger = null) where TCommand : class, ICommand<TResult>;
     }
 }

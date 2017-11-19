@@ -5,11 +5,10 @@ using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Abstractions.Model;
 using AccidentalFish.Commanding.AzureStorage;
-using AccidentalFish.Commanding.Model;
 using AccidentalFish.Commanding.Queue;
-using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using AzureStorageQueueCommanding.Actors;
 using AzureStorageQueueCommanding.Commands;
+using InMemoryCommanding;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -18,6 +17,8 @@ namespace AzureStorageQueueCommanding
 {
     class Program
     {
+        private static IServiceProvider _serviceProvider;
+
         static void Main(string[] args)
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -31,13 +32,11 @@ namespace AzureStorageQueueCommanding
         private static async Task RunDemo(CancellationTokenSource cancellationTokenSource)
         {
             CloudQueue queue = await ConfigureQueue();
-            ICommandDispatcher dispatcher;
-            IAzureStorageCommandQueueProcessorFactory listenerFactory;
-            ConfigureCommanding(queue, out dispatcher, out listenerFactory);
+            ConfigureCommanding(queue, out var dispatcher, out var listenerFactory);
 
 #pragma warning disable 4014 // we're just letting things run unmanaged in this console demo
             listenerFactory.Start<OutputToConsoleCommand, DeferredCommandResult>(queue, cancellationTokenSource.Token);
-            dispatcher.DispatchAsync<OutputToConsoleCommand, DeferredCommandResult>(new OutputToConsoleCommand { Message = "Hello" });
+            dispatcher.DispatchAsync(new OutputToConsoleCommand { Message = "Hello" });
 #pragma warning restore 4014            
         }
 
@@ -52,21 +51,24 @@ namespace AzureStorageQueueCommanding
 
         private static void ConfigureCommanding(CloudQueue queue, out ICommandDispatcher dispatcher, out IAzureStorageCommandQueueProcessorFactory listenerFactory)
         {
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            ServiceCollection serviceCollection = new ServiceCollection();
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => resolver.Register(type, type)                
+                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type)
             };
-            ICommandRegistry registry = resolver.UseCommanding(options);
-            resolver.UseQueues().UseAzureStorageCommanding();
+            ICommandRegistry registry = CommandingDependencies.UseCommanding(dependencyResolver, options);
+            QueueCommandingDependencies.UseQueues(dependencyResolver);
+            AzureStorageCommandingDependencies.UseAzureStorageCommanding(dependencyResolver);
 
-            ICommandDispatcher QueueDispatcher() => resolver.Resolve<IAzureStorageQueueDispatcherFactory>().Create(queue);
-            registry.Register<OutputToConsoleCommand, OutputWorldToConsoleCommandActor>(dispatcherFactoryFunc: QueueDispatcher)
-                .Register<OutputToConsoleCommand, OutputBigglesToConsoleCommandActor>();
+            ICommandDispatcher QueueDispatcher() => _serviceProvider.GetService<IAzureStorageQueueDispatcherFactory>().Create(queue);
+            registry
+                .Register<OutputToConsoleCommand, DeferredCommandResult, OutputWorldToConsoleCommandActor>(dispatcherFactoryFunc: QueueDispatcher)
+                .Register<OutputToConsoleCommand, DeferredCommandResult, OutputBigglesToConsoleCommandActor>();
 
-            resolver.BuildServiceProvider();
-            dispatcher = resolver.Resolve<ICommandDispatcher>();
-            listenerFactory = resolver.Resolve<IAzureStorageCommandQueueProcessorFactory>();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+            dispatcher = _serviceProvider.GetService<ICommandDispatcher>();
+            listenerFactory = _serviceProvider.GetService<IAzureStorageCommandQueueProcessorFactory>();
         }
     }
 }

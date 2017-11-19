@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding", "Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
 EndProject
@@ -73,6 +73,7 @@ Global
 		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43886BB7-4E36-4772-A64E-E2D29E2E7C52}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16A92E80-3D67-4BD4-94D1-65C3CBC2179D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -92,9 +93,11 @@ Global
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73E0CF28-7771-40F4-86BB-DB07410B1B3E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60BAACEB-D193-4AD7-83DD-ABB835B9C27F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1B8DB62-5361-4183-9C83-213ED7291B62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40F2AF7D-3480-4644-8B3E-AE52FECD6F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
