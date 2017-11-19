@@ -8,14 +8,14 @@ namespace AccidentalFish.Commanding.Http
     // ReSharper disable once InconsistentNaming
     public static class ICommandRegistryExtensions
     {
-        public static void RegisterHttpCommand<TCommand>(this ICommandRegistry registry,
+        public static void RegisterHttpCommand<TCommand, TResult>(this ICommandRegistry registry,
             Uri uri,
             HttpMethod httpMethod = null,
             Func<string> authenticationHeaderContent = null,
             IHttpCommandSerializer httpCommandSerializer = null,
-            IUriCommandQueryBuilder uriCommandQueryBuilder = null) where TCommand : class
+            IUriCommandQueryBuilder uriCommandQueryBuilder = null) where TCommand : ICommand<TResult>
         {
-            registry.Register<TCommand>(() => new HttpCommandDispatcher(new HttpCommandExecuter(uri, httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(), uriCommandQueryBuilder ?? new UriCommandQueryBuilder())));
+            registry.Register<TCommand, TResult>(() => new HttpCommandDispatcher(new HttpCommandExecuter(uri, httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(), uriCommandQueryBuilder ?? new UriCommandQueryBuilder())));
         }
     }
 }

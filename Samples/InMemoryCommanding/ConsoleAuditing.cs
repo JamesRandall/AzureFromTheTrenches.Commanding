@@ -67,11 +67,11 @@ namespace InMemoryCommanding
                     { new FunctionWrapperCommandDispatchContextEnricher(Enricher) },
                 AuditRootCommandOnly = auditRootOnly
             };
-            IDependencyResolverExtensions.UseCommanding(dependencyResolver, options) 
+            CommandingDependencies.UseCommanding(dependencyResolver, options) 
                 .Register<ChainCommand, NoResult, ChainCommandActor>()
                 .Register<OutputToConsoleCommand, CountResult, OutputWorldToConsoleCommandActor>()
                 .Register<OutputToConsoleCommand, CountResult, OutputBigglesToConsoleCommandActor>();
-            IDependencyResolverExtensions.RegisterCommandingAuditor<ConsoleAuditor>(dependencyResolver);
+            CommandingDependencies.UseCommandingAuditor<ConsoleAuditor>(dependencyResolver);
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();
         }

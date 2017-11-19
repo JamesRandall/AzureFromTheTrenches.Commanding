@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AccidentalFish.Commanding;
+﻿using System.Threading.Tasks;
 using AccidentalFish.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
@@ -27,7 +25,7 @@ namespace HttpCommanding.Web.Controllers
         [HttpPut]
         public async Task<UpdateResult> Put([FromBody]UpdatePersonalDetailsCommand command)
         {
-            UpdateResult result = await _commandExecuter.ExecuteAsync<UpdatePersonalDetailsCommand, UpdateResult>(command);
+            UpdateResult result = await _commandExecuter.ExecuteAsync(command);
             return result;
         }        
     }

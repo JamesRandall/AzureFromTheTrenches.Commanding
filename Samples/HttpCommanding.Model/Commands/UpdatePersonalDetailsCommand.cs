@@ -1,8 +1,10 @@
 ﻿using System;
+using AccidentalFish.Commanding.Abstractions;
+using HttpCommanding.Model.Results;
 
 namespace HttpCommanding.Model.Commands
 {
-    public class UpdatePersonalDetailsCommand
+    public class UpdatePersonalDetailsCommand : ICommand<UpdateResult>
     {
         public Guid Id { get; set; }
 

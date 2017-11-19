@@ -21,7 +21,7 @@ namespace AccidentalFish.Commanding.Tests.Unit.Implementation
 
             // Assert
             var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
-            Assert.Equal(result.Single().CommandActorType, typeof(SimpleCommandActor));
+            Assert.Equal(typeof(SimpleCommandActor), result.Single().CommandActorType);
         }
 
         [Fact]

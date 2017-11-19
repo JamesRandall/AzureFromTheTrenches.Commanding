@@ -1,7 +1,11 @@
-﻿using AccidentalFish.Commanding;
+﻿using System;
+using AccidentalFish.Commanding;
+using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using HttpCommanding.Model.Commands;
+using HttpCommanding.Model.Results;
 using HttpCommanding.Web.Actors;
+using InMemoryCommanding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,15 +32,17 @@ namespace HttpCommanding.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            IServiceProvider serviceProvider = null;
             services.AddMvc();
-            MicrosoftNetStandardDependencyResolver resolver = new MicrosoftNetStandardDependencyResolver(services);
+            CommandingDependencyResolver dependencyResolver = services.GetCommandingDependencyResolver(() => serviceProvider);
+
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => resolver.Register(type, type)
+                CommandActorContainerRegistration = type => services.AddTransient(type, type)
             };
-            resolver.UseCommanding(options)
-                .Register<UpdatePersonalDetailsCommand, UpdatePersonalDetailsCommandActor>();
-            resolver.BuildServiceProvider();
+            CommandingDependencies.UseCommanding(dependencyResolver, options)
+                .Register<UpdatePersonalDetailsCommand, UpdateResult, UpdatePersonalDetailsCommandActor>();
+            serviceProvider = services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

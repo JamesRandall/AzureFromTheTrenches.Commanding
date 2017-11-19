@@ -28,7 +28,7 @@ namespace AccidentalFish.Commanding.Http.Implementation
             _uriCommandQueryBuilder = uriCommandQueryBuilder;
         }
 
-        public async Task<TResult> ExecuteAsync<T, TResult>(T command) where T : class
+        public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
         {
             string json = _serializer.Serialize(command);
             HttpClient client = new HttpClient();

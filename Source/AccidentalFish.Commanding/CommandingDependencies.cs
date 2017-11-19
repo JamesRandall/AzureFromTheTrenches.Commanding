@@ -5,8 +5,7 @@ using AccidentalFish.Commanding.Implementation;
 
 namespace AccidentalFish.Commanding
 {
-    // ReSharper disable once InconsistentNaming
-    public static class IDependencyResolverExtensions
+    public static class CommandingDependencies
     {
         private static ICommandRegistry _registry = null;
         private static readonly object RegistryLockObject = new object();
@@ -36,14 +35,6 @@ namespace AccidentalFish.Commanding
         {
             return UseCommanding(dependencyResolver,
                 new Options {CommandActorContainerRegistration = commandActorContainerRegistration});
-        }
-
-        public static ICommandRegistry UseCommanding(Action<Type, object> registerInstance,
-            Action<Type, Type> typeMapping,
-            Func<Type, object> resolve,
-            Options options = null)
-        {
-            return UseCommanding(new CommandingDependencyResolver(registerInstance, typeMapping, resolve), options);
         }
 
         /// <summary>
@@ -132,7 +123,7 @@ namespace AccidentalFish.Commanding
             return _registry;
         }
 
-        public static void RegisterCommandingAuditor<TAuditorImpl>(CommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
+        public static void UseCommandingAuditor<TAuditorImpl>(CommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
         {
             lock (AuditorPipelineLockObject)
             {

@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AccidentalFish.DependencyResolver.MicrosoftNetStandard" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj" />
     <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj" />
     <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
     <ProjectReference Include="..\HttpCommanding.Model\HttpCommanding.Model.csproj" />
