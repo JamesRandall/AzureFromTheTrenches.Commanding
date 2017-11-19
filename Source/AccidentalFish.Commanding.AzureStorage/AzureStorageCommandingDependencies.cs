@@ -12,21 +12,24 @@ namespace AccidentalFish.Commanding.AzureStorage
     // ReSharper disable once InconsistentNaming
     public static class AzureStorageCommandingDependencies
     {
-        public static void UseAzureStorageCommanding<TSerializer>(CommandingDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
+        public static ICommandingDependencyResolver UseAzureStorageCommanding<TSerializer>(this ICommandingDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
         {
             Register<TSerializer>(dependencyResolver);
+            return dependencyResolver;
         }
 
-        public static void UseAzureStorageCommanding(CommandingDependencyResolver dependencyResolver)
+        public static ICommandingDependencyResolver UseAzureStorageCommanding(this ICommandingDependencyResolver dependencyResolver)
         {
             Register<JsonSerializer>(dependencyResolver);
+            return dependencyResolver;
         }
 
-        private static void Register<TSerializer>(CommandingDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
+        private static ICommandingDependencyResolver Register<TSerializer>(this ICommandingDependencyResolver dependencyResolver) where TSerializer : IAzureStorageQueueSerializer
         {
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, TSerializer>();
             dependencyResolver.TypeMapping<IAzureStorageCommandQueueProcessorFactory, AzureStorageCommandQueueProcessorFactory>();
             dependencyResolver.TypeMapping<IAzureStorageQueueDispatcherFactory, AzureStorageQueueDispatcherFactory>();
+            return dependencyResolver;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// <param name="commandPayloadContainer">(Optional) The blob container that </param>
         /// <param name="storageStrategy"></param>
         /// <returns></returns>
-        public static void UseAzureStorageCommandAuditing(CommandingDependencyResolver dependencyResolver,
+        public static ICommandingDependencyResolver UseAzureStorageCommandAuditing(this ICommandingDependencyResolver dependencyResolver,
             CloudStorageAccount cloudStorageAccount,            
             CloudBlobContainer commandPayloadContainer = null,
             IStorageStrategy storageStrategy = null)
@@ -56,6 +59,7 @@ namespace AccidentalFish.Commanding.AzureStorage
             dependencyResolver.RegisterInstance(cloudStorageProvider);
             dependencyResolver.RegisterInstance(storageStrategy);
             CommandingDependencies.UseCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver);
+            return dependencyResolver;
         }
 
         /// <summary>
@@ -77,7 +81,7 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// </param>
         /// <param name="storageStrategy"></param>
         /// <returns></returns>
-        public static void UseAzureStorageCommandAuditing(CommandingDependencyResolver dependencyResolver,
+        public static ICommandingDependencyResolver UseAzureStorageCommandAuditing(this CommandingDependencyResolver dependencyResolver,
             CloudQueue queue,
             CloudBlobContainer blobContainer = null,
             IStorageStrategy storageStrategy = null)
@@ -88,6 +92,7 @@ namespace AccidentalFish.Commanding.AzureStorage
             dependencyResolver.RegisterInstance(cloudAuditQueueBlobContainerProvider);
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
             CommandingDependencies.UseCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver);
+            return dependencyResolver;
         }
 
         /// <summary>
@@ -98,13 +103,13 @@ namespace AccidentalFish.Commanding.AzureStorage
         /// <param name="queue">The queue to dequeue from</param>
         /// <param name="deadLetterQueue">An optional dead letter queue to place items in if errors repeatedly occur in item processing</param>
         /// <returns>The dependency resovler</returns>
-        public static IDependencyResolver UseAzureStorageAuditQueueProcessor(this IDependencyResolver dependencyResolver,
+        public static ICommandingDependencyResolver UseAzureStorageAuditQueueProcessor(this ICommandingDependencyResolver dependencyResolver,
             CloudQueue queue, CloudQueue deadLetterQueue = null)
         {
             ICloudAuditQueueProvider cloudAuditQueueProvider = new CloudAuditQueueProvider(queue, deadLetterQueue);
             dependencyResolver.RegisterInstance(cloudAuditQueueProvider);
-            dependencyResolver.Register<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
-            dependencyResolver.Register<IAzureStorageAuditQueueProcessorFactory, AzureStorageAuditQueueProcessorFactory>();
+            dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
+            dependencyResolver.TypeMapping<IAzureStorageAuditQueueProcessorFactory, AzureStorageAuditQueueProcessorFactory>();
             return dependencyResolver;
         }
     }

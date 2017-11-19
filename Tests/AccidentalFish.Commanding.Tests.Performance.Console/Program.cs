@@ -3,14 +3,14 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AccidentalFish.Commanding.Abstractions;
 using AccidentalFish.Commanding.Tests.Performance.Console.Model;
-using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
+using InMemoryCommanding;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AccidentalFish.Commanding.Tests.Performance.Console
 {
     class Program
     {
-        private static MicrosoftNetStandardDependencyResolver _resolver;
+        private static IServiceProvider _serviceProvider;
         private const int CommandsToExecute = 10000000;
         static void Main(string[] args)
         {
@@ -53,16 +53,17 @@ namespace AccidentalFish.Commanding.Tests.Performance.Console
 
         private static ICommandDispatcher Configure()
         {
-            _resolver = new MicrosoftNetStandardDependencyResolver(new ServiceCollection());
+            IServiceCollection serviceCollection = new ServiceCollection();
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
-                CommandActorContainerRegistration = type => _resolver.Register(type, type),
+                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
-            _resolver.UseCommanding(options)
-                .Register<SimpleCommand, SimpleActor>();
-            _resolver.BuildServiceProvider();
-            return _resolver.Resolve<ICommandDispatcher>();
+            dependencyResolver.UseCommanding(options)
+                .Register<SimpleCommand, SimpleResult, SimpleActor>();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+            return _serviceProvider.GetService<ICommandDispatcher>();
         }
 
         public static async Task ExecuteCommandsWithResults()
@@ -72,10 +73,11 @@ namespace AccidentalFish.Commanding.Tests.Performance.Console
             Stopwatch sw = Stopwatch.StartNew();
             for (int index = 0; index < CommandsToExecute; index++)
             {
-                SimpleResult result = await dispatcher.DispatchAsync<SimpleCommand, SimpleResult>(command);
+                SimpleResult result = await dispatcher.DispatchAsync(command);
             }
             sw.Stop();
-            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");            
+            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+            System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");
         }
 
         public static async Task ExecuteCommandsWithNoResults()

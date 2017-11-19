@@ -2,7 +2,7 @@
 
 namespace AccidentalFish.Commanding.Abstractions
 {
-    public class CommandingDependencyResolver
+    public class CommandingDependencyResolver : ICommandingDependencyResolver
     {
         private readonly Action<Type, object> _registerInstance;
         private readonly Action<Type, Type> _typeMapping;

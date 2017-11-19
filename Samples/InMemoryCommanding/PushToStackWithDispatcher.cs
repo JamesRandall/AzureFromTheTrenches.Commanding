@@ -60,7 +60,7 @@ namespace InMemoryCommanding
                 CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
-            CommandingDependencies.UseCommanding(dependencyResolver, options)
+            dependencyResolver.UseCommanding(options)
                 .Register<OutputToConsoleCommand, CountResult>(() => new StackDispatcher(stack));
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();

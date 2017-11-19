@@ -36,8 +36,8 @@ namespace HttpCommanding.Client
                 CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type),
             };
 
-            ICommandRegistry registry = CommandingDependencies.UseCommanding(dependencyResolver, options);
-            HttpCommandingDependencies.UseHttpCommanding(dependencyResolver);
+            ICommandRegistry registry = dependencyResolver.UseCommanding(options);
+            dependencyResolver.UseHttpCommanding();
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             IHttpCommandDispatcherFactory httpCommandDispatcherFactory = _serviceProvider.GetService<IHttpCommandDispatcherFactory>();

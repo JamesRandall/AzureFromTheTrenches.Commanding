@@ -1,7 +1,6 @@
 ﻿using System;
 using AccidentalFish.Commanding;
 using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.DependencyResolver.MicrosoftNetStandard;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 using HttpCommanding.Web.Actors;
@@ -40,7 +39,7 @@ namespace HttpCommanding.Web
             {
                 CommandActorContainerRegistration = type => services.AddTransient(type, type)
             };
-            CommandingDependencies.UseCommanding(dependencyResolver, options)
+            dependencyResolver.UseCommanding(options)
                 .Register<UpdatePersonalDetailsCommand, UpdateResult, UpdatePersonalDetailsCommandActor>();
             serviceProvider = services.BuildServiceProvider();
         }

@@ -57,9 +57,8 @@ namespace AzureStorageQueueCommanding
             {
                 CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type)
             };
-            ICommandRegistry registry = CommandingDependencies.UseCommanding(dependencyResolver, options);
-            QueueCommandingDependencies.UseQueues(dependencyResolver);
-            AzureStorageCommandingDependencies.UseAzureStorageCommanding(dependencyResolver);
+            ICommandRegistry registry = dependencyResolver.UseCommanding(options);
+            dependencyResolver.UseQueues().UseAzureStorageCommanding();
 
             ICommandDispatcher QueueDispatcher() => _serviceProvider.GetService<IAzureStorageQueueDispatcherFactory>().Create(queue);
             registry

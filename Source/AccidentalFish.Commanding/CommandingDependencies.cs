@@ -30,7 +30,7 @@ namespace AccidentalFish.Commanding
         ///     resolver.UseCommanding(type => services.AddTransient(type, type));
         /// </param>
         /// <returns>The dependency resolver</returns>
-        public static ICommandRegistry UseCommanding(CommandingDependencyResolver dependencyResolver,
+        public static ICommandRegistry UseCommanding(this ICommandingDependencyResolver dependencyResolver,
             Action<Type> commandActorContainerRegistration)
         {
             return UseCommanding(dependencyResolver,
@@ -45,7 +45,7 @@ namespace AccidentalFish.Commanding
         /// <param name="dependencyResolver">The dependency resolver to register inside</param>
         /// <param name="options">Configuration options for the commanding system</param>
         /// <returns>The dependency resolver</returns>
-        public static ICommandRegistry UseCommanding(CommandingDependencyResolver dependencyResolver,
+        public static ICommandRegistry UseCommanding(this ICommandingDependencyResolver dependencyResolver,
             Options options = null)
         {
             options = options ?? new Options();
@@ -123,7 +123,7 @@ namespace AccidentalFish.Commanding
             return _registry;
         }
 
-        public static void UseCommandingAuditor<TAuditorImpl>(CommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
+        public static ICommandingDependencyResolver UseCommandingAuditor<TAuditorImpl>(this ICommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
         {
             lock (AuditorPipelineLockObject)
             {
@@ -135,6 +135,7 @@ namespace AccidentalFish.Commanding
                 registration.RegisterAuditor<TAuditorImpl>();
             }
             dependencyResolver.TypeMapping<TAuditorImpl, TAuditorImpl>();
+            return dependencyResolver;
         }
     }
 }
