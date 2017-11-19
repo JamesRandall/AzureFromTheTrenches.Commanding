@@ -34,11 +34,7 @@ namespace HttpCommanding.Web
             services.AddMvc();
             CommandingDependencyResolver dependencyResolver = services.GetCommandingDependencyResolver(() => serviceProvider);
 
-            Options options = new Options
-            {
-                CommandActorContainerRegistration = type => services.AddTransient(type, type)
-            };
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.UseCommanding()
                 .Register<UpdatePersonalDetailsCommandActor>();
             serviceProvider = services.BuildServiceProvider();
         }

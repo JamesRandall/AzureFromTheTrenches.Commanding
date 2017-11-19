@@ -52,11 +52,7 @@ namespace AzureStorageQueueCommanding
         {
             ServiceCollection serviceCollection = new ServiceCollection();
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
-            Options options = new Options
-            {
-                CommandActorContainerRegistration = type => serviceCollection.AddTransient(type, type)
-            };
-            ICommandRegistry registry = dependencyResolver.UseCommanding(options);
+            ICommandRegistry registry = dependencyResolver.UseCommanding();
             dependencyResolver.UseQueues().UseAzureStorageCommanding();
 
             ICommandDispatcher QueueDispatcher() => _serviceProvider.GetService<IAzureStorageQueueDispatcherFactory>().Create(queue);
