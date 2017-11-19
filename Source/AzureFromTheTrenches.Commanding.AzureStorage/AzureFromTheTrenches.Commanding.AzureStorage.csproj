@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Authors>James Randall</Authors>
+    <Company></Company>
+    <Product>Azure From The Trenches Commanding</Product>
+    <Description>Deferred dispatchers and queue processors for commanding via Azure queues</Description>
+    <Copyright>Copyright 2017 James Randall</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
+    <Version>3.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\AzureFromTheTrenches.Commanding.Queue\AzureFromTheTrenches.Commanding.Queue.csproj" />
+    <ProjectReference Include="..\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
+  </ItemGroup>
+
+</Project>

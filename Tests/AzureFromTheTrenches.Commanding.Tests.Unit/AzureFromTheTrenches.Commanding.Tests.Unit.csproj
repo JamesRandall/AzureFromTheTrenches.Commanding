@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
   <ItemGroup>

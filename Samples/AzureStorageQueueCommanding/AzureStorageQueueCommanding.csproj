@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.AzureStorage\AzureFromTheTrenches.Commanding.AzureStorage.csproj" />
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Queue\AzureFromTheTrenches.Commanding.Queue.csproj" />
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.AzureStorage\AzureFromTheTrenches.Commanding.AzureStorage.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.Queue\AzureFromTheTrenches.Commanding.Queue.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
 </Project>
