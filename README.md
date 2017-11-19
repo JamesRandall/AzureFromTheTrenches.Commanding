@@ -1,14 +1,18 @@
-# AccidentalFish.Commanding
+# AzureFromTheTrenches.Commanding
 
-A simple configuration based asynchronous commanding framework that abstracts code away from how the command is dispatched and, ultimately, executed. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them and the new v2 includes support for auditing (and through that event sourcing).
+A simple configuration based asynchronous commanding framework designed to be both easy to use and highly extensible allowing projects
+to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding
+over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
 
-The framework supports .NET Standard 1.4 (and higher) and so, at the time of writing, can be used with the following _minimum version_ runtimes:
+The framework supports .NET Standard 2.0 (and higher) and so, at the time of writing, can be used with the following _minimum version_ runtimes:
 
 * .NET 4.6.1
-* .NET Core 1.0
-* Mono 4.6
-* Xamarin.iOS 10.0
-* Xamarin.Android 10.0
+* .NET Core 2.0
+* Mono 5.4
+* Xamarin.iOS 10.14
+* Xamarin.Mac 3.8
+* Xamarin.Android 10.8
+* Universal Windows Platform 10.0.16299
 
 As such it can happily be used in a varierty of scenarios such as ASP.Net, ASP.Net Core, Console apps, Worker Roles, WebJobs etc.
 
@@ -25,7 +29,7 @@ _I've found the configuration based approach to be particularly useful when grow
 
 Firstly install the nuget package:
 
-    Install-Package AccidentalFish.Commanding
+    Install-Package AzureFromTheTrenches.Commanding
 
 And install an adapter for your dependency resolver, for this documentation I'm going to assume the use of the Microsoft ASP.Net Core Services Container:
 
