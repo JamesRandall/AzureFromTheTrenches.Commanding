@@ -1,6 +1,6 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     // the intention is to eventually make this a public replaceable interface
     internal interface ICommandScopeManager

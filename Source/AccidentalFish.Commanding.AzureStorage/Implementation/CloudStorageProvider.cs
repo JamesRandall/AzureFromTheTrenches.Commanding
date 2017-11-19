@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     /// <summary>
     /// This is a little naive at the moment as it doesn't remove old entries that haven't been accessed for some time.

@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Http
+﻿namespace AzureFromTheTrenches.Commanding.Http
 {
     public interface IHttpCommandSerializer
     {

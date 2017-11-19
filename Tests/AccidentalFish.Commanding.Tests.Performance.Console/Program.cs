@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Tests.Performance.Console.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Tests.Performance.Console.Model;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AccidentalFish.Commanding.Tests.Performance.Console
+namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
 {
     class Program
     {

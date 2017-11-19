@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Queue.Implementation;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Queue.Implementation;
 
-namespace AccidentalFish.Commanding.Queue
+namespace AzureFromTheTrenches.Commanding.Queue
 {
     // ReSharper disable once InconsistentNaming
     public static class QueueCommandingDependencies

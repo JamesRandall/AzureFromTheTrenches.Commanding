@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding
+namespace AzureFromTheTrenches.Commanding
 {
     public class FunctionWrapperCommandDispatchContextEnricher : ICommandDispatchContextEnricher
     {

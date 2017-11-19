@@ -1,8 +1,8 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AccidentalFish.Commanding.Tests.Performance.Console
+namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
 {
     public static class ServiceCollectionExtensions
     {

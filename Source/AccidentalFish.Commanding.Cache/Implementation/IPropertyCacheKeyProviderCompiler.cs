@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding.Cache.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Implementation
 {
     interface IPropertyCacheKeyProviderCompiler
     {

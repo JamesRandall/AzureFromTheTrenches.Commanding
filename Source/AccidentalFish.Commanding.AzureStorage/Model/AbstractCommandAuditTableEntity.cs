@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AccidentalFish.Commanding.AzureStorage.Model
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Model
 {
     public class AbstractCommandAuditTableEntity : TableEntity
     {

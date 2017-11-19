@@ -1,6 +1,6 @@
-﻿using AccidentalFish.Commanding.AzureStorage.Model;
+﻿using AzureFromTheTrenches.Commanding.AzureStorage.Model;
 
-namespace AccidentalFish.Commanding.AzureStorage
+namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     public interface IStorageStrategy
     {

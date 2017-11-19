@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 using Newtonsoft.Json;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     class CommandAuditSerializer : ICommandAuditSerializer
     {

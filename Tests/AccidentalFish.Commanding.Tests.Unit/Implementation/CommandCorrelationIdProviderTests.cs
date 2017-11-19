@@ -1,8 +1,8 @@
 ﻿using System;
-using AccidentalFish.Commanding.Implementation;
+using AzureFromTheTrenches.Commanding.Implementation;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
 {
     public class CommandCorrelationIdProviderTests
     {

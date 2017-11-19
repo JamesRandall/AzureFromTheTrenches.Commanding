@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Queue.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Queue.Model;
 
-namespace AccidentalFish.Commanding.Queue
+namespace AzureFromTheTrenches.Commanding.Queue
 {
     public interface ICommandQueueProcessor
     {

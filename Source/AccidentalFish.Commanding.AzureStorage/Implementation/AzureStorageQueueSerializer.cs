@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     class AzureStorageQueueSerializer : IAzureStorageQueueSerializer
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Model
+namespace AzureFromTheTrenches.Commanding.Model
 {
     internal sealed class CommandDispatchContext : ICommandDispatchContext
     {

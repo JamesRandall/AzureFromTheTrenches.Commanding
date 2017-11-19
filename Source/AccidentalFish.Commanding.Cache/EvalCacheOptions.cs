@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding.Cache
+namespace AzureFromTheTrenches.Commanding.Cache
 {
     public class EvalCacheOptions : CacheOptions
     {

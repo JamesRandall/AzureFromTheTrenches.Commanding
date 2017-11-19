@@ -1,8 +1,8 @@
-﻿using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.AzureEventHub.Implementation;
-using EventHubClient = AccidentalFish.Commanding.AzureEventHub.Implementation.EventHubClient;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.AzureEventHub.Implementation;
+using EventHubClient = AzureFromTheTrenches.Commanding.AzureEventHub.Implementation.EventHubClient;
 
-namespace AccidentalFish.Commanding.AzureEventHub
+namespace AzureFromTheTrenches.Commanding.AzureEventHub
 {
     // ReSharper disable once InconsistentNaming
     public static class AzureEventHubCommandingDependencies

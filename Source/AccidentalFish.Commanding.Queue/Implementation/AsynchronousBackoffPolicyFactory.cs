@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Queue.Implementation
+﻿namespace AzureFromTheTrenches.Commanding.Queue.Implementation
 {
     internal class AsynchronousBackoffPolicyFactory : IAsynchronousBackoffPolicyFactory
     {

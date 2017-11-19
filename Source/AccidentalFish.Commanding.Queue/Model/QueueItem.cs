@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding.Queue.Model
+namespace AzureFromTheTrenches.Commanding.Queue.Model
 {
     public class QueueItem<T> where T : class
     {

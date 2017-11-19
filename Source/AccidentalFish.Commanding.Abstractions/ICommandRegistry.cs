@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AccidentalFish.Commanding.Abstractions
+namespace AzureFromTheTrenches.Commanding.Abstractions
 {
     public interface ICommandRegistry
     {

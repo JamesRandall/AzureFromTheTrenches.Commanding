@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Model;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandRegistry : ICommandRegistry
     {

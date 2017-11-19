@@ -1,7 +1,7 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding
+namespace AzureFromTheTrenches.Commanding
 {
     public class CommandExecutionException : Exception
     {

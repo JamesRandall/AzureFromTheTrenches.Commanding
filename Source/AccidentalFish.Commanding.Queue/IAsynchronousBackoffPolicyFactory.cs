@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Queue
+﻿namespace AzureFromTheTrenches.Commanding.Queue
 {
     /// <summary>
     /// Creates an instance of a back off policy

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Implementation;
-using AccidentalFish.Commanding.Model;
-using AccidentalFish.Commanding.Tests.Unit.TestModel;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.Implementation;
+using AzureFromTheTrenches.Commanding.Model;
+using AzureFromTheTrenches.Commanding.Tests.Unit.TestModel;
 using Moq;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
 {
     public class CommandDispatcherTests
     {

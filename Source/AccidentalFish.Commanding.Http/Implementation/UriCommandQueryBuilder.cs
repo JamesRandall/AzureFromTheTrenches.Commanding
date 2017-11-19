@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace AccidentalFish.Commanding.Http.Implementation
+namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
     class UriCommandQueryBuilder : IUriCommandQueryBuilder
     {

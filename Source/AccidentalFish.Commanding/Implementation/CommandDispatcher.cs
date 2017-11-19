@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandDispatcher : ICommandDispatcher
     {

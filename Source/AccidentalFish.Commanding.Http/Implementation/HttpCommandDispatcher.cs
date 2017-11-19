@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding.Http.Implementation
+namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
     class HttpCommandDispatcher : ICommandDispatcher
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.AzureStorage;
-using AccidentalFish.Commanding.Queue;
+using AzureFromTheTrenches.Commanding;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.AzureStorage;
+using AzureFromTheTrenches.Commanding.Queue;
 using AzureStorageQueueCommanding.Actors;
 using AzureStorageQueueCommanding.Commands;
 using Microsoft.Extensions.DependencyInjection;

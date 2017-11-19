@@ -1,9 +1,9 @@
-﻿using AccidentalFish.Commanding.Cache.Implementation;
-using AccidentalFish.Commanding.Cache.Tests.Unit.TestModel;
+﻿using AzureFromTheTrenches.Commanding.Cache.Implementation;
+using AzureFromTheTrenches.Commanding.Cache.Tests.Unit.TestModel;
 using Moq;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
 {
     public class PropertyCacheKeyProviderTests
     {

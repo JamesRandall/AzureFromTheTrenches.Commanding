@@ -3,9 +3,9 @@ using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class NoResultCommandActorBaseExecuter : INoResultCommandActorBaseExecuter
     {

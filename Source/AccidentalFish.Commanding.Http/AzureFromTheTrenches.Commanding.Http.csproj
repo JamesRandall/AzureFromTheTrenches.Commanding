@@ -2,25 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.0.0</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Authors>James Randall</Authors>
     <Company>Accidental Fish Ltd.</Company>
     <Product>AccidentalFish Commanding</Product>
-    <Description>Event hub adapter for commanding framework</Description>
+    <Description>HTTP remote execution support for commanding</Description>
     <Copyright>Copyright 2017 Accidental Fish Ltd.</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AccidentalFish.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AccidentalFish.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj" />
-    <ProjectReference Include="..\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+    <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

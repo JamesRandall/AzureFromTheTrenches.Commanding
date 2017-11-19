@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AccidentalFish.Commanding.Cache.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Implementation
 {
     internal class CacheOptionsProvider : ICacheOptionsProvider
     {

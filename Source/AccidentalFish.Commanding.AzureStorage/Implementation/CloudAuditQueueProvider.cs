@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     internal class CloudAuditQueueProvider : ICloudAuditQueueProvider
     {

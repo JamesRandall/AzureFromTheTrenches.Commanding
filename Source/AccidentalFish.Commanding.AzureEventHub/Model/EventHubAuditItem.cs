@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json.Linq;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Model
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Model
 {
     public class EventHubAuditItem
     {

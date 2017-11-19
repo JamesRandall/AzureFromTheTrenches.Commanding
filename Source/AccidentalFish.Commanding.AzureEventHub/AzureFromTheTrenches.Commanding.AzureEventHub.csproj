@@ -2,26 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>3.0.0</Version>
     <Authors>James Randall</Authors>
     <Company>Accidental Fish Ltd.</Company>
     <Product>AccidentalFish Commanding</Product>
-    <Description>Memory cache adapter for command caching</Description>
+    <Description>Event hub adapter for commanding framework</Description>
     <Copyright>Copyright 2017 Accidental Fish Ltd.</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AccidentalFish.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AccidentalFish.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AccidentalFish.Commanding.git</RepositoryUrl>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccidentalFish.Commanding.Cache\AccidentalFish.Commanding.Cache.csproj" />
+    <ProjectReference Include="..\AccidentalFish.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
 </Project>

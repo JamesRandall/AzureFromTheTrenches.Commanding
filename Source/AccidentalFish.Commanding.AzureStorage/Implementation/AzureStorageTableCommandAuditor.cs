@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.AzureStorage.Model;
-using AccidentalFish.Commanding.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.AzureStorage.Model;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     class AzureStorageTableCommandAuditor : ICommandAuditor
     {

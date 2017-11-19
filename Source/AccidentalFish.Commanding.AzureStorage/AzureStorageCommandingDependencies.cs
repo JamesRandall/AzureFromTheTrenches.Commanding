@@ -1,12 +1,12 @@
-﻿using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.AzureStorage.Implementation;
-using AccidentalFish.Commanding.AzureStorage.Strategies;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.AzureStorage.Implementation;
+using AzureFromTheTrenches.Commanding.AzureStorage.Strategies;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AccidentalFish.Commanding.AzureStorage
+namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     // ReSharper disable once InconsistentNaming
     public static class AzureStorageCommandingDependencies

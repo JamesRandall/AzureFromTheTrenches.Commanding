@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AccidentalFish.Commanding.Cache
+namespace AzureFromTheTrenches.Commanding.Cache
 {
     public class CacheConfigurationException : Exception
     {

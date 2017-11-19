@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding
+namespace AzureFromTheTrenches.Commanding
 {
     public class CommandRegistrationException : Exception
     {

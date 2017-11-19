@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Tests.Unit.TestModel
+namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
 {
     internal class SimpleCommandActor : ICommandActor<SimpleCommand, SimpleResult>
     {

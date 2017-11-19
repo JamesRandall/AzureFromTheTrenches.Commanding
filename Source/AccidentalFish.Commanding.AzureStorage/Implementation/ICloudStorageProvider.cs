@@ -2,7 +2,7 @@
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     interface ICloudStorageProvider
     {

@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Cache
+﻿namespace AzureFromTheTrenches.Commanding.Cache
 {
     /// <summary>
     /// Implementations of this interface generate a deterministic hash from the given key.

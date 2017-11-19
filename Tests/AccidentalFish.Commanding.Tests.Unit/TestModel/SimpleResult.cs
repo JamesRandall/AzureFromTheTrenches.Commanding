@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AccidentalFish.Commanding.Tests.Unit.TestModel
+namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
 {
     internal class SimpleResult
     {

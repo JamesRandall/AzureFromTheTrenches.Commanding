@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
 {
     class AzureEventHubCommandAuditor : ICommandAuditor
     {

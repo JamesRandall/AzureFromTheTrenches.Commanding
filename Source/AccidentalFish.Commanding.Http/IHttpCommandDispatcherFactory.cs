@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Http
+namespace AzureFromTheTrenches.Commanding.Http
 {
     public interface IHttpCommandDispatcherFactory
     {

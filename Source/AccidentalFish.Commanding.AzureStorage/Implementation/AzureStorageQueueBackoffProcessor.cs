@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Queue;
-using AccidentalFish.Commanding.Queue.Model;
+using AzureFromTheTrenches.Commanding.Queue;
+using AzureFromTheTrenches.Commanding.Queue.Model;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     internal class AzureStorageQueueBackoffProcessor<T> where T : class
     {

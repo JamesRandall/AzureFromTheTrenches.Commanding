@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage
+namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     public interface IAzureStorageAuditQueueProcessorFactory
     {

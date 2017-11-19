@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;

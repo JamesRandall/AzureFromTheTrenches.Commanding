@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding.Queue.Implementation
+namespace AzureFromTheTrenches.Commanding.Queue.Implementation
 {
     internal class AsynchronousBackoffPolicy : IAsynchronousBackoffPolicy
     {

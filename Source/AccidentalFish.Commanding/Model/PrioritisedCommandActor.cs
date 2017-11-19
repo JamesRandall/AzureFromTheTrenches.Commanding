@@ -1,7 +1,7 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Model
+namespace AzureFromTheTrenches.Commanding.Model
 {
     public sealed class PrioritisedCommandActor : IComparable, IPrioritisedCommandActor
     {

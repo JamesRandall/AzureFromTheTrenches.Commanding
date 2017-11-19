@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
-using AccidentalFish.Commanding.Queue;
-using AccidentalFish.Commanding.Queue.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.Queue;
+using AzureFromTheTrenches.Commanding.Queue.Model;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 {
     internal class AzureStorageAuditQueueProcessorFactory : IAzureStorageAuditQueueProcessorFactory
     {

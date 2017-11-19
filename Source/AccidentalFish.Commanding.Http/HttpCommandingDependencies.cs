@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Http.Implementation;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Http.Implementation;
 
-namespace AccidentalFish.Commanding.Http
+namespace AzureFromTheTrenches.Commanding.Http
 {
     public static class HttpCommandingDependencies
     {

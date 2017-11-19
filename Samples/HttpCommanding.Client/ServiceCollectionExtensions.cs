@@ -1,5 +1,5 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HttpCommanding.Client

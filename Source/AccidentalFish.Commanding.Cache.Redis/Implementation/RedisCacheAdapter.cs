@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace AccidentalFish.Commanding.Cache.Redis.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Redis.Implementation
 {
     class RedisCacheAdapter : ICacheAdapter
     {

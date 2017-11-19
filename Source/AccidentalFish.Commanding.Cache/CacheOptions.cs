@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace AccidentalFish.Commanding.Cache
+namespace AzureFromTheTrenches.Commanding.Cache
 {
     public class CacheOptions
     {

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
 </Project>

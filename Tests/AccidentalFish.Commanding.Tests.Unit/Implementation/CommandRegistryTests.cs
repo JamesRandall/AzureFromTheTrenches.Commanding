@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Implementation;
-using AccidentalFish.Commanding.Tests.Unit.TestModel;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Implementation;
+using AzureFromTheTrenches.Commanding.Tests.Unit.TestModel;
 using Moq;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
 {
     public class CommandRegistryTests
     {

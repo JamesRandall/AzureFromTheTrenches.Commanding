@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 

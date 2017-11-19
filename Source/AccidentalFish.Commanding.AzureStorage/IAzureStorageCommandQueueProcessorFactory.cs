@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage
+namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     /// <summary>
     /// Creates command queue processors for Azure storage that will listen on a queue and remove commands and pass them on for execution to

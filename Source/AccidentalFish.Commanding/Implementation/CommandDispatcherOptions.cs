@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Implementation
+﻿namespace AzureFromTheTrenches.Commanding.Implementation
 {
     class CommandDispatcherOptions : ICommandDispatcherOptions
     {

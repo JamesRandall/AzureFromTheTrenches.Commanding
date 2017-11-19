@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using InMemoryCommanding.Results;
 
 namespace InMemoryCommanding.Commands

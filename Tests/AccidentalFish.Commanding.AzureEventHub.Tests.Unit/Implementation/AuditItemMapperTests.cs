@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.AzureEventHub.Implementation;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.AzureEventHub.Implementation;
 using Xunit;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.Implementation
 {
     public class AuditItemMapperTests
     {

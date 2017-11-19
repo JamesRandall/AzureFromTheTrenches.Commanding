@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.Abstractions.Model
+﻿namespace AzureFromTheTrenches.Commanding.Abstractions.Model
 {
     public class CommandResult
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Tests.Performance.Console.Model
+namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console.Model
 {
     class SimpleActor : ICommandActor<SimpleCommand, SimpleResult>
     {

@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.AzureStorage
+﻿namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     public interface IAzureStorageQueueSerializer
     {

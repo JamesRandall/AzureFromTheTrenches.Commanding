@@ -1,6 +1,6 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Cache
+namespace AzureFromTheTrenches.Commanding.Cache
 {
     public interface ICachedCommandDispatcher : ICommandDispatcher
     {

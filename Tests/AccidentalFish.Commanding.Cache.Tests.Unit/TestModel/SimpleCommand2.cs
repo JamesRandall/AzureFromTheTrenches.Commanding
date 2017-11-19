@@ -1,6 +1,6 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Cache.Tests.Unit.TestModel
+namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.TestModel
 {
     public class SimpleCommand2 : ICommand<SimpleResult>
     {

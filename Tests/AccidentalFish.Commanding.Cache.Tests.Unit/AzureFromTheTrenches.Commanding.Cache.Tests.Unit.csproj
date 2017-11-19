@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Cache\AccidentalFish.Commanding.Cache.csproj" />
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.Cache\AzureFromTheTrenches.Commanding.Cache.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
   <ItemGroup>

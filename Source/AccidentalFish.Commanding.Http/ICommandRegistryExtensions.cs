@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Http.Implementation;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Http.Implementation;
 
-namespace AccidentalFish.Commanding.Http
+namespace AzureFromTheTrenches.Commanding.Http
 {
     // ReSharper disable once InconsistentNaming
     public static class ICommandRegistryExtensions

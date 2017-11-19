@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
 {
     interface IEventHubClient
     {

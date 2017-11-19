@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using AccidentalFish.Commanding.AzureStorage.Model;
+using AzureFromTheTrenches.Commanding.AzureStorage.Model;
 
-namespace AccidentalFish.Commanding.AzureStorage.Strategies
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Strategies
 {
     public class TablePerDayStrategy : IStorageStrategy
     {

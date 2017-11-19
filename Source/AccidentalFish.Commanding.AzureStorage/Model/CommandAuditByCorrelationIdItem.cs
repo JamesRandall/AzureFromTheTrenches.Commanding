@@ -1,4 +1,4 @@
-﻿namespace AccidentalFish.Commanding.AzureStorage.Model
+﻿namespace AzureFromTheTrenches.Commanding.AzureStorage.Model
 {
     /// <summary>
     /// This class only extends the base class with type information to allow us to

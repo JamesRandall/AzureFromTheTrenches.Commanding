@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Http.Implementation
+namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
     internal class HttpCommandDispatcherFactory : IHttpCommandDispatcherFactory
     {

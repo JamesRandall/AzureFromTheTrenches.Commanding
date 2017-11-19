@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AccidentalFish.Commanding.Queue
+namespace AzureFromTheTrenches.Commanding.Queue
 {
     /// <summary>
     /// Asynchronous backoff policy that is used by deferred command processors

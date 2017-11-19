@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding", "Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding", "Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Tests.Unit", "Tests\AccidentalFish.Commanding.Tests.Unit\AccidentalFish.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Tests.Unit", "Tests\AccidentalFish.Commanding.Tests.Unit\AzureFromTheTrenches.Commanding.Tests.Unit.csproj", "{EE587B1C-F737-41DA-9EC5-5E3DBEE26772}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Http", "Source\AccidentalFish.Commanding.Http\AccidentalFish.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Http", "Source\AccidentalFish.Commanding.Http\AzureFromTheTrenches.Commanding.Http.csproj", "{43886BB7-4E36-4772-A64E-E2D29E2E7C52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Queue", "Source\AccidentalFish.Commanding.Queue\AccidentalFish.Commanding.Queue.csproj", "{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Queue", "Source\AccidentalFish.Commanding.Queue\AzureFromTheTrenches.Commanding.Queue.csproj", "{ADFB4AA9-D06A-4FCE-9392-DE3D8CA1B60A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2B385448-F9E4-4014-9FFD-74C40B593B71}"
 EndProject
@@ -32,27 +32,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{
 		package-nuget.ps1 = package-nuget.ps1
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.AzureStorage", "Source\AccidentalFish.Commanding.AzureStorage\AccidentalFish.Commanding.AzureStorage.csproj", "{A1B8DB62-5361-4183-9C83-213ED7291B62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureStorage", "Source\AccidentalFish.Commanding.AzureStorage\AzureFromTheTrenches.Commanding.AzureStorage.csproj", "{A1B8DB62-5361-4183-9C83-213ED7291B62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Performance", "Performance", "{C4FBA3E4-9D8C-4B0C-BABC-5745017A64EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Tests.Performance.Console", "Tests\AccidentalFish.Commanding.Tests.Performance.Console\AccidentalFish.Commanding.Tests.Performance.Console.csproj", "{40F2AF7D-3480-4644-8B3E-AE52FECD6F93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Tests.Performance.Console", "Tests\AccidentalFish.Commanding.Tests.Performance.Console\AzureFromTheTrenches.Commanding.Tests.Performance.Console.csproj", "{40F2AF7D-3480-4644-8B3E-AE52FECD6F93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureStorageAuditing", "Samples\AzureStorageAuditing\AzureStorageAuditing.csproj", "{1D331B9B-5842-49E3-B66D-DE76D7F05A8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache", "Source\AccidentalFish.Commanding.Cache\AccidentalFish.Commanding.Cache.csproj", "{1CF85C55-3AAC-4528-BC26-0968F85ADA55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Cache", "Source\AccidentalFish.Commanding.Cache\AzureFromTheTrenches.Commanding.Cache.csproj", "{1CF85C55-3AAC-4528-BC26-0968F85ADA55}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache.MemoryCache", "Source\AccidentalFish.Commanding.Cache.MemoryCache\AccidentalFish.Commanding.Cache.MemoryCache.csproj", "{D9D38DC1-6F36-49EC-8A7F-1E3F65FE1349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Cache.MemoryCache", "Source\AccidentalFish.Commanding.Cache.MemoryCache\AzureFromTheTrenches.Commanding.Cache.MemoryCache.csproj", "{D9D38DC1-6F36-49EC-8A7F-1E3F65FE1349}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache.Redis", "Source\AccidentalFish.Commanding.Cache.Redis\AccidentalFish.Commanding.Cache.Redis.csproj", "{4239534A-BC3C-4389-A686-46133C58F256}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Cache.Redis", "Source\AccidentalFish.Commanding.Cache.Redis\AzureFromTheTrenches.Commanding.Cache.Redis.csproj", "{4239534A-BC3C-4389-A686-46133C58F256}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Cache.Tests.Unit", "Tests\AccidentalFish.Commanding.Cache.Tests.Unit\AccidentalFish.Commanding.Cache.Tests.Unit.csproj", "{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Cache.Tests.Unit", "Tests\AccidentalFish.Commanding.Cache.Tests.Unit\AzureFromTheTrenches.Commanding.Cache.Tests.Unit.csproj", "{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.AzureEventHub", "Source\AccidentalFish.Commanding.AzureEventHub\AccidentalFish.Commanding.AzureEventHub.csproj", "{D98AEB5F-42C5-4413-BA95-D4677AB7B097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureEventHub", "Source\AccidentalFish.Commanding.AzureEventHub\AzureFromTheTrenches.Commanding.AzureEventHub.csproj", "{D98AEB5F-42C5-4413-BA95-D4677AB7B097}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.AzureEventHub.Tests.Unit", "Tests\AccidentalFish.Commanding.AzureEventHub.Tests.Unit\AccidentalFish.Commanding.AzureEventHub.Tests.Unit.csproj", "{DDAA95FB-15A4-469E-B237-B9A66F272A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit", "Tests\AccidentalFish.Commanding.AzureEventHub.Tests.Unit\AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.csproj", "{DDAA95FB-15A4-469E-B237-B9A66F272A5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccidentalFish.Commanding.Abstractions", "Source\AccidentalFish.Commanding.Abstractions\AccidentalFish.Commanding.Abstractions.csproj", "{026CF757-6DB4-4E62-8D31-854807E5923C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Abstractions", "Source\AccidentalFish.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj", "{026CF757-6DB4-4E62-8D31-854807E5923C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

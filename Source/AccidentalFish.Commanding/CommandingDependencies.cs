@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Implementation;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Implementation;
 
-namespace AccidentalFish.Commanding
+namespace AzureFromTheTrenches.Commanding
 {
     public static class CommandingDependencies
     {

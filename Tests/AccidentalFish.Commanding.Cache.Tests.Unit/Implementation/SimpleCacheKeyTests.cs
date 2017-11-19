@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Cache.Implementation;
+﻿using AzureFromTheTrenches.Commanding.Cache.Implementation;
 using Xunit;
 
-namespace AccidentalFish.Commanding.Cache.Tests.Unit.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
 {
     public class SimpleCacheKeyTests
     {

@@ -1,7 +1,6 @@
-﻿using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.Model;
+﻿using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
-namespace AccidentalFish.Commanding.AzureEventHub
+namespace AzureFromTheTrenches.Commanding.AzureEventHub
 {
     /// <summary>
     /// Interface for an event hub seriailzer. The default serializer uses Json.

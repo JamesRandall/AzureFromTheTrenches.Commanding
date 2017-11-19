@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AccidentalFish.Commanding.Cache.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.Implementation
 {
     class PropertyCacheKeyProvider : ICacheKeyProvider
     {

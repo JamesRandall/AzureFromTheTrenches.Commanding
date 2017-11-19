@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding.Abstractions
+namespace AzureFromTheTrenches.Commanding.Abstractions
 {
     public class CommandingDependencyResolver : ICommandingDependencyResolver
     {

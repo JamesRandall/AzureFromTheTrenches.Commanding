@@ -1,9 +1,9 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Cache.Redis.Implementation;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Cache.Redis.Implementation;
 using StackExchange.Redis;
 
-namespace AccidentalFish.Commanding.Cache.Redis
+namespace AzureFromTheTrenches.Commanding.Cache.Redis
 {
     // ReSharper disable once InconsistentNaming
     public static class IDependencyResolverExtensions

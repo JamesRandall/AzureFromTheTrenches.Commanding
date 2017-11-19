@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AccidentalFish.Commanding.Http.Implementation
+namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
     internal class JsonCommandSerializer : IHttpCommandSerializer
     {

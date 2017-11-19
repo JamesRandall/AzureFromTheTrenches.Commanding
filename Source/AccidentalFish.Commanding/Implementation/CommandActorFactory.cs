@@ -1,7 +1,7 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Implementation
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandActorFactory : ICommandActorFactory
     {

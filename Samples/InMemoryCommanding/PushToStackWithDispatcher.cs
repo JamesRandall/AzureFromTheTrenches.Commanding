@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace InMemoryCommanding.Commands
 {

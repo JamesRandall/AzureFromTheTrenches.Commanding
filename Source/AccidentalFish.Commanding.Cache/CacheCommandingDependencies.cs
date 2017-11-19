@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Cache.Implementation;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Cache.Implementation;
 
-namespace AccidentalFish.Commanding.Cache
+namespace AzureFromTheTrenches.Commanding.Cache
 {
     // ReSharper disable once InconsistentNaming
     public static class CacheCommandingDependencies

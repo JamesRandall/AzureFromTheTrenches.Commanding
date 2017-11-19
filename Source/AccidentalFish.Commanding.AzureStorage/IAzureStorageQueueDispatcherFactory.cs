@@ -1,7 +1,7 @@
-﻿using AccidentalFish.Commanding.Abstractions;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace AccidentalFish.Commanding.AzureStorage
+namespace AzureFromTheTrenches.Commanding.AzureStorage
 {
     public interface IAzureStorageQueueDispatcherFactory
     {

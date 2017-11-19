@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace AccidentalFish.Commanding.Cache.MemoryCache.Implementation
+namespace AzureFromTheTrenches.Commanding.Cache.MemoryCache.Implementation
 {
     class MemoryCacheAdapter : ICacheAdapter
     {

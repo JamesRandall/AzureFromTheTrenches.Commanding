@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.EventHubs;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
 {
     class EventHubClient : IEventHubClient
     {

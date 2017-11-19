@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.AzureEventHub\AccidentalFish.Commanding.AzureEventHub.csproj" />
-    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AccidentalFish.Commanding.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding.AzureEventHub\AzureFromTheTrenches.Commanding.AzureEventHub.csproj" />
+    <ProjectReference Include="..\..\Source\AccidentalFish.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
 </Project>

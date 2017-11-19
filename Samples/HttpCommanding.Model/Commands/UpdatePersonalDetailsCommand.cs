@@ -1,5 +1,5 @@
 ﻿using System;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 using HttpCommanding.Model.Results;
 
 namespace HttpCommanding.Model.Commands

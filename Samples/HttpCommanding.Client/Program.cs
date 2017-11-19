@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding;
-using AccidentalFish.Commanding.Abstractions;
-using AccidentalFish.Commanding.Http;
+using AzureFromTheTrenches.Commanding;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Http;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 using Microsoft.Extensions.DependencyInjection;

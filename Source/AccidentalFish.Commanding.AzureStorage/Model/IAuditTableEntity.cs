@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccidentalFish.Commanding.AzureStorage.Model
+namespace AzureFromTheTrenches.Commanding.AzureStorage.Model
 {
     public interface IAuditTableEntity
     {

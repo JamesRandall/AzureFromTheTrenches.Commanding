@@ -1,9 +1,8 @@
-﻿using AccidentalFish.Commanding.Abstractions.Model;
-using AccidentalFish.Commanding.AzureEventHub.Model;
-using AccidentalFish.Commanding.Model;
+﻿using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.AzureEventHub.Model;
 using Newtonsoft.Json.Linq;
 
-namespace AccidentalFish.Commanding.AzureEventHub.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
 {
     internal class AuditItemMapper : IAuditItemMapper
     {

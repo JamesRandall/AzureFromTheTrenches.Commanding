@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using AccidentalFish.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions;
 
-namespace AccidentalFish.Commanding.Http.Implementation
+namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
     internal class HttpCommandExecuter : ICommandExecuter
     {
