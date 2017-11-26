@@ -118,6 +118,7 @@ namespace AzureFromTheTrenches.Commanding
             dependencyResolver.TypeMapping<ICommandExecuter, CommandExecuter>();
             dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
             dependencyResolver.TypeMapping<ICommandAuditSerializer, CommandAuditSerializer>();
+            dependencyResolver.TypeMapping(typeof(ICommandExecutionExceptionHandler), options.CommandExecutionExceptionHandler ?? typeof(DefaultCommandExecutionExceptionHandler));
 
             return _registry;
         }

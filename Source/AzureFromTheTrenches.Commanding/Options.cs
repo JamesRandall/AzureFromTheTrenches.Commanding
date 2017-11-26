@@ -16,10 +16,17 @@ namespace AzureFromTheTrenches.Commanding
         {
             CommandHandlerContainerRegistration = null;
             CommandHandlerFactoryFunc = null;
+            CommandExecutionExceptionHandler = null;
             Reset = false;
             AuditRootCommandOnly = null;
             Enrichers = null;
         }
+
+        /// <summary>
+        /// Can be used to register a type that implements the ICommandExecutionExceptionHandler interface that will be
+        /// invoked in the event of an execution error
+        /// </summary>
+        public Type CommandExecutionExceptionHandler { get; set; }
 
         /// <summary>
         /// Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandHandlerFactoryFunc in this options

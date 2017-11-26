@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -21,6 +22,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
             Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
+            Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
@@ -28,7 +30,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandHandler(0, typeof(SimpleCommandHandler))
                 });            
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object, commandExecutionExceptionHandler.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
@@ -47,14 +49,42 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
             Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
+            Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns<List<PrioritisedCommandHandler>>(null);
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object, commandExecutionExceptionHandler.Object);
 
             // Act and assert
             MissingCommandHandlerRegistrationException ex = await Assert.ThrowsAsync<MissingCommandHandlerRegistrationException>(async () => await executer.ExecuteAsync(new SimpleCommand()));
             Assert.Equal(typeof(SimpleCommand), ex.CommandType);
+        }
+
+        [Fact]
+        public async Task ErrorInHandlerInvokesRegisteredExceptionHandler()
+        {
+            // Arrange
+            Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
+            Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
+            Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
+            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
+            Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
+            handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
+            registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
+                new List<PrioritisedCommandHandler>
+                {
+                    new PrioritisedCommandHandler(0, typeof(ThrowExceptionCommandHandler))
+                });
+
+            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object, commandExecutionExceptionHandler.Object);
+            SimpleCommand simpleCommand = new SimpleCommand();
+
+            // Act
+            await executer.ExecuteAsync(simpleCommand);
+
+            // Assert
+            commandExecutionExceptionHandler.Verify(x => x.HandleException(It.IsAny<Exception>(), It.IsAny<object>(), It.IsAny<int>(), simpleCommand, It.IsAny<ICommandDispatchContext>()));
         }
 
         [Fact]
@@ -66,6 +96,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
             Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
+            Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerThatHalts))).Returns(new SimpleCommandHandlerThatHalts());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerTwo))).Returns(new SimpleCommandHandlerTwo());
@@ -81,7 +112,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 .Setup(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>()))
                 .ReturnsAsync(new CommandChainHandlerResult<SimpleResult>(true, null));
             
-            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object, commandExecutionExceptionHandler.Object);
 
             // Act
             SimpleResult result = await executer.ExecuteAsync(simpleCommand);
@@ -102,6 +133,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
             Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
+            Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerTwo))).Returns(new SimpleCommandHandlerTwo());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
@@ -111,7 +143,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                     new PrioritisedCommandHandler(1, typeof(SimpleCommandHandlerTwo))
                 });
 
-            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object);
+            CommandExecuter executer = new CommandExecuter(registry.Object, handlerFactory.Object, scopeManager.Object, commandHandlerExecuter.Object, commandHandlerChainExecuter.Object, commandExecutionExceptionHandler.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act

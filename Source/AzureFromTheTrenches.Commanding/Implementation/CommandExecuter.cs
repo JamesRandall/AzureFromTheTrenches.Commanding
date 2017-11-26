@@ -13,18 +13,21 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ICommandScopeManager _commandScopeManager;
         private readonly ICommandHandlerExecuter _commandHandlerExecuter;
         private readonly ICommandHandlerChainExecuter _commandHandlerChainExecuter;
+        private readonly ICommandExecutionExceptionHandler _commandExecutionExceptionHandler;
 
         public CommandExecuter(ICommandRegistry commandRegistry,
             ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
             ICommandHandlerExecuter commandHandlerExecuter,
-            ICommandHandlerChainExecuter commandHandlerChainExecuter)
+            ICommandHandlerChainExecuter commandHandlerChainExecuter,
+            ICommandExecutionExceptionHandler commandExecutionExceptionHandler)
         {
             _commandRegistry = commandRegistry;
             _commandHandlerFactory = commandHandlerFactory;
             _commandScopeManager = commandScopeManager;
             _commandHandlerExecuter = commandHandlerExecuter;
             _commandHandlerChainExecuter = commandHandlerChainExecuter;
+            _commandExecutionExceptionHandler = commandExecutionExceptionHandler;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
@@ -36,9 +39,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             int handlerIndex = 0;
             foreach (IPrioritisedCommandHandler handlerTemplate in handlers)
             {
+                object baseHandler = null;
                 try
                 {
-                    object baseHandler = _commandHandlerFactory.Create(handlerTemplate.CommandHandlerType);
+                    baseHandler = _commandHandlerFactory.Create(handlerTemplate.CommandHandlerType);
                     
                     if (baseHandler is ICommandHandler handler)
                     {
@@ -64,7 +68,11 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 catch (Exception ex)
                 {
                     ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-                    throw new CommandExecutionException(command, handlerTemplate.CommandHandlerType, handlerIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
+                    bool shouldContinue = await _commandExecutionExceptionHandler.HandleException(ex, baseHandler, handlerIndex, command, dispatchContext);
+                    if (!shouldContinue)
+                    {
+                        break;
+                    }
                 }
                 handlerIndex++;
             }
