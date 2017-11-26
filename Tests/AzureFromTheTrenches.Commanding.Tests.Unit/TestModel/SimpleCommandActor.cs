@@ -5,7 +5,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
 {
-    internal class SimpleCommandActor : ICommandActor<SimpleCommand, SimpleResult>
+    internal class SimpleCommandHandler : ICommandHandler<SimpleCommand, SimpleResult>
     {
         public Task<SimpleResult> ExecuteAsync(SimpleCommand command, SimpleResult previousResult)
         {

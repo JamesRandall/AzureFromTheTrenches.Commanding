@@ -5,7 +5,7 @@ using InMemoryCommanding.Commands;
 
 namespace InMemoryCommanding.Actors
 {
-    class CommandWithoutResultActor : ICommandActor<CommandWithoutResult>
+    class CommandWithoutResultHandler : ICommandHandler<CommandWithoutResult>
     {
         public Task ExecuteAsync(CommandWithoutResult command)
         {

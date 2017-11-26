@@ -13,38 +13,38 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ConcurrentDictionary<Type, Delegate> _commandActorExecuters =
             new ConcurrentDictionary<Type, Delegate>();
 
-        public async Task<CommandChainActorResult<TResult>> ExecuteAsync<TResult>(ICommandChainActor actor, ICommand<TResult> command, TResult previousResult)
+        public async Task<CommandChainHandlerResult<TResult>> ExecuteAsync<TResult>(ICommandChainHandler handler, ICommand<TResult> command, TResult previousResult)
         {
             // we compile this expression to enable command actors to be written with a strongly typed
             // command type syntax e.g.:
-            //  class MyCommandActor : ICommandChainActor<MyCommand, MyResult>
+            //  class MyCommandActor : ICommandChainHandler<MyCommand, MyResult>
             // Without this command actors would need to be of the form:
-            //  class MyCommandActor : ICommandChainActor<ICommand<MyResult>>
+            //  class MyCommandActor : ICommandChainHandler<ICommand<MyResult>>
             // Which would lead to lots of casting inside actors. During registration of commands we can guarantee
             // type safety.
 
-            Delegate dlg = _commandActorExecuters.GetOrAdd(actor.GetType(), (actorType) =>
+            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
             {
-                Type castCommandActor = typeof(ICommandActor<,>);
+                Type castCommandActor = typeof(ICommandHandler<,>);
                 Type[] typeArgs = new[] { command.GetType(), typeof(TResult) };
                 Type genericType = castCommandActor.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandChainActor));
+                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandChainHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
                 ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
 
-                var lambda = Expression.Lambda<Func<ICommandActor, ICommand<TResult>, TResult, Task<CommandChainActorResult<TResult>>>>(
+                var lambda = Expression.Lambda<Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>>(
                     Expression.Call(Expression.Convert(actorParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, command.GetType()), previousResultParameter),
                     actorParameter, commandParameter, previousResultParameter);
-                Func<ICommandActor, ICommand<TResult>, TResult, Task<CommandChainActorResult<TResult>>> executer = lambda.Compile();
+                Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> executer = lambda.Compile();
                 return executer;
             });
 
-            Func<ICommandChainActor, ICommand<TResult>, TResult, Task<CommandChainActorResult<TResult>>> func = (Func<ICommandChainActor, ICommand<TResult>, TResult, Task<CommandChainActorResult<TResult>>>)dlg;
-            return await func(actor, command, previousResult);
+            Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> func = (Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>)dlg;
+            return await func(handler, command, previousResult);
         }
     }
 }

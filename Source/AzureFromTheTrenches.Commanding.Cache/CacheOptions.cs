@@ -64,7 +64,7 @@ namespace AzureFromTheTrenches.Commanding.Cache
         public Func<DateTime> ExpiresAtUtc { get; }
 
         /// <summary>
-        /// If set this throttles the number of concurrent executions that can occur of the underlying command actor
+        /// If set this throttles the number of concurrent executions that can occur of the underlying command handler
         /// when the cache misses. This can be useful when the underlying request is expensive and hitting it with multiple
         /// requests simultaneously could cause failures. This is mostly intended for scenarios with high levels of requests /
         /// transactions.

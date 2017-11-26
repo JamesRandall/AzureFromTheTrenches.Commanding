@@ -3,11 +3,11 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    internal class CommandActorFactory : ICommandActorFactory
+    internal class CommandHandlerFactory : ICommandHandlerFactory
     {
         private readonly Func<Type, object> _creatorFunc;
 
-        public CommandActorFactory(Func<Type, object> creatorFunc)
+        public CommandHandlerFactory(Func<Type, object> creatorFunc)
         {
             _creatorFunc = creatorFunc;
         }

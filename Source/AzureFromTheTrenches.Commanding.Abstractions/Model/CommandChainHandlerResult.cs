@@ -1,8 +1,8 @@
 ﻿namespace AzureFromTheTrenches.Commanding.Abstractions.Model
 {
-    public sealed class CommandChainActorResult<TResult>
+    public sealed class CommandChainHandlerResult<TResult>
     {
-        public CommandChainActorResult(bool shouldStop, TResult result)
+        public CommandChainHandlerResult(bool shouldStop, TResult result)
         {
             ShouldStop = shouldStop;
             Result = result;

@@ -22,7 +22,7 @@ namespace AzureFromTheTrenches.Commanding
         }
 
         /// <summary>
-        /// Unless an alternative implementation of ICommandActorFactory is supplied or the CommandActorFactoryFunc in this options
+        /// Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandActorFactoryFunc in this options
         /// class is set then actors are created through the dependency resolver but not all IoC containers can resolve unregistered concrete
         /// types (for example the built in ASP.Net Core IServiceCollection and IServiceProvider IoC cannot). Where this is the case
         /// supply an implementation for the CommandActorContainerRegistration action that registers the actors in the container. For
@@ -32,7 +32,7 @@ namespace AzureFromTheTrenches.Commanding
         public Action<Type> CommandActorContainerRegistration { get; set; }
         /// <summary>
         /// By default actors are created through the dependency resolver but if a function is assigned to the CommandActorFactoryFunc
-        /// property then that function will be called to instantiate an actor.
+        /// property then that function will be called to instantiate an handler.
         /// </summary>
         public Func<Type, object> CommandActorFactoryFunc { get; set; }
         /// <summary>

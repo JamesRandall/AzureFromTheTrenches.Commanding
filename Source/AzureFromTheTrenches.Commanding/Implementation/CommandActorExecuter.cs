@@ -12,73 +12,73 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ConcurrentDictionary<Type, Delegate> _commandActorExecuters = 
             new ConcurrentDictionary<Type, Delegate>();
 
-        public async Task<TResult> ExecuteAsync<TResult>(ICommandActor actor, ICommand<TResult> command, TResult previousResult)
+        public async Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
         {
             // we compile this expression to enable command actors to be written with a strongly typed
             // command type syntax e.g.:
-            //  class MyCommandActor : ICommandActor<MyCommand, MyResult>
+            //  class MyCommandActor : ICommandHandler<MyCommand, MyResult>
             // Without this command actors would need to be of the form:
-            //  class MyCommandActor : ICommandActor<ICommand<MyResult>>
+            //  class MyCommandActor : ICommandHandler<ICommand<MyResult>>
             // Which would lead to lots of casting inside actors. During registration of commands we can guarantee
             // type safety.
 
             if (command is NoResultCommandWrapper wrappedCommand)
             {
-                await ExecuteActorForCommandWithNoResult(actor, wrappedCommand);
+                await ExecuteActorForCommandWithNoResult(handler, wrappedCommand);
                 return default(TResult);
             }
-            return await ExecuteActorForCommand(actor, command, previousResult);
+            return await ExecuteActorForCommand(handler, command, previousResult);
         }
 
-        private async Task<TResult> ExecuteActorForCommand<TResult>(ICommandActor actor, ICommand<TResult> command, TResult previousResult)
+        private async Task<TResult> ExecuteActorForCommand<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
         {
-            Delegate dlg = _commandActorExecuters.GetOrAdd(actor.GetType(), (actorType) =>
+            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
             {
-                Type castCommandActor = typeof(ICommandActor<,>);
+                Type castCommandActor = typeof(ICommandHandler<,>);
                 Type[] typeArgs = new[] {command.GetType(), typeof(TResult)};
                 Type genericType = castCommandActor.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandActor));
+                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
                 ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
 
-                var lambda = Expression.Lambda<Func<ICommandActor, ICommand<TResult>, TResult, Task<TResult>>>(
+                var lambda = Expression.Lambda<Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>>>(
                     Expression.Call(Expression.Convert(actorParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, command.GetType()), previousResultParameter),
                     actorParameter, commandParameter, previousResultParameter);
-                Func<ICommandActor, ICommand<TResult>, TResult, Task<TResult>> executer = lambda.Compile();
+                Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>> executer = lambda.Compile();
                 return executer;
             });
 
-            Func<ICommandActor, ICommand<TResult>, TResult, Task<TResult>> func =
-                (Func<ICommandActor, ICommand<TResult>, TResult, Task<TResult>>) dlg;
-            return await func(actor, command, previousResult);
+            Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>> func =
+                (Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>>) dlg;
+            return await func(handler, command, previousResult);
         }
 
-        private async Task ExecuteActorForCommandWithNoResult(ICommandActor actor, NoResultCommandWrapper wrappedCommand)
+        private async Task ExecuteActorForCommandWithNoResult(ICommandHandler handler, NoResultCommandWrapper wrappedCommand)
         {
-            Delegate dlg = _commandActorExecuters.GetOrAdd(actor.GetType(), (actorType) =>
+            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
             {
-                Type castCommandActor = typeof(ICommandActor<>);
+                Type castCommandActor = typeof(ICommandHandler<>);
                 Type[] typeArgs = new[] {wrappedCommand.Command.GetType()};
                 Type genericType = castCommandActor.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandActor));
+                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand));
 
-                var lambda = Expression.Lambda<Func<ICommandActor, ICommand, Task>>(
+                var lambda = Expression.Lambda<Func<ICommandHandler, ICommand, Task>>(
                     Expression.Call(Expression.Convert(actorParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, wrappedCommand.Command.GetType())),
                     actorParameter, commandParameter);
-                Func<ICommandActor, ICommand, Task> executer = lambda.Compile();
+                Func<ICommandHandler, ICommand, Task> executer = lambda.Compile();
                 return executer;
             });
-            Func<ICommandActor, ICommand, Task> func = (Func<ICommandActor, ICommand, Task>) dlg;
-            await func(actor, wrappedCommand.Command);            
+            Func<ICommandHandler, ICommand, Task> func = (Func<ICommandHandler, ICommand, Task>) dlg;
+            await func(handler, wrappedCommand.Command);            
         }
     }
 }

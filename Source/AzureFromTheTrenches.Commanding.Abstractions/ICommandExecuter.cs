@@ -10,7 +10,6 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// <summary>
         /// Executes the given command
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command</typeparam>
         /// <typeparam name="TResult">The type of the result</typeparam>
         /// <param name="command">The command to execute</param>
         /// <returns>Awaitable task</returns>

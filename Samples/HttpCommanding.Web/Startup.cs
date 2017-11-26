@@ -35,7 +35,7 @@ namespace HttpCommanding.Web
             CommandingDependencyResolver dependencyResolver = services.GetCommandingDependencyResolver(() => serviceProvider);
 
             dependencyResolver.UseCommanding()
-                .Register<UpdatePersonalDetailsCommandActor>();
+                .Register<UpdatePersonalDetailsCommandHandler>();
             serviceProvider = services.BuildServiceProvider();
         }
 

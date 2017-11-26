@@ -2,7 +2,7 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
-    public interface ICommandActorFactory
+    public interface ICommandHandlerFactory
     {
         object Create(Type type);
     }

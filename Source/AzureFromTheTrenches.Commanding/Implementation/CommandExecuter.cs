@@ -9,19 +9,19 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     internal class CommandExecuter : ICommandExecuter
     {
         private readonly ICommandRegistry _commandRegistry;
-        private readonly ICommandActorFactory _commandActorFactory;
+        private readonly ICommandHandlerFactory _commandHandlerFactory;
         private readonly ICommandScopeManager _commandScopeManager;
         private readonly ICommandActorExecuter _commandActorExecuter;
         private readonly ICommandActorChainExecuter _commandActorChainExecuter;
 
         public CommandExecuter(ICommandRegistry commandRegistry,
-            ICommandActorFactory commandActorFactory,
+            ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
             ICommandActorExecuter commandActorExecuter,
             ICommandActorChainExecuter commandActorChainExecuter)
         {
             _commandRegistry = commandRegistry;
-            _commandActorFactory = commandActorFactory;
+            _commandHandlerFactory = commandHandlerFactory;
             _commandScopeManager = commandScopeManager;
             _commandActorExecuter = commandActorExecuter;
             _commandActorChainExecuter = commandActorChainExecuter;
@@ -29,26 +29,26 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
         {
-            IReadOnlyCollection<IPrioritisedCommandActor> actors = _commandRegistry.GetPrioritisedCommandActors(command);
+            IReadOnlyCollection<IPrioritisedCommandHandler> actors = _commandRegistry.GetPrioritisedCommandHandlers(command);
             if (actors == null || actors.Count == 0) throw new MissingCommandActorRegistrationException(command.GetType(), "No command actors registered for execution of command");
             TResult result = default(TResult);
 
             int actorIndex = 0;
-            foreach (IPrioritisedCommandActor actorTemplate in actors)
+            foreach (IPrioritisedCommandHandler actorTemplate in actors)
             {
                 try
                 {
-                    object baseActor = _commandActorFactory.Create(actorTemplate.CommandActorType);
+                    object baseActor = _commandHandlerFactory.Create(actorTemplate.CommandHandlerType);
                     
-                    if (baseActor is ICommandActor actor)
+                    if (baseActor is ICommandHandler actor)
                     {
                         result = await _commandActorExecuter.ExecuteAsync(actor, command, result);
                     }
                     else
                     {
-                        if (baseActor is ICommandChainActor chainActor)
+                        if (baseActor is ICommandChainHandler chainActor)
                         {
-                            CommandChainActorResult<TResult> chainResult = await _commandActorChainExecuter.ExecuteAsync(chainActor, command, result);
+                            CommandChainHandlerResult<TResult> chainResult = await _commandActorChainExecuter.ExecuteAsync(chainActor, command, result);
                             result = chainResult.Result;
                             if (chainResult.ShouldStop)
                             {
@@ -64,7 +64,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 catch (Exception ex)
                 {
                     ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-                    throw new CommandExecutionException(command, actorTemplate.CommandActorType, actorIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
+                    throw new CommandExecutionException(command, actorTemplate.CommandHandlerType, actorIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
                 }
                 actorIndex++;
             }

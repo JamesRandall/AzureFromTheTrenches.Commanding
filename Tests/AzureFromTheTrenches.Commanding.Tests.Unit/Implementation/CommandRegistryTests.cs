@@ -17,11 +17,11 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             var registry = new CommandRegistry();
 
             // Act
-            registry.Register<SimpleCommandActor>();
+            registry.Register<SimpleCommandHandler>();
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
-            Assert.Equal(typeof(SimpleCommandActor), result.Single().CommandActorType);
+            var result = registry.GetPrioritisedCommandHandlers(new SimpleCommand());
+            Assert.Equal(typeof(SimpleCommandHandler), result.Single().CommandHandlerType);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommandActor>(dispatcherFactoryFunc:DispatcherFunc);
+            registry.Register<SimpleCommandHandler>(dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
             var result = registry.GetCommandDispatcherFactory(new SimpleCommand());
@@ -65,18 +65,18 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Act
             if (reverseRegistration)
             {
-                registry.Register<SimpleCommandActorTwo>(order: 1500);
-                registry.Register<SimpleCommandActor>(order: 1000);
+                registry.Register<SimpleCommandHandlerTwo>(order: 1500);
+                registry.Register<SimpleCommandHandler>(order: 1000);
             }
             else
             {
-                registry.Register<SimpleCommandActor>(order: 1000);
-                registry.Register<SimpleCommandActorTwo>(order: 1500);
+                registry.Register<SimpleCommandHandler>(order: 1000);
+                registry.Register<SimpleCommandHandlerTwo>(order: 1500);
             }
             
 
             // Assert
-            var result = registry.GetPrioritisedCommandActors(new SimpleCommand());
+            var result = registry.GetPrioritisedCommandHandlers(new SimpleCommand());
             Assert.Collection(result, pca =>
             {
                 if (pca.Priority != 1000) throw new Exception("Wrong order");

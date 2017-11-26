@@ -6,7 +6,7 @@ using AzureStorageQueueCommanding.Commands;
 
 namespace AzureStorageQueueCommanding.Actors
 {
-    class OutputBigglesToConsoleCommandActor : ICommandActor<OutputToConsoleCommand, DeferredCommandResult>
+    class OutputBigglesToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, DeferredCommandResult>
     {
         public Task<DeferredCommandResult> ExecuteAsync(OutputToConsoleCommand command, DeferredCommandResult previousResult)
         {

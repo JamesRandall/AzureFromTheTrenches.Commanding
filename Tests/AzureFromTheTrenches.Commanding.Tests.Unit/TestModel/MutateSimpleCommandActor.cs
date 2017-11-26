@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
 {
-    class MutateSimpleCommandActor : ICommandActor<SimpleCommand, SimpleResult>
+    class MutateSimpleCommandHandler : ICommandHandler<SimpleCommand, SimpleResult>
     {
         public Task<SimpleResult> ExecuteAsync(SimpleCommand command, SimpleResult previousResult)
         {

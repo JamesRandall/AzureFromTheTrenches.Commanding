@@ -2,10 +2,10 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
-    public interface IPrioritisedCommandActor
+    public interface IPrioritisedCommandHandler
     {
         int Priority { get; }
 
-        Type CommandActorType { get; }
+        Type CommandHandlerType { get; }
     }
 }

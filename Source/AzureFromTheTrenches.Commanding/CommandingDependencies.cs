@@ -19,11 +19,11 @@ namespace AzureFromTheTrenches.Commanding
         /// <summary>
         /// Registers the commanding system in an ioc container.
         /// If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
-        /// the commandActorContainerRegistration should be used to perform the type registration for the actor
+        /// the commandActorContainerRegistration should be used to perform the type registration for the handler
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver to register inside</param>
         /// <param name="commandActorContainerRegistration">
-        /// Unless an alternative implementation of ICommandActorFactory is supplied then actors are created through the dependency resolver
+        /// Unless an alternative implementation of ICommandHandlerFactory is supplied then actors are created through the dependency resolver
         /// but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection
         /// and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandActorContainerRegistration
         /// action that registers the actors in the container. For example using an IServiceCollection instance of serviceCollection:
@@ -40,7 +40,7 @@ namespace AzureFromTheTrenches.Commanding
         /// <summary>
         /// Registers the commanding system in an ioc container.
         /// If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
-        /// the commandActorContainerRegistration should be used to perform the type registration for the actor
+        /// the commandActorContainerRegistration should be used to perform the type registration for the handler
         /// </summary>
         /// <param name="dependencyResolver">The dependency resolver to register inside</param>
         /// <param name="options">Configuration options for the commanding system</param>
@@ -105,12 +105,10 @@ namespace AzureFromTheTrenches.Commanding
                 dependencyResolver.RegisterInstance(_dispatcherOptions);
             }
 
-            ICommandActorFactory commandActorFactory = new CommandActorFactory(options.CommandActorFactoryFunc ?? dependencyResolver.Resolve);
-            INoResultCommandActorBaseExecuter noResultCommandActorBaseExecuter = new NoResultCommandActorBaseExecuter();
+            ICommandHandlerFactory commandHandlerFactory = new CommandHandlerFactory(options.CommandActorFactoryFunc ?? dependencyResolver.Resolve);
             ICommandActorExecuter commandActorExecuter = new CommandActorExecuter();
             ICommandActorChainExecuter commandActorChainExecuter = new CommandActorChainExecuter();
-            dependencyResolver.RegisterInstance(noResultCommandActorBaseExecuter);
-            dependencyResolver.RegisterInstance(commandActorFactory);
+            dependencyResolver.RegisterInstance(commandHandlerFactory);
             dependencyResolver.RegisterInstance(commandActorExecuter);
             dependencyResolver.RegisterInstance(commandActorChainExecuter);
 

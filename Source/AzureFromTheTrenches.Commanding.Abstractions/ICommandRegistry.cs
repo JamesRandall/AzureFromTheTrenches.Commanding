@@ -6,16 +6,16 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     public interface ICommandRegistry
     {
         /// <summary>
-        /// Register an actor against a command with no expected result
+        /// Register an handler against a command with no expected result
         /// </summary>
-        /// <typeparam name="TCommandActor">The type of the command actor</typeparam>
+        /// <typeparam name="TCommandHandler">The type of the command handler</typeparam>
         /// <param name="dispatcherFactoryFunc">Optional command dispatcher factory function</param>
-        /// <param name="order">Execution order of the actor</param>
-        ICommandRegistry Register<TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null)
-            where TCommandActor : ICommandActorBase;
+        /// <param name="order">Execution order of the handler</param>
+        ICommandRegistry Register<TCommandHandler>(int order = CommandHandlerOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null)
+            where TCommandHandler : ICommandHandlerBase;
 
         /// <summary>
-        /// Register a command with a dispatcher but no actor. Typically this is used when the command actors are known to be deferred via a queue
+        /// Register a command with a dispatcher but no handler. Typically this is used when the command actors are known to be deferred via a queue
         /// or that are remotely executed
         /// </summary>
         /// <typeparam name="TCommand">The type of the command</typeparam>
@@ -28,7 +28,7 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// </summary>
         /// <typeparam name="T">Type of the command</typeparam>
         /// <returns>Set of command actors</returns>
-        IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors(ICommand command);
+        IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command);
 
         /// <summary>
         /// Gets the command dispatcher for the command

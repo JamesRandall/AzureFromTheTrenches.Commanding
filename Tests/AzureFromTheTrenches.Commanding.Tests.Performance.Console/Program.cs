@@ -59,7 +59,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
             dependencyResolver.UseCommanding(options)
-                .Register<SimpleActor>();
+                .Register<SimpleHandler>();
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }

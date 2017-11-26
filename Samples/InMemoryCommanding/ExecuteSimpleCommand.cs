@@ -37,8 +37,8 @@ namespace InMemoryCommanding
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             dependencyResolver.UseCommanding(options)
-                .Register<OutputWorldToConsoleCommandActor>()
-                .Register<OutputBigglesToConsoleCommandActor>();
+                .Register<OutputWorldToConsoleCommandHandler>()
+                .Register<OutputBigglesToConsoleCommandHandler>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 

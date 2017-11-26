@@ -5,6 +5,6 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     interface ICommandActorExecuter
     {
-        Task<TResult> ExecuteAsync<TResult>(ICommandActor actor, ICommand<TResult> command, TResult previousResult);
+        Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult);
     }
 }

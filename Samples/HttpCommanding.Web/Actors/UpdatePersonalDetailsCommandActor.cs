@@ -5,7 +5,7 @@ using HttpCommanding.Model.Results;
 
 namespace HttpCommanding.Web.Actors
 {
-    public class UpdatePersonalDetailsCommandActor : ICommandActor<UpdatePersonalDetailsCommand, UpdateResult>
+    public class UpdatePersonalDetailsCommandHandler : ICommandHandler<UpdatePersonalDetailsCommand, UpdateResult>
     {
         public Task<UpdateResult> ExecuteAsync(UpdatePersonalDetailsCommand command, UpdateResult previousResult)
         {

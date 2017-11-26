@@ -82,8 +82,8 @@ namespace AzureStorageAuditing
             };
 
             dependencyResolver.UseCommanding(options)
-                .Register<ChainCommandActor>()
-                .Register<OutputWorldToConsoleCommandActor>();
+                .Register<ChainCommandHandler>()
+                .Register<OutputWorldToConsoleCommandHandler>();
             dependencyResolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
@@ -112,8 +112,8 @@ namespace AzureStorageAuditing
             };
 
             dependencyResolver.UseCommanding(options)
-                .Register<ChainCommandActor>()
-                .Register<OutputWorldToConsoleCommandActor>();
+                .Register<ChainCommandHandler>()
+                .Register<OutputWorldToConsoleCommandHandler>();
             dependencyResolver.UseAzureStorageCommandAuditing(storageAccount);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();

@@ -9,7 +9,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     internal class CommandRegistry : ICommandRegistry
     {
         private readonly Action<Type> _commandActorContainerRegistration;
-        private readonly Dictionary<Type, SortedSet<PrioritisedCommandActor>> _actors = new Dictionary<Type, SortedSet<PrioritisedCommandActor>>();
+        private readonly Dictionary<Type, SortedSet<PrioritisedCommandHandler>> _actors = new Dictionary<Type, SortedSet<PrioritisedCommandHandler>>();
         private readonly Dictionary<Type, Func<ICommandDispatcher>> _commandDispatchers = new Dictionary<Type, Func<ICommandDispatcher>>();
 
         public CommandRegistry(Action<Type> commandActorContainerRegistration = null)
@@ -17,9 +17,9 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandActorContainerRegistration = commandActorContainerRegistration;
         }
         
-        public ICommandRegistry Register<TCommandActor>(int order = CommandActorOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommandActor : ICommandActorBase
+        public ICommandRegistry Register<TCommandActor>(int order = CommandHandlerOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommandActor : ICommandHandlerBase
         {
-            Type commandActorBase = typeof(ICommandActorBase);
+            Type commandActorBase = typeof(ICommandHandlerBase);
             Type actorType = typeof(TCommandActor);
             Type genericActorInterface = actorType.GetInterfaces().Single(x => x.IsGenericType && commandActorBase.IsAssignableFrom(x));
 
@@ -38,17 +38,17 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         {
             if (!_actors.TryGetValue(commandType, out var set))
             {
-                set = new SortedSet<PrioritisedCommandActor>();
+                set = new SortedSet<PrioritisedCommandHandler>();
                 _actors.Add(commandType, set);
             }
 
-            set.Add(new PrioritisedCommandActor(order, commandActorType));
+            set.Add(new PrioritisedCommandHandler(order, commandActorType));
             if (dispatcherFactoryFunc != null)
             {
                 _commandDispatchers[commandType] = dispatcherFactoryFunc;
             }
 
-            // Register the actor with a container if that is needed
+            // Register the handler with a container if that is needed
             _commandActorContainerRegistration?.Invoke(commandActorType);
             return this;
         }
@@ -59,7 +59,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             return this;
         }
 
-        public IReadOnlyCollection<IPrioritisedCommandActor> GetPrioritisedCommandActors(ICommand command)
+        public IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command)
         {
             if (!_actors.TryGetValue(command.GetType(), out var set))
             {

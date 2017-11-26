@@ -6,7 +6,7 @@ using InMemoryCommanding.Results;
 
 namespace InMemoryCommanding.Actors
 {
-    class OutputBigglesToConsoleCommandActor : ICommandActor<OutputToConsoleCommand, CountResult>
+    class OutputBigglesToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, CountResult>
     {
         public Task<CountResult> ExecuteAsync(OutputToConsoleCommand command, CountResult previousResult)
         {
