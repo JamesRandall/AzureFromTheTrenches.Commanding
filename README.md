@@ -1,6 +1,6 @@
 # AzureFromTheTrenches.Commanding
 
-A simple configuration based asynchronous commanding framework designed to be both easy to use and highly extensible allowing projects
+A simple configuration based asynchronous command message framework designed to be both easy to use and highly extensible allowing projects
 to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding
 over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
 
@@ -39,9 +39,9 @@ As an example let's create a command that adds two numbers together and returns 
         public int SecondNumber { get; set; }
     }
 
-Commands are acted on by actors and our add action looks like this:
+Commands are acted on by handlers and our add action looks like this:
 
-    public AddCommandActor : ICommandActor<AddCommand, MathResult>
+    public AddCommandHandler : ICommandHandler<AddCommand, MathResult>
     {
         public Task<MathResult> ExecuteAsync(AddCommand command, MathResult previousResult)
         {
@@ -51,7 +51,7 @@ Commands are acted on by actors and our add action looks like this:
         }
     }
 
-Having defined our command, result and actor, we need to register these with the commanding system. If you're just writing a console app you can do this in Program.cs but for more realistic usage you'd do this where you configure your IoC container - it's handy to think of command registrations as just another part of your applications configuration, besides which you'll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:
+Having defined our command, result and handler, we need to register these with the commanding system. If you're just writing a console app you can do this in Program.cs but for more realistic usage you'd do this where you configure your IoC container - it's handy to think of command registrations as just another part of your applications configuration, besides which you'll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:
 
     IServiceCollection serviceCollection = new ServiceCollection();
     IServiceProvider serviceProvider = null;
@@ -61,10 +61,10 @@ Having defined our command, result and actor, we need to register these with the
         type => serviceProvider.GetService(type)
     );
     commandingDependencyResolver.UseCommanding()
-        .Register<AddCommandActor>();
+        .Register<AddCommandHandler>();
     IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register commands and their actors.
+The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register commands and their handlers.
 
 To dispatch our command we need to get hold of the ICommandDispatcher interface and send the command. We'll do that and output the result to the console:
 
