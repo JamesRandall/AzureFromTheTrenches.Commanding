@@ -93,6 +93,9 @@ Take a look at the samples and then more advanced usage is outlined further down
 5. Azure storage auditing
 <https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageAuditing>
 
+6. Azure event hub auditing
+<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureEventHubAuditing>
+
 ## Advanced Usage
 
 Further usage scenarios can be found in the [wiki](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki) including:
