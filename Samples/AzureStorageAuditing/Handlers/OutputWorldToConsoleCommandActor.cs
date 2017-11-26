@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
-using AzureStorageQueueCommanding.Commands;
+using AzureStorageAuditing.Commands;
 
-namespace AzureStorageQueueCommanding.Actors
+namespace AzureStorageAuditing.Handlers
 {
-    class OutputBigglesToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, DeferredCommandResult>
+    class OutputWorldToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, DeferredCommandResult>
     {
         public Task<DeferredCommandResult> ExecuteAsync(OutputToConsoleCommand command, DeferredCommandResult previousResult)
         {
-            Console.WriteLine($"{command.Message} Biggles");
+            Console.WriteLine($"{command.Message} World");            
             return Task.FromResult((DeferredCommandResult)null);
         }
     }

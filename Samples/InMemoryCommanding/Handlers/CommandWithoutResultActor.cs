@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using InMemoryCommanding.Commands;
 
-namespace InMemoryCommanding.Actors
+namespace InMemoryCommanding.Handlers
 {
     class CommandWithoutResultHandler : ICommandHandler<CommandWithoutResult>
     {

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
-using InMemoryCommanding.Actors;
 using InMemoryCommanding.Commands;
+using InMemoryCommanding.Handlers;
 using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -4,13 +4,13 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
 
-namespace InMemoryCommanding.Actors
+namespace InMemoryCommanding.Handlers
 {
-    class OutputBigglesToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, CountResult>
+    class OutputWorldToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, CountResult>
     {
         public Task<CountResult> ExecuteAsync(OutputToConsoleCommand command, CountResult previousResult)
         {
-            Console.WriteLine($"{command.Message} Biggles");
+            Console.WriteLine($"{command.Message} World");
             CountResult result = previousResult ?? new CountResult();
             result.Count++;
             return Task.FromResult(result);

@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 
-namespace HttpCommanding.Web.Actors
+namespace HttpCommanding.Web.Handlers
 {
     public class UpdatePersonalDetailsCommandHandler : ICommandHandler<UpdatePersonalDetailsCommand, UpdateResult>
     {

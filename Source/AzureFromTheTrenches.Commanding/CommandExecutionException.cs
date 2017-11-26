@@ -5,50 +5,50 @@ namespace AzureFromTheTrenches.Commanding
 {
     public class CommandExecutionException : Exception
     {
-        public CommandExecutionException(object command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext)
+        public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext)
         {
             Command = command;
-            ActorType = actorType;
-            ActorExecutionIndex = actorExecutionIndex;
+            HandlerType = handlerType;
+            HandlerExecutionIndex = handlerExecutionIndex;
             CommandDispatchContext = commandDispatchContext;
         }
 
-        public CommandExecutionException(object command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext, string message) : base(message)
+        public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message) : base(message)
         {
             Command = command;
-            ActorType = actorType;
-            ActorExecutionIndex = actorExecutionIndex;
+            HandlerType = handlerType;
+            HandlerExecutionIndex = handlerExecutionIndex;
             CommandDispatchContext = commandDispatchContext;
         }
 
-        public CommandExecutionException(object command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext, string message, Exception innerException) : base(message, innerException)
+        public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message, Exception innerException) : base(message, innerException)
         {
             Command = command;
-            ActorType = actorType;
-            ActorExecutionIndex = actorExecutionIndex;
+            HandlerType = handlerType;
+            HandlerExecutionIndex = handlerExecutionIndex;
             CommandDispatchContext = commandDispatchContext;
         }
 
         public object Command { get; }
 
-        public Type ActorType { get; }
+        public Type HandlerType { get; }
 
-        public int ActorExecutionIndex { get; }
+        public int HandlerExecutionIndex { get; }
 
         public ICommandDispatchContext CommandDispatchContext { get; }
     }
 
     public class CommandExecutionException<TCommand> : CommandExecutionException where TCommand : class
     {
-        public CommandExecutionException(TCommand command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext) : base(command, actorType, actorExecutionIndex, commandDispatchContext)
+        public CommandExecutionException(TCommand command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext) : base(command, handlerType, handlerExecutionIndex, commandDispatchContext)
         {
         }
 
-        public CommandExecutionException(TCommand command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext, string message) : base(command, actorType, actorExecutionIndex, commandDispatchContext, message)
+        public CommandExecutionException(TCommand command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message) : base(command, handlerType, handlerExecutionIndex, commandDispatchContext, message)
         {
         }
 
-        public CommandExecutionException(TCommand command, Type actorType, int actorExecutionIndex, ICommandDispatchContext commandDispatchContext, string message, Exception innerException) : base(command, actorType, actorExecutionIndex, commandDispatchContext, message, innerException)
+        public CommandExecutionException(TCommand command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message, Exception innerException) : base(command, handlerType, handlerExecutionIndex, commandDispatchContext, message, innerException)
         {
         }
 

@@ -5,10 +5,10 @@ namespace AzureFromTheTrenches.Commanding.Model
 {
     public sealed class PrioritisedCommandHandler : IComparable, IPrioritisedCommandHandler
     {
-        internal PrioritisedCommandHandler(int priority, Type commandActorType)
+        internal PrioritisedCommandHandler(int priority, Type commandHandlerType)
         {
             Priority = priority;
-            CommandHandlerType = commandActorType;
+            CommandHandlerType = commandHandlerType;
         }
 
         public int Priority { get; }

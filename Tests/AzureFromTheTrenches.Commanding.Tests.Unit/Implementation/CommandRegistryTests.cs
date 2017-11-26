@@ -25,7 +25,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         }
 
         [Fact]
-        public void DispatcherIsRegisteredWithActor()
+        public void DispatcherIsRegisteredWithHandler()
         {
             // Arrange
             var registry = new CommandRegistry();
@@ -40,7 +40,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         }
 
         [Fact]
-        public void DispatcherIsRegisteredWithoutActor()
+        public void DispatcherIsRegisteredWithoutHandler()
         {
             // Arrange
             var registry = new CommandRegistry();

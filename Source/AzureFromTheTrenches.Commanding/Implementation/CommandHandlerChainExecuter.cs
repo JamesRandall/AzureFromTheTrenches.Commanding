@@ -8,9 +8,9 @@ using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    internal class CommandActorChainExecuter : ICommandActorChainExecuter
+    internal class CommandHandlerChainExecuter : ICommandHandlerChainExecuter
     {
-        private readonly ConcurrentDictionary<Type, Delegate> _commandActorExecuters =
+        private readonly ConcurrentDictionary<Type, Delegate> _commandHandlerExecuters =
             new ConcurrentDictionary<Type, Delegate>();
 
         public async Task<CommandChainHandlerResult<TResult>> ExecuteAsync<TResult>(ICommandChainHandler handler, ICommand<TResult> command, TResult previousResult)
@@ -23,22 +23,22 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             // Which would lead to lots of casting inside actors. During registration of commands we can guarantee
             // type safety.
 
-            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
+            Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
-                Type castCommandActor = typeof(ICommandHandler<,>);
+                Type castCommandHandler = typeof(ICommandHandler<,>);
                 Type[] typeArgs = new[] { command.GetType(), typeof(TResult) };
-                Type genericType = castCommandActor.MakeGenericType(typeArgs);
+                Type genericType = castCommandHandler.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandChainHandler));
+                ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandChainHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
                 ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
 
                 var lambda = Expression.Lambda<Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>>(
-                    Expression.Call(Expression.Convert(actorParameter, genericType),
+                    Expression.Call(Expression.Convert(handlerParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, command.GetType()), previousResultParameter),
-                    actorParameter, commandParameter, previousResultParameter);
+                    handlerParameter, commandParameter, previousResultParameter);
                 Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> executer = lambda.Compile();
                 return executer;
             });

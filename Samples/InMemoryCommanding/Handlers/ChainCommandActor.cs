@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using InMemoryCommanding.Commands;
 
-namespace InMemoryCommanding.Actors
+namespace InMemoryCommanding.Handlers
 {
     class ChainCommandHandler : ICommandHandler<ChainCommand, NoResult>
     {

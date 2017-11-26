@@ -14,27 +14,27 @@ namespace AzureFromTheTrenches.Commanding
         /// </summary>
         public Options()
         {
-            CommandActorContainerRegistration = null;
-            CommandActorFactoryFunc = null;
+            CommandHandlerContainerRegistration = null;
+            CommandHandlerFactoryFunc = null;
             Reset = false;
             AuditRootCommandOnly = null;
             Enrichers = null;
         }
 
         /// <summary>
-        /// Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandActorFactoryFunc in this options
+        /// Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandHandlerFactoryFunc in this options
         /// class is set then actors are created through the dependency resolver but not all IoC containers can resolve unregistered concrete
         /// types (for example the built in ASP.Net Core IServiceCollection and IServiceProvider IoC cannot). Where this is the case
-        /// supply an implementation for the CommandActorContainerRegistration action that registers the actors in the container. For
+        /// supply an implementation for the CommandHandlerContainerRegistration action that registers the actors in the container. For
         /// example using an IServiceCollection instance of serviceCollection:
-        ///     var options = new Options() { CommandActorContainerRegistration = type => services.AddTransient(type, type) };
+        ///     var options = new Options() { CommandHandlerContainerRegistration = type => services.AddTransient(type, type) };
         /// </summary>
-        public Action<Type> CommandActorContainerRegistration { get; set; }
+        public Action<Type> CommandHandlerContainerRegistration { get; set; }
         /// <summary>
-        /// By default actors are created through the dependency resolver but if a function is assigned to the CommandActorFactoryFunc
+        /// By default actors are created through the dependency resolver but if a function is assigned to the CommandHandlerFactoryFunc
         /// property then that function will be called to instantiate an handler.
         /// </summary>
-        public Func<Type, object> CommandActorFactoryFunc { get; set; }
+        public Func<Type, object> CommandHandlerFactoryFunc { get; set; }
         /// <summary>
         /// The commanding system maintains command registrations, command context enrichers, and auditors between calls to UseCommanding
         /// to enable sub-modules to extend the system without any awareness / tight coupling between them. If you want to force a reset

@@ -11,44 +11,44 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandHandlerFactory _commandHandlerFactory;
         private readonly ICommandScopeManager _commandScopeManager;
-        private readonly ICommandActorExecuter _commandActorExecuter;
-        private readonly ICommandActorChainExecuter _commandActorChainExecuter;
+        private readonly ICommandHandlerExecuter _commandHandlerExecuter;
+        private readonly ICommandHandlerChainExecuter _commandHandlerChainExecuter;
 
         public CommandExecuter(ICommandRegistry commandRegistry,
             ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
-            ICommandActorExecuter commandActorExecuter,
-            ICommandActorChainExecuter commandActorChainExecuter)
+            ICommandHandlerExecuter commandHandlerExecuter,
+            ICommandHandlerChainExecuter commandHandlerChainExecuter)
         {
             _commandRegistry = commandRegistry;
             _commandHandlerFactory = commandHandlerFactory;
             _commandScopeManager = commandScopeManager;
-            _commandActorExecuter = commandActorExecuter;
-            _commandActorChainExecuter = commandActorChainExecuter;
+            _commandHandlerExecuter = commandHandlerExecuter;
+            _commandHandlerChainExecuter = commandHandlerChainExecuter;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
         {
-            IReadOnlyCollection<IPrioritisedCommandHandler> actors = _commandRegistry.GetPrioritisedCommandHandlers(command);
-            if (actors == null || actors.Count == 0) throw new MissingCommandActorRegistrationException(command.GetType(), "No command actors registered for execution of command");
+            IReadOnlyCollection<IPrioritisedCommandHandler> handlers = _commandRegistry.GetPrioritisedCommandHandlers(command);
+            if (handlers == null || handlers.Count == 0) throw new MissingCommandHandlerRegistrationException(command.GetType(), "No command actors registered for execution of command");
             TResult result = default(TResult);
 
-            int actorIndex = 0;
-            foreach (IPrioritisedCommandHandler actorTemplate in actors)
+            int handlerIndex = 0;
+            foreach (IPrioritisedCommandHandler handlerTemplate in handlers)
             {
                 try
                 {
-                    object baseActor = _commandHandlerFactory.Create(actorTemplate.CommandHandlerType);
+                    object baseHandler = _commandHandlerFactory.Create(handlerTemplate.CommandHandlerType);
                     
-                    if (baseActor is ICommandHandler actor)
+                    if (baseHandler is ICommandHandler handler)
                     {
-                        result = await _commandActorExecuter.ExecuteAsync(actor, command, result);
+                        result = await _commandHandlerExecuter.ExecuteAsync(handler, command, result);
                     }
                     else
                     {
-                        if (baseActor is ICommandChainHandler chainActor)
+                        if (baseHandler is ICommandChainHandler chainHandler)
                         {
-                            CommandChainHandlerResult<TResult> chainResult = await _commandActorChainExecuter.ExecuteAsync(chainActor, command, result);
+                            CommandChainHandlerResult<TResult> chainResult = await _commandHandlerChainExecuter.ExecuteAsync(chainHandler, command, result);
                             result = chainResult.Result;
                             if (chainResult.ShouldStop)
                             {
@@ -57,16 +57,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                         }
                         else
                         {
-                            throw new UnableToExecuteActorException("Unexpected result type");                            
+                            throw new UnableToExecuteHandlerException("Unexpected result type");                            
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-                    throw new CommandExecutionException(command, actorTemplate.CommandHandlerType, actorIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
+                    throw new CommandExecutionException(command, handlerTemplate.CommandHandlerType, handlerIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
                 }
-                actorIndex++;
+                handlerIndex++;
             }
 
             return result;

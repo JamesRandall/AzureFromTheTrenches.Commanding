@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
-using AzureStorageAuditing.Commands;
+using AzureStorageQueueCommanding.Commands;
 
-namespace AzureStorageAuditing.Actors
+namespace AzureStorageQueueCommanding.Handlers
 {
     class OutputWorldToConsoleCommandHandler : ICommandHandler<OutputToConsoleCommand, DeferredCommandResult>
     {

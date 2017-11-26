@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    interface ICommandActorExecuter
+    interface ICommandHandlerExecuter
     {
         Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult);
     }

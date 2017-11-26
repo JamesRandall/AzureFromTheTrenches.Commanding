@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using AzureStorageAuditing.Commands;
 
-namespace AzureStorageAuditing.Actors
+namespace AzureStorageAuditing.Handlers
 {
     class ChainCommandHandler : ICommandHandler<ChainCommand, NoResult>
     {

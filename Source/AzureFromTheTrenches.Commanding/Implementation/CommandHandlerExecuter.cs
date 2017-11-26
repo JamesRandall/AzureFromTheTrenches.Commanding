@@ -7,9 +7,9 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    internal class CommandActorExecuter : ICommandActorExecuter
+    internal class CommandHandlerExecuter : ICommandHandlerExecuter
     {
-        private readonly ConcurrentDictionary<Type, Delegate> _commandActorExecuters = 
+        private readonly ConcurrentDictionary<Type, Delegate> _commandHandlerExecuters = 
             new ConcurrentDictionary<Type, Delegate>();
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
@@ -32,22 +32,22 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         private async Task<TResult> ExecuteActorForCommand<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
         {
-            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
+            Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
-                Type castCommandActor = typeof(ICommandHandler<,>);
+                Type castCommandHandler = typeof(ICommandHandler<,>);
                 Type[] typeArgs = new[] {command.GetType(), typeof(TResult)};
-                Type genericType = castCommandActor.MakeGenericType(typeArgs);
+                Type genericType = castCommandHandler.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandHandler));
+                ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
                 ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
 
                 var lambda = Expression.Lambda<Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>>>(
-                    Expression.Call(Expression.Convert(actorParameter, genericType),
+                    Expression.Call(Expression.Convert(handlerParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, command.GetType()), previousResultParameter),
-                    actorParameter, commandParameter, previousResultParameter);
+                    handlerParameter, commandParameter, previousResultParameter);
                 Func<ICommandHandler, ICommand<TResult>, TResult, Task<TResult>> executer = lambda.Compile();
                 return executer;
             });
@@ -59,21 +59,21 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         private async Task ExecuteActorForCommandWithNoResult(ICommandHandler handler, NoResultCommandWrapper wrappedCommand)
         {
-            Delegate dlg = _commandActorExecuters.GetOrAdd(handler.GetType(), (actorType) =>
+            Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
-                Type castCommandActor = typeof(ICommandHandler<>);
+                Type castCommandHandler = typeof(ICommandHandler<>);
                 Type[] typeArgs = new[] {wrappedCommand.Command.GetType()};
-                Type genericType = castCommandActor.MakeGenericType(typeArgs);
+                Type genericType = castCommandHandler.MakeGenericType(typeArgs);
 
                 MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression actorParameter = Expression.Parameter(typeof(ICommandHandler));
+                ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandHandler));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand));
 
                 var lambda = Expression.Lambda<Func<ICommandHandler, ICommand, Task>>(
-                    Expression.Call(Expression.Convert(actorParameter, genericType),
+                    Expression.Call(Expression.Convert(handlerParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, wrappedCommand.Command.GetType())),
-                    actorParameter, commandParameter);
+                    handlerParameter, commandParameter);
                 Func<ICommandHandler, ICommand, Task> executer = lambda.Compile();
                 return executer;
             });

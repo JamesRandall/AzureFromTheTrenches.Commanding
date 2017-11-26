@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
-using HttpCommanding.Web.Actors;
+using HttpCommanding.Web.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

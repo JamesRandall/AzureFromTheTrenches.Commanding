@@ -11,7 +11,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
         {
             SimpleResult result = new SimpleResult
             {
-                Actors = new List<Type> {GetType()}
+                Handlers = new List<Type> {GetType()}
             };
             return Task.FromResult(result);
         }
