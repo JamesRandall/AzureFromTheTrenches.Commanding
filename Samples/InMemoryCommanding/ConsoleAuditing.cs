@@ -12,12 +12,35 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
 {
-    internal class ConsoleAuditor : ICommandAuditor
+    internal class ConsoleDispatchAuditor : ICommandAuditor
     {
         public Task Audit(AuditItem item)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Correlation ID: {item.CorrelationId}");
+            Console.WriteLine($"Depth: {item.Depth}");
+            foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
+            {
+                Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
+            }
+            Console.ForegroundColor = previousColor;
+            return Task.FromResult(0);
+        }
+
+        public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    internal class ConsoleExecutionAuditor : ICommandAuditor
+    {
+        public Task Audit(AuditItem item)
+        {
+            ConsoleColor previousColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"Type: {item.CommandType}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
             Console.WriteLine($"Depth: {item.Depth}");
@@ -70,7 +93,8 @@ namespace InMemoryCommanding
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
-            dependencyResolver.UseCommandingAuditor<ConsoleAuditor>();
+            dependencyResolver.UseDispatchCommandingAuditor<ConsoleDispatchAuditor>();
+            dependencyResolver.UseExecutionCommandingAuditor<ConsoleExecutionAuditor>();
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();
         }

@@ -40,14 +40,15 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 ICommandExecuter executer = null;
                 ICommandDispatcher dispatcher = null;
 
-                if (_auditor != null)
-                {
-                    bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
+                bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
 
-                    if (!auditRootCommandOnly || dispatchContext.Depth == 0)
-                    {
-                        await _auditor.Audit(command, Guid.NewGuid(), dispatchContext);
-                    }
+                // we specifically audit BEFORE dispatch as this allows us to capture intent and a replay to
+                // occur even if dispatch fails
+                // (there is also an audit opportunity after execution completes and I'm considering putting one in
+                // on dispatch success)
+                if (!auditRootCommandOnly || dispatchContext.Depth == 0)
+                {
+                    await _auditor.AuditDispatch(command, dispatchContext);
                 }
 
                 try

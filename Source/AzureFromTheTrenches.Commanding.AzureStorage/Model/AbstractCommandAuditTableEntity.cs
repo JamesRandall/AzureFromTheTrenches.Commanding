@@ -15,7 +15,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Model
 
         public int Depth { get; set; }
 
-        public Guid CommandId { get; set; }
+        public string CommandId { get; set; }
 
         [IgnoreProperty]
         public IReadOnlyDictionary<string, string> AdditionalProperties { get; set; }

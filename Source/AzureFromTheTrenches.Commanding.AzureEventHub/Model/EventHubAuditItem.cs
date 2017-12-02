@@ -8,9 +8,9 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Model
     {
         public JRaw Command { get; set; }
 
-        public String CommandType { get; set; }
+        public string CommandType { get; set; }
 
-        public Guid CommandId { get; set; }
+        public string CommandId { get; set; }
 
         public DateTime DispatchedUtc { get; set; }
 

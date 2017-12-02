@@ -5,11 +5,15 @@ namespace AzureFromTheTrenches.Commanding.Abstractions.Model
 {
     public class AuditItem
     {
+        public string Type { get; set; }
+
+        public bool? ExecutedSuccessfully { get; set; }
+
         public string SerializedCommand { get; set; }
 
         public String CommandType { get; set; }
 
-        public Guid CommandId { get; set; }
+        public string CommandId { get; set; }
 
         public DateTime DispatchedUtc { get; set; }
 

@@ -4,6 +4,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal interface IAuditorRegistration
     {
-        void RegisterAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor;
+        void RegisterDispatchAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor;
+        void RegisterExecutionAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor;
     }
 }

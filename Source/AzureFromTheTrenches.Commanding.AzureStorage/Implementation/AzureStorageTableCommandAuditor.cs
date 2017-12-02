@@ -21,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             _storageStrategy = storageStrategy;
         }
 
-        private async Task AuditPayload(string payload, Guid commandId)
+        private async Task AuditPayload(string payload, string commandId)
         {
             CloudBlobContainer blobContainer = await _cloudStorageProvider.GetBlobContainer();
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference($"{commandId}.json");

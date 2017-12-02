@@ -9,11 +9,17 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandAuditPipeline : ICommandAuditPipeline, IAuditorRegistration
     {
+        private const string DispatchType = "dispatch";
+        private const string ExecutionType = "execution";
+
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
         private readonly Func<ICommandAuditSerializer> _auditorSerializerFunc;
-        private readonly List<Type> _registeredAuditors = new List<Type>();
-        private volatile IReadOnlyCollection<ICommandAuditor> _auditors = null;
-        private readonly object _auditorCreationLock = new object();
+        private readonly List<Type> _registeredDispatchAuditors = new List<Type>();
+        private readonly List<Type> _registeredExecutionAuditors = new List<Type>();
+        private volatile IReadOnlyCollection<ICommandAuditor> _dispatchAuditors;
+        private volatile IReadOnlyCollection<ICommandAuditor> _executionAuditors;
+        private readonly object _dispatchAuditorCreationLock = new object();
+        private readonly object _executionAuditorCreationLock = new object();
 
         public CommandAuditPipeline(Func<Type, ICommandAuditor> auditorFactoryFunc, Func<ICommandAuditSerializer> auditorSerializerFunc)
         {
@@ -22,31 +28,45 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         }
 
         
-        public void RegisterAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor
+        public void RegisterDispatchAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor
         {
             // all auditors must be registered before the first command is dispatched
-            _registeredAuditors.Add(typeof(TAuditorImpl));
+            _registeredDispatchAuditors.Add(typeof(TAuditorImpl));
         }
 
-        public async Task Audit(ICommand command, Guid commandId, ICommandDispatchContext dispatchContext)
+        public void RegisterExecutionAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor
+        {
+            // all auditors must be registered before the first command is dispatched
+            _registeredExecutionAuditors.Add(typeof(TAuditorImpl));
+        }
+
+        public async Task AuditDispatch(ICommand command, ICommandDispatchContext dispatchContext)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
+            
             AuditItem auditItem = new AuditItem
             {
                 AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
-                CommandId = commandId,
+                CommandId = null,
                 CommandType = command.GetType().AssemblyQualifiedName,
                 CorrelationId = dispatchContext.CorrelationId,
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,
-                SerializedCommand = serializer.Serialize(command)
+                SerializedCommand = serializer.Serialize(command),
+                Type = DispatchType
             };
-            await Audit(auditItem);
+            // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
+            if (command is IIdentifiableCommand identifiableCommand)
+            {
+                auditItem.CommandId = identifiableCommand.Id;
+            }
+            await AuditDispatch(auditItem);
         }
 
-        public async Task Audit(AuditItem auditItem)
+        public async Task AuditDispatch(AuditItem auditItem)
         {
-            IReadOnlyCollection<ICommandAuditor> auditors = GetAuditors();
+            auditItem.Type = DispatchType;
+            IReadOnlyCollection<ICommandAuditor> auditors = GetDispatchAuditors();
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
@@ -55,19 +75,70 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
-        private IReadOnlyCollection<ICommandAuditor> GetAuditors()
+        public async Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext,
+            bool executedSuccessfully)
         {
-            if (_auditors == null)
+            ICommandAuditSerializer serializer = _auditorSerializerFunc();
+            AuditItem auditItem = new AuditItem
             {
-                lock (_auditorCreationLock)
+                AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
+                CommandId = null,
+                CommandType = command.GetType().AssemblyQualifiedName,
+                CorrelationId = dispatchContext.CorrelationId,
+                Depth = dispatchContext.Depth,
+                DispatchedUtc = DateTime.UtcNow,
+                ExecutedSuccessfully = executedSuccessfully,
+                SerializedCommand = serializer.Serialize(command),
+                Type = ExecutionType
+            };
+            // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
+            if (command is IIdentifiableCommand identifiableCommand)
+            {
+                auditItem.CommandId = identifiableCommand.Id;
+            }
+            await AuditExecution(auditItem);
+        }
+
+        public async Task AuditExecution(AuditItem auditItem)
+        {
+            auditItem.Type = ExecutionType;
+            IReadOnlyCollection<ICommandAuditor> auditors = GetExecutionAuditors();
+            List<Task> auditTasks = new List<Task>();
+            foreach (ICommandAuditor auditor in auditors)
+            {
+                auditTasks.Add(auditor.Audit(auditItem));
+            }
+            await Task.WhenAll(auditTasks);
+        }
+
+        private IReadOnlyCollection<ICommandAuditor> GetDispatchAuditors()
+        {
+            if (_dispatchAuditors == null)
+            {
+                lock (_dispatchAuditorCreationLock)
                 {
-                    if (_auditors == null)
+                    if (_dispatchAuditors == null)
                     {
-                        _auditors = _registeredAuditors.Select(x => _auditorFactoryFunc(x)).ToList();
+                        _dispatchAuditors = _registeredDispatchAuditors.Select(x => _auditorFactoryFunc(x)).ToList();
                     }
                 }
             }
-            return _auditors;
+            return _dispatchAuditors;
+        }
+
+        private IReadOnlyCollection<ICommandAuditor> GetExecutionAuditors()
+        {
+            if (_executionAuditors == null)
+            {
+                lock (_executionAuditorCreationLock)
+                {
+                    if (_executionAuditors == null)
+                    {
+                        _executionAuditors = _registeredExecutionAuditors.Select(x => _auditorFactoryFunc(x)).ToList();
+                    }
+                }
+            }
+            return _executionAuditors;
         }
     }
 }

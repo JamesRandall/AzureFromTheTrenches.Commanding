@@ -123,7 +123,14 @@ namespace AzureFromTheTrenches.Commanding
             return _registry;
         }
 
-        public static ICommandingDependencyResolver UseCommandingAuditor<TAuditorImpl>(this ICommandingDependencyResolver dependencyResolver) where TAuditorImpl : ICommandAuditor
+        /// <summary>
+        /// Registers an auditor that will be invoked directly after a command has been dispatched.
+        /// </summary>
+        /// <typeparam name="TDispatchAuditorImpl">The type of the auditor</typeparam>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <returns>The dependency resolver</returns>
+        public static ICommandingDependencyResolver UseDispatchCommandingAuditor<TDispatchAuditorImpl>(
+            this ICommandingDependencyResolver dependencyResolver) where TDispatchAuditorImpl : ICommandAuditor
         {
             lock (AuditorPipelineLockObject)
             {
@@ -132,9 +139,31 @@ namespace AzureFromTheTrenches.Commanding
                     throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
                 }
                 IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
-                registration.RegisterAuditor<TAuditorImpl>();
+                registration.RegisterDispatchAuditor<TDispatchAuditorImpl>();
             }
-            dependencyResolver.TypeMapping<TAuditorImpl, TAuditorImpl>();
+            dependencyResolver.TypeMapping<TDispatchAuditorImpl, TDispatchAuditorImpl>();
+            return dependencyResolver;
+        }
+
+        /// <summary>
+        /// Registers an auditor that will be invoked directly after a command has been executed.
+        /// </summary>
+        /// <typeparam name="TExecutionAuditorImpl">The type of the auditor</typeparam>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <returns>The dependency resolver</returns>
+        public static ICommandingDependencyResolver UseExecutionCommandingAuditor<TExecutionAuditorImpl>(
+            this ICommandingDependencyResolver dependencyResolver) where TExecutionAuditorImpl : ICommandAuditor
+        {
+            lock (AuditorPipelineLockObject)
+            {
+                if (_auditorPipeline == null)
+                {
+                    throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
+                }
+                IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
+                registration.RegisterExecutionAuditor<TExecutionAuditorImpl>();
+            }
+            dependencyResolver.TypeMapping<TExecutionAuditorImpl, TExecutionAuditorImpl>();
             return dependencyResolver;
         }
     }

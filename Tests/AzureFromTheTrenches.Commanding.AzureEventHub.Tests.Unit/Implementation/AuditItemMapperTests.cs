@@ -13,7 +13,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.Implementatio
         {
             // Arrange
             IAuditItemMapper mapper = new AuditItemMapper();
-            Guid commandId = Guid.NewGuid();
+            string commandId = Guid.NewGuid().ToString();
             DateTime dispatchedAt = new DateTime(2017, 12, 8, 11, 12, 30, 234);
 
             // Act
