@@ -121,19 +121,19 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
-            handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerThatHalts))).Returns(new SimpleCommandHandlerThatHalts());
+            handlerFactory.Setup(x => x.Create(typeof(SimplePipelineAwareCommandHandlerThatHalts))).Returns(new SimplePipelineAwareCommandHandlerThatHalts());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerTwo))).Returns(new SimpleCommandHandlerTwo());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
                 {
                     new PrioritisedCommandHandler(0, typeof(SimpleCommandHandler)),
-                    new PrioritisedCommandHandler(1, typeof(SimpleCommandHandlerThatHalts)),
+                    new PrioritisedCommandHandler(1, typeof(SimplePipelineAwareCommandHandlerThatHalts)),
                     new PrioritisedCommandHandler(2, typeof(SimpleCommandHandlerTwo))
                 });
             SimpleCommand simpleCommand = new SimpleCommand();
             commandHandlerChainExecuter
-                .Setup(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new CommandChainHandlerResult<SimpleResult>(true, null));
+                .Setup(x => x.ExecuteAsync(It.IsAny<IPipelineAwareCommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new PipelineAwareCommandHandlerResult<SimpleResult>(true, null));
             
             CommandExecuter executer = new CommandExecuter(registry.Object,
                 handlerFactory.Object,
@@ -150,7 +150,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // we should run the first SimpleCommandHandler as its not a chain command and won't be able to halt things and run the
             // SImpleCommandActorThatHalts once - it will halt and prevent the second non chained handler being called
             commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Once);
-            commandHandlerChainExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            commandHandlerChainExecuter.Verify(x => x.ExecuteAsync(It.IsAny<IPipelineAwareCommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
         }
 
         [Fact]

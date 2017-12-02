@@ -1,8 +1,8 @@
 ﻿namespace AzureFromTheTrenches.Commanding.Abstractions.Model
 {
-    public sealed class CommandChainHandlerResult<TResult>
+    public sealed class PipelineAwareCommandHandlerResult<TResult>
     {
-        public CommandChainHandlerResult(bool shouldStop, TResult result)
+        public PipelineAwareCommandHandlerResult(bool shouldStop, TResult result)
         {
             ShouldStop = shouldStop;
             Result = result;

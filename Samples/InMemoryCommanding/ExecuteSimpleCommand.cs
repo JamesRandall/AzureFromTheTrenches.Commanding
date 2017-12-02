@@ -31,7 +31,7 @@ namespace InMemoryCommanding
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             dependencyResolver.UseCommanding(options)
-                .Register<CancellablePipelineCommandActor>(1)
+                .Register<CancellablePipelineAwarePipelineCommandActor>(1)
                 .Register<PipelineCommandActor>(2);
 
             _serviceProvider = serviceCollection.BuildServiceProvider();

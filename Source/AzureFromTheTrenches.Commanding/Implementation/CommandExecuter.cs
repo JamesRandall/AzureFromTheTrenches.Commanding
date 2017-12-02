@@ -75,9 +75,9 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                     }
                     else
                     {
-                        if (baseHandler is ICommandChainHandler chainHandler)
+                        if (baseHandler is IPipelineAwareCommandHandler chainHandler)
                         {
-                            CommandChainHandlerResult<TResult> chainResult =
+                            PipelineAwareCommandHandlerResult<TResult> chainResult =
                                 await _commandHandlerChainExecuter.ExecuteAsync(chainHandler, command, result, cancellationToken);
                             result = chainResult.Result;
                             if (chainResult.ShouldStop)

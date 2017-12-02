@@ -7,6 +7,6 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal interface ICommandHandlerChainExecuter
     {
-        Task<CommandChainHandlerResult<TResult>> ExecuteAsync<TResult>(ICommandChainHandler handler, ICommand<TResult> command, TResult previousResult, CancellationToken cancellationToken);
+        Task<PipelineAwareCommandHandlerResult<TResult>> ExecuteAsync<TResult>(IPipelineAwareCommandHandler handler, ICommand<TResult> command, TResult previousResult, CancellationToken cancellationToken);
     }
 }
