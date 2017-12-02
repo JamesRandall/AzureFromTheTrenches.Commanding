@@ -38,12 +38,22 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
         /// <param name="cloudStorageAccount">The cloud storage account to use for storage</param>
         /// <param name="commandPayloadContainer">(Optional) The blob container that </param>
         /// <param name="storageStrategy"></param>
+        /// <param name="usePreDispatchAuditor">Should the pre dispatch auditor be used</param>
+        /// <param name="usePostDispatchAuditor">Should the post dispatch auditor be used</param>
+        /// <param name="useExecutionAuditor">Should the execution auditor be used</param>
         /// <returns></returns>
         public static ICommandingDependencyResolver UseAzureStorageCommandAuditing(this ICommandingDependencyResolver dependencyResolver,
             CloudStorageAccount cloudStorageAccount,            
             CloudBlobContainer commandPayloadContainer = null,
-            IStorageStrategy storageStrategy = null)
+            IStorageStrategy storageStrategy = null,
+            bool usePreDispatchAuditor = true,
+            bool usePostDispatchAuditor = true,
+            bool useExecutionAuditor = true)
         {
+            if (!useExecutionAuditor && !usePostDispatchAuditor && !usePreDispatchAuditor)
+            {
+                throw new AzureStorageConfigurationException("At least one auditor type must be configured");
+            }
             CloudTableClient cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
             if (commandPayloadContainer == null)
             {
@@ -57,7 +67,19 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             ICloudStorageProvider cloudStorageProvider = new CloudStorageProvider(cloudTableClient, commandPayloadContainer);
             dependencyResolver.RegisterInstance(cloudStorageProvider);
             dependencyResolver.RegisterInstance(storageStrategy);
-            dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>();
+            if (usePreDispatchAuditor)
+            {
+                dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>();
+            }
+            if (usePostDispatchAuditor)
+            {
+                dependencyResolver.UsePostDispatchCommandingAuditor<AzureStorageTableCommandAuditor>();
+            }
+            if (useExecutionAuditor)
+            {
+                dependencyResolver.UseExecutionCommandingAuditor<AzureStorageTableCommandAuditor>();
+            }
+
             return dependencyResolver;
         }
 
@@ -79,18 +101,35 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
         /// for downstream auditors to access it from the AuditItem model - it will be null.
         /// </param>
         /// <param name="storageStrategy"></param>
+        /// <param name="usePreDispatchAuditor">Should the pre dispatch auditor be used</param>
+        /// <param name="usePostDispatchAuditor">Should the post dispatch auditor be used</param>
+        /// <param name="useExecutionAuditor">Should the execution auditor be used</param>
         /// <returns></returns>
-        public static ICommandingDependencyResolver UseAzureStorageCommandAuditing(this CommandingDependencyResolver dependencyResolver,
+        public static ICommandingDependencyResolver UseAzureStorageCommandAuditing(this ICommandingDependencyResolver dependencyResolver,
             CloudQueue queue,
             CloudBlobContainer blobContainer = null,
-            IStorageStrategy storageStrategy = null)
+            IStorageStrategy storageStrategy = null,
+            bool usePreDispatchAuditor = true,
+            bool usePostDispatchAuditor = true,
+            bool useExecutionAuditor = true)
         {
             ICloudAuditQueueProvider cloudAuditQueueProvider = new CloudAuditQueueProvider(queue, null);
             ICloudAuditQueueBlobContainerProvider cloudAuditQueueBlobContainerProvider = new CloudAuditQueueBlobContainerProvider(blobContainer);
             dependencyResolver.RegisterInstance(cloudAuditQueueProvider);
             dependencyResolver.RegisterInstance(cloudAuditQueueBlobContainerProvider);
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
-            CommandingDependencies.UsePreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver);
+            if (usePreDispatchAuditor)
+            {
+                dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>();
+            }
+            if (usePostDispatchAuditor)
+            {
+                dependencyResolver.UsePostDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>();
+            }
+            if (useExecutionAuditor)
+            {
+                dependencyResolver.UseExecutionCommandingAuditor<AzureStorageQueueCommandAuditor>();
+            }
             return dependencyResolver;
         }
 

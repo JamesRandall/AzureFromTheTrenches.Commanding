@@ -17,6 +17,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Model
 
         public string CommandId { get; set; }
 
+        public string Type { get; set; }
+
         [IgnoreProperty]
         public IReadOnlyDictionary<string, string> AdditionalProperties { get; set; }
 

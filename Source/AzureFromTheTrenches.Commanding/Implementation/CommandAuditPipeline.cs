@@ -156,6 +156,26 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
+        public async Task Audit(AuditItem auditItem)
+        {
+            if (auditItem.Type == ExecutionType)
+            {
+                await AuditExecution(auditItem);
+            }
+            else if (auditItem.Type == PostDispatchType)
+            {
+                await AuditPostDispatch(auditItem);
+            }
+            else if (auditItem.Type == PreDispatchType)
+            {
+                await AuditPreDispatch(auditItem);
+            }
+            else
+            {
+                throw new AuditorException($"Audit type of {auditItem.Type} is not recognised");
+            }
+        }
+
         private IReadOnlyCollection<ICommandAuditor> GetPreDispatchAuditors(bool isRootCommand)
         {
             if (_preDispatchAuditors == null)

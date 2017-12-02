@@ -43,7 +43,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
                 CorrelationId = auditItem.CorrelationId,
                 Depth = auditItem.Depth,
                 CommandId = auditItem.CommandId,
-                DispatchedAtUtc = auditItem.DispatchedUtc
+                DispatchedAtUtc = auditItem.DispatchedUtc,
+                Type = auditItem.Type
             };
             byDateDesc.PartitionKey = _storageStrategy.GetPartitionKey(byDateDesc);
             byDateDesc.RowKey = _storageStrategy.GetRowKey(byDateDesc);
@@ -54,7 +55,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
                 CorrelationId = auditItem.CorrelationId,
                 Depth = auditItem.Depth,
                 CommandId = auditItem.CommandId,
-                DispatchedAtUtc = auditItem.DispatchedUtc
+                DispatchedAtUtc = auditItem.DispatchedUtc,
+                Type = auditItem.Type
             };
             byCorrelationId.PartitionKey = _storageStrategy.GetPartitionKey(byCorrelationId);
             byCorrelationId.RowKey = _storageStrategy.GetRowKey(byCorrelationId);

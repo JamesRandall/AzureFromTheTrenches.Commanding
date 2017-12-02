@@ -36,7 +36,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Strategies
 
         public string GetRowKey(CommandAuditByDateDescItem tableEntity)
         {
-            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
+            string uniqueifier = string.IsNullOrWhiteSpace(tableEntity.CommandId) ? $"key{Guid.NewGuid()}" : $"cid{tableEntity.CommandId}";
+            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{uniqueifier}";
         }
 
         public string GetPartitionKey(CommandAuditByCorrelationIdItem tableEntity)
@@ -46,7 +47,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Strategies
 
         public string GetRowKey(CommandAuditByCorrelationIdItem tableEntity)
         {
-            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{tableEntity.CommandId}";
+            string uniqueifier = string.IsNullOrWhiteSpace(tableEntity.CommandId) ? $"key{Guid.NewGuid()}" : $"cid{tableEntity.CommandId}";
+            return $"{DateTime.MaxValue.Ticks - tableEntity.DispatchedAtUtc.Ticks:D19}-{uniqueifier}";
         }
     }
 }

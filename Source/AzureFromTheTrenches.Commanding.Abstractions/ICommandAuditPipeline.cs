@@ -12,5 +12,6 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         Task AuditPostDispatch(AuditItem auditItem);
         Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext, bool executedSuccessfully);
         Task AuditExecution(AuditItem auditItem);
+        Task Audit(AuditItem auditQueueItem);
     }
 }

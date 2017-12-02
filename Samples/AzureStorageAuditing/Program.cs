@@ -114,7 +114,7 @@ namespace AzureStorageAuditing
             dependencyResolver.UseCommanding(options)
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>();
-            dependencyResolver.UseAzureStorageCommandAuditing(storageAccount);
+            dependencyResolver.UseAzureStorageCommandAuditing(auditQueue);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }
@@ -133,8 +133,12 @@ namespace AzureStorageAuditing
 
             IServiceCollection serviceCollection = new ServiceCollection();
             ICommandingDependencyResolver resolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            Options options = new Options
+            {
+                Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
+            };
 
-            resolver.UseCommanding();
+            resolver.UseCommanding(options);
             resolver.UseQueues();
             resolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy); // this sets up the table store auditors
             resolver.UseAzureStorageAuditQueueProcessor(auditQueue); // this sets up queue listening
