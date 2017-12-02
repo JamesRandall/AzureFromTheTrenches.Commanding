@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
@@ -14,10 +15,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
         private readonly Func<ICommandAuditSerializer> _auditorSerializerFunc;
-        private readonly List<Type> _registeredDispatchAuditors = new List<Type>();
-        private readonly List<Type> _registeredExecutionAuditors = new List<Type>();
-        private volatile IReadOnlyCollection<ICommandAuditor> _dispatchAuditors;
-        private volatile IReadOnlyCollection<ICommandAuditor> _executionAuditors;
+        private readonly List<AuditorDefinition> _registeredDispatchAuditors = new List<AuditorDefinition>();
+        private readonly List<AuditorDefinition> _registeredExecutionAuditors = new List<AuditorDefinition>();
+        private volatile IReadOnlyCollection<AuditorInstance> _dispatchAuditors;
+        private volatile IReadOnlyCollection<AuditorInstance> _executionAuditors;
         private readonly object _dispatchAuditorCreationLock = new object();
         private readonly object _executionAuditorCreationLock = new object();
 
@@ -28,16 +29,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         }
 
         
-        public void RegisterDispatchAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor
+        public void RegisterDispatchAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
         {
             // all auditors must be registered before the first command is dispatched
-            _registeredDispatchAuditors.Add(typeof(TAuditorImpl));
+            _registeredDispatchAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
         }
 
-        public void RegisterExecutionAuditor<TAuditorImpl>() where TAuditorImpl : ICommandAuditor
+        public void RegisterExecutionAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
         {
             // all auditors must be registered before the first command is dispatched
-            _registeredExecutionAuditors.Add(typeof(TAuditorImpl));
+            _registeredExecutionAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
         }
 
         public async Task AuditDispatch(ICommand command, ICommandDispatchContext dispatchContext)
@@ -66,7 +67,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         public async Task AuditDispatch(AuditItem auditItem)
         {
             auditItem.Type = DispatchType;
-            IReadOnlyCollection<ICommandAuditor> auditors = GetDispatchAuditors();
+            IReadOnlyCollection<ICommandAuditor> auditors = GetDispatchAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
@@ -102,7 +103,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         public async Task AuditExecution(AuditItem auditItem)
         {
             auditItem.Type = ExecutionType;
-            IReadOnlyCollection<ICommandAuditor> auditors = GetExecutionAuditors();
+            IReadOnlyCollection<ICommandAuditor> auditors = GetExecutionAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
@@ -111,7 +112,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
-        private IReadOnlyCollection<ICommandAuditor> GetDispatchAuditors()
+        private IReadOnlyCollection<ICommandAuditor> GetDispatchAuditors(bool isRootCommand)
         {
             if (_dispatchAuditors == null)
             {
@@ -119,14 +120,15 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 {
                     if (_dispatchAuditors == null)
                     {
-                        _dispatchAuditors = _registeredDispatchAuditors.Select(x => _auditorFactoryFunc(x)).ToList();
+                        _dispatchAuditors = _registeredDispatchAuditors
+                            .Select(x => new AuditorInstance(_auditorFactoryFunc(x.AuditorType), x.AuditRootCommandOnly)).ToArray();
                     }
                 }
             }
-            return _dispatchAuditors;
+            return _dispatchAuditors.Where(x => isRootCommand || !x.AuditRootCommandOnly).Select(x => x.Auditor).ToArray();
         }
 
-        private IReadOnlyCollection<ICommandAuditor> GetExecutionAuditors()
+        private IReadOnlyCollection<ICommandAuditor> GetExecutionAuditors(bool isRootCommand)
         {
             if (_executionAuditors == null)
             {
@@ -134,11 +136,12 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 {
                     if (_executionAuditors == null)
                     {
-                        _executionAuditors = _registeredExecutionAuditors.Select(x => _auditorFactoryFunc(x)).ToList();
+                        _executionAuditors = _registeredExecutionAuditors
+                            .Select(x => new AuditorInstance(_auditorFactoryFunc(x.AuditorType), x.AuditRootCommandOnly)).ToArray();
                     }
                 }
             }
-            return _executionAuditors;
+            return _executionAuditors.Where(x => isRootCommand || !x.AuditRootCommandOnly).Select(x => x.Auditor).ToArray();
         }
     }
 }

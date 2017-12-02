@@ -86,15 +86,14 @@ namespace InMemoryCommanding
             {
                 Reset = true, // we reset the registry because we allow repeat runs, in a normal app this isn't required
                 Enrichers = new[]
-                    { new FunctionWrapperCommandDispatchContextEnricher(Enricher) },
-                AuditRootCommandOnly = auditRootOnly
+                    { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
             dependencyResolver.UseCommanding(options) 
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
-            dependencyResolver.UseDispatchCommandingAuditor<ConsoleDispatchAuditor>();
-            dependencyResolver.UseExecutionCommandingAuditor<ConsoleExecutionAuditor>();
+            dependencyResolver.UseDispatchCommandingAuditor<ConsoleDispatchAuditor>(auditRootOnly);
+            dependencyResolver.UseExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();
         }

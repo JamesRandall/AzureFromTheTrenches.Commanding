@@ -9,18 +9,15 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     {
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandScopeManager _commandScopeManager;
-        private readonly ICommandDispatcherOptions _options;
         private readonly ICommandAuditPipeline _auditor;
 
         public CommandDispatcher(ICommandRegistry commandRegistry,
             ICommandExecuter commandExecuter,
             ICommandScopeManager commandScopeManager,
-            ICommandAuditPipeline auditPipeline,
-            ICommandDispatcherOptions options)
+            ICommandAuditPipeline auditPipeline)
         {
             _commandRegistry = commandRegistry;
             _commandScopeManager = commandScopeManager;
-            _options = options;
             _auditor = auditPipeline;
             AssociatedExecuter = commandExecuter;
         }
@@ -40,16 +37,11 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 ICommandExecuter executer = null;
                 ICommandDispatcher dispatcher = null;
 
-                bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
-
                 // we specifically audit BEFORE dispatch as this allows us to capture intent and a replay to
                 // occur even if dispatch fails
                 // (there is also an audit opportunity after execution completes and I'm considering putting one in
                 // on dispatch success)
-                if (!auditRootCommandOnly || dispatchContext.Depth == 0)
-                {
-                    await _auditor.AuditDispatch(command, dispatchContext);
-                }
+                await _auditor.AuditDispatch(command, dispatchContext);
 
                 try
                 {

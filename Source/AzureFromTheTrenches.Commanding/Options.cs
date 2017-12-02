@@ -18,7 +18,6 @@ namespace AzureFromTheTrenches.Commanding
             CommandHandlerFactoryFunc = null;
             CommandExecutionExceptionHandler = null;
             Reset = false;
-            AuditRootCommandOnly = null;
             Enrichers = null;
         }
 
@@ -56,14 +55,5 @@ namespace AzureFromTheTrenches.Commanding
         /// If the returned dictionary contains a property that already exists it will be replaced in the command context property bag.
         /// </summary>
         public IEnumerable<ICommandDispatchContextEnricher> Enrichers { get; set; }
-        /// <summary>
-        /// By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
-        /// event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
-        /// of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
-        /// commands.
-        /// 
-        /// Note: this can only be set (i.e. a none null value) once in any registration sequence unless combined with Reset as true
-        /// </summary>
-        public bool? AuditRootCommandOnly { get; set; }
     }
 }

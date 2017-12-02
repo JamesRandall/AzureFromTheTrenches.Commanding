@@ -20,9 +20,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();            
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -40,9 +39,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object,commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object,commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             registry.Setup(x => x.GetCommandDispatcherFactory(command)).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, true));
@@ -62,10 +60,9 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
             Mock<ICommandDispatcher> commandDispatcher = new Mock<ICommandDispatcher>();
             Mock<ICommandExecuter> associatedExecuter = new Mock<ICommandExecuter>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             registry.Setup(x => x.GetCommandDispatcherFactory(command)).Returns(() => commandDispatcher.Object);
             commandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(null, false));
@@ -87,8 +84,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -106,8 +102,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
 
             // Act
@@ -125,8 +120,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             SimpleCommand command = new SimpleCommand();
             executer.Setup(x => x.ExecuteAsync(command)).Throws(new InvalidOperationException());
 
@@ -148,8 +142,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandExecuter> executer = new Mock<ICommandExecuter>();
             Mock<ICommandScopeManager> commandContextManager = new Mock<ICommandScopeManager>();
             Mock<ICommandAuditPipeline> auditorPipeline = new Mock<ICommandAuditPipeline>();
-            Mock<ICommandDispatcherOptions> options = new Mock<ICommandDispatcherOptions>();
-            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object, options.Object);
+            CommandDispatcher dispatcher = new CommandDispatcher(registry.Object, executer.Object, commandContextManager.Object, auditorPipeline.Object);
             CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();

@@ -15,16 +15,14 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ICommandHandlerChainExecuter _commandHandlerChainExecuter;
         private readonly ICommandExecutionExceptionHandler _commandExecutionExceptionHandler;
         private readonly ICommandAuditPipeline _commandAuditPipeline;
-        private readonly ICommandDispatcherOptions _options;
-
+        
         public CommandExecuter(ICommandRegistry commandRegistry,
             ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
             ICommandHandlerExecuter commandHandlerExecuter,
             ICommandHandlerChainExecuter commandHandlerChainExecuter,
             ICommandExecutionExceptionHandler commandExecutionExceptionHandler,
-            ICommandAuditPipeline commandAuditPipeline,
-            ICommandDispatcherOptions options)
+            ICommandAuditPipeline commandAuditPipeline)
         {
             _commandRegistry = commandRegistry;
             _commandHandlerFactory = commandHandlerFactory;
@@ -33,29 +31,21 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandHandlerChainExecuter = commandHandlerChainExecuter;
             _commandExecutionExceptionHandler = commandExecutionExceptionHandler;
             _commandAuditPipeline = commandAuditPipeline;
-            _options = options;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
         {
             ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-            bool auditRootCommandOnly = _options.AuditRootCommandOnly.HasValue && _options.AuditRootCommandOnly.Value;
-
+            
             try
             {
                 TResult result = await ExecuteCommandWithHandlers(command, dispatchContext);
-                if (!auditRootCommandOnly || dispatchContext.Depth == 0)
-                {
-                    await _commandAuditPipeline.AuditExecution(command, dispatchContext, true);
-                }
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, true);
                 return result;
             }
             catch (Exception)
             {
-                if (!auditRootCommandOnly || dispatchContext.Depth == 0)
-                {
-                    await _commandAuditPipeline.AuditExecution(command, dispatchContext, false);
-                }
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, false);
                 throw;
             }
         }

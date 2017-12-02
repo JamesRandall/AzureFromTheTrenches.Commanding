@@ -54,7 +54,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
             CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
-            pipeline.RegisterDispatchAuditor<FirstAuditor>();
+            pipeline.RegisterDispatchAuditor<FirstAuditor>(true);
             Guid commandId = Guid.NewGuid();
 
             // Act
@@ -71,8 +71,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
             CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems), () => serializer.Object);
-            pipeline.RegisterDispatchAuditor<FirstAuditor>();
-            pipeline.RegisterDispatchAuditor<SecondAuditor>();
+            pipeline.RegisterDispatchAuditor<FirstAuditor>(true);
+            pipeline.RegisterDispatchAuditor<SecondAuditor>(true);
 
             // Act
             await pipeline.AuditDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
