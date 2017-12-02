@@ -4,33 +4,6 @@ using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
-    #region Base interfaces for type safety in implementation and generic support
-    public interface ICommandHandlerBase
-    {
-
-    }
-
-    public interface ICommandHandler : ICommandHandlerBase
-    {
-        
-    }
-
-    public interface ICancellableCommandHandler : ICommandHandler
-    {
-        
-    }
-
-    public interface IPipelineAwareCommandHandler : ICommandHandlerBase
-    {
-        
-    }
-
-    public interface ICancellablePipelineAwareCommandHandler : IPipelineAwareCommandHandler
-    {
-
-    }
-    #endregion
-
     /// <summary>
     /// Can be implemented to provide basic command handling capabilites where no result is required
     /// </summary>
