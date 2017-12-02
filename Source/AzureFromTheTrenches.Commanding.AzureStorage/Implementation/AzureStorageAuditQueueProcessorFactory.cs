@@ -33,7 +33,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
                 _backoffPolicyFactory.Create(),
                 _serializer,
                 _cloudAuditQueueProvider.Queue,
-                item => HandleRecievedItemAsync(_cloudAuditQueueProvider.DeadLetterQueue, item, maxDequeueCount),
+                item => HandleRecievedItemAsync(_cloudAuditQueueProvider.DeadLetterQueue, item, maxDequeueCount, cancellationToken),
                 traceLogger,
                 HandleError);
             return queueProcessor.StartAsync(cancellationToken);
@@ -44,12 +44,12 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             return Task.FromResult(false);
         }
 
-        private async Task<bool> HandleRecievedItemAsync(CloudQueue deadLetterQueue, QueueItem<AuditItem> item, int maxDequeueCount)
+        private async Task<bool> HandleRecievedItemAsync(CloudQueue deadLetterQueue, QueueItem<AuditItem> item, int maxDequeueCount, CancellationToken cancellationToken)
         {
             AuditItem auditQueueItem = item.Item;
             try
             {
-                await _commandAuditPipeline.Audit(auditQueueItem);
+                await _commandAuditPipeline.Audit(auditQueueItem, cancellationToken);
 
                 return true;
             }

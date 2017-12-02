@@ -13,7 +13,7 @@ namespace InMemoryCommanding
 {
     internal class ConsolePreDispatchAuditor : ICommandAuditor
     {
-        public Task Audit(AuditItem item)
+        public Task Audit(AuditItem item, CancellationToken cancellationToken)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -36,7 +36,7 @@ namespace InMemoryCommanding
 
     internal class ConsolePostDispatchAuditor : ICommandAuditor
     {
-        public Task Audit(AuditItem item)
+        public Task Audit(AuditItem item, CancellationToken cancellationToken)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -59,7 +59,7 @@ namespace InMemoryCommanding
 
     internal class ConsoleExecutionAuditor : ICommandAuditor
     {
-        public Task Audit(AuditItem item)
+        public Task Audit(AuditItem item, CancellationToken cancellationToken)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;

@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 
@@ -28,7 +29,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
             _uriCommandQueryBuilder = uriCommandQueryBuilder;
         }
 
-        public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
+        public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
             string json = _serializer.Serialize(command);
             HttpClient client = new HttpClient();
@@ -60,7 +61,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
                 requestMessage.Headers.Authorization = AuthenticationHeaderValue.Parse(_authenticationHeaderContent());
             }
 
-            HttpResponseMessage responseMessage = await client.SendAsync(requestMessage);
+            HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             responseMessage.EnsureSuccessStatusCode();
             string result = await responseMessage.Content.ReadAsStringAsync();
             return _serializer.Deserialize<TResult>(result);

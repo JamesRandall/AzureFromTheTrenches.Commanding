@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -50,7 +51,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _registeredExecutionAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
         }
 
-        public async Task AuditPreDispatch(ICommand command, ICommandDispatchContext dispatchContext)
+        public async Task AuditPreDispatch(ICommand command, ICommandDispatchContext dispatchContext, CancellationToken cancellationToken)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             
@@ -70,22 +71,22 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.Id;
             }
-            await AuditPreDispatch(auditItem);
+            await AuditPreDispatch(auditItem, cancellationToken);
         }
 
-        public async Task AuditPreDispatch(AuditItem auditItem)
+        public async Task AuditPreDispatch(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = PreDispatchType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetPreDispatchAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.Audit(auditItem));
+                auditTasks.Add(auditor.Audit(auditItem, cancellationToken));
             }
             await Task.WhenAll(auditTasks);
         }
 
-        public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext)
+        public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext, CancellationToken cancellationToken)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
 
@@ -105,23 +106,23 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.Id;
             }
-            await AuditPostDispatch(auditItem);
+            await AuditPostDispatch(auditItem, cancellationToken);
         }
 
-        public async Task AuditPostDispatch(AuditItem auditItem)
+        public async Task AuditPostDispatch(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = PostDispatchType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetPostDispatchAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.Audit(auditItem));
+                auditTasks.Add(auditor.Audit(auditItem, cancellationToken));
             }
             await Task.WhenAll(auditTasks);
         }
 
         public async Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext,
-            bool executedSuccessfully)
+            bool executedSuccessfully, CancellationToken cancellationToken)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             AuditItem auditItem = new AuditItem
@@ -141,34 +142,34 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.Id;
             }
-            await AuditExecution(auditItem);
+            await AuditExecution(auditItem, cancellationToken);
         }
 
-        public async Task AuditExecution(AuditItem auditItem)
+        public async Task AuditExecution(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = ExecutionType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetExecutionAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
-                auditTasks.Add(auditor.Audit(auditItem));
+                auditTasks.Add(auditor.Audit(auditItem, cancellationToken));
             }
             await Task.WhenAll(auditTasks);
         }
 
-        public async Task Audit(AuditItem auditItem)
+        public async Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
         {
             if (auditItem.Type == ExecutionType)
             {
-                await AuditExecution(auditItem);
+                await AuditExecution(auditItem, cancellationToken);
             }
             else if (auditItem.Type == PostDispatchType)
             {
-                await AuditPostDispatch(auditItem);
+                await AuditPostDispatch(auditItem, cancellationToken);
             }
             else if (auditItem.Type == PreDispatchType)
             {
-                await AuditPreDispatch(auditItem);
+                await AuditPreDispatch(auditItem, cancellationToken);
             }
             else
             {

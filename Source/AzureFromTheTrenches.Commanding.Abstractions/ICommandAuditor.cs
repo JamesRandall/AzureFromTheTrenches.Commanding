@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
@@ -8,6 +9,6 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// </summary>
     public interface ICommandAuditor
     {
-        Task Audit(AuditItem auditItem);
+        Task Audit(AuditItem auditItem, CancellationToken cancellationToken);
     }
 }

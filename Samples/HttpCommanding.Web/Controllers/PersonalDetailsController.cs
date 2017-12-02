@@ -9,9 +9,9 @@ namespace HttpCommanding.Web.Controllers
     [Route("api/[controller]")]
     public class PersonalDetailsController : Controller
     {
-        private readonly ICommandExecuter _commandExecuter;
+        private readonly IDirectCommandExecuter _commandExecuter;
 
-        public PersonalDetailsController(ICommandExecuter commandExecuter)
+        public PersonalDetailsController(IDirectCommandExecuter commandExecuter)
         {
             _commandExecuter = commandExecuter;
         }

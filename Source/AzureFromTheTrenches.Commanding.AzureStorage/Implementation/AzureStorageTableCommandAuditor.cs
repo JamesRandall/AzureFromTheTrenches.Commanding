@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -29,7 +30,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             await blob.UploadTextAsync(payload);
         }
 
-        public async Task Audit(AuditItem auditItem)
+        public async Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrWhiteSpace(auditItem.SerializedCommand))
             {
@@ -68,8 +69,8 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
 
 
             await Task.WhenAll(
-                byDateTableTask.Result.ExecuteAsync(TableOperation.Insert(byDateDesc)),
-                byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId))
+                byDateTableTask.Result.ExecuteAsync(TableOperation.Insert(byDateDesc), null, null, cancellationToken),
+                byCorrelationIdTableTask.Result.ExecuteAsync(TableOperation.Insert(byCorrelationId), null, null, cancellationToken)
             );
         }        
     }

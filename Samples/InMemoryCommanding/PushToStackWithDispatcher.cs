@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -20,13 +21,13 @@ namespace InMemoryCommanding
             _commandStack = commandStack;
         }
 
-        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
             _commandStack.Push(command);
             return Task.FromResult(new CommandResult<TResult>(default(TResult), true));
         }
 
-        public Task<CommandResult> DispatchAsync(ICommand command)
+        public Task<CommandResult> DispatchAsync(ICommand command, CancellationToken cancellationToken)
         {
             _commandStack.Push(command);
             return Task.FromResult(new CommandResult(true));

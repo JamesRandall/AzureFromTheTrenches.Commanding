@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -22,14 +23,18 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             AssociatedExecuter = commandExecuter;
         }
 
-        public async Task<CommandResult> DispatchAsync(ICommand command)
+        public async Task<CommandResult> DispatchAsync(ICommand command, CancellationToken cancellationToken)
         {
-            CommandResult<NoResult> result = await DispatchAsync(new NoResultCommandWrapper(command));
+            await new SynchronizationContextRemover();
+
+            CommandResult<NoResult> result = await DispatchAsync(new NoResultCommandWrapper(command), cancellationToken);
             return result;
         }
         
-        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
+            await new SynchronizationContextRemover();
+
             ICommandDispatchContext dispatchContext = _commandScopeManager.Enter();
             try
             {
@@ -41,7 +46,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 // occur even if dispatch fails
                 // (there is also an audit opportunity after execution completes and I'm considering putting one in
                 // on dispatch success)
-                await _auditor.AuditPreDispatch(command, dispatchContext);
+                await _auditor.AuditPreDispatch(command, dispatchContext, cancellationToken);
 
                 try
                 {
@@ -49,11 +54,11 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                     if (dispatcherFunc != null)
                     {
                         dispatcher = dispatcherFunc();
-                        dispatchResult = await dispatcher.DispatchAsync(command);
+                        dispatchResult = await dispatcher.DispatchAsync(command, cancellationToken);
                         executer = dispatcher.AssociatedExecuter;
                     }
 
-                    await _auditor.AuditPostDispatch(command, dispatchContext);
+                    await _auditor.AuditPostDispatch(command, dispatchContext, cancellationToken);
 
                     if (dispatchResult != null && dispatchResult.DeferExecution)
                     {
@@ -69,7 +74,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 {
                     executer = AssociatedExecuter;
                 }
-                return new CommandResult<TResult>(await executer.ExecuteAsync(command), false);
+                return new CommandResult<TResult>(await executer.ExecuteAsync(command, cancellationToken), false);
             }
             finally
             {

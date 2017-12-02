@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding", "Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj", "{7B348966-B397-4BA6-8D93-AAAF84ECA845}"
 EndProject
@@ -54,7 +54,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Abstractions", "Source\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj", "{026CF757-6DB4-4E62-8D31-854807E5923C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureEventHubAuditing", "Samples\AzureEventHubAuditing\AzureEventHubAuditing.csproj", "{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureEventHubAuditing", "Samples\AzureEventHubAuditing\AzureEventHubAuditing.csproj", "{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsCommanding", "Samples\WindowsFormsCommanding\WindowsFormsCommanding.csproj", "{EF6887FA-C013-43F8-A7F6-2A25B222E1FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -142,6 +144,10 @@ Global
 		{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF6887FA-C013-43F8-A7F6-2A25B222E1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF6887FA-C013-43F8-A7F6-2A25B222E1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF6887FA-C013-43F8-A7F6-2A25B222E1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF6887FA-C013-43F8-A7F6-2A25B222E1FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{4EE78EF7-9ABB-44ED-A4B6-B71021AD387B} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
 		{DDAA95FB-15A4-469E-B237-B9A66F272A5C} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
 		{FA35B9D1-D556-4E2F-8AAA-B5E8F8533A54} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
+		{EF6887FA-C013-43F8-A7F6-2A25B222E1FE} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}

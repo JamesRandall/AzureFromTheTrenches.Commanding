@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -41,10 +42,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
-            await executer.ExecuteAsync(simpleCommand);
+            await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
-            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>()));
+            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()));
         }
 
         [Fact]
@@ -70,7 +71,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandAuditPipeline.Object);
 
             // Act and assert
-            MissingCommandHandlerRegistrationException ex = await Assert.ThrowsAsync<MissingCommandHandlerRegistrationException>(async () => await executer.ExecuteAsync(new SimpleCommand()));
+            MissingCommandHandlerRegistrationException ex = await Assert.ThrowsAsync<MissingCommandHandlerRegistrationException>(async () => await executer.ExecuteAsync(new SimpleCommand(), default(CancellationToken)));
             Assert.Equal(typeof(SimpleCommand), ex.CommandType);
         }
 
@@ -102,7 +103,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
-            await executer.ExecuteAsync(simpleCommand);
+            await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
             commandExecutionExceptionHandler.Verify(x => x.HandleException(It.IsAny<Exception>(), It.IsAny<object>(), It.IsAny<int>(), simpleCommand, It.IsAny<ICommandDispatchContext>()));
@@ -131,7 +132,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 });
             SimpleCommand simpleCommand = new SimpleCommand();
             commandHandlerChainExecuter
-                .Setup(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>()))
+                .Setup(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new CommandChainHandlerResult<SimpleResult>(true, null));
             
             CommandExecuter executer = new CommandExecuter(registry.Object,
@@ -143,13 +144,13 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandAuditPipeline.Object);
 
             // Act
-            SimpleResult result = await executer.ExecuteAsync(simpleCommand);
+            SimpleResult result = await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
             // we should run the first SimpleCommandHandler as its not a chain command and won't be able to halt things and run the
             // SImpleCommandActorThatHalts once - it will halt and prevent the second non chained handler being called
-            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Once);
-            commandHandlerChainExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Exactly(1));
+            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Once);
+            commandHandlerChainExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandChainHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
         }
 
         [Fact]
@@ -183,11 +184,11 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
 
             // Act
             
-            SimpleResult result = await executer.ExecuteAsync(simpleCommand);
+            SimpleResult result = await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
             // if the third command had run their would be two items in the list and .single would throw an exception
-            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>()), Times.Exactly(2));           
+            commandHandlerExecuter.Verify(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(), simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>()), Times.Exactly(2));           
         }
 
         [Fact]
@@ -218,10 +219,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
-            await executer.ExecuteAsync(simpleCommand);
+            await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
-            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), true));
+            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), true, It.IsAny<CancellationToken>()));
         }
 
         [Fact]
@@ -243,7 +244,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 });
             SimpleCommand simpleCommand = new SimpleCommand();
             commandHandlerExecuter.Setup(x => x.ExecuteAsync(It.IsAny<ICommandHandler>(),
-                simpleCommand, It.IsAny<SimpleResult>())).Throws(new Exception());
+                simpleCommand, It.IsAny<SimpleResult>(), It.IsAny<CancellationToken>())).Throws(new Exception());
             commandExecutionExceptionHandler.Setup(x => x.HandleException(It.IsAny<Exception>(),
                 It.IsAny<object>(),
                 It.IsAny<int>(),
@@ -260,10 +261,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             
 
             // Act
-            await Assert.ThrowsAsync<Exception>(async () => await executer.ExecuteAsync(simpleCommand));
+            await Assert.ThrowsAsync<Exception>(async () => await executer.ExecuteAsync(simpleCommand, default(CancellationToken)));
 
             // Assert
-            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), false));
+            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), false, It.IsAny<CancellationToken>()));
         }
     }
 }

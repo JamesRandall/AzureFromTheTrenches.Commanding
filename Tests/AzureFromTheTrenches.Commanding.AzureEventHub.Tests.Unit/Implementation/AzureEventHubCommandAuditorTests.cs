@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using AzureFromTheTrenches.Commanding.AzureEventHub.Implementation;
@@ -20,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.Implementatio
             ICommandAuditor commandAuditor = new AzureEventHubCommandAuditor(eventHubClient.Object, eventHubSerializer.Object, partitionKeyProvider.Object);
 
             // Act
-            await commandAuditor.Audit(new AuditItem());
+            await commandAuditor.Audit(new AuditItem(), default(CancellationToken));
 
             // Assert
             eventHubClient.Verify(x => x.SendAsync("a message"));
@@ -38,7 +39,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.Implementatio
             ICommandAuditor commandAuditor = new AzureEventHubCommandAuditor(eventHubClient.Object, eventHubSerializer.Object, partitionKeyProvider.Object);
 
             // Act
-            await commandAuditor.Audit(new AuditItem());
+            await commandAuditor.Audit(new AuditItem(), default(CancellationToken));
 
             // Assert
             eventHubClient.Verify(x => x.SendAsync("a message", "pkey"));

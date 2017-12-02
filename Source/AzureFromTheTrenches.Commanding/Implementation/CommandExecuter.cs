@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -33,24 +34,26 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandAuditPipeline = commandAuditPipeline;
         }
 
-        public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command)
+        public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
+            await new SynchronizationContextRemover();
+
             ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
             
             try
             {
-                TResult result = await ExecuteCommandWithHandlers(command, dispatchContext);
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, true);
+                TResult result = await ExecuteCommandWithHandlers(command, dispatchContext, cancellationToken);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, true, cancellationToken);
                 return result;
             }
             catch (Exception)
             {
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, false);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, false, cancellationToken);
                 throw;
             }
         }
 
-        private async Task<TResult> ExecuteCommandWithHandlers<TResult>(ICommand<TResult> command, ICommandDispatchContext dispatchContext)
+        private async Task<TResult> ExecuteCommandWithHandlers<TResult>(ICommand<TResult> command, ICommandDispatchContext dispatchContext, CancellationToken cancellationToken)
         {
             IReadOnlyCollection<IPrioritisedCommandHandler> handlers = _commandRegistry.GetPrioritisedCommandHandlers(command);
             if (handlers == null || handlers.Count == 0)
@@ -68,14 +71,14 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
                     if (baseHandler is ICommandHandler handler)
                     {
-                        result = await _commandHandlerExecuter.ExecuteAsync(handler, command, result);
+                        result = await _commandHandlerExecuter.ExecuteAsync(handler, command, result, cancellationToken);
                     }
                     else
                     {
                         if (baseHandler is ICommandChainHandler chainHandler)
                         {
                             CommandChainHandlerResult<TResult> chainResult =
-                                await _commandHandlerChainExecuter.ExecuteAsync(chainHandler, command, result);
+                                await _commandHandlerChainExecuter.ExecuteAsync(chainHandler, command, result, cancellationToken);
                             result = chainResult.Result;
                             if (chainResult.ShouldStop)
                             {

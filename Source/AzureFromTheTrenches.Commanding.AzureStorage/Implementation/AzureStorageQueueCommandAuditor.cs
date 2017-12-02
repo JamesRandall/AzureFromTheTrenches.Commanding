@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -21,7 +22,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             _serializer = serializer;
         }
 
-        public async Task Audit(AuditItem auditItem)
+        public async Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
         {
             CloudBlobContainer blobContainer = _blobContainerProvider.BlobContainer;
             if (blobContainer != null && !string.IsNullOrWhiteSpace(auditItem.SerializedCommand))
@@ -32,7 +33,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             }
             CloudQueue queue = _cloudAuditQueueProvider.Queue;
             string queueItemJson = _serializer.Serialize(auditItem);
-            await queue.AddMessageAsync(new CloudQueueMessage(queueItemJson));
+            await queue.AddMessageAsync(new CloudQueueMessage(queueItemJson), null, null, null, null, cancellationToken);
         }        
     }
 }

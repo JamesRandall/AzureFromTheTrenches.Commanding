@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
@@ -17,7 +18,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
             _partitionKeyProvider = partitionKeyProvider;
         }
 
-        public async Task Audit(AuditItem auditItem)
+        public async Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
         {
             string messageText = _serializer.Serialize(auditItem);
             string partitionKey = _partitionKeyProvider.GetPartitionKey(auditItem);

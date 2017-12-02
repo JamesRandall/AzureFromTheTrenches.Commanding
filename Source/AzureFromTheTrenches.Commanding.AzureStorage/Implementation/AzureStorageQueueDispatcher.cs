@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -16,18 +17,18 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             _serializer = serializer;
         }
 
-        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
             string serializedCommand = _serializer.Serialize(command);
-            await _queue.AddMessageAsync(new CloudQueueMessage(serializedCommand));
+            await _queue.AddMessageAsync(new CloudQueueMessage(serializedCommand), null, null, null, null, cancellationToken);
 
             return new CommandResult<TResult>(default(TResult), true);
         }
 
-        public async Task<CommandResult> DispatchAsync(ICommand command)
+        public async Task<CommandResult> DispatchAsync(ICommand command, CancellationToken cancellationToken)
         {
             string serializedCommand = _serializer.Serialize(command);
-            await _queue.AddMessageAsync(new CloudQueueMessage(serializedCommand));
+            await _queue.AddMessageAsync(new CloudQueueMessage(serializedCommand), null, null, null, null, cancellationToken);
 
             return new CommandResult(true);
         }

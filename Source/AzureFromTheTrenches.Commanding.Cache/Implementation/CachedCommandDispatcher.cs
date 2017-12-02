@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
@@ -22,12 +23,12 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
             _cacheAdapter = cacheAdapter;
         }
 
-        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command)
+        public async Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
             CacheOptions options = _cacheOptionsProvider.Get(command);
             if (options == null)
             {
-                return await _commandDispatcher.DispatchAsync(command);
+                return await _commandDispatcher.DispatchAsync(command, cancellationToken);
             }
 
             var cacheKey = CacheKey(command);
@@ -38,10 +39,10 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
                 return new CommandResult<TResult>(result, false);
             }
 
-            CommandResult<TResult> executedResult = null;
+            CommandResult<TResult> executedResult;
             if (options.Semaphore != null)
             {
-                await options.Semaphore.WaitAsync();
+                await options.Semaphore.WaitAsync(cancellationToken);
                 try
                 {
                     result = await _cacheAdapter.Get<TResult>(cacheKey);
@@ -51,7 +52,7 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
                     }
                     else
                     {
-                        executedResult = await _commandDispatcher.DispatchAsync(command);
+                        executedResult = await _commandDispatcher.DispatchAsync(command, cancellationToken);
                     }
                 }
                 finally
@@ -61,7 +62,7 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
             }
             else
             {
-                executedResult = await _commandDispatcher.DispatchAsync(command);
+                executedResult = await _commandDispatcher.DispatchAsync(command, cancellationToken);
             }
 
             if (options.LifeTime != null)
@@ -81,18 +82,17 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
             return executedResult;
         }
 
-        public Task<CommandResult> DispatchAsync(ICommand command)
+        public Task<CommandResult> DispatchAsync(ICommand command, CancellationToken cancellationToken)
         {
             // we don't cache the results of commands with no results! - just pass it on
-            return _commandDispatcher.DispatchAsync(command);
+            return _commandDispatcher.DispatchAsync(command, cancellationToken);
         }
 
         public ICommandExecuter AssociatedExecuter => _commandDispatcher.AssociatedExecuter;
 
         private string CacheKey<TCommand>(TCommand command) where TCommand : class
         {
-            ICacheKeyProvider keyProvider = command as ICacheKeyProvider;
-            if (keyProvider == null)
+            if (!(command is ICacheKeyProvider keyProvider))
             {
                 keyProvider = _cacheKeyProvider;
             }

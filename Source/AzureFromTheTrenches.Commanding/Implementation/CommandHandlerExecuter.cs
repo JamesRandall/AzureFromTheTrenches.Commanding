@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 
@@ -12,7 +13,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ConcurrentDictionary<Type, Delegate> _commandHandlerExecuters = 
             new ConcurrentDictionary<Type, Delegate>();
 
-        public async Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
+        public async Task<TResult> ExecuteAsync<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult, CancellationToken cancellationToken)
         {
             // we compile this expression to enable command actors to be written with a strongly typed
             // command type syntax e.g.:
@@ -24,13 +25,13 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             if (command is NoResultCommandWrapper wrappedCommand)
             {
-                await ExecuteActorForCommandWithNoResult(handler, wrappedCommand);
+                await ExecuteActorForCommandWithNoResult(handler, wrappedCommand, cancellationToken);
                 return default(TResult);
             }
-            return await ExecuteActorForCommand(handler, command, previousResult);
+            return await ExecuteActorForCommand(handler, command, previousResult, cancellationToken);
         }
 
-        private async Task<TResult> ExecuteActorForCommand<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult)
+        private async Task<TResult> ExecuteActorForCommand<TResult>(ICommandHandler handler, ICommand<TResult> command, TResult previousResult, CancellationToken cancellationToken)
         {
             Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
@@ -57,7 +58,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             return await func(handler, command, previousResult);
         }
 
-        private async Task ExecuteActorForCommandWithNoResult(ICommandHandler handler, NoResultCommandWrapper wrappedCommand)
+        private async Task ExecuteActorForCommandWithNoResult(ICommandHandler handler, NoResultCommandWrapper wrappedCommand, CancellationToken cancellationToken)
         {
             Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {

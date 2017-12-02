@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -24,7 +25,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit(AuditItem auditItem)
+            public Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
             {
                 _auditItems.Add("FirstAuditor");
                 return Task.FromResult(0);
@@ -40,7 +41,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 _auditItems = auditItems;
             }
 
-            public Task Audit(AuditItem auditItem)
+            public Task Audit(AuditItem auditItem, CancellationToken cancellationToken)
             {
                 _auditItems.Add("SecondAuditor");
                 return Task.FromResult(0);
@@ -55,10 +56,9 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
             CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
-            Guid commandId = Guid.NewGuid();
-
+            
             // Act
-            await pipeline.AuditPreDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
+            await pipeline.AuditPreDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems.Single());
@@ -75,7 +75,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterPreDispatchAuditor<SecondAuditor>(true);
 
             // Act
-            await pipeline.AuditPreDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()));
+            await pipeline.AuditPreDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems[0]);

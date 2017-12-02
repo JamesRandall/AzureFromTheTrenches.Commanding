@@ -7,9 +7,9 @@ namespace AzureFromTheTrenches.Commanding.Queue.Implementation
 {
     internal class CommandQueueProcessor : ICommandQueueProcessor
     {
-        private readonly ICommandExecuter _commandExecuter;
+        private readonly IDirectCommandExecuter _commandExecuter;
 
-        public CommandQueueProcessor(ICommandExecuter commandExecuter)
+        public CommandQueueProcessor(IDirectCommandExecuter commandExecuter)
         {
             _commandExecuter = commandExecuter;
         }

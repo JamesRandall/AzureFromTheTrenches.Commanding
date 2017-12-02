@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -13,7 +14,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ConcurrentDictionary<Type, Delegate> _commandHandlerExecuters =
             new ConcurrentDictionary<Type, Delegate>();
 
-        public async Task<CommandChainHandlerResult<TResult>> ExecuteAsync<TResult>(ICommandChainHandler handler, ICommand<TResult> command, TResult previousResult)
+        public async Task<CommandChainHandlerResult<TResult>> ExecuteAsync<TResult>(ICommandChainHandler handler, ICommand<TResult> command, TResult previousResult, CancellationToken cancellationToken)
         {
             // we compile this expression to enable command actors to be written with a strongly typed
             // command type syntax e.g.:

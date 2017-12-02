@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -24,10 +25,10 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            await dispatcher.DispatchAsync(command);
+            await dispatcher.DispatchAsync(command, default(CancellationToken));
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command));
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command, It.IsAny<CancellationToken>()));
             cacheWrapper.Verify(x => x.Get<SimpleResult>(It.IsAny<string>()), Times.Never);
         }
 
@@ -52,10 +53,10 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync(command);
+            var result = await dispatcher.DispatchAsync(command, default(CancellationToken));
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Never);
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command, It.IsAny<CancellationToken>()), Times.Never);
             Assert.Equal(2, result.Result.ANumber);
         }
 
@@ -76,15 +77,15 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
             cacheKeyProvider.Setup(x => x.CacheKey(It.IsAny<ICommand>())).Returns("akey");
             cacheWrapper.Setup(x => x.Set("akey", It.IsAny<object>(), TimeSpan.FromMinutes(5))).Returns(Task.FromResult(0));
-            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
+            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command, It.IsAny<CancellationToken>())).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync(command);
+            var result = await dispatcher.DispatchAsync(command, default(CancellationToken));
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Once, "Underlying dispatched was not called");
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command, It.IsAny<CancellationToken>()), Times.Once, "Underlying dispatched was not called");
             cacheWrapper.Verify(x => x.Set("akey", cachedResult, TimeSpan.FromMinutes(5)), Times.Once, "Result was not set in cache");
             Assert.Equal(2, result.Result.ANumber);
         }
@@ -106,15 +107,15 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             cacheOptionsProvider.Setup(x => x.Get(It.IsAny<ICommand>())).Returns(options);
             cacheKeyProvider.Setup(x => x.CacheKey(It.IsAny<ICommand>())).Returns("akey");
             cacheWrapper.Setup(x => x.Set("akey", It.IsAny<object>(), TimeSpan.FromMinutes(5))).Returns(Task.FromResult(0));
-            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command)).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
+            underlyingCommandDispatcher.Setup(x => x.DispatchAsync(command, It.IsAny<CancellationToken>())).ReturnsAsync(new CommandResult<SimpleResult>(cachedResult, false));
 
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            var result = await dispatcher.DispatchAsync(command);
+            var result = await dispatcher.DispatchAsync(command, default(CancellationToken));
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command), Times.Once, "Underlying dispatched was not called");
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command, It.IsAny<CancellationToken>()), Times.Once, "Underlying dispatched was not called");
             cacheWrapper.Verify(x => x.Set("akey", cachedResult, TimeSpan.FromMinutes(5)), Times.Once, "Result was not set in cache");
             Assert.Equal(2, result.Result.ANumber);
         }
@@ -132,10 +133,10 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act
-            await dispatcher.DispatchAsync(command);
+            await dispatcher.DispatchAsync(command, default(CancellationToken));
 
             // Assert
-            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command));
+            underlyingCommandDispatcher.Verify(x => x.DispatchAsync(command, It.IsAny<CancellationToken>()));
             cacheWrapper.Verify(x => x.Get<SimpleResult>(It.IsAny<string>()), Times.Never);
         }
 
@@ -154,7 +155,7 @@ namespace AzureFromTheTrenches.Commanding.Cache.Tests.Unit.Implementation
             CachedCommandDispatcher dispatcher = new CachedCommandDispatcher(cacheKeyProvider.Object, underlyingCommandDispatcher.Object, cacheOptionsProvider.Object, cacheWrapper.Object);
 
             // Act and assert
-            await Assert.ThrowsAsync<CacheKeyException>(() => dispatcher.DispatchAsync(command));
+            await Assert.ThrowsAsync<CacheKeyException>(() => dispatcher.DispatchAsync(command, It.IsAny<CancellationToken>()));
         }
     }
 }
