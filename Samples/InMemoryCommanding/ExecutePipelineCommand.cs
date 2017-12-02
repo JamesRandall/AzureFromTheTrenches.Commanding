@@ -9,14 +9,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
 {
-    static class ExecutePipelineCommand
+    static class ExecuteSimpleCommand
     {
         private static IServiceProvider _serviceProvider;
 
         public static async Task Run()
         {
             ICommandDispatcher dispatcher = Configure();
-            await dispatcher.DispatchAsync(new PipelineCommand());
+            OutputToConsoleCommand command = new OutputToConsoleCommand
+            {
+                Message = "Hello"
+            };
+            CountResult result = await dispatcher.DispatchAsync(command);
+            Console.WriteLine($"{result.Count} actors called");
+            await dispatcher.DispatchAsync(command);
             Console.WriteLine("\nPress a key to continue...");
         }
 
@@ -31,8 +37,8 @@ namespace InMemoryCommanding
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             dependencyResolver.UseCommanding(options)
-                .Register<CancellablePipelineCommandActor>(1)
-                .Register<PipelineCommandActor>(2);
+                .Register<OutputWorldToConsoleCommandHandler>()
+                .Register<OutputBigglesToConsoleCommandHandler>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 

@@ -15,6 +15,7 @@ namespace InMemoryCommanding
                 Console.WriteLine("3. Simple auditing example (write to console)");
                 Console.WriteLine("4. Simple auditing example, root command only (write to console)");
                 Console.WriteLine("5. Execute simple command with no result");
+                Console.WriteLine("6. Execute pipeline command");
                 Console.WriteLine("");
                 Console.WriteLine("Esc - quit");
                 keyInfo = Console.ReadKey();
@@ -47,6 +48,12 @@ namespace InMemoryCommanding
                     case ConsoleKey.D5:
 #pragma warning disable 4014
                         ExecuteCommandWithoutResult.Run();
+#pragma warning restore 4014
+                        break;
+
+                    case ConsoleKey.D6:
+#pragma warning disable 4014
+                        ExecutePipelineCommand.Run();
 #pragma warning restore 4014
                         break;
                 }

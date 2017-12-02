@@ -89,7 +89,7 @@ namespace InMemoryCommanding
         public static async Task Run(bool auditRootOnly)
         {
             ICommandDispatcher dispatcher = Configure(auditRootOnly);
-            ChainCommand command = new ChainCommand();
+            NestingCommand command = new NestingCommand();
             await dispatcher.DispatchAsync(command);
             Console.WriteLine("\nPress a key to continue...");
         }
@@ -111,7 +111,7 @@ namespace InMemoryCommanding
                     { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
             dependencyResolver.UseCommanding(options) 
-                .Register<ChainCommandHandler>()
+                .Register<NestingCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
             dependencyResolver

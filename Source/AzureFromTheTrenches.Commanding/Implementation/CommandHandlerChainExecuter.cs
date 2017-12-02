@@ -26,26 +26,76 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
-                Type castCommandHandler = typeof(ICommandHandler<,>);
-                Type[] typeArgs = new[] { command.GetType(), typeof(TResult) };
-                Type genericType = castCommandHandler.MakeGenericType(typeArgs);
+                if (handler is ICommandChainHandler)
+                {
+                    Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>> executer = CompileCancellableCommandHandlerExecuter(command);
+                    return executer;
+                }
+                else
+                {
+                    Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> executer = CompileCommandHandlerExecuter(command);
+                    return executer;
+                }                
+            });
 
-                MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
-                ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandChainHandler));
-                ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
-                ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
+            if (handler is ICancellableCommandChainHandler)
+            {
+                Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>> func = (Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>>)dlg;
+                return await func(handler, command, previousResult, cancellationToken);
+            }
+            else
+            {
+                Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> func = (Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>)dlg;
+                return await func(handler, command, previousResult);
+            }            
+        }
 
-                var lambda = Expression.Lambda<Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>>(
+        private static Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> CompileCommandHandlerExecuter<TResult>(ICommand<TResult> command)
+        {
+            Type castCommandHandler = typeof(ICommandChainHandler<,>);
+            Type[] typeArgs = new[] {command.GetType(), typeof(TResult)};
+            Type genericType = castCommandHandler.MakeGenericType(typeArgs);
+
+            MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", typeArgs);
+            ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandChainHandler));
+            ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
+            ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
+
+            var lambda =
+                Expression.Lambda<Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>>(
                     Expression.Call(Expression.Convert(handlerParameter, genericType),
                         methodInfo,
                         Expression.Convert(commandParameter, command.GetType()), previousResultParameter),
                     handlerParameter, commandParameter, previousResultParameter);
-                Func<ICommandHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> executer = lambda.Compile();
-                return executer;
-            });
+            Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> executer =
+                lambda.Compile();
+            return executer;
+        }
 
-            Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>> func = (Func<ICommandChainHandler, ICommand<TResult>, TResult, Task<CommandChainHandlerResult<TResult>>>)dlg;
-            return await func(handler, command, previousResult);
+        private static Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>> CompileCancellableCommandHandlerExecuter<TResult>(ICommand<TResult> command)
+        {
+            Type castCommandHandler = typeof(ICancellableCommandChainHandler<,>);
+            Type[] typeArgs = new[] { command.GetType(), typeof(TResult) };
+            Type genericType = castCommandHandler.MakeGenericType(typeArgs);
+
+            Type[] methodTypeArgs = new[] { command.GetType(), typeof(TResult), typeof(CancellationToken) };
+            MethodInfo methodInfo = genericType.GetRuntimeMethod("ExecuteAsync", methodTypeArgs);
+            ParameterExpression handlerParameter = Expression.Parameter(typeof(ICommandChainHandler));
+            ParameterExpression commandParameter = Expression.Parameter(typeof(ICommand<TResult>));
+            ParameterExpression previousResultParameter = Expression.Parameter(typeof(TResult));
+            ParameterExpression cancellationTokenParameter = Expression.Parameter(typeof(CancellationToken));
+
+            var lambda =
+                Expression.Lambda<Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>>>(
+                    Expression.Call(Expression.Convert(handlerParameter, genericType),
+                        methodInfo,
+                        Expression.Convert(commandParameter, command.GetType()),
+                        previousResultParameter,
+                        cancellationTokenParameter),
+                    handlerParameter, commandParameter, previousResultParameter, cancellationTokenParameter);
+            Func<ICommandChainHandler, ICommand<TResult>, TResult, CancellationToken, Task<CommandChainHandlerResult<TResult>>> executer =
+                lambda.Compile();
+            return executer;
         }
     }
 }

@@ -55,7 +55,7 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         Task<CommandChainHandlerResult<TResult>> ExecuteAsync(TCommand command, TResult previousResult);
     }
 
-    public interface ICancellableCommandChainHandler<in TCommand, TResult> : ICommandChainHandler where TCommand : ICommand<TResult>
+    public interface ICancellableCommandChainHandler<in TCommand, TResult> : ICancellableCommandChainHandler where TCommand : ICommand<TResult>
     {
         // return true to stop after execution
         Task<CommandChainHandlerResult<TResult>> ExecuteAsync(TCommand command, TResult previousResult, CancellationToken cancellationToken);
