@@ -42,7 +42,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
 
             // Assert
             Assert.Single(result.Result.Handlers);
-            Assert.Equal(typeof(CancellableSimpleCommandHandler), result.Result.Handlers.Single());
+            Assert.Equal(typeof(CancellableSimpleCommandPipelineAwareHandler), result.Result.Handlers.Single());
         }
     }
 }
