@@ -57,7 +57,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             ICloudStorageProvider cloudStorageProvider = new CloudStorageProvider(cloudTableClient, commandPayloadContainer);
             dependencyResolver.RegisterInstance(cloudStorageProvider);
             dependencyResolver.RegisterInstance(storageStrategy);
-            dependencyResolver.UseDispatchCommandingAuditor<AzureStorageTableCommandAuditor>();
+            dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>();
             return dependencyResolver;
         }
 
@@ -90,7 +90,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             dependencyResolver.RegisterInstance(cloudAuditQueueProvider);
             dependencyResolver.RegisterInstance(cloudAuditQueueBlobContainerProvider);
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
-            CommandingDependencies.UseDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver);
+            CommandingDependencies.UsePreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver);
             return dependencyResolver;
         }
 

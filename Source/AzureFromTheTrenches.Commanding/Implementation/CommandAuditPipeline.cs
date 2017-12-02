@@ -10,14 +10,17 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandAuditPipeline : ICommandAuditPipeline, IAuditorRegistration
     {
-        private const string DispatchType = "dispatch";
+        private const string PreDispatchType = "predispatch";
+        private const string PostDispatchType = "postdispatch";
         private const string ExecutionType = "execution";
 
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
         private readonly Func<ICommandAuditSerializer> _auditorSerializerFunc;
-        private readonly List<AuditorDefinition> _registeredDispatchAuditors = new List<AuditorDefinition>();
+        private readonly List<AuditorDefinition> _registeredPreDispatchAuditors = new List<AuditorDefinition>();
+        private readonly List<AuditorDefinition> _registeredPostDispatchAuditors = new List<AuditorDefinition>();
         private readonly List<AuditorDefinition> _registeredExecutionAuditors = new List<AuditorDefinition>();
-        private volatile IReadOnlyCollection<AuditorInstance> _dispatchAuditors;
+        private volatile IReadOnlyCollection<AuditorInstance> _preDispatchAuditors;
+        private volatile IReadOnlyCollection<AuditorInstance> _postDispatchAuditors;
         private volatile IReadOnlyCollection<AuditorInstance> _executionAuditors;
         private readonly object _dispatchAuditorCreationLock = new object();
         private readonly object _executionAuditorCreationLock = new object();
@@ -29,10 +32,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         }
 
         
-        public void RegisterDispatchAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
+        public void RegisterPreDispatchAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
         {
             // all auditors must be registered before the first command is dispatched
-            _registeredDispatchAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
+            _registeredPreDispatchAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
+        }
+
+        public void RegisterPostDispatchAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
+        {
+            // all auditors must be registered before the first command is dispatched
+            _registeredPostDispatchAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
         }
 
         public void RegisterExecutionAuditor<TAuditorImpl>(bool auditRootCommandOnly) where TAuditorImpl : ICommandAuditor
@@ -41,7 +50,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _registeredExecutionAuditors.Add(new AuditorDefinition(typeof(TAuditorImpl), auditRootCommandOnly));
         }
 
-        public async Task AuditDispatch(ICommand command, ICommandDispatchContext dispatchContext)
+        public async Task AuditPreDispatch(ICommand command, ICommandDispatchContext dispatchContext)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             
@@ -54,20 +63,55 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,
                 SerializedCommand = serializer.Serialize(command),
-                Type = DispatchType
+                Type = PreDispatchType
             };
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
             {
                 auditItem.CommandId = identifiableCommand.Id;
             }
-            await AuditDispatch(auditItem);
+            await AuditPreDispatch(auditItem);
         }
 
-        public async Task AuditDispatch(AuditItem auditItem)
+        public async Task AuditPreDispatch(AuditItem auditItem)
         {
-            auditItem.Type = DispatchType;
-            IReadOnlyCollection<ICommandAuditor> auditors = GetDispatchAuditors(auditItem.Depth == 0);
+            auditItem.Type = PreDispatchType;
+            IReadOnlyCollection<ICommandAuditor> auditors = GetPreDispatchAuditors(auditItem.Depth == 0);
+            List<Task> auditTasks = new List<Task>();
+            foreach (ICommandAuditor auditor in auditors)
+            {
+                auditTasks.Add(auditor.Audit(auditItem));
+            }
+            await Task.WhenAll(auditTasks);
+        }
+
+        public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext)
+        {
+            ICommandAuditSerializer serializer = _auditorSerializerFunc();
+
+            AuditItem auditItem = new AuditItem
+            {
+                AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
+                CommandId = null,
+                CommandType = command.GetType().AssemblyQualifiedName,
+                CorrelationId = dispatchContext.CorrelationId,
+                Depth = dispatchContext.Depth,
+                DispatchedUtc = DateTime.UtcNow,
+                SerializedCommand = serializer.Serialize(command),
+                Type = PostDispatchType
+            };
+            // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
+            if (command is IIdentifiableCommand identifiableCommand)
+            {
+                auditItem.CommandId = identifiableCommand.Id;
+            }
+            await AuditPostDispatch(auditItem);
+        }
+
+        public async Task AuditPostDispatch(AuditItem auditItem)
+        {
+            auditItem.Type = PostDispatchType;
+            IReadOnlyCollection<ICommandAuditor> auditors = GetPostDispatchAuditors(auditItem.Depth == 0);
             List<Task> auditTasks = new List<Task>();
             foreach (ICommandAuditor auditor in auditors)
             {
@@ -112,20 +156,36 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
-        private IReadOnlyCollection<ICommandAuditor> GetDispatchAuditors(bool isRootCommand)
+        private IReadOnlyCollection<ICommandAuditor> GetPreDispatchAuditors(bool isRootCommand)
         {
-            if (_dispatchAuditors == null)
+            if (_preDispatchAuditors == null)
             {
                 lock (_dispatchAuditorCreationLock)
                 {
-                    if (_dispatchAuditors == null)
+                    if (_preDispatchAuditors == null)
                     {
-                        _dispatchAuditors = _registeredDispatchAuditors
+                        _preDispatchAuditors = _registeredPreDispatchAuditors
                             .Select(x => new AuditorInstance(_auditorFactoryFunc(x.AuditorType), x.AuditRootCommandOnly)).ToArray();
                     }
                 }
             }
-            return _dispatchAuditors.Where(x => isRootCommand || !x.AuditRootCommandOnly).Select(x => x.Auditor).ToArray();
+            return _preDispatchAuditors.Where(x => isRootCommand || !x.AuditRootCommandOnly).Select(x => x.Auditor).ToArray();
+        }
+
+        private IReadOnlyCollection<ICommandAuditor> GetPostDispatchAuditors(bool isRootCommand)
+        {
+            if (_postDispatchAuditors == null)
+            {
+                lock (_dispatchAuditorCreationLock)
+                {
+                    if (_postDispatchAuditors == null)
+                    {
+                        _postDispatchAuditors = _registeredPostDispatchAuditors
+                            .Select(x => new AuditorInstance(_auditorFactoryFunc(x.AuditorType), x.AuditRootCommandOnly)).ToArray();
+                    }
+                }
+            }
+            return _postDispatchAuditors.Where(x => isRootCommand || !x.AuditRootCommandOnly).Select(x => x.Auditor).ToArray();
         }
 
         private IReadOnlyCollection<ICommandAuditor> GetExecutionAuditors(bool isRootCommand)

@@ -49,7 +49,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             AuditItem auditQueueItem = item.Item;
             try
             {
-                await _commandAuditPipeline.AuditDispatch(auditQueueItem);
+                await _commandAuditPipeline.AuditPreDispatch(auditQueueItem);
 
                 return true;
             }

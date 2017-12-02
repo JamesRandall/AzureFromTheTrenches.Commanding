@@ -6,8 +6,10 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
 {
     public interface ICommandAuditPipeline
     {
-        Task AuditDispatch(ICommand command, ICommandDispatchContext dispatchContext);
-        Task AuditDispatch(AuditItem auditItem);
+        Task AuditPreDispatch(ICommand command, ICommandDispatchContext dispatchContext);
+        Task AuditPreDispatch(AuditItem auditItem);
+        Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext);
+        Task AuditPostDispatch(AuditItem auditItem);
         Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext, bool executedSuccessfully);
         Task AuditExecution(AuditItem auditItem);
     }

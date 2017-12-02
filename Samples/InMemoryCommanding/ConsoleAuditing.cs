@@ -7,17 +7,39 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Handlers;
-using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
 {
-    internal class ConsoleDispatchAuditor : ICommandAuditor
+    internal class ConsolePreDispatchAuditor : ICommandAuditor
     {
         public Task Audit(AuditItem item)
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Correlation ID: {item.CorrelationId}");
+            Console.WriteLine($"Depth: {item.Depth}");
+            foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
+            {
+                Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
+            }
+            Console.ForegroundColor = previousColor;
+            return Task.FromResult(0);
+        }
+
+        public Task AuditWithNoPayload(Guid commandId, string commandType, ICommandDispatchContext dispatchContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    internal class ConsolePostDispatchAuditor : ICommandAuditor
+    {
+        public Task Audit(AuditItem item)
+        {
+            ConsoleColor previousColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Type: {item.CommandType}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
             Console.WriteLine($"Depth: {item.Depth}");
@@ -92,8 +114,10 @@ namespace InMemoryCommanding
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
-            dependencyResolver.UseDispatchCommandingAuditor<ConsoleDispatchAuditor>(auditRootOnly);
-            dependencyResolver.UseExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
+            dependencyResolver
+                .UsePreDispatchCommandingAuditor<ConsolePreDispatchAuditor>(auditRootOnly)
+                .UsePostDispatchCommandingAuditor<ConsolePostDispatchAuditor>(auditRootOnly)
+                .UseExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
             ServiceProvider = serviceCollection.BuildServiceProvider();
             return ServiceProvider.GetService<ICommandDispatcher>();
         }

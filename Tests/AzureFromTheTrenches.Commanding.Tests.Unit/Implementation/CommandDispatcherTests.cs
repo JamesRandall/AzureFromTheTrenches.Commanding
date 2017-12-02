@@ -146,7 +146,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             CommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandContextManager.Setup(x => x.Enter()).Returns(commandDispatchContext);
             SimpleCommand command = new SimpleCommand();
-            auditorPipeline.Setup(x => x.AuditDispatch(command, commandDispatchContext)).Callback(() =>
+            auditorPipeline.Setup(x => x.AuditPreDispatch(command, commandDispatchContext)).Callback(() =>
             {
                 auditExecutionIndex = executionOrder;
                 executionOrder++;
@@ -161,7 +161,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             await dispatcher.DispatchAsync(command);
 
             // Assert
-            auditorPipeline.Verify(x => x.AuditDispatch(command, commandDispatchContext), Times.Once);
+            auditorPipeline.Verify(x => x.AuditPreDispatch(command, commandDispatchContext), Times.Once);
             Assert.Equal(0, auditExecutionIndex);
             Assert.Equal(1, executeExecutionIndex);
         }

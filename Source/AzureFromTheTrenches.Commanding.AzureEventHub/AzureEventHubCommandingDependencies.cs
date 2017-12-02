@@ -30,7 +30,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
             resolver.TypeMapping<IAuditItemMapper, AuditItemMapper>();
             resolver.TypeMapping<IEventHubSerializer, EventHubSerializer>();
 
-            resolver.UseDispatchCommandingAuditor<AzureEventHubCommandAuditor>();
+            resolver.UsePreDispatchCommandingAuditor<AzureEventHubCommandAuditor>();
             return resolver;
         }
 

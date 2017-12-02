@@ -41,7 +41,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 // occur even if dispatch fails
                 // (there is also an audit opportunity after execution completes and I'm considering putting one in
                 // on dispatch success)
-                await _auditor.AuditDispatch(command, dispatchContext);
+                await _auditor.AuditPreDispatch(command, dispatchContext);
 
                 try
                 {
@@ -52,6 +52,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                         dispatchResult = await dispatcher.DispatchAsync(command);
                         executer = dispatcher.AssociatedExecuter;
                     }
+
+                    await _auditor.AuditPostDispatch(command, dispatchContext);
 
                     if (dispatchResult != null && dispatchResult.DeferExecution)
                     {

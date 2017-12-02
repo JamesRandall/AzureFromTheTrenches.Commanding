@@ -102,7 +102,7 @@ namespace AzureFromTheTrenches.Commanding
         }
 
         /// <summary>
-        /// Registers an auditor that will be invoked directly after a command has been dispatched.
+        /// Registers an auditor that will be invoked directly before a command has been dispatched.
         /// </summary>
         /// <typeparam name="TDispatchAuditorImpl">The type of the auditor</typeparam>
         /// <param name="dependencyResolver">The dependency resolver</param>
@@ -111,7 +111,7 @@ namespace AzureFromTheTrenches.Commanding
         /// of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
         /// commands.</param>
         /// <returns>The dependency resolver</returns>
-        public static ICommandingDependencyResolver UseDispatchCommandingAuditor<TDispatchAuditorImpl>(
+        public static ICommandingDependencyResolver UsePreDispatchCommandingAuditor<TDispatchAuditorImpl>(
             this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly=true) where TDispatchAuditorImpl : ICommandAuditor
         {
             lock (AuditorPipelineLockObject)
@@ -121,7 +121,33 @@ namespace AzureFromTheTrenches.Commanding
                     throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
                 }
                 IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
-                registration.RegisterDispatchAuditor<TDispatchAuditorImpl>(auditRootCommandOnly);
+                registration.RegisterPreDispatchAuditor<TDispatchAuditorImpl>(auditRootCommandOnly);
+            }
+            dependencyResolver.TypeMapping<TDispatchAuditorImpl, TDispatchAuditorImpl>();
+            return dependencyResolver;
+        }
+
+        /// <summary>
+        /// Registers an auditor that will be invoked directly after a command has been dispatched.
+        /// </summary>
+        /// <typeparam name="TDispatchAuditorImpl">The type of the auditor</typeparam>
+        /// <param name="dependencyResolver">The dependency resolver</param>
+        /// <param name="auditRootCommandOnly">By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+        /// event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+        /// of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+        /// commands.</param>
+        /// <returns>The dependency resolver</returns>
+        public static ICommandingDependencyResolver UsePostDispatchCommandingAuditor<TDispatchAuditorImpl>(
+            this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true) where TDispatchAuditorImpl : ICommandAuditor
+        {
+            lock (AuditorPipelineLockObject)
+            {
+                if (_auditorPipeline == null)
+                {
+                    throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any auditors");
+                }
+                IAuditorRegistration registration = (IAuditorRegistration)_auditorPipeline;
+                registration.RegisterPostDispatchAuditor<TDispatchAuditorImpl>(auditRootCommandOnly);
             }
             dependencyResolver.TypeMapping<TDispatchAuditorImpl, TDispatchAuditorImpl>();
             return dependencyResolver;
