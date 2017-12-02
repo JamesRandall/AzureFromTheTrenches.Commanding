@@ -36,7 +36,8 @@ namespace InMemoryCommanding
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             dependencyResolver.UseCommanding(options)
-                .Register<CommandWithoutResultHandler>();
+                .Register<CommandWithoutResultHandler>()
+                .Register<CancellableCommandWithoutResultHandler>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 

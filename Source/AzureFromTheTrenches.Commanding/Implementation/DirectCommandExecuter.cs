@@ -20,6 +20,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandScopeManager.Enter();
             try
             {
+                await new SynchronizationContextRemover();
                 return await _commandExecuter.ExecuteAsync(command, cancellationToken);
             }
             finally
