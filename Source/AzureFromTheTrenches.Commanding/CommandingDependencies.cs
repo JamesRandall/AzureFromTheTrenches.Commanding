@@ -85,10 +85,10 @@ namespace AzureFromTheTrenches.Commanding
 
             ICommandHandlerFactory commandHandlerFactory = new CommandHandlerFactory(options.CommandHandlerFactoryFunc ?? dependencyResolver.Resolve);
             ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
-            ICommandHandlerChainExecuter commandHandlerChainExecuter = new CommandHandlerChainExecuter();
+            IPipelineAwareCommandHandlerExecuter pipelineAwareCommandHandlerExecuter = new PipelineAwareCommandHandlerExecuter();
             dependencyResolver.RegisterInstance(commandHandlerFactory);
             dependencyResolver.RegisterInstance(commandHandlerExecuter);
-            dependencyResolver.RegisterInstance(commandHandlerChainExecuter);
+            dependencyResolver.RegisterInstance(pipelineAwareCommandHandlerExecuter);
 
             dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();
             dependencyResolver.TypeMapping<ICommandScopeManager, AsyncLocalCommandScopeManager>();

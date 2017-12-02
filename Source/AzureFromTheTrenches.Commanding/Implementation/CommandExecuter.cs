@@ -13,7 +13,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ICommandHandlerFactory _commandHandlerFactory;
         private readonly ICommandScopeManager _commandScopeManager;
         private readonly ICommandHandlerExecuter _commandHandlerExecuter;
-        private readonly ICommandHandlerChainExecuter _commandHandlerChainExecuter;
+        private readonly IPipelineAwareCommandHandlerExecuter _pipelineAwareCommandHandlerExecuter;
         private readonly ICommandExecutionExceptionHandler _commandExecutionExceptionHandler;
         private readonly ICommandAuditPipeline _commandAuditPipeline;
         
@@ -21,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
             ICommandHandlerExecuter commandHandlerExecuter,
-            ICommandHandlerChainExecuter commandHandlerChainExecuter,
+            IPipelineAwareCommandHandlerExecuter pipelineAwareCommandHandlerExecuter,
             ICommandExecutionExceptionHandler commandExecutionExceptionHandler,
             ICommandAuditPipeline commandAuditPipeline)
         {
@@ -29,7 +29,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandHandlerFactory = commandHandlerFactory;
             _commandScopeManager = commandScopeManager;
             _commandHandlerExecuter = commandHandlerExecuter;
-            _commandHandlerChainExecuter = commandHandlerChainExecuter;
+            _pipelineAwareCommandHandlerExecuter = pipelineAwareCommandHandlerExecuter;
             _commandExecutionExceptionHandler = commandExecutionExceptionHandler;
             _commandAuditPipeline = commandAuditPipeline;
         }
@@ -78,7 +78,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                         if (baseHandler is IPipelineAwareCommandHandler chainHandler)
                         {
                             PipelineAwareCommandHandlerResult<TResult> chainResult =
-                                await _commandHandlerChainExecuter.ExecuteAsync(chainHandler, command, result, cancellationToken);
+                                await _pipelineAwareCommandHandlerExecuter.ExecuteAsync(chainHandler, command, result, cancellationToken);
                             result = chainResult.Result;
                             if (chainResult.ShouldStop)
                             {

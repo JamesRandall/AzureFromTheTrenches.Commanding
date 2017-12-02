@@ -21,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -55,7 +55,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -82,7 +82,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -116,7 +116,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -160,7 +160,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -198,7 +198,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
@@ -232,7 +232,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandHandlerFactory> handlerFactory = new Mock<ICommandHandlerFactory>();
             Mock<ICommandRegistry> registry = new Mock<ICommandRegistry>();
             Mock<ICommandHandlerExecuter> commandHandlerExecuter = new Mock<ICommandHandlerExecuter>();
-            Mock<ICommandHandlerChainExecuter> commandHandlerChainExecuter = new Mock<ICommandHandlerChainExecuter>();
+            Mock<IPipelineAwareCommandHandlerExecuter> commandHandlerChainExecuter = new Mock<IPipelineAwareCommandHandlerExecuter>();
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();

@@ -9,7 +9,7 @@ using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    internal class CommandHandlerChainExecuter : ICommandHandlerChainExecuter
+    internal class PipelineAwareCommandHandlerExecuter : IPipelineAwareCommandHandlerExecuter
     {
         private readonly ConcurrentDictionary<Type, Delegate> _commandHandlerExecuters =
             new ConcurrentDictionary<Type, Delegate>();
@@ -26,7 +26,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             Delegate dlg = _commandHandlerExecuters.GetOrAdd(handler.GetType(), (handlerType) =>
             {
-                if (handler is IPipelineAwareCommandHandler)
+                if (handler is ICancellablePipelineAwareCommandHandler)
                 {
                     Func<IPipelineAwareCommandHandler, ICommand<TResult>, TResult, CancellationToken, Task<PipelineAwareCommandHandlerResult<TResult>>> executer = CompileCancellableCommandHandlerExecuter(command);
                     return executer;
