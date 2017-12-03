@@ -16,6 +16,7 @@ namespace InMemoryCommanding
                 Console.WriteLine("4. Simple auditing example, root command only (write to console)");
                 Console.WriteLine("5. Execute simple command with no result");
                 Console.WriteLine("6. Execute pipeline command");
+                Console.WriteLine("7. Microsoft.Extensions.Logger example");
                 Console.WriteLine("");
                 Console.WriteLine("Esc - quit");
                 keyInfo = Console.ReadKey();
@@ -35,13 +36,13 @@ namespace InMemoryCommanding
 
                     case ConsoleKey.D3:
 #pragma warning disable 4014
-                        ConsoleAuditing.Run(false);
+                        CustomConsoleAuditing.Run(false);
 #pragma warning restore 4014
                         break;
 
                     case ConsoleKey.D4:
 #pragma warning disable 4014
-                        ConsoleAuditing.Run(true);
+                        CustomConsoleAuditing.Run(true);
 #pragma warning restore 4014
                         break;
 
@@ -54,6 +55,12 @@ namespace InMemoryCommanding
                     case ConsoleKey.D6:
 #pragma warning disable 4014
                         ExecutePipelineCommand.Run();
+#pragma warning restore 4014
+                        break;
+
+                    case ConsoleKey.D7:
+#pragma warning disable 4014
+                        MicrosoftExtensionsLoggerExample.Run(false);
 #pragma warning restore 4014
                         break;
                 }

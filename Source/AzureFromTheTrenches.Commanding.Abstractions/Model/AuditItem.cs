@@ -5,13 +5,19 @@ namespace AzureFromTheTrenches.Commanding.Abstractions.Model
 {
     public class AuditItem
     {
+        public const string PreDispatchType = "predispatch";
+        public const string PostDispatchType = "postdispatch";
+        public const string ExecutionType = "execution";
+
         public string Type { get; set; }
 
         public bool? ExecutedSuccessfully { get; set; }
 
         public string SerializedCommand { get; set; }
 
-        public String CommandType { get; set; }
+        public string CommandTypeFullName { get; set; }
+
+        public string CommandType { get; set; }
 
         public string CommandId { get; set; }
 

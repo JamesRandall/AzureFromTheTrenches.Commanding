@@ -13,7 +13,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
                 AdditionalProperties = auditItem.AdditionalProperties,
                 Command = new JRaw(auditItem.SerializedCommand),
                 CommandId = auditItem.CommandId,
-                CommandType = auditItem.CommandType,
+                CommandType = auditItem.CommandTypeFullName,
                 CorrelationId = auditItem.CorrelationId,
                 Depth = auditItem.Depth,
                 DispatchedUtc = auditItem.DispatchedUtc

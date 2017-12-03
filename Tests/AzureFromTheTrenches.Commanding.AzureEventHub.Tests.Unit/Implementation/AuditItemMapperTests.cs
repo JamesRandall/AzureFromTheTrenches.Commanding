@@ -21,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Tests.Unit.Implementatio
             {
                 AdditionalProperties = new Dictionary<string, string> {{"hello", "world"}},
                 CommandId = commandId,
-                CommandType = "sometype",
+                CommandTypeFullName = "sometype",
                 CorrelationId = "acorrelationid",
                 Depth = 2,
                 DispatchedUtc = dispatchedAt,

@@ -18,7 +18,7 @@ namespace InMemoryCommanding
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Type: {item.CommandTypeFullName}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
             Console.WriteLine($"Depth: {item.Depth}");
             foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
@@ -41,7 +41,7 @@ namespace InMemoryCommanding
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Type: {item.CommandTypeFullName}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
             Console.WriteLine($"Depth: {item.Depth}");
             foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
@@ -64,7 +64,7 @@ namespace InMemoryCommanding
         {
             ConsoleColor previousColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($"Type: {item.CommandType}");
+            Console.WriteLine($"Type: {item.CommandTypeFullName}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
             Console.WriteLine($"Depth: {item.Depth}");
             foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
@@ -81,7 +81,7 @@ namespace InMemoryCommanding
         }
     }
 
-    static class ConsoleAuditing
+    static class CustomConsoleAuditing
     {
         private static int _counter = -1;
 

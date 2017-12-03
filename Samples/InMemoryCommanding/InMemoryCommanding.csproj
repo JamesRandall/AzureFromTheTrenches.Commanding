@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.csproj" />
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 

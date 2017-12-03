@@ -40,7 +40,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             CommandAuditByDateDescItem byDateDesc = new CommandAuditByDateDescItem
             {
                 AdditionalProperties = auditItem.AdditionalProperties,
-                CommandType = auditItem.CommandType,
+                CommandType = auditItem.CommandTypeFullName,
                 CorrelationId = auditItem.CorrelationId,
                 Depth = auditItem.Depth,
                 CommandId = auditItem.CommandId,
@@ -52,7 +52,7 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage.Implementation
             CommandAuditByCorrelationIdItem byCorrelationId = new CommandAuditByCorrelationIdItem
             {
                 AdditionalProperties = auditItem.AdditionalProperties,
-                CommandType = auditItem.CommandType,
+                CommandType = auditItem.CommandTypeFullName,
                 CorrelationId = auditItem.CorrelationId,
                 Depth = auditItem.Depth,
                 CommandId = auditItem.CommandId,

@@ -14,17 +14,14 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
         /// <param name="resolver">Dependency resolver</param>
         /// <param name="eventHubClient">The event hub client</param>
         /// <param name="partitionKeyProvider">An optional partition key provider, if unspecified events will be sent unpartitioned</param>
-        /// <param name="usePreDispatchAuditor">Should the pre dispatch auditor be used</param>
-        /// <param name="usePostDispatchAuditor">Should the post dispatch auditor be used</param>
-        /// <param name="useExecutionAuditor">Should the execution auditor be used</param>
+        /// <param name="options">Options for the event hub auditor configuration</param>
         /// <returns>Dependency resolver</returns>
         public static ICommandingDependencyResolver UseEventHubCommandAuditing(this ICommandingDependencyResolver resolver,
             Microsoft.Azure.EventHubs.EventHubClient eventHubClient,
             IPartitionKeyProvider partitionKeyProvider = null,
-            bool usePreDispatchAuditor = true,
-            bool usePostDispatchAuditor = true,
-            bool useExecutionAuditor = true)
+            AzureEventHubAuditorOptions options = null)
         {
+            options = options ?? new AzureEventHubAuditorOptions();
             IEventHubClient client = new EventHubClient(eventHubClient);
             if (partitionKeyProvider == null)
             {
@@ -35,17 +32,17 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
             resolver.RegisterInstance(partitionKeyProvider);
             resolver.TypeMapping<IAuditItemMapper, AuditItemMapper>();
             resolver.TypeMapping<IEventHubSerializer, EventHubSerializer>();
-            if (usePreDispatchAuditor)
+            if (options.UsePreDispatchAuditor)
             {
-                resolver.UsePreDispatchCommandingAuditor<AzureEventHubCommandAuditor>();
+                resolver.UsePreDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPreDispatchRootOnly);
             }
-            if (usePostDispatchAuditor)
+            if (options.UsePostDispatchAuditor)
             {
-                resolver.UsePostDispatchCommandingAuditor<AzureEventHubCommandAuditor>();
+                resolver.UsePostDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPostDispatchRootOnly);
             }
-            if (useExecutionAuditor)
+            if (options.UseExecutionAuditor)
             {
-                resolver.UseExecutionCommandingAuditor<AzureEventHubCommandAuditor>();
+                resolver.UseExecutionCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditExecuteDispatchRootOnly);
             }
             return resolver;
         }
@@ -58,19 +55,15 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
         /// Endpoint=sb://myeventhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=mysharedaccesskey;EntityPath=myeventhub
         /// </param>
         /// <param name="partitionKeyProvider">An optional partition key provider, if unspecified events will be sent unpartitioned</param>
-        /// <param name="usePreDispatchAuditor">Should the pre dispatch auditor be used</param>
-        /// <param name="usePostDispatchAuditor">Should the post dispatch auditor be used</param>
-        /// <param name="useExecutionAuditor">Should the execution auditor be used</param>
+        /// <param name="options">Options for the event hub auditor configuration</param>
         /// <returns>Dependency resolver</returns>
         public static ICommandingDependencyResolver UseEventHubCommandAuditing(this ICommandingDependencyResolver resolver,
             string connectionString,
             IPartitionKeyProvider partitionKeyProvider = null,
-            bool usePreDispatchAuditor = true,
-            bool usePostDispatchAuditor = true,
-            bool useExecutionAuditor = true)
+            AzureEventHubAuditorOptions options = null)
         {
             Microsoft.Azure.EventHubs.EventHubClient client = Microsoft.Azure.EventHubs.EventHubClient.CreateFromConnectionString(connectionString);
-            return UseEventHubCommandAuditing(resolver, client, partitionKeyProvider, usePreDispatchAuditor, usePostDispatchAuditor, useExecutionAuditor);
+            return UseEventHubCommandAuditing(resolver, client, partitionKeyProvider, options);
         }
 
         /// <summary>
@@ -82,22 +75,18 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
         /// </param>
         /// <param name="entityPath">The path to the event hub (usually just the event hub name</param>
         /// <param name="partitionKeyProvider">An optional partition key provider, if unspecified events will be sent unpartitioned</param>
-        /// <param name="usePreDispatchAuditor">Should the pre dispatch auditor be used</param>
-        /// <param name="usePostDispatchAuditor">Should the post dispatch auditor be used</param>
-        /// <param name="useExecutionAuditor">Should the execution auditor be used</param>
+        /// <param name="options">Options for the event hub auditor configuration</param>
         /// <returns>Dependency resolver</returns>
         public static ICommandingDependencyResolver UseEventHubCommandAuditing(this ICommandingDependencyResolver resolver,
             string connectionString,
             string entityPath,
             IPartitionKeyProvider partitionKeyProvider = null,
-            bool usePreDispatchAuditor = true,
-            bool usePostDispatchAuditor = true,
-            bool useExecutionAuditor = true)
+            AzureEventHubAuditorOptions options = null)
         {
             EventHubsConnectionStringBuilder builder = new EventHubsConnectionStringBuilder(connectionString);
             builder.EntityPath = entityPath;
             Microsoft.Azure.EventHubs.EventHubClient client = Microsoft.Azure.EventHubs.EventHubClient.CreateFromConnectionString(builder.ToString());
-            return UseEventHubCommandAuditing(resolver, client, partitionKeyProvider, usePreDispatchAuditor, usePostDispatchAuditor, useExecutionAuditor);
+            return UseEventHubCommandAuditing(resolver, client, partitionKeyProvider, options);
         }
     }
 }
