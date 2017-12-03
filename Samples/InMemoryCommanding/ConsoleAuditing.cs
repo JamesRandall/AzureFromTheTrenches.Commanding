@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Handlers;
 using Microsoft.Extensions.DependencyInjection;
@@ -84,8 +85,7 @@ namespace InMemoryCommanding
     {
         private static int _counter = -1;
 
-        private static IServiceProvider ServiceProvider = null;
-
+        
         public static async Task Run(bool auditRootOnly)
         {
             ICommandDispatcher dispatcher = Configure(auditRootOnly);
@@ -102,7 +102,8 @@ namespace InMemoryCommanding
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> {{"Counter", Interlocked.Increment(ref _counter)}};
 
             ServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => ServiceProvider);
+
+            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
 
             Options options = new Options
             {
@@ -118,8 +119,8 @@ namespace InMemoryCommanding
                 .UsePreDispatchCommandingAuditor<ConsolePreDispatchAuditor>(auditRootOnly)
                 .UsePostDispatchCommandingAuditor<ConsolePostDispatchAuditor>(auditRootOnly)
                 .UseExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-            return ServiceProvider.GetService<ICommandDispatcher>();
+            dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
+            return dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();
         }
     }
 }

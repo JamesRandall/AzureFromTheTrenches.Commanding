@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Handlers;
-using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InMemoryCommanding
 {
     static class ExecutePipelineCommand
     {
-        private static IServiceProvider _serviceProvider;
-
         public static async Task Run()
         {
             ICommandDispatcher dispatcher = Configure();
@@ -28,15 +26,15 @@ namespace InMemoryCommanding
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
 
-            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = serviceCollection.UseCommanding(options);
 
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.Registry
                 .Register<CancellablePipelineAwarePipelineCommandActor>(1)
                 .Register<PipelineCommandActor>(2);
 
-            _serviceProvider = serviceCollection.BuildServiceProvider();
+            dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            return _serviceProvider.GetService<ICommandDispatcher>();
+            return dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();
         }
     }
 }

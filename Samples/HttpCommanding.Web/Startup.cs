@@ -1,6 +1,7 @@
 ﻿using System;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
 using HttpCommanding.Web.Handlers;
@@ -14,6 +15,8 @@ namespace HttpCommanding.Web
 {
     public class Startup
     {
+        private IMicrosoftDependencyInjectionCommandingResolver _commandingDependencyResolver;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -32,9 +35,9 @@ namespace HttpCommanding.Web
             // Add framework services.
             IServiceProvider serviceProvider = null;
             services.AddMvc();
-            CommandingDependencyResolver dependencyResolver = services.GetCommandingDependencyResolver(() => serviceProvider);
+            _commandingDependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(services);
 
-            dependencyResolver.UseCommanding()
+            _commandingDependencyResolver.UseCommanding()
                 .Register<UpdatePersonalDetailsCommandHandler>();
             serviceProvider = services.BuildServiceProvider();
         }
@@ -42,6 +45,7 @@ namespace HttpCommanding.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            _commandingDependencyResolver.ServiceProvider = app.ApplicationServices;
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

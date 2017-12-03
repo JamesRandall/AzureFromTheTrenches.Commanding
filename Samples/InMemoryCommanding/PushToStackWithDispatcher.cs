@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
+using AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection;
 using InMemoryCommanding.Commands;
 using InMemoryCommanding.Results;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,8 +39,6 @@ namespace InMemoryCommanding
 
     static class PushToStackWithDispatcher
     {
-        private static IServiceProvider ServiceProvider;
-
         public static async Task Run()
         {
             Stack<object> stack = new Stack<object>();
@@ -59,15 +58,15 @@ namespace InMemoryCommanding
         private static ICommandDispatcher Configure(Stack<object> stack)
         {
             ServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => ServiceProvider);
+            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
             Options options = new Options
             {
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
             dependencyResolver.UseCommanding(options)
                 .Register<OutputToConsoleCommand, CountResult>(() => new StackDispatcher(stack));
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-            return ServiceProvider.GetService<ICommandDispatcher>();
+            dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
+            return dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();
         }
     }
 }

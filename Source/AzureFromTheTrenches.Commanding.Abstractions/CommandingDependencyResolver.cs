@@ -17,19 +17,19 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
             _resolve = resolve;
         }
 
-        public CommandingDependencyResolver RegisterInstance<TType>(TType instance)
+        public ICommandingDependencyResolver RegisterInstance<TType>(TType instance)
         {
             _registerInstance(typeof(TType), instance);
             return this;
         }
 
-        public CommandingDependencyResolver TypeMapping<TType, TImpl>() where TImpl : TType
+        public ICommandingDependencyResolver TypeMapping<TType, TImpl>() where TImpl : TType
         {
             _typeMapping(typeof(TType), typeof(TImpl));
             return this;
         }
 
-        public CommandingDependencyResolver TypeMapping(Type type, Type impl) 
+        public ICommandingDependencyResolver TypeMapping(Type type, Type impl) 
         {
             _typeMapping(type, impl);
             return this;

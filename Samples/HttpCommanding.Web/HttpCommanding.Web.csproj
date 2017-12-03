@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.csproj" />
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
     <ProjectReference Include="..\HttpCommanding.Model\HttpCommanding.Model.csproj" />
   </ItemGroup>
