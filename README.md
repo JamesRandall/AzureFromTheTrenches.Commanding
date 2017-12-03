@@ -79,31 +79,31 @@ Documentation can be [found in the wiki](https://github.com/JamesRandall/AzureFr
 ## Samples
 
 1. Simple in memory command execution
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/InMemoryCommanding>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/InMemoryCommanding>
 
 2. Dispatching commands over HTTP
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/HttpCommanding.Client>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/HttpCommanding.Client>
 
 3. Executing commands in response to HTTP requests (ASP.Net Core)
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/HttpCommanding.Web>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/HttpCommanding.Web>
 
 4. Dispatching to and executing from Azure Storage queues
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageQueueCommanding>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureStorageQueueCommanding>
 
 5. Azure storage auditing
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageAuditing>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureStorageAuditing>
 
 6. Azure event hub auditing
-<https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureEventHubAuditing>
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureEventHubAuditing>
 
 ## Advanced Usage
 
 Further usage scenarios can be found in the [wiki](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki) including:
 
-* [Configuration Options](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Configuration-Options)
-* [HTTP Execution and Dispatch](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/HTTP-Dispatch-and-Execution)
-* [Azure Queue Dispatch and Execution](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Azure-Queue-Dispatch-and-Execution)
-* [Auditing and Event Sourcing](https://github.com/JamesRandall/AccidentalFish.Commanding/wiki/Auditing-and-Event-Sourcing)
+* [Configuration Options](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/9.-Configuration-Options)
+* [HTTP Execution and Dispatch](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/7.-HTTP-Dispatch-and-Execution)
+* [Azure Queue Dispatch and Execution](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/8.-Azure-Queue-Dispatch-and-Execution)
+* [Auditing and Event Sourcing](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/6.-Auditing-and-Event-Sourcing)
 
 ## Support
 
