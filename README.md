@@ -1,8 +1,6 @@
 # AzureFromTheTrenches.Commanding
 
-A simple configuration based asynchronous command message framework designed to be both easy to use and highly extensible allowing projects
-to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding
-over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
+A simple configuration based asynchronous command message framework designed to be both easy to use and highly extensible allowing projects to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
 
 The framework supports .NET Standard 2.0 (and higher) and so, at the time of writing, can be used with the following _minimum version_ runtimes:
 
@@ -19,11 +17,17 @@ As such it can easily be used in a varierty of scenarios such as ASP.Net, ASP.Ne
 Additionally the framework is designed specifically for use with a dependency injection approach and can be used with any of the
 common dependency injectors (e.g. Autofac, Ninject, Unity, ASP.Net Core Services Container etc.) through the use of a simple adapter.
 
+For an introduction on taking the Commanding and Mediator approach to application architecture using this framework [please see this series of posts here](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
+
 ## Getting Started
 
-Firstly install the nuget package:
+Firstly install the nuget package for commanding:
 
     Install-Package AzureFromTheTrenches.Commanding
+
+In our example we're going to be using the Microsoft.Extensions.DependencyInjection framework for our IoC container and so add the helper package too:
+
+    Install-Package AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection
 
 As an example let's create a command that adds two numbers together and returns a result:
 
@@ -54,27 +58,21 @@ Commands are acted on by handlers and our add action looks like this:
 Having defined our command, result and handler, we need to register these with the commanding system. If you're just writing a console app you can do this in Program.cs but for more realistic usage you'd do this where you configure your IoC container - it's handy to think of command registrations as just another part of your applications configuration, besides which you'll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:
 
     IServiceCollection serviceCollection = new ServiceCollection();
-    IServiceProvider serviceProvider = null;
-    ICommandingDependencyResolver commandingDependencyResolver = new CommandingDependencyResolver(
-        (type, instance) => serviceCollection.AddSingleton(type, instance),
-        (type, impl) => serviceCollection.AddTransient(type, impl),
-        type => serviceProvider.GetService(type)
-    );
-    commandingDependencyResolver.UseCommanding()
-        .Register<AddCommandHandler>();
-    IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+    IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = serviceCollection.UseCommanding(options);
+    dependencyResolver.UseCommanding().Register<AddCommandHandler>();
+    dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
 
-The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register commands and their handlers.
+The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register handlers - you only need to register a handler, the framework will figure out the rest. Registration uses a fluent API style for concise code.
 
 To dispatch our command we need to get hold of the ICommandDispatcher interface and send the command. We'll do that and output the result to the console:
 
-    ICommandDispatcher commandDispatcher = serviceProvider.GetService<ICommandDispatcher>();
+    ICommandDispatcher commandDispatcher = dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();
     MathResult mathResult = await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
     Console.WriteLine(mathResult.Value); // hopefully says 11
 
-And for simple usage that's it. The above is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your commands in the appropriate place.
+And for simple usage that's it. The above is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your commands in the appropriate place, for example if you're using ASP.Net Core then all the dependency injection boilerplate is in place.
 
-Take a look at the samples and then more advanced usage is outlined further down.
+Take a look at the samples and then more advanced usage is outlined further down. There's also a [series of posts on my blog](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
 
 ## Samples
 
