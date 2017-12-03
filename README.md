@@ -72,7 +72,9 @@ To dispatch our command we need to get hold of the ICommandDispatcher interface 
 
 And for simple usage that's it. The above is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your commands in the appropriate place, for example if you're using ASP.Net Core then all the dependency injection boilerplate is in place.
 
-Take a look at the samples and then more advanced usage is outlined further down. There's also a [series of posts on my blog](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
+## Documentation
+
+Documentation can be [found in the wiki](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki). There are also samples below and there's a [series of posts on my blog](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
 
 ## Samples
 
