@@ -112,7 +112,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
-                Id = "helloworld"
+                CommandId = "helloworld"
             };
 
             // Act
@@ -204,7 +204,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
-                Id = "helloworld"
+                CommandId = "helloworld"
             };
 
             // Act
@@ -296,7 +296,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
-                Id = "helloworld"
+                CommandId = "helloworld"
             };
 
             // Act

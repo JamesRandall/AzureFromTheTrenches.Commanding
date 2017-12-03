@@ -4,6 +4,6 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.TestModel
 {
     class SimpleIdentifiableCommand : ICommand, IIdentifiableCommand
     {
-        public string Id { get; set; }
+        public string CommandId { get; set; }
     }
 }

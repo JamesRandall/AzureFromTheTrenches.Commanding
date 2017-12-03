@@ -66,7 +66,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
             {
-                auditItem.CommandId = identifiableCommand.Id;
+                auditItem.CommandId = identifiableCommand.CommandId;
             }
             await AuditPreDispatch(auditItem, cancellationToken);
         }
@@ -102,7 +102,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
             {
-                auditItem.CommandId = identifiableCommand.Id;
+                auditItem.CommandId = identifiableCommand.CommandId;
             }
             await AuditPostDispatch(auditItem, cancellationToken);
         }
@@ -139,7 +139,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
             {
-                auditItem.CommandId = identifiableCommand.Id;
+                auditItem.CommandId = identifiableCommand.CommandId;
             }
             await AuditExecution(auditItem, cancellationToken);
         }

@@ -2,6 +2,6 @@
 {
     public interface IIdentifiableCommand
     {
-        string Id { get; }
+        string CommandId { get; }
     }
 }

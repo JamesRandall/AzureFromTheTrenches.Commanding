@@ -1,7 +1,8 @@
 ﻿Param(
 	[switch]$pushLocal,
 	[switch]$pushNuget,
-	[switch]$disableBuild
+	[switch]$disableBuild,
+	[switch]$cleardown
 )
 
 if (Test-Path -Path nuget-powershell) 
@@ -13,7 +14,7 @@ if (Test-Path -Path nuget-cmdline)
 	rmdir nuget-cmdline -Recurse
 }
 
-if (-not $disableBuild)
+if ($cleardown -Or -not $disableBuild)
 {
 	rm .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg
 	rm .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg
@@ -26,7 +27,10 @@ if (-not $disableBuild)
 	rm .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg
 	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\debug\*.nupkg
 	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\debug\*.nupkg
+}
 
+if (-not $disableBuild)
+{
 	dotnet build .\AzureFromTheTrenches.Commanding.sln
 }
 

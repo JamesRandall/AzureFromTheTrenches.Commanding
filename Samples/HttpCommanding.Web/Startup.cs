@@ -33,13 +33,10 @@ namespace HttpCommanding.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            IServiceProvider serviceProvider = null;
             services.AddMvc();
             _commandingDependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(services);
-
             _commandingDependencyResolver.UseCommanding()
-                .Register<UpdatePersonalDetailsCommandHandler>();
-            serviceProvider = services.BuildServiceProvider();
+                .Register<UpdatePersonalDetailsCommandHandler>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
