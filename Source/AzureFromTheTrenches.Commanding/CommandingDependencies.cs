@@ -92,7 +92,9 @@ namespace AzureFromTheTrenches.Commanding
 
             dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();
             dependencyResolver.TypeMapping<ICommandScopeManager, AsyncLocalCommandScopeManager>();
+            dependencyResolver.TypeMapping<IFrameworkCommandDispatcher, CommandDispatcher>();
             dependencyResolver.TypeMapping<ICommandDispatcher, CommandDispatcher>();
+            dependencyResolver.TypeMapping<IFrameworkCommandExecuter, CommandExecuter>();
             dependencyResolver.TypeMapping<ICommandExecuter, CommandExecuter>();
             dependencyResolver.TypeMapping<IDirectCommandExecuter, DirectCommandExecuter>();
             dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
