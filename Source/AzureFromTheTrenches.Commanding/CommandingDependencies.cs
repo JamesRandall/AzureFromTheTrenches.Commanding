@@ -74,11 +74,14 @@ namespace AzureFromTheTrenches.Commanding
                 dependencyResolver.RegisterInstance(_dispatchContextEnrichment);
             }
 
+            IAuditItemEnricherPipeline auditItemEnricherPipeline = new AuditItemEnricherPipeline(options.AuditItemEnricherFactoryFunc ?? (type => (IAuditItemEnricher)dependencyResolver.Resolve(type)));
             lock (AuditorPipelineLockObject)
             {
                 if (_auditorPipeline == null || options.Reset)
                 {
-                    _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t), dependencyResolver.Resolve<ICommandAuditSerializer>);
+                    _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t),
+                        dependencyResolver.Resolve<ICommandAuditSerializer>,
+                        auditItemEnricherPipeline);
                 }
                 dependencyResolver.RegisterInstance(_auditorPipeline);
             }
@@ -86,9 +89,11 @@ namespace AzureFromTheTrenches.Commanding
             ICommandHandlerFactory commandHandlerFactory = new CommandHandlerFactory(options.CommandHandlerFactoryFunc ?? dependencyResolver.Resolve);
             ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
             IPipelineAwareCommandHandlerExecuter pipelineAwareCommandHandlerExecuter = new PipelineAwareCommandHandlerExecuter();
+            
             dependencyResolver.RegisterInstance(commandHandlerFactory);
             dependencyResolver.RegisterInstance(commandHandlerExecuter);
             dependencyResolver.RegisterInstance(pipelineAwareCommandHandlerExecuter);
+            dependencyResolver.RegisterInstance(auditItemEnricherPipeline);
 
             dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();
             dependencyResolver.TypeMapping<ICommandScopeManager, AsyncLocalCommandScopeManager>();
@@ -180,6 +185,14 @@ namespace AzureFromTheTrenches.Commanding
             }
             dependencyResolver.TypeMapping<TExecutionAuditorImpl, TExecutionAuditorImpl>();
             return dependencyResolver;
+        }
+
+        public static ICommandingDependencyResolver UseAuditItemEnricher<TAuditItemEnricher>(this ICommandingDependencyResolver commandingDependencyResolver)
+            where TAuditItemEnricher : IAuditItemEnricher
+        {
+            IAuditItemEnricherPipeline pipeline = commandingDependencyResolver.Resolve<IAuditItemEnricherPipeline>();
+            pipeline.AddEnricher<TAuditItemEnricher>();
+            return commandingDependencyResolver;
         }
     }
 }

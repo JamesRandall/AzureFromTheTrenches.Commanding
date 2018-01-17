@@ -14,6 +14,7 @@ namespace AzureFromTheTrenches.Commanding
         /// </summary>
         public Options()
         {
+            AuditItemEnricherFactoryFunc = null;
             CommandHandlerContainerRegistration = null;
             CommandHandlerFactoryFunc = null;
             CommandExecutionExceptionHandler = null;
@@ -41,6 +42,11 @@ namespace AzureFromTheTrenches.Commanding
         /// property then that function will be called to instantiate an handler.
         /// </summary>
         public Func<Type, object> CommandHandlerFactoryFunc { get; set; }
+        /// <summary>
+        /// By default audit item enrichers are created through the dependency resolver but if a function is assigned to the
+        /// AuditItemEnricherFactoryFunc property then that function will be used to instantiate an enricher
+        /// </summary>
+        public Func<Type, IAuditItemEnricher> AuditItemEnricherFactoryFunc { get; set; }
         /// <summary>
         /// The commanding system maintains command registrations, command context enrichers, and auditors between calls to UseCommanding
         /// to enable sub-modules to extend the system without any awareness / tight coupling between them. If you want to force a reset

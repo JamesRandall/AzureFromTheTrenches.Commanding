@@ -13,6 +13,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     {
         private readonly Func<Type, ICommandAuditor> _auditorFactoryFunc;
         private readonly Func<ICommandAuditSerializer> _auditorSerializerFunc;
+        private readonly IAuditItemEnricherPipeline _auditItemEnricherPipeline;
         private readonly List<AuditorDefinition> _registeredPreDispatchAuditors = new List<AuditorDefinition>();
         private readonly List<AuditorDefinition> _registeredPostDispatchAuditors = new List<AuditorDefinition>();
         private readonly List<AuditorDefinition> _registeredExecutionAuditors = new List<AuditorDefinition>();
@@ -22,10 +23,13 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly object _dispatchAuditorCreationLock = new object();
         private readonly object _executionAuditorCreationLock = new object();
 
-        public CommandAuditPipeline(Func<Type, ICommandAuditor> auditorFactoryFunc, Func<ICommandAuditSerializer> auditorSerializerFunc)
+        public CommandAuditPipeline(Func<Type, ICommandAuditor> auditorFactoryFunc,
+            Func<ICommandAuditSerializer> auditorSerializerFunc,
+            IAuditItemEnricherPipeline auditItemEnricherPipeline)
         {
             _auditorFactoryFunc = auditorFactoryFunc;
             _auditorSerializerFunc = auditorSerializerFunc;
+            _auditItemEnricherPipeline = auditItemEnricherPipeline;
         }
 
         
@@ -68,6 +72,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.CommandId;
             }
+            _auditItemEnricherPipeline.Enrich(auditItem.AdditionalProperties, command, dispatchContext);
+
             await AuditPreDispatch(auditItem, cancellationToken);
         }
 
@@ -104,6 +110,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.CommandId;
             }
+            _auditItemEnricherPipeline.Enrich(auditItem.AdditionalProperties, command, dispatchContext);
             await AuditPostDispatch(auditItem, cancellationToken);
         }
 
@@ -141,6 +148,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 auditItem.CommandId = identifiableCommand.CommandId;
             }
+            _auditItemEnricherPipeline.Enrich(auditItem.AdditionalProperties, command, dispatchContext);
             await AuditExecution(auditItem, cancellationToken);
         }
 

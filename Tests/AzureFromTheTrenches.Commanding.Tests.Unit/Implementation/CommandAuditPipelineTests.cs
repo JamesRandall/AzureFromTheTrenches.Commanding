@@ -59,7 +59,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
             
             // Act
@@ -75,7 +78,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
             ICommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandDispatchContext.Increment();
@@ -93,7 +99,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             
             // Act
             await pipeline.AuditPreDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
@@ -108,7 +117,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             List<string> auditors = new EditableList<string>();
             List<AuditItem> auditItems = new List<AuditItem>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
@@ -128,7 +140,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
             pipeline.RegisterPreDispatchAuditor<SecondAuditor>(true);
 
@@ -151,7 +166,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
 
             // Act
@@ -167,7 +185,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
             ICommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandDispatchContext.Increment();
@@ -185,7 +206,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
 
             // Act
             await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
@@ -200,7 +224,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             List<string> auditors = new EditableList<string>();
             List<AuditItem> auditItems = new List<AuditItem>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
@@ -220,7 +247,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
             pipeline.RegisterPostDispatchAuditor<SecondAuditor>(true);
 
@@ -243,7 +273,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
 
             // Act
@@ -259,7 +292,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
             ICommandDispatchContext commandDispatchContext = new CommandDispatchContext("someid", new Dictionary<string, object>());
             commandDispatchContext.Increment();
@@ -277,7 +313,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
 
             // Act
             await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), true, default(CancellationToken));
@@ -292,7 +331,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             List<string> auditors = new EditableList<string>();
             List<AuditItem> auditItems = new List<AuditItem>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
             SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
             {
@@ -312,7 +354,10 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Arrange
             List<string> auditItems = new EditableList<string>();
             Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
-            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems), () => serializer.Object);
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => t == typeof(FirstAuditor) ? (ICommandAuditor)new FirstAuditor(auditItems) : new SecondAuditor(auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
             pipeline.RegisterExecutionAuditor<SecondAuditor>(true);
 
