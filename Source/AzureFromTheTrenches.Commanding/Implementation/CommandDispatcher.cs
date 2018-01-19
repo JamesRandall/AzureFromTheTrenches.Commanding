@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -47,9 +48,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 // (there is also an audit opportunity after execution completes and I'm considering putting one in
                 // on dispatch success)
                 await _auditor.AuditPreDispatch(command, dispatchContext, cancellationToken);
-
+                
                 try
                 {
+                    Stopwatch stopwatch = Stopwatch.StartNew();
                     Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory(command);
                     if (dispatcherFunc != null)
                     {
@@ -57,8 +59,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                         dispatchResult = await dispatcher.DispatchAsync(command, cancellationToken);
                         executer = dispatcher.AssociatedExecuter;
                     }
-
-                    await _auditor.AuditPostDispatch(command, dispatchContext, cancellationToken);
+                    await _auditor.AuditPostDispatch(command, dispatchContext, stopwatch.ElapsedMilliseconds, cancellationToken);
 
                     if (dispatchResult != null && dispatchResult.DeferExecution)
                     {

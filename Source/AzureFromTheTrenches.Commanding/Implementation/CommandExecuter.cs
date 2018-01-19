@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -39,16 +40,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await new SynchronizationContextRemover();
 
             ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-            
+            Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
                 TResult result = await ExecuteCommandWithHandlers(command, dispatchContext, cancellationToken);
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, true, cancellationToken);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch.ElapsedMilliseconds, true, cancellationToken);
                 return result;
             }
             catch (Exception)
             {
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, false, cancellationToken);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch.ElapsedMilliseconds, false, cancellationToken);
                 throw;
             }
         }

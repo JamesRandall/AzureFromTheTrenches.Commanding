@@ -173,7 +173,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterPostDispatchAuditor<FirstAuditor>(true);
 
             // Act
-            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
+            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 100, default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems.Single());
@@ -194,7 +194,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             commandDispatchContext.Increment();
 
             // Act
-            await pipeline.AuditPostDispatch(new SimpleCommand(), commandDispatchContext, default(CancellationToken));
+            await pipeline.AuditPostDispatch(new SimpleCommand(), commandDispatchContext, 200, default(CancellationToken));
 
             // Assert
             Assert.Empty(auditItems);
@@ -212,7 +212,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 enricherPipeline.Object);
 
             // Act
-            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
+            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 200, default(CancellationToken));
 
             // Assert - lack of exception is pass
         }
@@ -235,7 +235,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             };
 
             // Act
-            await pipeline.AuditPostDispatch(command, new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
+            await pipeline.AuditPostDispatch(command, new CommandDispatchContext("someid", new Dictionary<string, object>()), 300, default(CancellationToken));
 
             // Assert
             Assert.Equal("helloworld", auditItems.Single().CommandId);
@@ -255,7 +255,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterPostDispatchAuditor<SecondAuditor>(true);
 
             // Act
-            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
+            await pipeline.AuditPostDispatch(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 150, default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems[0]);
@@ -280,7 +280,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterExecutionAuditor<FirstAuditor>(true);
 
             // Act
-            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), true, default(CancellationToken));
+            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 250, true, default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems.Single());
@@ -301,7 +301,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             commandDispatchContext.Increment();
 
             // Act
-            await pipeline.AuditExecution(new SimpleCommand(), commandDispatchContext, true, default(CancellationToken));
+            await pipeline.AuditExecution(new SimpleCommand(), commandDispatchContext, 350, true, default(CancellationToken));
 
             // Assert
             Assert.Empty(auditItems);
@@ -319,7 +319,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 enricherPipeline.Object);
 
             // Act
-            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), true, default(CancellationToken));
+            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 600, true, default(CancellationToken));
 
             // Assert - lack of exception is pass
         }
@@ -342,7 +342,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             };
 
             // Act
-            await pipeline.AuditExecution(command, new CommandDispatchContext("someid", new Dictionary<string, object>()), true, default(CancellationToken));
+            await pipeline.AuditExecution(command, new CommandDispatchContext("someid", new Dictionary<string, object>()), 200, true, default(CancellationToken));
 
             // Assert
             Assert.Equal("helloworld", auditItems.Single().CommandId);
@@ -362,7 +362,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             pipeline.RegisterExecutionAuditor<SecondAuditor>(true);
 
             // Act
-            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), true, default(CancellationToken));
+            await pipeline.AuditExecution(new SimpleCommand(), new CommandDispatchContext("someid", new Dictionary<string, object>()), 200, true, default(CancellationToken));
 
             // Assert
             Assert.Equal("FirstAuditor", auditItems[0]);

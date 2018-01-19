@@ -26,6 +26,7 @@ namespace InMemoryCommanding
                 Console.WriteLine($"{enrichedProperty.Key}: {enrichedProperty.Value}");
             }
             Console.ForegroundColor = previousColor;
+            
             return Task.FromResult(0);
         }
 
@@ -43,6 +44,7 @@ namespace InMemoryCommanding
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Type: {item.CommandTypeFullName}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
+            Console.WriteLine($"Dispatch Time: {item.DispatchTimeMs}ms");
             Console.WriteLine($"Depth: {item.Depth}");
             foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
             {
@@ -66,6 +68,7 @@ namespace InMemoryCommanding
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"Type: {item.CommandTypeFullName}");
             Console.WriteLine($"Correlation ID: {item.CorrelationId}");
+            Console.WriteLine($"Execution Time: {item.ExecutionTimeMs}ms");
             Console.WriteLine($"Depth: {item.Depth}");
             foreach (KeyValuePair<string, string> enrichedProperty in item.AdditionalProperties)
             {

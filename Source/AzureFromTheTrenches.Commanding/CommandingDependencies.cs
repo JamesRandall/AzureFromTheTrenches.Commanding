@@ -11,6 +11,8 @@ namespace AzureFromTheTrenches.Commanding
         private static readonly object RegistryLockObject = new object();
         private static ICommandDispatchContextEnrichment _dispatchContextEnrichment = null;
         private static readonly object EnrichmentLockObject = new object();
+        private static IAuditItemEnricherPipeline _auditItemEnricherPipeline = null;
+        private static readonly object AuditItemEnricherPipelineLockObject = new object();
         private static ICommandAuditPipeline _auditorPipeline = null;
         private static readonly object AuditorPipelineLockObject = new object();
         
@@ -74,14 +76,23 @@ namespace AzureFromTheTrenches.Commanding
                 dependencyResolver.RegisterInstance(_dispatchContextEnrichment);
             }
 
-            IAuditItemEnricherPipeline auditItemEnricherPipeline = new AuditItemEnricherPipeline(options.AuditItemEnricherFactoryFunc ?? (type => (IAuditItemEnricher)dependencyResolver.Resolve(type)));
+            lock (AuditItemEnricherPipelineLockObject)
+            {
+                if (_auditItemEnricherPipeline == null || options.Reset)
+                {
+                    _auditItemEnricherPipeline = new AuditItemEnricherPipeline(
+                        options.AuditItemEnricherFactoryFunc ?? (type => (IAuditItemEnricher)dependencyResolver.Resolve(type)));
+                }
+                dependencyResolver.RegisterInstance(_auditItemEnricherPipeline);
+            }
+            
             lock (AuditorPipelineLockObject)
             {
                 if (_auditorPipeline == null || options.Reset)
                 {
                     _auditorPipeline = new CommandAuditPipeline(t => (ICommandAuditor)dependencyResolver.Resolve(t),
                         dependencyResolver.Resolve<ICommandAuditSerializer>,
-                        auditItemEnricherPipeline);
+                        _auditItemEnricherPipeline);
                 }
                 dependencyResolver.RegisterInstance(_auditorPipeline);
             }
@@ -93,7 +104,6 @@ namespace AzureFromTheTrenches.Commanding
             dependencyResolver.RegisterInstance(commandHandlerFactory);
             dependencyResolver.RegisterInstance(commandHandlerExecuter);
             dependencyResolver.RegisterInstance(pipelineAwareCommandHandlerExecuter);
-            dependencyResolver.RegisterInstance(auditItemEnricherPipeline);
 
             dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();
             dependencyResolver.TypeMapping<ICommandScopeManager, AsyncLocalCommandScopeManager>();
@@ -190,8 +200,15 @@ namespace AzureFromTheTrenches.Commanding
         public static ICommandingDependencyResolver UseAuditItemEnricher<TAuditItemEnricher>(this ICommandingDependencyResolver commandingDependencyResolver)
             where TAuditItemEnricher : IAuditItemEnricher
         {
-            IAuditItemEnricherPipeline pipeline = commandingDependencyResolver.Resolve<IAuditItemEnricherPipeline>();
-            pipeline.AddEnricher<TAuditItemEnricher>();
+            lock (AuditItemEnricherPipelineLockObject)
+            {
+                if (_auditItemEnricherPipeline == null)
+                {
+                    throw new AuditConfigurationException("The commanding system must be initialised with the UseCommanding method before any registering any audit item enrichers");
+                }
+                _auditItemEnricherPipeline.AddEnricher<TAuditItemEnricher>();
+            }
+            commandingDependencyResolver.TypeMapping<TAuditItemEnricher, TAuditItemEnricher>();
             return commandingDependencyResolver;
         }
     }

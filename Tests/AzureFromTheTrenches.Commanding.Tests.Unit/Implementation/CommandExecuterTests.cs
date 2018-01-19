@@ -222,7 +222,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
 
             // Assert
-            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), true, It.IsAny<CancellationToken>()));
+            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), It.IsAny<long>(), true, It.IsAny<CancellationToken>()));
         }
 
         [Fact]
@@ -264,7 +264,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             await Assert.ThrowsAsync<Exception>(async () => await executer.ExecuteAsync(simpleCommand, default(CancellationToken)));
 
             // Assert
-            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), false, It.IsAny<CancellationToken>()));
+            commandAuditPipeline.Verify(x => x.AuditExecution(simpleCommand, It.IsAny<ICommandDispatchContext>(), It.IsAny<long>(), false, It.IsAny<CancellationToken>()));
         }
     }
 }

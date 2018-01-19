@@ -77,7 +77,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await AuditPreDispatch(auditItem, cancellationToken);
         }
 
-        public async Task AuditPreDispatch(AuditItem auditItem, CancellationToken cancellationToken)
+        private async Task AuditPreDispatch(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = AuditItem.PreDispatchType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetPreDispatchAuditors(auditItem.Depth == 0);
@@ -89,7 +89,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
-        public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext, CancellationToken cancellationToken)
+        public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext, long elapsedMilliseconds, CancellationToken cancellationToken)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
 
@@ -103,7 +103,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,
                 SerializedCommand = serializer.Serialize(command),
-                Type = AuditItem.PostDispatchType
+                Type = AuditItem.PostDispatchType,
+                DispatchTimeMs = elapsedMilliseconds
             };
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
@@ -114,7 +115,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await AuditPostDispatch(auditItem, cancellationToken);
         }
 
-        public async Task AuditPostDispatch(AuditItem auditItem, CancellationToken cancellationToken)
+        private async Task AuditPostDispatch(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = AuditItem.PostDispatchType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetPostDispatchAuditors(auditItem.Depth == 0);
@@ -126,7 +127,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await Task.WhenAll(auditTasks);
         }
 
-        public async Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext,
+        public async Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext, long elapsedMilliseconds,
             bool executedSuccessfully, CancellationToken cancellationToken)
         {
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
@@ -141,7 +142,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 DispatchedUtc = DateTime.UtcNow,
                 ExecutedSuccessfully = executedSuccessfully,
                 SerializedCommand = serializer.Serialize(command),
-                Type = AuditItem.ExecutionType
+                Type = AuditItem.ExecutionType,
+                ExecutionTimeMs = elapsedMilliseconds
             };
             // ReSharper disable once SuspiciousTypeConversion.Global - used by consumers of the package
             if (command is IIdentifiableCommand identifiableCommand)
@@ -151,8 +153,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _auditItemEnricherPipeline.Enrich(auditItem.AdditionalProperties, command, dispatchContext);
             await AuditExecution(auditItem, cancellationToken);
         }
-
-        public async Task AuditExecution(AuditItem auditItem, CancellationToken cancellationToken)
+        
+        private async Task AuditExecution(AuditItem auditItem, CancellationToken cancellationToken)
         {
             auditItem.Type = AuditItem.ExecutionType;
             IReadOnlyCollection<ICommandAuditor> auditors = GetExecutionAuditors(auditItem.Depth == 0);

@@ -28,5 +28,9 @@ namespace AzureFromTheTrenches.Commanding.Abstractions.Model
         public int Depth { get; set; }
 
         public Dictionary<string, string> AdditionalProperties { get; set; }
+
+        public long? ExecutionTimeMs { get; set; }
+
+        public long? DispatchTimeMs { get; set; }
     }
 }
