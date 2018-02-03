@@ -31,7 +31,7 @@ if ($cleardown -Or -not $disableBuild)
 
 if (-not $disableBuild)
 {
-	dotnet build .\AzureFromTheTrenches.Commanding.sln
+	dotnet build .\AzureFromTheTrenches.Commanding.sln --configuration release
 }
 
 if ($pushLocal)
