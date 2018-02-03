@@ -16,14 +16,18 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
         private const int CommandsToExecute = 100000;
         static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                ExecuteCommandsWithResults().Wait();
+                return;
+            }
             ConsoleKeyInfo keyInfo;
             do
             {
                 System.Console.Clear();
                 System.Console.WriteLine($"1. Dispatch {CommandsToExecute} commands with results");
                 System.Console.WriteLine($"2. Dispatch {CommandsToExecute} commands with no result");
-                System.Console.WriteLine($"3. Dispatch {CommandsToExecute} commands with no result excluding compile time");
-                System.Console.WriteLine($"4. Dispatch {CommandsToExecute} commands with results through Mediatr");
+                System.Console.WriteLine($"3. Dispatch {CommandsToExecute} commands with results through Mediatr");
                 System.Console.WriteLine("");
                 System.Console.WriteLine("Esc - quit");
                 keyInfo = System.Console.ReadKey();
@@ -40,14 +44,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                         ExecuteCommandsWithNoResults();
 #pragma warning restore 4014
                         break;
-
                     case ConsoleKey.D3:
-#pragma warning disable 4014
-                        ExecuteCommandsWithNoResultsExcludeCompileTime();
-#pragma warning restore 4014
-                        break;
-
-                    case ConsoleKey.D4:
 #pragma warning disable 4014
                         ExecuteCommandsWithMediatr();
 #pragma warning restore 4014
@@ -95,7 +92,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             Stopwatch sw = Stopwatch.StartNew();
             for (int index = 0; index < CommandsToExecute; index++)
             {
-                SimpleResult result = await dispatcher.DispatchAsync(command);
+                await dispatcher.DispatchAsync(command);
             }
             sw.Stop();
             System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
@@ -106,20 +103,6 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
         {
             ICommandDispatcher dispatcher = ConfigureNoResult();
             SimpleCommandNoResult command = new SimpleCommandNoResult();
-            Stopwatch sw = Stopwatch.StartNew();
-            for (int index = 0; index < CommandsToExecute; index++)
-            {
-                await dispatcher.DispatchAsync(command);
-            }
-            sw.Stop();
-            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
-        }
-
-        public static async Task ExecuteCommandsWithNoResultsExcludeCompileTime()
-        {
-            ICommandDispatcher dispatcher = ConfigureNoResult();
-            SimpleCommand command = new SimpleCommand();
-            await dispatcher.DispatchAsync(command); // force a compile before running the stopwatch
             Stopwatch sw = Stopwatch.StartNew();
             for (int index = 0; index < CommandsToExecute; index++)
             {

@@ -8,7 +8,7 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
     {
         private readonly Dictionary<Type, CacheOptions> _options;
 
-        private readonly List<EvalCacheOptions> _evalCacheOptions;
+        private readonly EvalCacheOptions[] _evalCacheOptions;
 
         public CacheOptionsProvider(IEnumerable<CacheOptions> options)
         {
@@ -16,7 +16,7 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
 
             var cacheOptions = options as CacheOptions[] ?? options.ToArray();
             _options = cacheOptions.Where(x => !(x is EvalCacheOptions)).ToDictionary(x => x.CommandType, x => x);
-            _evalCacheOptions = cacheOptions.Select(x => x as EvalCacheOptions).Where(x => x != null).ToList();
+            _evalCacheOptions = cacheOptions.Select(x => x as EvalCacheOptions).Where(x => x != null).ToArray();
         }
 
         public CacheOptions Get<T>(T command)

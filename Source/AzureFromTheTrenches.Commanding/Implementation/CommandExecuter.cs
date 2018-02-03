@@ -17,14 +17,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly IPipelineAwareCommandHandlerExecuter _pipelineAwareCommandHandlerExecuter;
         private readonly ICommandExecutionExceptionHandler _commandExecutionExceptionHandler;
         private readonly ICommandAuditPipeline _commandAuditPipeline;
-        
+        private readonly bool _collectMetrics;
+
         public CommandExecuter(ICommandRegistry commandRegistry,
             ICommandHandlerFactory commandHandlerFactory,
             ICommandScopeManager commandScopeManager,
             ICommandHandlerExecuter commandHandlerExecuter,
             IPipelineAwareCommandHandlerExecuter pipelineAwareCommandHandlerExecuter,
             ICommandExecutionExceptionHandler commandExecutionExceptionHandler,
-            ICommandAuditPipeline commandAuditPipeline)
+            ICommandAuditPipeline commandAuditPipeline,
+            IOptionsProvider optionsProvider)
         {
             _commandRegistry = commandRegistry;
             _commandHandlerFactory = commandHandlerFactory;
@@ -33,6 +35,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _pipelineAwareCommandHandlerExecuter = pipelineAwareCommandHandlerExecuter;
             _commandExecutionExceptionHandler = commandExecutionExceptionHandler;
             _commandAuditPipeline = commandAuditPipeline;
+            _collectMetrics = optionsProvider.Options.MetricCollectionEnabled;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
@@ -40,16 +43,16 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             await new SynchronizationContextRemover();
 
             ICommandDispatchContext dispatchContext = _commandScopeManager.GetCurrent();
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            Stopwatch stopwatch = _collectMetrics ? Stopwatch.StartNew() : null;
             try
             {
                 TResult result = await ExecuteCommandWithHandlers(command, dispatchContext, cancellationToken);
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch.ElapsedMilliseconds, true, cancellationToken);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch?.ElapsedMilliseconds ?? 0, true, cancellationToken);
                 return result;
             }
             catch (Exception)
             {
-                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch.ElapsedMilliseconds, false, cancellationToken);
+                await _commandAuditPipeline.AuditExecution(command, dispatchContext, stopwatch?.ElapsedMilliseconds ?? 0, false, cancellationToken);
                 throw;
             }
         }

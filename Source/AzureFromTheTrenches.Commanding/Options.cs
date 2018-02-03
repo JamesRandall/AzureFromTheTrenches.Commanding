@@ -61,5 +61,10 @@ namespace AzureFromTheTrenches.Commanding
         /// If the returned dictionary contains a property that already exists it will be replaced in the command context property bag.
         /// </summary>
         public IEnumerable<ICommandDispatchContextEnricher> Enrichers { get; set; }
+        /// <summary>
+        /// Set to true to gather timing metrics around command dispatch and execution. Note this has a minor performance
+        /// implication in high throughput environments.
+        /// </summary>
+        public bool MetricCollectionEnabled { get; set; }
     }
 }

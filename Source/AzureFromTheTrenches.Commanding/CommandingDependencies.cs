@@ -52,6 +52,8 @@ namespace AzureFromTheTrenches.Commanding
 
             ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
             dependencyResolver.RegisterInstance(commandHandlerExecuter);
+            IOptionsProvider optionsProvider = new OptionsProvider(options);
+            dependencyResolver.RegisterInstance(optionsProvider);
 
             // the registry is always shared, but vagaries of different IoC containers mean its dangerous to rely
             // on dependecy resolver checks for an existing registration

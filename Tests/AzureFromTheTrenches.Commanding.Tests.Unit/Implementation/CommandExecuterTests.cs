@@ -25,6 +25,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
@@ -38,7 +40,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
@@ -59,6 +62,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns<List<PrioritisedCommandHandler>>(null);
 
@@ -68,7 +73,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
 
             // Act and assert
             MissingCommandHandlerRegistrationException ex = await Assert.ThrowsAsync<MissingCommandHandlerRegistrationException>(async () => await executer.ExecuteAsync(new SimpleCommand(), default(CancellationToken)));
@@ -86,6 +92,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
@@ -99,7 +107,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
@@ -120,6 +129,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             handlerFactory.Setup(x => x.Create(typeof(SimplePipelineAwareCommandHandlerThatHalts))).Returns(new SimplePipelineAwareCommandHandlerThatHalts());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerTwo))).Returns(new SimpleCommandHandlerTwo());
@@ -141,7 +152,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
 
             // Act
             SimpleResult result = await executer.ExecuteAsync(simpleCommand, default(CancellationToken));
@@ -164,6 +176,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandlerTwo))).Returns(new SimpleCommandHandlerTwo());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
@@ -179,7 +193,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
@@ -202,6 +217,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
@@ -215,7 +232,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
             SimpleCommand simpleCommand = new SimpleCommand();
 
             // Act
@@ -236,6 +254,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             Mock<ICommandScopeManager> scopeManager = new Mock<ICommandScopeManager>();
             Mock<ICommandExecutionExceptionHandler> commandExecutionExceptionHandler = new Mock<ICommandExecutionExceptionHandler>();
             Mock<ICommandAuditPipeline> commandAuditPipeline = new Mock<ICommandAuditPipeline>();
+            Mock<IOptionsProvider> optionsProvider = new Mock<IOptionsProvider>();
+            optionsProvider.Setup(x => x.Options).Returns(new Options());
             handlerFactory.Setup(x => x.Create(typeof(SimpleCommandHandler))).Returns(new SimpleCommandHandler());
             registry.Setup(x => x.GetPrioritisedCommandHandlers(It.IsAny<ICommand>())).Returns(
                 new List<PrioritisedCommandHandler>
@@ -257,7 +277,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 commandHandlerExecuter.Object,
                 commandHandlerChainExecuter.Object,
                 commandExecutionExceptionHandler.Object,
-                commandAuditPipeline.Object);
+                commandAuditPipeline.Object,
+                optionsProvider.Object);
             
 
             // Act

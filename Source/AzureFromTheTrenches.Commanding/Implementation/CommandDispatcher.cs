@@ -12,16 +12,19 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly ICommandRegistry _commandRegistry;
         private readonly ICommandScopeManager _commandScopeManager;
         private readonly ICommandAuditPipeline _auditor;
+        private readonly bool _collectMetrics;
 
         public CommandDispatcher(ICommandRegistry commandRegistry,
             ICommandExecuter commandExecuter,
             ICommandScopeManager commandScopeManager,
-            ICommandAuditPipeline auditPipeline)
+            ICommandAuditPipeline auditPipeline,
+            IOptionsProvider optionsProvider)
         {
             _commandRegistry = commandRegistry;
             _commandScopeManager = commandScopeManager;
             _auditor = auditPipeline;
             AssociatedExecuter = commandExecuter;
+            _collectMetrics = optionsProvider.Options.MetricCollectionEnabled;
         }
 
         public async Task<CommandResult> DispatchAsync(ICommand command, CancellationToken cancellationToken)
@@ -51,7 +54,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 
                 try
                 {
-                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    Stopwatch stopwatch = _collectMetrics ? Stopwatch.StartNew() : null;
                     Func<ICommandDispatcher> dispatcherFunc = _commandRegistry.GetCommandDispatcherFactory(command);
                     if (dispatcherFunc != null)
                     {
@@ -59,7 +62,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                         dispatchResult = await dispatcher.DispatchAsync(command, cancellationToken);
                         executer = dispatcher.AssociatedExecuter;
                     }
-                    await _auditor.AuditPostDispatch(command, dispatchContext, stopwatch.ElapsedMilliseconds, cancellationToken);
+                    await _auditor.AuditPostDispatch(command, dispatchContext, stopwatch?.ElapsedMilliseconds ?? -1, cancellationToken);
 
                     if (dispatchResult != null && dispatchResult.DeferExecution)
                     {

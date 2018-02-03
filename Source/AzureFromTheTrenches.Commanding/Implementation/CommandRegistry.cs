@@ -77,7 +77,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                     }
                 }
             }
-            return set.ToList();
+            return set.ToArray();
         }
 
         public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)
