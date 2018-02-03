@@ -14,7 +14,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         public void SimpleRegistryIsRecorded()
         {
             // Arrange
-            var registry = new CommandRegistry();
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
 
             // Act
             registry.Register<SimpleCommandHandler>();
@@ -28,7 +28,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         public void DispatcherIsRegisteredWithHandler()
         {
             // Arrange
-            var registry = new CommandRegistry();
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
@@ -43,7 +43,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         public void DispatcherIsRegisteredWithoutHandler()
         {
             // Arrange
-            var registry = new CommandRegistry();
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
@@ -60,7 +60,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         public void PriorityIsIndependentOfRegistryOrder(bool reverseRegistration)
         {
             // Arrange
-            var registry = new CommandRegistry();
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
 
             // Act
             if (reverseRegistration)

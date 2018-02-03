@@ -10,4 +10,12 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console.Model
             return Task.FromResult(previousResult);
         }
     }
+
+    class SimpleHandlerNoResult : ICommandHandler<SimpleCommandNoResult>
+    {
+        public Task ExecuteAsync(SimpleCommandNoResult command)
+        {
+            return Task.FromResult(0);
+        }
+    }
 }

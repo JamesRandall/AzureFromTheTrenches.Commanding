@@ -74,6 +74,20 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             return _serviceProvider.GetService<ICommandDispatcher>();
         }
 
+        private static ICommandDispatcher ConfigureNoResult()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            Options options = new Options
+            {
+                Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
+            };
+            dependencyResolver.UseCommanding(options)
+                .Register<SimpleHandlerNoResult>();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+            return _serviceProvider.GetService<ICommandDispatcher>();
+        }
+
         public static async Task ExecuteCommandsWithResults()
         {
             ICommandDispatcher dispatcher = Configure();
@@ -90,8 +104,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
 
         public static async Task ExecuteCommandsWithNoResults()
         {
-            ICommandDispatcher dispatcher = Configure();
-            SimpleCommand command = new SimpleCommand();
+            ICommandDispatcher dispatcher = ConfigureNoResult();
+            SimpleCommandNoResult command = new SimpleCommandNoResult();
             Stopwatch sw = Stopwatch.StartNew();
             for (int index = 0; index < CommandsToExecute; index++)
             {
@@ -103,7 +117,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
 
         public static async Task ExecuteCommandsWithNoResultsExcludeCompileTime()
         {
-            ICommandDispatcher dispatcher = Configure();
+            ICommandDispatcher dispatcher = ConfigureNoResult();
             SimpleCommand command = new SimpleCommand();
             await dispatcher.DispatchAsync(command); // force a compile before running the stopwatch
             Stopwatch sw = Stopwatch.StartNew();

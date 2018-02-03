@@ -49,6 +49,10 @@ namespace AzureFromTheTrenches.Commanding
             Options options = null)
         {
             options = options ?? new Options();
+
+            ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
+            dependencyResolver.RegisterInstance(commandHandlerExecuter);
+
             // the registry is always shared, but vagaries of different IoC containers mean its dangerous to rely
             // on dependecy resolver checks for an existing registration
             lock (RegistryLockObject)
@@ -56,7 +60,7 @@ namespace AzureFromTheTrenches.Commanding
                 if (_registry == null || options.Reset)
                 {
                     Action<Type> resolverContainerRegistration = type => dependencyResolver.TypeMapping(type, type);
-                    _registry = new CommandRegistry(options.CommandHandlerContainerRegistration ?? resolverContainerRegistration);
+                    _registry = new CommandRegistry(commandHandlerExecuter, options.CommandHandlerContainerRegistration ?? resolverContainerRegistration);
                 }
                 dependencyResolver.RegisterInstance(_registry);
             }
@@ -98,11 +102,10 @@ namespace AzureFromTheTrenches.Commanding
             }
 
             ICommandHandlerFactory commandHandlerFactory = new CommandHandlerFactory(options.CommandHandlerFactoryFunc ?? dependencyResolver.Resolve);
-            ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
+            
             IPipelineAwareCommandHandlerExecuter pipelineAwareCommandHandlerExecuter = new PipelineAwareCommandHandlerExecuter();
             
             dependencyResolver.RegisterInstance(commandHandlerFactory);
-            dependencyResolver.RegisterInstance(commandHandlerExecuter);
             dependencyResolver.RegisterInstance(pipelineAwareCommandHandlerExecuter);
 
             dependencyResolver.TypeMapping<ICommandAuditorFactory, NullCommandAuditorFactory>();

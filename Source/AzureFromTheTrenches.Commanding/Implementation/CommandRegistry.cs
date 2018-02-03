@@ -8,12 +8,14 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal class CommandRegistry : ICommandRegistry
     {
+        private readonly ICommandHandlerExecuter _executer;
         private readonly Action<Type> _commandHandlerContainerRegistration;
         private readonly Dictionary<Type, SortedSet<PrioritisedCommandHandler>> _handlers = new Dictionary<Type, SortedSet<PrioritisedCommandHandler>>();
         private readonly Dictionary<Type, Func<ICommandDispatcher>> _commandDispatchers = new Dictionary<Type, Func<ICommandDispatcher>>();
 
-        public CommandRegistry(Action<Type> commandHandlerContainerRegistration = null)
+        public CommandRegistry(ICommandHandlerExecuter executer, Action<Type> commandHandlerContainerRegistration = null)
         {
+            _executer = executer;
             _commandHandlerContainerRegistration = commandHandlerContainerRegistration;
         }
         
@@ -50,6 +52,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             // Register the handler with a container if that is needed
             _commandHandlerContainerRegistration?.Invoke(commandHandlerType);
+
+            // Compile an executer
+            _executer.CompileHandlerExecuter(commandType, commandHandlerType);
+
             return this;
         }
 
