@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -12,6 +13,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private readonly Action<Type> _commandHandlerContainerRegistration;
         private readonly Dictionary<Type, SortedSet<PrioritisedCommandHandler>> _handlers = new Dictionary<Type, SortedSet<PrioritisedCommandHandler>>();
         private readonly Dictionary<Type, Func<ICommandDispatcher>> _commandDispatchers = new Dictionary<Type, Func<ICommandDispatcher>>();
+        private readonly ConcurrentDictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>> _sortedHandlers = new ConcurrentDictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>>();
 
         public CommandRegistry(ICommandHandlerExecuter executer, Action<Type> commandHandlerContainerRegistration = null)
         {
@@ -67,17 +69,23 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command)
         {
-            if (!_handlers.TryGetValue(command.GetType(), out var set))
-            {
-                if (command is NoResultCommandWrapper wrappedCommand)
+            IReadOnlyCollection<IPrioritisedCommandHandler> result = _sortedHandlers.GetOrAdd(command.GetType(),
+                (type) =>
                 {
-                    if (!_handlers.TryGetValue(wrappedCommand.Command.GetType(), out set))
+                    if (!_handlers.TryGetValue(command.GetType(), out var set))
                     {
-                        return null;
+                        if (command is NoResultCommandWrapper wrappedCommand)
+                        {
+                            if (!_handlers.TryGetValue(wrappedCommand.Command.GetType(), out set))
+                            {
+                                return null;
+                            }
+                        }
                     }
-                }
-            }
-            return set.ToArray();
+
+                    return set.ToArray();
+                });
+            return result;
         }
 
         public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)

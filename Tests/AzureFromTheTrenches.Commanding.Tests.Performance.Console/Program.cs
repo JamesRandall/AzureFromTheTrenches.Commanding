@@ -12,8 +12,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
     class Program
     {
         private static IServiceProvider _serviceProvider;
-        //private const int CommandsToExecute = 10000000;
-        private const int CommandsToExecute = 100000;
+        private const int CommandsToExecute = 10000000;
+        //private const int CommandsToExecute = 100000;
         static void Main(string[] args)
         {
             if (args.Length > 0)
