@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -12,8 +13,9 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
     class Program
     {
         private static IServiceProvider _serviceProvider;
-        private const int CommandsToExecute = 10000000;
-        //private const int CommandsToExecute = 100000;
+        //private const int CommandsToExecute = 10000000;
+        private const int ParallelTasks = 4;
+        private const int CommandsToExecute = 1000000;
         static void Main(string[] args)
         {
             if (args.Length > 0)
@@ -28,6 +30,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                 System.Console.WriteLine($"1. Dispatch {CommandsToExecute} commands with results");
                 System.Console.WriteLine($"2. Dispatch {CommandsToExecute} commands with no result");
                 System.Console.WriteLine($"3. Dispatch {CommandsToExecute} commands with results through Mediatr");
+                System.Console.WriteLine($"4. Dispatch {CommandsToExecute} commands with results over {ParallelTasks} tasks");
+                System.Console.WriteLine($"5. Dispatch {CommandsToExecute} commands with results over {ParallelTasks} tasks with Mediatr");
                 System.Console.WriteLine("");
                 System.Console.WriteLine("Esc - quit");
                 keyInfo = System.Console.ReadKey();
@@ -47,6 +51,16 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                     case ConsoleKey.D3:
 #pragma warning disable 4014
                         ExecuteCommandsWithMediatr();
+#pragma warning restore 4014
+                        break;
+                    case ConsoleKey.D4:
+#pragma warning disable 4014
+                        ExecuteParallelCommandsWithResults();
+#pragma warning restore 4014
+                        break;
+                    case ConsoleKey.D5:
+#pragma warning disable 4014
+                        ExecuteParallelCommandsWithMediatr();
 #pragma warning restore 4014
                         break;
                 }
@@ -100,6 +114,30 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");
         }
 
+        public static async Task ExecuteParallelCommandsWithResults()
+        {
+            ICommandDispatcher dispatcher = Configure();
+            SimpleCommand command = new SimpleCommand();
+            int perTaskCommands = CommandsToExecute / ParallelTasks;
+            Task[] tasks = new Task[ParallelTasks];
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int taskIndex = 0; taskIndex < ParallelTasks; taskIndex++)
+            {
+                tasks[taskIndex] = Task.Run(async () =>
+                {
+                    for (int index = 0; index < perTaskCommands; index++)
+                    {
+                        await dispatcher.DispatchAsync(command);
+                    }
+                });
+            }
+
+            await Task.WhenAll(tasks);
+            sw.Stop();
+            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+            System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");
+        }
+
         public static async Task ExecuteCommandsWithNoResults()
         {
             ICommandDispatcher dispatcher = ConfigureNoResult();
@@ -127,6 +165,35 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             {
                 await mediator.Send(request);
             }
+            sw.Stop();
+            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+            System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");
+        }
+
+        public static async Task ExecuteParallelCommandsWithMediatr()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddMediatR();
+            serviceCollection.AddTransient<IRequestHandler<SimpleMediatrRequest, SimpleResult>, SimpleMediatrRequestHandler>();
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+            IMediator mediator = serviceProvider.GetService<IMediator>();
+            SimpleMediatrRequest request = new SimpleMediatrRequest();
+            int perTaskCommands = CommandsToExecute / ParallelTasks;
+            Task[] tasks = new Task[ParallelTasks];
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int taskIndex = 0; taskIndex < ParallelTasks; taskIndex++)
+            {
+                tasks[taskIndex] = Task.Run(async () =>
+                {
+                    for (int index = 0; index < perTaskCommands; index++)
+                    {
+                        await mediator.Send(request);
+                    }
+                });
+            }
+
+            await Task.WhenAll(tasks);
             sw.Stop();
             System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
             System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");

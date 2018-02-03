@@ -1,8 +1,7 @@
 {
   "profiles": {
     "AzureFromTheTrenches.Commanding.Tests.Performance.Console": {
-      "commandName": "Project",
-      "commandLineArgs": "immediate"
+      "commandName": "Project"
     }
   }
 }
