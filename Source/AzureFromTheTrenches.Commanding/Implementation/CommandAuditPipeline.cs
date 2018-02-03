@@ -53,6 +53,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public async Task AuditPreDispatch(ICommand command, ICommandDispatchContext dispatchContext, CancellationToken cancellationToken)
         {
+            if (_registeredPreDispatchAuditors.Count == 0) return;
+
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             
             AuditItem auditItem = new AuditItem
@@ -91,6 +93,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public async Task AuditPostDispatch(ICommand command, ICommandDispatchContext dispatchContext, long elapsedMilliseconds, CancellationToken cancellationToken)
         {
+            if (_registeredPostDispatchAuditors.Count == 0) return;
+
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
 
             AuditItem auditItem = new AuditItem
@@ -130,6 +134,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         public async Task AuditExecution(ICommand command, ICommandDispatchContext dispatchContext, long elapsedMilliseconds,
             bool executedSuccessfully, CancellationToken cancellationToken)
         {
+            if (_registeredExecutionAuditors.Count == 0) return;
+
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
             AuditItem auditItem = new AuditItem
             {

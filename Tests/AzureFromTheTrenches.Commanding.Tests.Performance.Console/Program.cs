@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Tests.Performance.Console.Model;
+using AzureFromTheTrenches.Commanding.Tests.Performance.Console.Model.Mediatr;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
@@ -10,7 +12,8 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
     class Program
     {
         private static IServiceProvider _serviceProvider;
-        private const int CommandsToExecute = 10000000;
+        //private const int CommandsToExecute = 10000000;
+        private const int CommandsToExecute = 100000;
         static void Main(string[] args)
         {
             ConsoleKeyInfo keyInfo;
@@ -20,6 +23,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                 System.Console.WriteLine($"1. Dispatch {CommandsToExecute} commands with results");
                 System.Console.WriteLine($"2. Dispatch {CommandsToExecute} commands with no result");
                 System.Console.WriteLine($"3. Dispatch {CommandsToExecute} commands with no result excluding compile time");
+                System.Console.WriteLine($"4. Dispatch {CommandsToExecute} commands with results through Mediatr");
                 System.Console.WriteLine("");
                 System.Console.WriteLine("Esc - quit");
                 keyInfo = System.Console.ReadKey();
@@ -40,6 +44,12 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                     case ConsoleKey.D3:
 #pragma warning disable 4014
                         ExecuteCommandsWithNoResultsExcludeCompileTime();
+#pragma warning restore 4014
+                        break;
+
+                    case ConsoleKey.D4:
+#pragma warning disable 4014
+                        ExecuteCommandsWithMediatr();
 #pragma warning restore 4014
                         break;
                 }
@@ -103,6 +113,25 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             }
             sw.Stop();
             System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+        }
+
+        public static async Task ExecuteCommandsWithMediatr()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddMediatR();
+            serviceCollection.AddTransient<IRequestHandler<SimpleMediatrRequest, SimpleResult>, SimpleMediatrRequestHandler>();
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+            IMediator mediator = serviceProvider.GetService<IMediator>();
+            SimpleMediatrRequest request = new SimpleMediatrRequest();
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int index = 0; index < CommandsToExecute; index++)
+            {
+                await mediator.Send(request);
+            }
+            sw.Stop();
+            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+            System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per command");
         }
     }
 }
