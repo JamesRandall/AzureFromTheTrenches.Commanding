@@ -16,17 +16,17 @@ if (Test-Path -Path nuget-cmdline)
 
 if ($cleardown -Or -not $disableBuild)
 {
-	rm .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.Http\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.Queue\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\debug\*.nupkg
-	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\debug\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Http\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Queue\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Cache\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\release\*.nupkg
+	rm .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\release\*.nupkg
 }
 
 if (-not $disableBuild)
@@ -36,30 +36,30 @@ if (-not $disableBuild)
 
 if ($pushLocal)
 {
-	cp .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.Http\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.Queue\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\debug\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.Http\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.Queue\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
+	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
 }
 
 if ($pushNuget)
 {
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Http\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Queue\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
-	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\debug\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Http\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Queue\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
+	dotnet nuget push .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\release\*.nupkg --source https://www.nuget.org/api/v2/package
 }

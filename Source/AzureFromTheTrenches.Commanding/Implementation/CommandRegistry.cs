@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -11,9 +10,8 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     {
         private readonly ICommandHandlerExecuter _executer;
         private readonly Action<Type> _commandHandlerContainerRegistration;
-        private readonly Dictionary<Type, SortedSet<PrioritisedCommandHandler>> _handlers = new Dictionary<Type, SortedSet<PrioritisedCommandHandler>>();
         private readonly Dictionary<Type, Func<ICommandDispatcher>> _commandDispatchers = new Dictionary<Type, Func<ICommandDispatcher>>();
-        private readonly ConcurrentDictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>> _sortedHandlers = new ConcurrentDictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>>();
+        private readonly Dictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>> _sortedHandlers = new Dictionary<Type, IReadOnlyCollection<IPrioritisedCommandHandler>>();
 
         public CommandRegistry(ICommandHandlerExecuter executer, Action<Type> commandHandlerContainerRegistration = null)
         {
@@ -40,13 +38,15 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         private ICommandRegistry RegisterHandler(Type commandType, Type commandHandlerType, int order,
             Func<ICommandDispatcher> dispatcherFactoryFunc)
         {
-            if (!_handlers.TryGetValue(commandType, out var set))
+            if (!_sortedHandlers.TryGetValue(commandType, out var handlers))
             {
-                set = new SortedSet<PrioritisedCommandHandler>();
-                _handlers.Add(commandType, set);
+                handlers = new PrioritisedCommandHandler[0];
             }
 
+            SortedSet<IPrioritisedCommandHandler> set = new SortedSet<IPrioritisedCommandHandler>(handlers);
             set.Add(new PrioritisedCommandHandler(order, commandHandlerType));
+            _sortedHandlers[commandType] = set.ToArray();
+
             if (dispatcherFactoryFunc != null)
             {
                 _commandDispatchers[commandType] = dispatcherFactoryFunc;
@@ -69,23 +69,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command)
         {
-            IReadOnlyCollection<IPrioritisedCommandHandler> result = _sortedHandlers.GetOrAdd(command.GetType(),
-                (type) =>
-                {
-                    if (!_handlers.TryGetValue(command.GetType(), out var set))
-                    {
-                        if (command is NoResultCommandWrapper wrappedCommand)
-                        {
-                            if (!_handlers.TryGetValue(wrappedCommand.Command.GetType(), out set))
-                            {
-                                return null;
-                            }
-                        }
-                    }
-
-                    return set.ToArray();
-                });
-            return result;
+            return _sortedHandlers[command.GetType()];
         }
 
         public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)
