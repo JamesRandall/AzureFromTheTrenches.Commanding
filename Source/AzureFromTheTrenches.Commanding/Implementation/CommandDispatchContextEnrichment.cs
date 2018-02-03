@@ -21,6 +21,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public IReadOnlyDictionary<string, object> GetAdditionalProperties()
         {
+            if (_enrichers.Count == 0)
+            {
+                return new Dictionary<string, object>();
+            }
             Dictionary<string, object> result = new Dictionary<string, object>();
             foreach (ICommandDispatchContextEnricher enricher in _enrichers)
             {

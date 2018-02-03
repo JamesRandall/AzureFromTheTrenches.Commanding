@@ -66,5 +66,10 @@ namespace AzureFromTheTrenches.Commanding
         /// implication in high throughput environments.
         /// </summary>
         public bool MetricCollectionEnabled { get; set; }
+        /// <summary>
+        /// By default correlation IDs will be generated as GUIDs so that they are unique across as distributed system however
+        /// if performance is key a local;y unique (incrementing long, thread safe) correlation ID can be used by setting this to true
+        /// </summary>
+        public bool UseLocallyUniqueCorrelationIds { get; set; }
     }
 }

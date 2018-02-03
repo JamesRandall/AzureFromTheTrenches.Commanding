@@ -63,6 +63,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
+                UseLocallyUniqueCorrelationIds = true,
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
             dependencyResolver.UseCommanding(options)
