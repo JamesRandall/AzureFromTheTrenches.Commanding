@@ -13,9 +13,9 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
     class Program
     {
         private static IServiceProvider _serviceProvider;
-        //private const int CommandsToExecute = 10000000;
+        private const int CommandsToExecute = 10000000;
         private const int ParallelTasks = 4;
-        private const int CommandsToExecute = 1000000;
+        //private const int CommandsToExecute = 1000000;
         static void Main(string[] args)
         {
             if (args.Length > 0)

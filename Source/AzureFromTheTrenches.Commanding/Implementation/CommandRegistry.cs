@@ -69,6 +69,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command)
         {
+            if (command is NoResultCommandWrapper wrappedCommand)
+            {
+                return _sortedHandlers[wrappedCommand.Command.GetType()];
+            }
             return _sortedHandlers[command.GetType()];
         }
 
