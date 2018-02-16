@@ -8,7 +8,7 @@ namespace AzureFromTheTrenches.Commanding.Implementation
     {
         public Task<bool> HandleException<TResult>(Exception ex, object handler, int handlerExecutionIndex, ICommand<TResult> command, ICommandDispatchContext dispatchContext)
         {
-            throw new CommandExecutionException(command, handler.GetType(), handlerExecutionIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
+            throw new CommandExecutionException(command, handler?.GetType(), handlerExecutionIndex, dispatchContext?.Copy(), "Error occurred during command execution", ex);
         }
     }
 }

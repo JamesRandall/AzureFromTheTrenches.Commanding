@@ -73,7 +73,14 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             {
                 return _sortedHandlers[wrappedCommand.Command.GetType()];
             }
-            return _sortedHandlers[command.GetType()];
+
+            if (!_sortedHandlers.TryGetValue(command.GetType(),
+                out IReadOnlyCollection<IPrioritisedCommandHandler> result))
+            {
+                throw new MissingCommandHandlerRegistrationException(command.GetType(),
+                    $"No command handlers registered for commands of type {command.GetType()}");
+            }
+            return result;
         }
 
         public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)
