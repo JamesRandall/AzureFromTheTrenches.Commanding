@@ -5,6 +5,14 @@ using AzureFromTheTrenches.Commanding.Implementation;
 
 namespace AzureFromTheTrenches.Commanding
 {
+    /// <summary>
+    /// The commanding runtime allows an instance of the commanding runtime to be registered within
+    /// a IoC container.
+    /// 
+    /// Generally the CommandingDependencies methods should be used for this as that allows for slightly
+    /// simpler registration semantics however if you want an isolated commanding runtime to be configured
+    /// on a per thread basis with different options (rather than shared) this class should be used.
+    /// </summary>
     public class CommandingRuntime
     {
         private ICommandRegistry _registry;
@@ -117,13 +125,21 @@ namespace AzureFromTheTrenches.Commanding
             dependencyResolver.TypeMapping<IFrameworkCommandExecuter, CommandExecuter>();
             dependencyResolver.TypeMapping<ICommandExecuter, CommandExecuter>();
             dependencyResolver.TypeMapping<IDirectCommandExecuter, DirectCommandExecuter>();
-            if (options.UseLocallyUniqueCorrelationIds)
+            if (options.DisableCorrelationIds)
             {
-                dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, LocallyUniqueCommandCorrelationIdProvider>();
+                dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, DisabledCorrelationIdProvider>();
             }
             else
             {
-                dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
+                if (options.UseLocallyUniqueCorrelationIds)
+                {
+                    dependencyResolver
+                        .TypeMapping<ICommandCorrelationIdProvider, LocallyUniqueCommandCorrelationIdProvider>();
+                }
+                else
+                {
+                    dependencyResolver.TypeMapping<ICommandCorrelationIdProvider, CommandCorrelationIdProvider>();
+                }
             }
 
             dependencyResolver.TypeMapping<ICommandAuditSerializer, CommandAuditSerializer>();

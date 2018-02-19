@@ -2,7 +2,7 @@ using AzureFromTheTrenches.Commanding.Tests.Acceptance.Helpers;
 using Xbehave;
 using Xunit;
 
-namespace AzureFromTheTrenches.Commanding.Tests.Acceptance
+namespace AzureFromTheTrenches.Commanding.Tests.Acceptance.HappyPaths
 {
     public class SimpleCommandWithNoResultTest : AbstractDispatchTestBase
     {

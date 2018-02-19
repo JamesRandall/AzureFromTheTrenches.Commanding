@@ -27,7 +27,11 @@ namespace AzureFromTheTrenches.Commanding
         /// invoked in the event of an execution error
         /// </summary>
         public Type CommandExecutionExceptionHandler { get; set; }
-
+        /// <summary>
+        /// Setting this to true will disable all correlatin ID generation which can give a small performance boost
+        /// in super-low latency situations.
+        /// </summary>
+        public bool DisableCorrelationIds { get; set; }
         /// <summary>
         /// Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandHandlerFactoryFunc in this options
         /// class is set then actors are created through the dependency resolver but not all IoC containers can resolve unregistered concrete
