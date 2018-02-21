@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -11,7 +12,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
             // TODO: We need to optimise this with some caching and code emitting
             bool isFirstQueryParameter = string.IsNullOrWhiteSpace(uri.Query);
             StringBuilder sb = new StringBuilder(isFirstQueryParameter ? uri.Query : "");
-            foreach (PropertyInfo propertyInfo in typeof(TCommand).GetRuntimeProperties())
+            foreach (PropertyInfo propertyInfo in command.GetType().GetRuntimeProperties().OrderBy(x => x.Name).ToArray())
             {
                 if (!isFirstQueryParameter)
                 {

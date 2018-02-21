@@ -4,6 +4,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection;
 using HttpCommanding.Model.Commands;
 using HttpCommanding.Model.Results;
+using HttpCommanding.Web.Auditors;
 using HttpCommanding.Web.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,8 @@ namespace HttpCommanding.Web
             services.AddMvc();
             _commandingDependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(services);
             _commandingDependencyResolver.UseCommanding()
-                .Register<UpdatePersonalDetailsCommandHandler>();            
+                .Register<UpdatePersonalDetailsCommandHandler>();
+            _commandingDependencyResolver.UseExecutionCommandingAuditor<ExecutionAuditor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
