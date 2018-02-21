@@ -7,7 +7,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance
 {
     public abstract class AbstractDispatchTestBase
     {
-        protected AbstractDispatchTestBase(Action<ICommandRegistry> registrations)
+        protected AbstractDispatchTestBase(Action<ICommandRegistry, CustomDispatcher> registrations)
         {
             var serviceCollection = new ServiceCollection();
             var resolver = new CommandingDependencyResolver(
@@ -19,10 +19,13 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance
             var registry = CommandingConfiguration.UseCommanding(resolver);
             CommandTracer = new CommandTracer();
             serviceCollection.AddSingleton(CommandTracer);
+            CustomDispatcher = new CustomDispatcher();
+            CustomExecuter = new CustomExecuter();
 
-            registrations(registry);
+            registrations(registry, CustomDispatcher);
             ServiceProvider = serviceCollection.BuildServiceProvider();
             Dispatcher = ServiceProvider.GetRequiredService<ICommandDispatcher>();
+            
         }
 
         protected CommandingRuntime CommandingConfiguration { get; }
@@ -32,5 +35,9 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance
         protected ICommandDispatcher Dispatcher { get; }
 
         protected ICommandTracer CommandTracer { get; }
+
+        protected CustomDispatcher CustomDispatcher { get; }
+
+        protected CustomExecuter CustomExecuter { get; }
     }
 }

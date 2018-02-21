@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using AzureFromTheTrenches.Commanding.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
@@ -67,11 +68,23 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             return this;
         }
 
+        public ICommandRegistry Register<TCommand>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : ICommand
+        {
+            _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc ?? throw new ArgumentNullException(nameof(dispatcherFactoryFunc));
+            return this;
+        }
+
         public IReadOnlyCollection<IPrioritisedCommandHandler> GetPrioritisedCommandHandlers(ICommand command)
         {
             if (command is NoResultCommandWrapper wrappedCommand)
             {
-                return _sortedHandlers[wrappedCommand.Command.GetType()];
+                if (!_sortedHandlers.TryGetValue(wrappedCommand.Command.GetType(),
+                    out IReadOnlyCollection<IPrioritisedCommandHandler> wrappedHandlers))
+                {
+                    throw new MissingCommandHandlerRegistrationException(command.GetType(),
+                        $"No command handlers registered for commands of type {command.GetType()}");
+                }
+                return wrappedHandlers;
             }
 
             if (!_sortedHandlers.TryGetValue(command.GetType(),
@@ -85,7 +98,12 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
         public Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command)
         {
-            _commandDispatchers.TryGetValue(command.GetType(), out var dispatcherFactoryFunc);
+            Type commandType = command.GetType();
+            if (command is NoResultCommandWrapper wrappedCommand)
+            {
+                commandType = wrappedCommand.Command.GetType();
+            }
+            _commandDispatchers.TryGetValue(commandType, out var dispatcherFactoryFunc);
             return dispatcherFactoryFunc;
         }
     }

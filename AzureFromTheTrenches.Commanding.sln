@@ -66,7 +66,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Tests.Acceptance", "Tests\AzureFromTheTrenches.Commanding.Tests.Acceptance\AzureFromTheTrenches.Commanding.Tests.Acceptance.csproj", "{036F8CEF-F7C2-4C71-9CAA-CA3EC946C2E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFromTheTrenches.Commanding.Http.Tests.Unit", "Tests\AzureFromTheTrenches.Commanding.Http.Tests.Unit\AzureFromTheTrenches.Commanding.Http.Tests.Unit.csproj", "{61C6CD91-A828-41BD-A318-10FF24D31C1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.Http.Tests.Unit", "Tests\AzureFromTheTrenches.Commanding.Http.Tests.Unit\AzureFromTheTrenches.Commanding.Http.Tests.Unit.csproj", "{61C6CD91-A828-41BD-A318-10FF24D31C1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomDispatchAndExecuter", "Samples\CustomDispatchAndExecuter\CustomDispatchAndExecuter.csproj", "{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -174,6 +176,10 @@ Global
 		{61C6CD91-A828-41BD-A318-10FF24D31C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61C6CD91-A828-41BD-A318-10FF24D31C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61C6CD91-A828-41BD-A318-10FF24D31C1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,6 +209,7 @@ Global
 		{AB527008-1F4E-4946-9277-F45CDB23B469} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{036F8CEF-F7C2-4C71-9CAA-CA3EC946C2E7} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
 		{61C6CD91-A828-41BD-A318-10FF24D31C1C} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
+		{7FE7AA26-2E1C-4FB3-9913-1E5D5D40CC4D} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}

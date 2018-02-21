@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {

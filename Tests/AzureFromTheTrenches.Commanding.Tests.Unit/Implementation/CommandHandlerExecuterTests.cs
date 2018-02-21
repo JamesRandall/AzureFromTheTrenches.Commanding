@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using AzureFromTheTrenches.Commanding.Implementation;
 using AzureFromTheTrenches.Commanding.Tests.Unit.TestModel;
 using Xunit;

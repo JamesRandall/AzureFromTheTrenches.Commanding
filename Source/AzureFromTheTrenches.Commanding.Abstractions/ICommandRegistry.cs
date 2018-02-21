@@ -24,6 +24,14 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         ICommandRegistry Register<TCommand, TResult>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : ICommand<TResult>;
 
         /// <summary>
+        /// Register a command with a dispatcher but no handler. Typically this is used when the command actors are known to be deferred via a queue
+        /// or that are remotely executed
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <param name="dispatcherFactoryFunc">Command dispatcher factory function</param>
+        ICommandRegistry Register<TCommand>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : ICommand;
+
+        /// <summary>
         /// Returns the prioritised set of command actors (first to execute is first in the collection)
         /// </summary>
         /// <typeparam name="T">Type of the command</typeparam>

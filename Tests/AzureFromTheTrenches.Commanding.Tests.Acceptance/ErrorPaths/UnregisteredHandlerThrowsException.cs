@@ -7,7 +7,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance.ErrorPaths
 {
     public class UnregisteredHandlerThrowsException : AbstractDispatchTestBase
     {
-        public UnregisteredHandlerThrowsException() : base(r => {})
+        public UnregisteredHandlerThrowsException() : base((registry, customDispatcher) => {})
         {
         }
 

@@ -7,7 +7,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance.ErrorPaths
 {
     public class ThrownExceptionFromHandlerPropagatesOut : AbstractDispatchTestBase
     {
-        public ThrownExceptionFromHandlerPropagatesOut() : base((registry) =>
+        public ThrownExceptionFromHandlerPropagatesOut() : base((registry, customDispatcher) =>
         {
             registry.Register<SimpleCommandWithIntegerResultHandler>();
         })

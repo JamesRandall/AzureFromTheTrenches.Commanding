@@ -43,14 +43,20 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             try
             {
                 CommandResult<TResult> dispatchResult = null;
+                CommandResult wrappedDispatchResult = null;
                 ICommandExecuter executer = null;
                 ICommandDispatcher dispatcher = null;
+                ICommand unwrappedCommand = command;
+                if (command is NoResultCommandWrapper wrappedCommand)
+                {
+                    unwrappedCommand = wrappedCommand.Command;
+                }
 
                 // we specifically audit BEFORE dispatch as this allows us to capture intent and a replay to
                 // occur even if dispatch fails
                 // (there is also an audit opportunity after execution completes and I'm considering putting one in
                 // on dispatch success)
-                await _auditor.AuditPreDispatch(command, dispatchContext, cancellationToken);
+                await _auditor.AuditPreDispatch(unwrappedCommand, dispatchContext, cancellationToken);
                 
                 try
                 {
@@ -59,19 +65,26 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                     if (dispatcherFunc != null)
                     {
                         dispatcher = dispatcherFunc();
-                        dispatchResult = await dispatcher.DispatchAsync(command, cancellationToken);
+                        if (command != unwrappedCommand)
+                        {
+                            wrappedDispatchResult = await dispatcher.DispatchAsync(unwrappedCommand, cancellationToken);
+                        }
+                        else
+                        {
+                            dispatchResult = await dispatcher.DispatchAsync(command, cancellationToken);
+                        }
                         executer = dispatcher.AssociatedExecuter;
                     }
-                    await _auditor.AuditPostDispatch(command, dispatchContext, stopwatch?.ElapsedMilliseconds ?? -1, cancellationToken);
+                    await _auditor.AuditPostDispatch(unwrappedCommand, dispatchContext, stopwatch?.ElapsedMilliseconds ?? -1, cancellationToken);
 
-                    if (dispatchResult != null && dispatchResult.DeferExecution)
+                    if ((dispatchResult != null && dispatchResult.DeferExecution) || (wrappedDispatchResult != null && wrappedDispatchResult.DeferExecution))
                     {
                         return new CommandResult<TResult>(default(TResult), true);
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new CommandDispatchException(command, dispatchContext.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
+                    throw new CommandDispatchException(unwrappedCommand, dispatchContext.Copy(), dispatcher?.GetType() ?? GetType(), "Error occurred during command dispatch", ex);
                 }
                 
                 if (executer == null)

@@ -32,7 +32,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
 
             // Act
-            registry.Register<SimpleCommandHandler>(dispatcherFactoryFunc:DispatcherFunc);
+            registry.Register<SimpleCommandHandler>(1000, dispatcherFactoryFunc:DispatcherFunc);
 
             // Assert
             var result = registry.GetCommandDispatcherFactory(new SimpleCommand());

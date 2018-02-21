@@ -6,7 +6,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance.HappyPaths
 {
     public class SimpleCommandWithNoResultTest : AbstractDispatchTestBase
     {
-        public SimpleCommandWithNoResultTest() : base(registry => { registry.Register<SimpleCommandWithNoResultHandler>(); })
+        public SimpleCommandWithNoResultTest() : base((registry, customDispatcher) => { registry.Register<SimpleCommandWithNoResultHandler>(); })
         {
         }
 

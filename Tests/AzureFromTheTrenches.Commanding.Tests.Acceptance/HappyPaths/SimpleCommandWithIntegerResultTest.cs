@@ -6,7 +6,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance.HappyPaths
 {
     public class SimpleCommandWithIntegerResultTest : AbstractDispatchTestBase
     {
-        public SimpleCommandWithIntegerResultTest() : base((registry) =>
+        public SimpleCommandWithIntegerResultTest() : base((registry, customDispatcher) =>
         {
             registry.Register<SimpleCommandWithIntegerResultHandler>();
         })
