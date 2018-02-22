@@ -8,12 +8,12 @@ namespace AzureFromTheTrenches.Commanding.Cache.Implementation
     internal class CachedCommandDispatcher : ICachedCommandDispatcher
     {
         private readonly ICacheKeyProvider _cacheKeyProvider;
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IFrameworkCommandDispatcher _commandDispatcher;
         private readonly ICacheOptionsProvider _cacheOptionsProvider;
         private readonly ICacheAdapter _cacheAdapter;
 
         public CachedCommandDispatcher(ICacheKeyProvider cacheKeyProvider,
-            ICommandDispatcher commandDispatcher,
+            IFrameworkCommandDispatcher commandDispatcher,
             ICacheOptionsProvider cacheOptionsProvider,
             ICacheAdapter cacheAdapter)
         {

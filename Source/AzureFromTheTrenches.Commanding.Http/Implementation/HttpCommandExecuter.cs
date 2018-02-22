@@ -15,25 +15,28 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
         private readonly Func<string> _authenticationHeaderContent;
         private readonly IHttpCommandSerializer _serializer;
         private readonly IUriCommandQueryBuilder _uriCommandQueryBuilder;
+        private readonly IHttpClientProvider _httpClientProvider;
 
-        public HttpCommandExecuter(Uri uri,
+        public HttpCommandExecuter(
+            Uri uri,
             HttpMethod httpMethod,
             Func<string> authenticationHeaderContent,
             IHttpCommandSerializer serializer,
-            IUriCommandQueryBuilder uriCommandQueryBuilder)
+            IUriCommandQueryBuilder uriCommandQueryBuilder,
+            IHttpClientProvider httpClientProvider)
         {
             _uri = uri;
             _httpMethod = httpMethod ?? HttpMethod.Post;
             _authenticationHeaderContent = authenticationHeaderContent;
             _serializer = serializer;
             _uriCommandQueryBuilder = uriCommandQueryBuilder;
+            _httpClientProvider = httpClientProvider;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
         {
             string json = _serializer.Serialize(command);
-            HttpClient client = new HttpClient();
-
+            
             HttpRequestMessage requestMessage;
             if (_httpMethod == HttpMethod.Post || _httpMethod == HttpMethod.Put)
             {
@@ -61,7 +64,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
                 requestMessage.Headers.Authorization = AuthenticationHeaderValue.Parse(_authenticationHeaderContent());
             }
 
-            HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, cancellationToken);
+            HttpResponseMessage responseMessage = await _httpClientProvider.Client.SendAsync(requestMessage, cancellationToken);
             responseMessage.EnsureSuccessStatusCode();
             string result = await responseMessage.Content.ReadAsStringAsync();
             return _serializer.Deserialize<TResult>(result);

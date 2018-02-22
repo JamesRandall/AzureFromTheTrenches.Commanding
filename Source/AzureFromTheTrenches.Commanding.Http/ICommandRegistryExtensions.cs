@@ -15,7 +15,11 @@ namespace AzureFromTheTrenches.Commanding.Http
             IHttpCommandSerializer httpCommandSerializer = null,
             IUriCommandQueryBuilder uriCommandQueryBuilder = null) where TCommand : ICommand<TResult>
         {
-            registry.Register<TCommand, TResult>(() => new HttpCommandDispatcher(new HttpCommandExecuter(uri, httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(), uriCommandQueryBuilder ?? new UriCommandQueryBuilder())));
+            registry.Register<TCommand, TResult>(() => new HttpCommandDispatcher(new HttpCommandExecuter(
+                uri,
+                httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(),
+                uriCommandQueryBuilder ?? new UriCommandQueryBuilder(),
+                HttpCommandingDependencies.HttpClientProvider)));
         }
     }
 }
