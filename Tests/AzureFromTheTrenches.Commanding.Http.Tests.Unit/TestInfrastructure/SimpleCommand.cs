@@ -1,6 +1,8 @@
-﻿namespace AzureFromTheTrenches.Commanding.Http.Tests.Unit.TestInfrastructure
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+
+namespace AzureFromTheTrenches.Commanding.Http.Tests.Unit.TestInfrastructure
 {
-    internal class SimpleCommand
+    internal class SimpleCommand : ICommand
     {
         public int SomeNumber { get; set; }
 

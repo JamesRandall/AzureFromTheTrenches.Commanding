@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Abstractions.Model;
@@ -9,7 +10,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
     {
         public HttpCommandDispatcher(ICommandExecuter httpCommandExecuter)
         {
-            AssociatedExecuter = httpCommandExecuter;
+            AssociatedExecuter = httpCommandExecuter ?? throw new ArgumentNullException(nameof(httpCommandExecuter));
         }
 
         public Task<CommandResult<TResult>> DispatchAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
