@@ -13,9 +13,9 @@
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
     <PackageId>AzureFromTheTrenches.Commanding</PackageId>
-    <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.0.0</FileVersion>
-    <Version>7.0.0</Version>
+    <AssemblyVersion>7.1.0.0</AssemblyVersion>
+    <FileVersion>7.1.0.0</FileVersion>
+    <Version>7.1.0</Version>
     <AssemblyName>AzureFromTheTrenches.Commanding</AssemblyName>
   </PropertyGroup>
 

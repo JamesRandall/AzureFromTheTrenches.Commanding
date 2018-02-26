@@ -32,6 +32,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                 System.Console.WriteLine($"3. Dispatch {CommandsToExecute} commands with results through Mediatr");
                 System.Console.WriteLine($"4. Dispatch {CommandsToExecute} commands with results over {ParallelTasks} tasks");
                 System.Console.WriteLine($"5. Dispatch {CommandsToExecute} commands with results over {ParallelTasks} tasks with Mediatr");
+                System.Console.WriteLine($"6. Execute {CommandsToExecute} calls on a class with results");
                 System.Console.WriteLine("");
                 System.Console.WriteLine("Esc - quit");
                 keyInfo = System.Console.ReadKey();
@@ -61,6 +62,11 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                     case ConsoleKey.D5:
 #pragma warning disable 4014
                         ExecuteParallelCommandsWithMediatr();
+#pragma warning restore 4014
+                        break;
+                    case ConsoleKey.D6:
+#pragma warning disable 4014
+                        ExecuteDirectlyOnAClass();
 #pragma warning restore 4014
                         break;
                 }
@@ -99,6 +105,19 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
                 .Register<SimpleHandlerNoResult>();
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
+        }
+
+        public static async Task ExecuteDirectlyOnAClass()
+        {
+            SimpleClass actingClass = new SimpleClass();
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int index = 0; index < CommandsToExecute; index++)
+            {
+                await actingClass.DoSomething();
+            }
+            sw.Stop();
+            System.Console.WriteLine($"Took {sw.ElapsedMilliseconds}ms");
+            System.Console.WriteLine($"Took {(double)sw.ElapsedMilliseconds / (double)CommandsToExecute}ms on average per call");
         }
 
         public static async Task ExecuteCommandsWithResults()
