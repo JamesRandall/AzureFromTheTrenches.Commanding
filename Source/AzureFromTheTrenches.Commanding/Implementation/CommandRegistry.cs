@@ -78,11 +78,12 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         {
             if (command is NoResultCommandWrapper wrappedCommand)
             {
-                if (!_sortedHandlers.TryGetValue(wrappedCommand.Command.GetType(),
+                var unWrappedCommand = wrappedCommand.Command;
+                if (!_sortedHandlers.TryGetValue(unWrappedCommand.GetType(),
                     out IReadOnlyCollection<IPrioritisedCommandHandler> wrappedHandlers))
                 {
-                    throw new MissingCommandHandlerRegistrationException(command.GetType(),
-                        $"No command handlers registered for commands of type {command.GetType()}");
+                    throw new MissingCommandHandlerRegistrationException(unWrappedCommand.GetType(),
+                        $"No command handlers registered for commands of type {unWrappedCommand.GetType()}");
                 }
                 return wrappedHandlers;
             }
