@@ -8,14 +8,18 @@ namespace AzureFromTheTrenches.Commanding.Queue.Implementation
     internal class CommandQueueProcessor : ICommandQueueProcessor
     {
         private readonly IDirectCommandExecuter _commandExecuter;
+        private readonly ICommandQueueProcessorLogger _logger;
 
-        public CommandQueueProcessor(IDirectCommandExecuter commandExecuter)
+        public CommandQueueProcessor(IDirectCommandExecuter commandExecuter,
+            ICommandQueueProcessorLogger logger)
         {
             _commandExecuter = commandExecuter;
+            _logger = logger;
         }
 
         public Task<bool> DequeueErrorHandler(Exception ex)
         {
+            _logger.LogError($"Error during dequeue {ex.GetType().Name}", null, ex);
             return Task.FromResult(true);
         }
 
@@ -23,6 +27,7 @@ namespace AzureFromTheTrenches.Commanding.Queue.Implementation
         {
             try
             {
+                _logger.LogInfo($"Recieved command {item.GetType().Name} from queue");
                 bool shouldDequeue = true;
                 IQueueableCommand queueableCommand = item.Item as IQueueableCommand;
                 if (queueableCommand != null)
@@ -39,14 +44,17 @@ namespace AzureFromTheTrenches.Commanding.Queue.Implementation
                 {
                     shouldDequeue = queueableCommand.ShouldDequeue;
                 }
+                _logger.LogInfo($"Completed processing command {item.GetType().Name} and returning a shouldDequeue status of {shouldDequeue}");
                 return shouldDequeue;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (item.DequeueCount > maxDequeueCount)
                 {
+                    _logger.LogError($"Error during processing command of type {item.GetType().Name} with exception of type {ex.GetType().AssemblyQualifiedName}. Dequeue count is {item.DequeueCount}, will not try again.", item.Item, ex);
                     return true;
                 }
+                _logger.LogWarning($"Error during processing command of type {item.GetType().Name} with exception of type {ex.GetType().AssemblyQualifiedName}. Dequeue count is {item.DequeueCount}, will try again.", item.Item, ex);
                 return false;
             }
 

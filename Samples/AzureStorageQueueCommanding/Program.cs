@@ -53,7 +53,23 @@ namespace AzureStorageQueueCommanding
             ServiceCollection serviceCollection = new ServiceCollection();
             CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             ICommandRegistry registry = dependencyResolver.UseCommanding();
-            dependencyResolver.UseQueues().UseAzureStorageCommanding();
+            dependencyResolver.UseQueues(
+                    (msg, cmd, ex) =>
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(msg);
+                    },
+                    (msg, cmd, ex) =>
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(msg);
+                    },
+                    (msg, cmd, ex) =>
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(msg);
+                    })
+                .UseAzureStorageCommanding();
 
             ICommandDispatcher QueueDispatcher() => _serviceProvider.GetService<IAzureStorageQueueDispatcherFactory>().Create(queue);
             registry
