@@ -1,4 +1,5 @@
-﻿using AzureFromTheTrenches.Commanding.Abstractions.Model;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 
 namespace AzureFromTheTrenches.Commanding.AzureEventHub
 {
@@ -13,5 +14,12 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
         /// <param name="auditItem">The audit item to serialize</param>
         /// <returns>Serialized audit item</returns>
         string Serialize(AuditItem auditItem);
+
+        /// <summary>
+        /// Returns a serialized version of a command
+        /// </summary>
+        /// <param name="command">The command to serialize</param>
+        /// <returns>Serialized command</returns>
+        string Serialize(ICommand command);
     }
 }

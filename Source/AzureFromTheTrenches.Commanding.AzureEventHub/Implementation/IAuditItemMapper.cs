@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.AzureEventHub.Model;
 
 namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
 {
-    interface IAuditItemMapper
+    internal interface IAuditItemMapper
     {
         EventHubAuditItem Map(AuditItem auditItem);
     }

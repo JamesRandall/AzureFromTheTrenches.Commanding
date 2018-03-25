@@ -1,4 +1,5 @@
-﻿using AzureFromTheTrenches.Commanding.Abstractions.Model;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.Abstractions.Model;
 using AzureFromTheTrenches.Commanding.AzureEventHub.Model;
 using Newtonsoft.Json;
 
@@ -17,6 +18,12 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub.Implementation
         {
             EventHubAuditItem eventHubAuditItem = _auditItemMapper.Map(auditItem);
             string json = JsonConvert.SerializeObject(eventHubAuditItem);
+            return json;
+        }
+
+        public string Serialize(ICommand command)
+        {
+            string json = JsonConvert.SerializeObject(command);
             return json;
         }
     }
