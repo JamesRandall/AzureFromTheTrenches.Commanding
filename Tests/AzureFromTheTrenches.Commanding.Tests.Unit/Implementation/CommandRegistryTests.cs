@@ -11,7 +11,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
     public class CommandRegistryTests
     {
         [Fact]
-        public void SimpleRegistryIsRecorded()
+        public void SimpleCommandHandlerIsRegisteredByGenericType()
         {
             // Arrange
             var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
@@ -22,6 +22,33 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
             // Assert
             var result = registry.GetPrioritisedCommandHandlers(new SimpleCommand());
             Assert.Equal(typeof(SimpleCommandHandler), result.Single().CommandHandlerType);
+        }
+        
+        [Fact]
+        public void SimpleCommandHandlerIsRegisteredByObjectType()
+        {
+            // Arrange
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
+
+            // Act
+            registry.Register(typeof(SimpleCommandHandler));
+
+            // Assert
+            var result = registry.GetPrioritisedCommandHandlers(new SimpleCommand());
+            Assert.Equal(typeof(SimpleCommandHandler), result.Single().CommandHandlerType);
+        }
+        
+        [Fact]
+        public void SimpleCommandHandlerThatDoesntImplementBaseClassThrowsCommandRegistrationException()
+        {
+            // Arrange
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
+
+            // Act / Assert
+            Assert.Throws<CommandRegistrationException>(() =>
+            {
+                registry.Register(typeof(SimpleCommandNoImplementaion));
+            });
         }
 
         [Fact]

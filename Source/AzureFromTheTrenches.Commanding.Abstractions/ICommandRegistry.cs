@@ -15,6 +15,14 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
             where TCommandHandler : ICommandHandlerBase;
 
         /// <summary>
+        /// Register an handler against a command with no expected result
+        /// </summary>
+        /// <param name="dispatcherFactoryFunc">Optional command dispatcher factory function</param>
+        /// <param name="commandHandlerType">The type of the command handler</param>
+        /// <param name="order">Execution order of the handler</param>
+        ICommandRegistry Register(Type commandHandlerType, int order = CommandHandlerOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null);
+
+        /// <summary>
         /// Register a command with a dispatcher but no handler. Typically this is used when the command actors are known to be deferred via a queue
         /// or that are remotely executed
         /// </summary>
