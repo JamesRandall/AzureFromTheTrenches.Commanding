@@ -8,9 +8,9 @@ using Microsoft.Azure.ServiceBus;
 
 namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
 {
-    internal class CommandQueueProcessor<TCommand, TResult> : AbstractCommandQueueProcessor<TCommand> where TCommand : ICommand<TResult>
+    internal class ServiceBusCommandQueueProcessor<TCommand, TResult> : AbstractServiceBusCommandQueueProcessor<TCommand> where TCommand : ICommand<TResult>
     {
-        public CommandQueueProcessor(QueueClient queueClient,
+        public ServiceBusCommandQueueProcessor(QueueClient queueClient,
             ICommandQueueProcessorLogger logger,
             ICommandExecuter commandExecuter,
             IServiceBusMessageSerializer serializer,
@@ -20,16 +20,16 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
             
         }
 
-        protected override Task ExecuteCommand(TCommand command, CancellationToken cancellationToken)
+        protected override Task ExecuteCommandAsync(TCommand command, CancellationToken cancellationToken)
         {
             ICommand<TResult> castCommand = (ICommand<TResult>) command;
             return CommandExecuter.ExecuteAsync(castCommand, cancellationToken);
         }
     }
 
-    internal class CommandQueueProcessor<TCommand> : AbstractCommandQueueProcessor<TCommand> where TCommand : ICommand
+    internal class ServiceBusCommandQueueProcessor<TCommand> : AbstractServiceBusCommandQueueProcessor<TCommand> where TCommand : ICommand
     {
-        public CommandQueueProcessor(QueueClient queueClient,
+        public ServiceBusCommandQueueProcessor(QueueClient queueClient,
             ICommandQueueProcessorLogger logger,
             ICommandExecuter commandExecuter,
             IServiceBusMessageSerializer serializer,
@@ -39,7 +39,7 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
 
         }
 
-        protected override Task ExecuteCommand(TCommand command, CancellationToken cancellationToken)
+        protected override Task ExecuteCommandAsync(TCommand command, CancellationToken cancellationToken)
         {
             NoResultCommandWrapper wrapper = new NoResultCommandWrapper(command);
             return CommandExecuter.ExecuteAsync(wrapper, cancellationToken);

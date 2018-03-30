@@ -12,5 +12,11 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
         {
             return new AzureEventHubDispatcher(new Implementation.EventHubClient(client), getPartitionKeyFunc);
         }
+
+        public static Func<ICommandDispatcher> CreateCommandDispatcherFactory(this EventHubClient client,
+            Func<ICommand, string> getPartitionKeyFunc = null)
+        {
+            return () => CreateCommandDispatcher(client, getPartitionKeyFunc);
+        }
     }
 }

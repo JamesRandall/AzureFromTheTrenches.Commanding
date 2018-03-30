@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AzureFromTheTrenches.Commanding.AzureServiceBus
 {
-    public interface ICommandQueueProcessor
+    public interface IServiceBusCommandQueueProcessor
     {
         
     }

@@ -71,9 +71,8 @@ namespace AzureStorageQueueCommanding
                     })
                 .UseAzureStorageCommanding();
 
-            ICommandDispatcher QueueDispatcher() => _serviceProvider.GetService<IAzureStorageQueueDispatcherFactory>().Create(queue);
             registry
-                .Register<OutputWorldToConsoleCommandHandler>(1000, dispatcherFactoryFunc: QueueDispatcher)
+                .Register<OutputWorldToConsoleCommandHandler>(1000, dispatcherFactoryFunc: queue.CreateCommandDispatcherFactory())
                 .Register<OutputBigglesToConsoleCommandHandler>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider();

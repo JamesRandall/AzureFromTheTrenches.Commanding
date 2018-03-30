@@ -6,13 +6,13 @@ using Microsoft.Azure.ServiceBus;
 
 namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
 {
-    class CommandQueueProcessorFactory : ICommandQueueProcessorFactory
+    class ServiceBusCommandQueueProcessorFactory : IServiceBusCommandQueueProcessorFactory
     {
         private readonly ICommandQueueProcessorLogger _logger;
         private readonly ICommandExecuter _commandExecuter;
         private readonly IServiceBusMessageSerializer _serviceBusMessageSerializer;
 
-        public CommandQueueProcessorFactory(ICommandQueueProcessorLogger logger,
+        public ServiceBusCommandQueueProcessorFactory(ICommandQueueProcessorLogger logger,
             ICommandExecuter commandExecuter,
             IServiceBusMessageSerializer serviceBusMessageSerializer)
         {
@@ -21,10 +21,10 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
             _serviceBusMessageSerializer = serviceBusMessageSerializer;
         }
 
-        public ICommandQueueProcessor Create<TCommand, TResult>(QueueClient queueClient, int numberOfConcurrentListeners = 1,
+        public IServiceBusCommandQueueProcessor Create<TCommand, TResult>(QueueClient queueClient, int numberOfConcurrentListeners = 1,
             TimeSpan? maxAutoRenewDuration = null) where TCommand : ICommand<TResult>
         {
-            return new CommandQueueProcessor<TCommand, TResult>(
+            return new ServiceBusCommandQueueProcessor<TCommand, TResult>(
                 queueClient,
                 _logger,
                 _commandExecuter,
@@ -33,10 +33,10 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
                 maxAutoRenewDuration);
         }
 
-        public ICommandQueueProcessor Create<TCommand>(QueueClient queueClient, int numberOfConcurrentListeners = 1,
+        public IServiceBusCommandQueueProcessor Create<TCommand>(QueueClient queueClient, int numberOfConcurrentListeners = 1,
             TimeSpan? maxAutoRenewDuration = null) where TCommand : ICommand
         {
-            return new CommandQueueProcessor<TCommand>(
+            return new ServiceBusCommandQueueProcessor<TCommand>(
                 queueClient,
                 _logger,
                 _commandExecuter,

@@ -8,7 +8,7 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus
         public static ICommandingDependencyResolver UseAzureServiceBus(this ICommandingDependencyResolver dependencyResolver)
         {
             dependencyResolver.TypeMapping<IServiceBusMessageSerializer, JsonServiceBusMessageSerializer>();
-            dependencyResolver.TypeMapping<ICommandQueueProcessorFactory, CommandQueueProcessorFactory>();
+            dependencyResolver.TypeMapping<IServiceBusCommandQueueProcessorFactory, ServiceBusCommandQueueProcessorFactory>();
             return dependencyResolver;
         }
     }

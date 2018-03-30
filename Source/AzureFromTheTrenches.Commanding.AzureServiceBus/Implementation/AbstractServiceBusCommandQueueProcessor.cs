@@ -9,13 +9,13 @@ using Microsoft.Azure.ServiceBus;
 
 namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
 {
-    internal abstract class AbstractCommandQueueProcessor<TCommand> : ICommandQueueProcessor where TCommand : ICommand
+    internal abstract class AbstractServiceBusCommandQueueProcessor<TCommand> : IServiceBusCommandQueueProcessor where TCommand : ICommand
     {
         private readonly QueueClient _queueClient;
         private readonly ICommandQueueProcessorLogger _logger;
         private readonly IServiceBusMessageSerializer _serializer;
 
-        protected AbstractCommandQueueProcessor(QueueClient queueClient,
+        protected AbstractServiceBusCommandQueueProcessor(QueueClient queueClient,
             ICommandQueueProcessorLogger logger,
             ICommandExecuter commandExecuter,
             IServiceBusMessageSerializer serializer,
@@ -58,7 +58,7 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
                     queueableCommand.DequeueCount = message.SystemProperties.DeliveryCount;
                 }
 
-                //await _commandExecuter.ExecuteAsync(command, cancellationToken);
+                await ExecuteCommandAsync(command, cancellationToken);
                 if (queueableCommand != null)
                 {
                     shouldDequeue = queueableCommand.ShouldDequeue;
@@ -77,6 +77,6 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus.Implementation
             }
         }
 
-        protected abstract Task ExecuteCommand(TCommand command, CancellationToken cancellationToken);
+        protected abstract Task ExecuteCommandAsync(TCommand command, CancellationToken cancellationToken);
     }
 }

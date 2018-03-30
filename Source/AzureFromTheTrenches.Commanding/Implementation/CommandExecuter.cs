@@ -72,6 +72,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
                 try
                 {
                     baseHandler = _commandHandlerFactory.Create(handlerTemplate.CommandHandlerType);
+                    if (baseHandler == null)
+                    {
+                        throw new UnableToExecuteHandlerException($"A handler of type {handlerTemplate.CommandHandlerType} is registered but resolution returned null. Please check IoC configuration.");
+                    }
 
                     if (baseHandler is ICommandHandler handler)
                     {
