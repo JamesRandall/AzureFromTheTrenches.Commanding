@@ -1,0 +1,2 @@
+﻿@inherits AzureFromTheTrenches.Commanding.AspNetCore.Templates.ControllerTemplate
+Console.WriteLine("Hello world");

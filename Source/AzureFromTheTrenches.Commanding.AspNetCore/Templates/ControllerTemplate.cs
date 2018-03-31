@@ -4,7 +4,7 @@ using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Templates
 {
-    public abstract class ControllerRazorTemplate
+    public abstract class ControllerTemplate
     {
         // this will map to @Model (property name)
         public ControllerDefinition Model => new ControllerDefinition();

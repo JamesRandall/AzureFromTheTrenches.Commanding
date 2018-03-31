@@ -88,7 +88,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
                         Assembly assembly = assemblyLoader(ms);
 #endif
                         Type templateType = assembly.GetType("AzureFromTheTrenches.Commanding.AspNetCore.Templates.Compiled.Template");
-                        ControllerRazorTemplate template = (ControllerRazorTemplate)Activator.CreateInstance(templateType);
+                        ControllerTemplate template = (ControllerTemplate)Activator.CreateInstance(templateType);
 
                         Type mappingFunction = assembly.GetType("Program");
 //                        _functionMethod = mappingFunction.GetMethod("CustomFunction");

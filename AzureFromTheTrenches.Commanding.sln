@@ -74,9 +74,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBusDispatchAndDequeue", "Samples\ServiceBusDispatchAndDequeue\ServiceBusDispatchAndDequeue.csproj", "{6BAC70EA-4BB4-4ABF-8DF8-2B2BC48B1BD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreConfigurationBasedCommandControllers", "Samples\AspNetCoreConfigurationBasedCommandControllers\AspNetCoreConfigurationBasedCommandControllers.csproj", "{4B112257-7A5E-4794-AA73-2911B013F671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreConfigurationBasedCommandControllers", "Samples\AspNetCoreConfigurationBasedCommandControllers\AspNetCoreConfigurationBasedCommandControllers.csproj", "{4B112257-7A5E-4794-AA73-2911B013F671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFromTheTrenches.Commanding.AspNetCore", "AzureFromTheTrenches.Commanding.AspNetCore\AzureFromTheTrenches.Commanding.AspNetCore.csproj", "{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFromTheTrenches.Commanding.AspNetCore", "Source\AzureFromTheTrenches.Commanding.AspNetCore\AzureFromTheTrenches.Commanding.AspNetCore.csproj", "{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,10 +200,10 @@ Global
 		{4B112257-7A5E-4794-AA73-2911B013F671}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B112257-7A5E-4794-AA73-2911B013F671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B112257-7A5E-4794-AA73-2911B013F671}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -237,7 +237,7 @@ Global
 		{AA712FB3-9387-486B-B3D3-6221CD4D6632} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{6BAC70EA-4BB4-4ABF-8DF8-2B2BC48B1BD9} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 		{4B112257-7A5E-4794-AA73-2911B013F671} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
-		{F23D7F2A-E0A6-4389-A0EE-DD5B5B3B9B83} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
+		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}

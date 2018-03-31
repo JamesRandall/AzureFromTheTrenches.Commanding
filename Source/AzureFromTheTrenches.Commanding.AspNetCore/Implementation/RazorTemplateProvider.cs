@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 using AzureFromTheTrenches.Commanding.AspNetCore.Templates;
 using Microsoft.AspNetCore.Razor.Language;
@@ -28,12 +29,21 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             _externalTemplateProvider = externalTemplateProvider;
         }
 
-        public Dictionary<string, ControllerRazorTemplate> CompileTemplates(IReadOnlyCollection<string> controllerNames)
+        public Dictionary<string, ControllerTemplate> CompileTemplates(IReadOnlyCollection<string> controllerNames)
         {
             var templateEngine = CreateRazorTemplateEngine();
 
-            List<SyntaxTree> controllerSyntaxTrees = new List<SyntaxTree>(new [] { GetDefaultTemplateSyntaxTree(templateEngine)});
+            var controllerSyntaxTrees = GetControllerSyntaxTrees(templateEngine, controllerNames);
+
+            Assembly assembly = CompileAssembly(controllerSyntaxTrees);
             
+            return GetCompiledTemplateInstances(assembly, controllerNames);
+        }
+
+        private List<SyntaxTree> GetControllerSyntaxTrees(RazorTemplateEngine templateEngine, IReadOnlyCollection<string> controllerNames)
+        {
+            List<SyntaxTree> controllerSyntaxTrees = new List<SyntaxTree>(new[] {GetDefaultTemplateSyntaxTree(templateEngine)});
+
             foreach (string controllerName in controllerNames)
             {
                 if (_externalTemplateProvider != null)
@@ -42,16 +52,34 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                     {
                         if (stream != null)
                         {
-                            controllerSyntaxTrees.Add(GetSyntaxTreeFromStream(templateEngine, stream, string.Concat(controllerName,"Template")));
+                            controllerSyntaxTrees.Add(GetSyntaxTreeFromStream(templateEngine, stream,
+                                string.Concat(controllerName, "Template")));
                         }
                     }
                 }
             }
 
-            Assembly assembly = CompileAssembly(controllerSyntaxTrees);
+            return controllerSyntaxTrees;
+        }
 
+        private Dictionary<string, ControllerTemplate> GetCompiledTemplateInstances(Assembly assembly, IReadOnlyCollection<string> controllerNames)
+        {
+            Type defaultType = assembly.GetType($"{_outputNamespaceName}.DefaultTemplate");
+            ControllerTemplate defaultTemplate = (ControllerTemplate)Activator.CreateInstance(defaultType);
+            Dictionary<string, ControllerTemplate> result = new Dictionary<string, ControllerTemplate>();
+            foreach (string controllerName in controllerNames)
+            {
+                ControllerTemplate controllerTemplate = defaultTemplate;
+                Type specificControllerType = assembly.GetType($"{_outputAssemblyName}.{controllerName}Template");
+                if (specificControllerType != null)
+                {
+                    controllerTemplate = (ControllerTemplate)Activator.CreateInstance(specificControllerType);
+                }
 
-            return null;
+                result[controllerName] = controllerTemplate;
+            }
+
+            return result;
         }
 
         private Assembly CompileAssembly(IReadOnlyCollection<SyntaxTree> syntaxTrees)
@@ -88,7 +116,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                     throw new TemplateCompilationException(messageBuilder.ToString());
                 }
 
-
+                ms.Seek(0, SeekOrigin.Begin);
+                AssemblyLoadContext context = AssemblyLoadContext.Default;
+                Assembly assembly = context.LoadFromStream(ms);
+                return assembly;
             }
         }
 

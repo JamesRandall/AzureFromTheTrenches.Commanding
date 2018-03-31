@@ -1,2 +1,0 @@
-﻿@inherits AzureFromTheTrenches.Commanding.AspNetCore.Templates.ControllerRazorTemplate
-Console.WriteLine("Hello world");

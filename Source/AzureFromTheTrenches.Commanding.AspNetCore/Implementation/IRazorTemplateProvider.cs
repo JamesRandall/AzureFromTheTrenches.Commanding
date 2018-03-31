@@ -5,6 +5,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     interface IRazorTemplateProvider
     {
-        Dictionary<string, ControllerRazorTemplate> CompileTemplates(IReadOnlyCollection<string> controllerNames);
+        Dictionary<string, ControllerTemplate> CompileTemplates(IReadOnlyCollection<string> controllerNames);
     }
 }
