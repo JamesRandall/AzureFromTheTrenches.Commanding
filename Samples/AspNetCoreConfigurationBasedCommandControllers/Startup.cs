@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using AspNetCoreConfigurationBasedCommandControllers.Commands;
 using AspNetCoreConfigurationBasedCommandControllers.Commands.Responses;
+using AspNetCoreConfigurationBasedCommandControllers.Handlers;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore;
@@ -34,15 +35,8 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                 (fromType, toType) => services.AddTransient(fromType, toType),
                 (resolveTo) => _serviceProvider.GetService(resolveTo));
             ICommandRegistry registry = resolver.UseCommanding();
-            //registry.Register<>()
-            /*resolver.UseAspNetCoreCommanding(cfg =>
-            {
-                cfg
-                    .Controller("PropertyValue", actions =>
-                    {
-                        actions.Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get);
-                    });
-            });*/
+            registry.Register<UpdatePropertyValueCommandHandler>();
+            registry.Register<GetPropertyValueQueryHandler>();
 
             services
                 .AddMvc()
@@ -51,7 +45,9 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                     cfg
                         .Controller("PropertyValue", actions =>
                         {
-                            actions.Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get);
+                            actions.Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get)
+                                .Action<UpdatePropertyValueCommand>(HttpMethod.Put);
+                            
                         });
                 });
 

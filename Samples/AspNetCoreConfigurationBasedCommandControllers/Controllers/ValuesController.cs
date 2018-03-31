@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AspNetCoreConfigurationBasedCommandControllers.Commands;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,7 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get([FromQuery]string )
         {
             return "value";
         }
@@ -36,8 +38,15 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put([FromBody] UpdatePropertyValueCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _commandDispatcher.DispatchAsync(command);
+            return Ok();
         }
 
         // DELETE api/values/5
