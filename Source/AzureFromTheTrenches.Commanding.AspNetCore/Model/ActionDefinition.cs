@@ -7,10 +7,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
     {
         public HttpMethod Verb { get; set; }
 
-        public string OptionalActionName { get; set; }
+        public string Route { get; set; }
 
         public Type CommandType { get; set; }
 
         public Type ResultType { get; set; }
+
+        public Type BindingAttributeType { get; set; }
     }
 }

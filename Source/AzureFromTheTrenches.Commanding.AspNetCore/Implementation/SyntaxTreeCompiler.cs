@@ -22,6 +22,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 MetadataReference.CreateFromFile(typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location), 
                 MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.Controller).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc
                 MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.ControllerBase).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc.core
+                MetadataReference.CreateFromFile(typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(Hashtable).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location), // this file (that contains the MyTemplate base class)
