@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {

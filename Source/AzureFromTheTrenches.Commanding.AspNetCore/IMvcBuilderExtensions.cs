@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore
 {
+    // ReSharper disable once InconsistentNaming
     public static class IMvcBuilderExtensions
     {
         public static IMvcBuilder AddAspNetCoreCommanding(this IMvcBuilder mvcBuilder,

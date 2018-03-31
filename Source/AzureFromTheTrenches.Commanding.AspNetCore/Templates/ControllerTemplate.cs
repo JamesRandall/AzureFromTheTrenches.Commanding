@@ -1,18 +1,16 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
+using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Templates
 {
     public abstract class ControllerTemplate
     {
-        public ControllerTemplate()
+        protected ControllerTemplate()
         {
             Output = new StringBuilder();
         }
 
-        // this will map to @Model (property name)
         public ControllerDefinition Model { get; set; }
 
         public StringBuilder Output { get; }

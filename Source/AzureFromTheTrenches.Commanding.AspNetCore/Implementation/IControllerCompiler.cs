@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
+using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {

@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
 {
     public class ActionDefinition
     {

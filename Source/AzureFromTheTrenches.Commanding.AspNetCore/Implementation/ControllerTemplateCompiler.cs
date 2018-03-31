@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
-using System.Text;
 using AzureFromTheTrenches.Commanding.AspNetCore.Templates;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Emit;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
@@ -106,7 +101,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         private SyntaxTree GetDefaultTemplateSyntaxTree(RazorTemplateEngine templateEngine)
         {
             using (Stream stream =
-                typeof(IApplicationBuilderExtensions).Assembly.GetManifestResourceStream(
+                GetType().Assembly.GetManifestResourceStream(
                     "AzureFromTheTrenches.Commanding.AspNetCore.Templates.DefaultController.cstpl"))
             {
                 return GetSyntaxTreeFromStream(templateEngine, stream, "DefaultTemplate");
