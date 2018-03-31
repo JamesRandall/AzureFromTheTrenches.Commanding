@@ -15,14 +15,14 @@ using Microsoft.CodeAnalysis.Emit;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
-    class ControllerTemplateProvider : IControllerTemplateProvider
+    class ControllerTemplateCompiler : IControllerTemplateCompiler
     {
         private readonly string _outputNamespaceName;
         private readonly string _outputAssemblyName;
         private readonly Func<string, Stream> _externalTemplateProvider;
         private readonly ISyntaxTreeCompiler _syntaxTreeCompiler;
 
-        public ControllerTemplateProvider(string outputNamespaceName,
+        public ControllerTemplateCompiler(string outputNamespaceName,
             Func<string, Stream> externalTemplateProvider,
             ISyntaxTreeCompiler syntaxTreeCompiler)
         {

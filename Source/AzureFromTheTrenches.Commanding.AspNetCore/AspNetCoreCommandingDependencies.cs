@@ -10,12 +10,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         public static ICommandingDependencyResolver UseAspNetCoreCommanding(this ICommandingDependencyResolver resolver,            
             Func<string, Stream> externalTemplateProvider = null)
         {
-            IControllerTemplateProvider controllerTemplateProvider = new ControllerTemplateProvider(
+            IControllerTemplateCompiler controllerTemplateCompiler = new ControllerTemplateCompiler(
                 "AzureFromTheTrenches.Commanding.AspNetCore.Controllers.Templates",
                 externalTemplateProvider,
                 new SyntaxTreeCompiler());
             
-            resolver.RegisterInstance(controllerTemplateProvider);
+            resolver.RegisterInstance(controllerTemplateCompiler);
             resolver.TypeMapping<ISyntaxTreeCompiler, SyntaxTreeCompiler>();
             resolver.TypeMapping<IControllerCompiler, ControllerCompiler>();            
 

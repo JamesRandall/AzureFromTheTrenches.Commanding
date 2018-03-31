@@ -9,19 +9,19 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     class ControllerCompiler : IControllerCompiler
     {
-        private readonly IControllerTemplateProvider _controllerTemplateProvider;
+        private readonly IControllerTemplateCompiler _controllerTemplateCompiler;
         private readonly ISyntaxTreeCompiler _syntaxTreeCompiler;
 
-        public ControllerCompiler(IControllerTemplateProvider controllerTemplateProvider,
+        public ControllerCompiler(IControllerTemplateCompiler controllerTemplateCompiler,
             ISyntaxTreeCompiler syntaxTreeCompiler)
         {
-            _controllerTemplateProvider = controllerTemplateProvider;
+            _controllerTemplateCompiler = controllerTemplateCompiler;
             _syntaxTreeCompiler = syntaxTreeCompiler;
         }
 
         public void Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName)
         {
-            var templates = _controllerTemplateProvider.CompileTemplates(definitions.Select(x => x.Name).ToArray());
+            var templates = _controllerTemplateCompiler.CompileTemplates(definitions.Select(x => x.Name).ToArray());
             List<SyntaxTree> syntaxTrees = new List<SyntaxTree>();
 
             foreach (ControllerDefinition definition in definitions)
