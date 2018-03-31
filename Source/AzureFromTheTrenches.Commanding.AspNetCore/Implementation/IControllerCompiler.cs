@@ -4,6 +4,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     interface IControllerCompiler
     {
-        void Compile(IReadOnlyCollection<ControllerDefinition> definitions);
+        void Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName);
     }
 }

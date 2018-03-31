@@ -24,17 +24,17 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// </summary>
         /// <param name="appBuilder">The app builder</param>
         /// <param name="builder">Use this hook to define the controllers and their commands</param>
-        /// <param name="templateProvider">(Optional)If specified will be given a controller name and can return a Razor template for that controller. Should return null if the built-in template should be used.</param>
+        /// <param name="outputNamespaceName">Defines the namespace and assembly that the controllers are output to</param>
         /// <returns></returns>
         public static IApplicationBuilder ConfigureCommandRouting(this IApplicationBuilder appBuilder,
             Action<IControllerBuilder> builder,
-            Func<Stream, Assembly> assemblyLoader)
+            string outputNamespaceName = "AzureFromTheTrenches.Commanding.AspNetCore.Controllers")
         {
             ControllerBuilder builderInstance = new ControllerBuilder();
             builder(builderInstance);
 
             IControllerCompiler controllerCompiler = (IControllerCompiler)appBuilder.ApplicationServices.GetService(typeof(IControllerCompiler));
-            controllerCompiler.Compile(builderInstance.Controllers.Values.ToArray());
+            controllerCompiler.Compile(builderInstance.Controllers.Values.ToArray(), outputNamespaceName);
 
             
             /*using (Stream stream =

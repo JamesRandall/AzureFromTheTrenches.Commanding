@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
 
@@ -6,19 +7,24 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Templates
 {
     public abstract class ControllerTemplate
     {
+        public ControllerTemplate()
+        {
+            Output = new StringBuilder();
+        }
+
         // this will map to @Model (property name)
-        public ControllerDefinition Model => new ControllerDefinition();
+        public ControllerDefinition Model { get; set; }
+
+        public StringBuilder Output { get; }
 
         public void WriteLiteral(string literal)
         {
-            // replace that by a text writer for example
-            Console.Write(literal);
+            Output.Append(literal);
         }
 
         public void Write(object obj)
         {
-            // replace that by a text writer for example
-            Console.Write(obj);
+            Output.Append(obj);
         }
 
         public virtual Task ExecuteAsync()

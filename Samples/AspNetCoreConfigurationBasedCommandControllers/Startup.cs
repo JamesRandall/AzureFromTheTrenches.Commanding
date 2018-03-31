@@ -54,11 +54,6 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                         {
                             actions.Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get);
                         });
-            }, (ms) =>
-            {
-                AssemblyLoadContext context = AssemblyLoadContext.Default;
-                Assembly assembly = context.LoadFromStream(ms);
-                return assembly;
             });
 
             app.UseMvc();
