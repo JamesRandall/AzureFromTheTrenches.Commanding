@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     interface IControllerCompiler
     {
-        void Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName);
+        Assembly Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName);
     }
 }

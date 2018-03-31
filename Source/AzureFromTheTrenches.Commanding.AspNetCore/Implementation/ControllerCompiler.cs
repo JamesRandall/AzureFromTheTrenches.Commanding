@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Templates;
@@ -19,7 +20,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             _syntaxTreeCompiler = syntaxTreeCompiler;
         }
 
-        public void Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName)
+        public Assembly Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName)
         {
             var templates = _controllerTemplateCompiler.CompileTemplates(definitions.Select(x => x.Name).ToArray());
             List<SyntaxTree> syntaxTrees = new List<SyntaxTree>();
@@ -36,6 +37,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             }
 
             Assembly controllersAssembly = _syntaxTreeCompiler.CompileAssembly(string.Concat(outputNamespaceName, ".dll"), syntaxTrees);
+            return controllersAssembly;
+            //return definitions.Select(x => controllersAssembly.GetType($"{outputNamespaceName}.{x.Name}")).ToArray();
         }
     }
 }

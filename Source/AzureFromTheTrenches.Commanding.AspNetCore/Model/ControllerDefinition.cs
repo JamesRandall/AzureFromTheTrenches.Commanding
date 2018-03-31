@@ -6,6 +6,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
     {
         public string Name { get; set; }
 
+        public string Namespace { get; set; }
+
         public string Route { get; set; }
 
         public IReadOnlyCollection<ActionDefinition> Actions { get; set; }

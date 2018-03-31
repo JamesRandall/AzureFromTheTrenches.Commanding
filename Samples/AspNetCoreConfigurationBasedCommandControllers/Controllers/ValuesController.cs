@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 {
     [Route("api/[controller]")]
-    public class PropertyValuesController : Controller
+    public class ValuesController : Controller
     {
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public PropertyValuesController(ICommandDispatcher commandDispatcher)
+        public ValuesController(ICommandDispatcher commandDispatcher)
         {
             _commandDispatcher = commandDispatcher;
         }

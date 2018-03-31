@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
+namespace @Model.Namespace
 {
     [Route("api/[controller]")]
     public class @Model.Name : Controller
