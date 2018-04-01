@@ -6,13 +6,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     internal class ControllerBuilder : IControllerBuilder
     {
-        private readonly string _namespaceName;
         private readonly Dictionary<string, ControllerDefinition> _controllers = new Dictionary<string, ControllerDefinition>();
-
-        public ControllerBuilder(string namespaceName)
-        {
-            _namespaceName = namespaceName;
-        }
 
         public IControllerBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
@@ -34,10 +28,20 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             {
                 Actions = actionBuilderInstance.Actions,
                 Name = resolvedName,
-                Namespace = _namespaceName,
                 Route = route
             };
             return this;
+        }
+
+        public void SetDefaultNamespace(string defaultNamespace)
+        {
+            foreach (ControllerDefinition definition in _controllers.Values)
+            {
+                if (string.IsNullOrWhiteSpace(definition.Namespace))
+                {
+                    definition.Namespace = defaultNamespace;
+                }
+            }
         }
 
         public IDictionary<string, ControllerDefinition> Controllers => _controllers;
