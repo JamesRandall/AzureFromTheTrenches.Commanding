@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
-using AzureFromTheTrenches.Commanding.AspNetCore.Templates;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
@@ -27,10 +27,9 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
             foreach (ControllerDefinition definition in definitions)
             {
-                ControllerTemplate template = templates[definition.Name];
-                template.Model = definition;
-                template.ExecuteAsync().Wait();
-                string controllerClassSource = template.Output.ToString();
+                Func<object,string> template = templates[definition.Name];
+                
+                string controllerClassSource = template(definition);
 
                 SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(controllerClassSource);
                 syntaxTrees.Add(syntaxTree);
@@ -38,7 +37,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
             Assembly controllersAssembly = _syntaxTreeCompiler.CompileAssembly(string.Concat(outputNamespaceName, ".dll"), syntaxTrees);
             return controllersAssembly;
-            //return definitions.Select(x => controllersAssembly.GetType($"{outputNamespaceName}.{x.Name}")).ToArray();
         }
     }
 }

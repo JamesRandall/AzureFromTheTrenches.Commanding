@@ -1,0 +1,36 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+
+namespace {{Namespace}}
+{
+    [Route("api/[controller]")]
+    public class {{Name}} : Controller
+    {
+        private readonly ICommandDispatcher _commandDispatcher;
+
+        public {{Name}} (ICommandDispatcher commandDispatcher)
+        {
+            _commandDispatcher = commandDispatcher;
+        }
+
+{{#each Actions}}
+        {{actionAttributes}}
+        public async Task<IActionResult> {{Verb}}({{bindingAttribute}}{{CommandType.FullName}} command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+    {{#if ResultType}}
+            var result = await _commandDispatcher.DispatchAsync(command);
+            return Ok(result);
+    {{else}}
+            await _commandDispatcher.DispatchAsync(command);
+            return Ok();
+    {{/if}}
+        }
+{{/each}}
+    }
+}

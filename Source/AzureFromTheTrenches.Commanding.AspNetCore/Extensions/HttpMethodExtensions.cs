@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Extensions
 {
-    public static class HttpMethodExtensions
+    internal static class HttpMethodExtensions
     {
         public static string ToControllerAttribute(this HttpMethod method)
         {

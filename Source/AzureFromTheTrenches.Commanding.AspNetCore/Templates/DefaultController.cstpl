@@ -19,8 +19,20 @@ namespace @Model.Namespace
 		@foreach(var action in Model.Actions)
 		{
 			@string.Concat(action.Verb.ToControllerAttribute(), "\n")
-			@:public async Task<IActionResult> @(action.Verb.ToMethodName())()
+			@:public async Task<IActionResult> @(action.Verb.ToMethodName())(@(action.CommandType.FullName) command)
 			{
+				@:if (!ModelState.IsValid)
+				{
+					return BadRequest(ModelState);
+				}
+
+				@if (action.ResultType != null)
+				{
+					@:var result = await _commandDispatcher.DispatchAsync(command);
+				}
+				else
+				{
+				}
 			}
 		}
     }

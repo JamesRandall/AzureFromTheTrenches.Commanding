@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
+    /*
     class ControllerTemplateCompiler : IControllerTemplateCompiler
     {
         private readonly string _outputNamespaceName;
@@ -117,5 +118,5 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             generatedCode = generatedCode.Replace("public class Template : ", $"public class {className} : ");
             return CSharpSyntaxTree.ParseText(generatedCode);
         }
-    }
+    }*/
 }

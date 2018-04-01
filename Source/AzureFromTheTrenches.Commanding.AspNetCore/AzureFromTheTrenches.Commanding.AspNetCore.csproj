@@ -6,15 +6,19 @@
 
   <ItemGroup>
     <None Remove="Templates\DefaultController.cstpl" />
+    <None Remove="Templates\DefaultController.handlebars" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Templates\DefaultController.cstpl" />
+    <EmbeddedResource Include="Templates\DefaultController.handlebars" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.0.2" />

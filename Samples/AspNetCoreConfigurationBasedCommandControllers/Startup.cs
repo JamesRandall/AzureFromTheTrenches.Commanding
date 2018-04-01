@@ -10,6 +10,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -45,7 +46,8 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                     cfg
                         .Controller("PropertyValue", actions =>
                         {
-                            actions.Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get)
+                            actions
+                                .Action<GetPropertyValueQuery, PropertyValue, FromQueryAttribute>(HttpMethod.Get)
                                 .Action<UpdatePropertyValueCommand>(HttpMethod.Put);
                             
                         });

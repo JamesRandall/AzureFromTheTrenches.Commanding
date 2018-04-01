@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,18 +18,44 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         {
             // TODO: We need to allow consumers of the package to be able to add their own metadata references / assemblies
             // so that they can add filter attributes in packages we haven't directly references (even custom fitlers)
-            MetadataReference[] references = new MetadataReference[]
+            Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            //Assembly[] dynamicAssemblies = loadedAssemblies.Where(x => x.IsDynamic).ToArray();
+            HashSet<string> locations = new HashSet<string>
+            {
+                typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location,
+                typeof(Microsoft.AspNetCore.Mvc.Controller).GetTypeInfo().Assembly.Location,
+                typeof(Microsoft.AspNetCore.Mvc.ControllerBase).GetTypeInfo().Assembly.Location,
+                typeof(Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor).GetTypeInfo().Assembly.Location,
+                typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location,
+                typeof(object).GetTypeInfo().Assembly.Location,
+                typeof(Hashtable).GetTypeInfo().Assembly.Location,
+                Assembly.GetExecutingAssembly().Location,
+                Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll"),
+                Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll")
+            };
+            foreach (Assembly assembly in loadedAssemblies)
+            {
+                if (!assembly.IsDynamic)
+                {
+                    locations.Add(assembly.Location);
+                }
+            }
+
+            MetadataReference[] references = locations.Select(x => MetadataReference.CreateFromFile(x)).ToArray();
+
+            /*List<MetadataReference> references = new List<MetadataReference>
             {
                 MetadataReference.CreateFromFile(typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location), 
                 MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.Controller).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc
                 MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.ControllerBase).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc.core
+                MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc.abstractions
                 MetadataReference.CreateFromFile(typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(Hashtable).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location), // this file (that contains the MyTemplate base class)
                 MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll")),
                 MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"))
-            };
+            };*/
 
             var compilation = CSharpCompilation.Create(outputAssemblyName,
                 syntaxTrees,

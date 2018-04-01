@@ -19,10 +19,11 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
             builder(builderInstance);
 
             ISyntaxTreeCompiler syntaxTreeCompiler = new SyntaxTreeCompiler();
-            IControllerTemplateCompiler controllerTemplateCompiler = new ControllerTemplateCompiler(
+            /*IControllerTemplateCompiler controllerTemplateCompiler = new ControllerTemplateCompiler(
                 "AzureFromTheTrenches.Commanding.AspNetCore.Controllers.Templates",
                 externalTemplateProvider,
-                syntaxTreeCompiler);
+                syntaxTreeCompiler);*/
+            IControllerTemplateCompiler controllerTemplateCompiler = new HandlebarsControllerTemplateCompiler(externalTemplateProvider);
             
             IControllerCompiler controllerCompiler = new ControllerCompiler(
                 controllerTemplateCompiler,
