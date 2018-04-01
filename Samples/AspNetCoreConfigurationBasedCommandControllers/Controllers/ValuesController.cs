@@ -25,9 +25,10 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get([FromQuery]string id)
+        public async Task<IActionResult> Get([FromQuery]string id)
         {
-            return "value";
+            var result = await _commandDispatcher.DispatchAsync(new GetPropertyValueQuery());
+            return Ok(result);
         }
 
         // POST api/values

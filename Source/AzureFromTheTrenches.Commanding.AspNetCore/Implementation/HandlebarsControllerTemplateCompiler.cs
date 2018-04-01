@@ -28,6 +28,11 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 {
                     writer.WriteLine($"[Route(\"{action.Route}\")]");
                 }
+
+                if (action.ResultType != null)
+                {
+                    writer.WriteLine($"[ProducesResponseType(typeof({action.ResultType.FullName}), 200)]");
+                }
             });
             Handlebars.RegisterHelper("bindingAttribute", (writer, context, parameters) =>
             {

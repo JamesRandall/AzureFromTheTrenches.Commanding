@@ -24,8 +24,8 @@ namespace {{Namespace}}
                 return BadRequest(ModelState);
             }
     {{#if ResultType}}
-            var result = await _commandDispatcher.DispatchAsync(command);
-            return Ok(result);
+            var commandResult = await _commandDispatcher.DispatchAsync(command);
+            return Ok(commandResult.Result);
     {{else}}
             await _commandDispatcher.DispatchAsync(command);
             return Ok();

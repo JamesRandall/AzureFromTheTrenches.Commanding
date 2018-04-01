@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore
@@ -32,8 +34,16 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
                 restCommandBuilderInstance.OutputNamespace);
             mvcBuilder.AddApplicationPart(assembly);
 
+            ICommandClaimsBinderProvider commandClaimsBinderProvider = new CommandClaimsBinderProvider();
+
             mvcBuilder.AddMvcOptions(options =>
             {
+                IModelBinderProvider bodyModelBinderProvider = options.ModelBinderProviders.Single(x => x is BodyModelBinderProvider);
+                IModelBinderProvider complexTypeModelBinderProvider = options.ModelBinderProviders.Single(x => x is ComplexTypeModelBinderProvider);
+                options.ModelBinderProviders.Insert(0,
+                    new ClaimsMappingModelBinderProvider(complexTypeModelBinderProvider, commandClaimsBinderProvider, BindingSource.Query));
+                options.ModelBinderProviders.Insert(0,
+                    new ClaimsMappingModelBinderProvider(bodyModelBinderProvider, commandClaimsBinderProvider, BindingSource.Body));
                 options.ModelMetadataDetailsProviders.Add(new SecurityPropertyBindingMetadataProvider());
             });
 
