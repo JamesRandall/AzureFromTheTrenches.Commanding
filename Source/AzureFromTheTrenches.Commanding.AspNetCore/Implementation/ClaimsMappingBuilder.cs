@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model;
@@ -9,24 +10,31 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     internal class ClaimsMappingBuilder : IClaimsMappingBuilder
     {
+        private readonly Dictionary<Type, IReadOnlyCollection<ClaimMapping>> _mappedCommands = new Dictionary<Type, IReadOnlyCollection<ClaimMapping>>();
+
         private readonly List<ClaimMappingDefinition> _claimMappingDefinitions = new List<ClaimMappingDefinition>();
 
-        private readonly Dictionary<Type, CommandClaimMappingDefinition> _commandClaimMappingDefinitions = new Dictionary<Type, CommandClaimMappingDefinition>();
+        private readonly Dictionary<Type, List<CommandClaimMappingDefinition>> _commandClaimMappingDefinitions = new Dictionary<Type, List<CommandClaimMappingDefinition>>();
 
-        public IClaimsMappingBuilder MapClaimToPropertyName(string claimType, string propertyName, StringComparison nameComparisonType= StringComparison.InvariantCultureIgnoreCase)
+        public IClaimsMappingBuilder MapClaimToPropertyName(string claimType, string propertyName)
         {
             _claimMappingDefinitions.Add(new ClaimMappingDefinition
             {
                 ClaimType = claimType,
-                PropertyName = propertyName,
-                StringComparison = nameComparisonType
+                PropertyName = propertyName
             });
             return this;
         }
 
         public IClaimsMappingBuilder MapClaimToCommandProperty<TCommand>(string claimType, Expression<Func<TCommand, object>> getProperty)
         {
-            _commandClaimMappingDefinitions.Add(typeof(TCommand), new CommandClaimMappingDefinition
+            if (!_commandClaimMappingDefinitions.TryGetValue(typeof(TCommand), out List<CommandClaimMappingDefinition> list))
+            {
+                list = new List<CommandClaimMappingDefinition>();
+                _commandClaimMappingDefinitions[typeof(TCommand)] = list;
+            }
+
+            list.Add(new CommandClaimMappingDefinition
             {
                 ClaimType = claimType,
                 CommandType = typeof(TCommand),
@@ -35,13 +43,46 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        public IReadOnlyCollection<ClaimMappingDefinition> ClaimMappingDefinitions => _claimMappingDefinitions;
-
-        public IDictionary<Type, CommandClaimMappingDefinition> CommandClaimMappingDefinitions => _commandClaimMappingDefinitions;
-
-        public IReadOnlyCollection<ClaimMapping> GetMappingsForCommandType(Type commandType)
+        internal IReadOnlyCollection<ClaimMapping> GetMappingsForCommandType(Type commandType)
         {
-            return new ClaimMapping[0];
+            if (_mappedCommands.TryGetValue(commandType, out IReadOnlyCollection<ClaimMapping> cachedResult))
+            {
+                return cachedResult;
+            }
+
+            Dictionary<string, PropertyInfo> commandProperties = commandType.GetProperties().ToDictionary(x => x.Name, x => x);
+            Dictionary<string, ClaimMapping> mappingsByPropertyName = new Dictionary<string, ClaimMapping>();
+            
+            // we do the generic non-command specific claim to property mappings first as these are overridden by any command
+            // specific mappings
+            foreach (ClaimMappingDefinition genericMappingDefinition in _claimMappingDefinitions)
+            {
+                if (commandProperties.TryGetValue(genericMappingDefinition.PropertyName, out PropertyInfo property))
+                {
+                    mappingsByPropertyName[property.Name] = new ClaimMapping
+                    {
+                        FromClaimType = genericMappingDefinition.ClaimType,
+                        ToPropertyName = property.Name,
+                        ToPropertyType = property.PropertyType.FullName
+                    };
+                }
+            }
+
+            // then we do command specific mappings, these override generic mappings
+            if (_commandClaimMappingDefinitions.TryGetValue(commandType, out List<CommandClaimMappingDefinition> commandClaimMappingDefinitions))
+            {
+                foreach (CommandClaimMappingDefinition definition in commandClaimMappingDefinitions)
+                {
+                    mappingsByPropertyName[definition.PropertyInfo.Name] = new ClaimMapping
+                    {
+                        FromClaimType = definition.ClaimType,
+                        ToPropertyName = definition.PropertyInfo.Name,
+                        ToPropertyType = definition.PropertyInfo.PropertyType.FullName
+                    };
+                }
+            }
+
+            return mappingsByPropertyName.Values;
         }
     }
 }

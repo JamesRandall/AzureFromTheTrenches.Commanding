@@ -13,10 +13,17 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// </summary>
         /// <param name="claimType"></param>
         /// <param name="propertyName"></param>
-        /// <param name="nameComparisonType">Type of string comparison to use, default to invariant culture ignore case</param>
         /// <returns></returns>
-        IClaimsMappingBuilder MapClaimToPropertyName(string claimType, string propertyName, StringComparison nameComparisonType = StringComparison.InvariantCultureIgnoreCase);
+        IClaimsMappingBuilder MapClaimToPropertyName(string claimType, string propertyName);
 
+        /// <summary>
+        /// Maps a claim to a property on a specific command type. These mappings will take precedence over the geneic claim name
+        /// to property name mappings
+        /// </summary>
+        /// <typeparam name="TCommand">The type of command</typeparam>
+        /// <param name="claimType">The claim type</param>
+        /// <param name="getProperty">The property of the command to map to</param>
+        /// <returns></returns>
         IClaimsMappingBuilder MapClaimToCommandProperty<TCommand>(string claimType, Expression<Func<TCommand, object>> getProperty);
     }
 }
