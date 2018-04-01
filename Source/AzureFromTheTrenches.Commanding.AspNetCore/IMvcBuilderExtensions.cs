@@ -16,19 +16,19 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// <param name="configurationBuilder">An action accepting a configuration builder</param>
         /// <returns>The MVC builder</returns>
         public static IMvcBuilder AddAspNetCoreCommanding(this IMvcBuilder mvcBuilder,
-            Action<IConfigurationBuilder> configurationBuilder)
+            Action<IRestCommandBuilder> configurationBuilder)
         {
-            ConfigurationBuilder configurationBuilderInstance = new ConfigurationBuilder();
-            configurationBuilder(configurationBuilderInstance);
-            configurationBuilderInstance.SetDefaultNamespaceOnControllers();
+            RestCommandBuilder restCommandBuilderInstance = new RestCommandBuilder();
+            configurationBuilder(restCommandBuilderInstance);
+            restCommandBuilderInstance.SetDefaultNamespaceOnControllers();
 
             ISyntaxTreeCompiler syntaxTreeCompiler = new SyntaxTreeCompiler();
-            IControllerTemplateCompiler controllerTemplateCompiler = new HandlebarsControllerTemplateCompiler(configurationBuilderInstance.ExternalTemplateProvider);
+            IControllerTemplateCompiler controllerTemplateCompiler = new HandlebarsControllerTemplateCompiler(restCommandBuilderInstance.ExternalTemplateProvider);
             IControllerCompiler controllerCompiler = new ControllerCompiler(
                 controllerTemplateCompiler,
                 syntaxTreeCompiler);
-            Assembly assembly = controllerCompiler.Compile(configurationBuilderInstance.ControllerBuilder.Controllers.Values.ToArray(),
-                configurationBuilderInstance.OutputNamespace);
+            Assembly assembly = controllerCompiler.Compile(restCommandBuilderInstance.ControllerBuilder.Controllers.Values.ToArray(),
+                restCommandBuilderInstance.OutputNamespace);
             mvcBuilder.AddApplicationPart(assembly);
 
             return mvcBuilder;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
-    internal class ConfigurationBuilder : IConfigurationBuilder
+    internal class RestCommandBuilder : IRestCommandBuilder
     {
         internal ControllerBuilder ControllerBuilder { get; }
 
@@ -15,31 +15,31 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
         internal Action<string> ConstructedCodeLogger { get; set; }
 
-        public ConfigurationBuilder()
+        public RestCommandBuilder()
         {
             ControllerBuilder = new ControllerBuilder();
             OutputNamespace = "AzureFromTheTrenches.Commanding.AspNetCore.Controllers";
         }
 
-        public IConfigurationBuilder Controllers(Action<IControllerBuilder> controllerBuilderAction)
+        public IRestCommandBuilder Controllers(Action<IControllerBuilder> controllerBuilderAction)
         {
             controllerBuilderAction(ControllerBuilder);
             return this;
         }
 
-        public IConfigurationBuilder SetOutputNamespace(string outputNamespace)
+        public IRestCommandBuilder SetOutputNamespace(string outputNamespace)
         {
             OutputNamespace = outputNamespace;
             return this;
         }
 
-        public IConfigurationBuilder SetExternalTemplateProvider(Func<string, Stream> externalTemplateProvider)
+        public IRestCommandBuilder SetExternalTemplateProvider(Func<string, Stream> externalTemplateProvider)
         {
             ExternalTemplateProvider = externalTemplateProvider;
             return this;
         }
 
-        public IConfigurationBuilder SetConstructedCodeLogger(Action<string> logger)
+        public IRestCommandBuilder SetConstructedCodeLogger(Action<string> logger)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             ControllerBuilder.SetDefaultNamespace(OutputNamespace);
         }
 
-        public IConfigurationBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
+        public IRestCommandBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
             ControllerBuilder.Controller(controller, actionBuilder);
             return this;
