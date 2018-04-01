@@ -8,7 +8,7 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Commands
     public class GetPropertyValueQuery : ICommand<PropertyValue>
     {
         [SecurityProperty]
-        public string UserId { get; set; }
+        public string MisspelledUserId { get; set; }
 
         public string Fqn { get; set; }
     }

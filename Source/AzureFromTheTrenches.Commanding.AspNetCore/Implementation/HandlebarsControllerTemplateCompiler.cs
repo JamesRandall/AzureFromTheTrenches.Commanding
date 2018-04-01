@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using AzureFromTheTrenches.Commanding.AspNetCore.Extensions;
-using AzureFromTheTrenches.Commanding.AspNetCore.Model;
+using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         {
             Handlebars.RegisterHelper("actionAttributes", (writer, context, parameters) =>
             {
-                if (!(context is ActionDefinition action))
+                if (!(context is AugmentedActionDefinition action))
                 {
                     throw new TemplateCompilationException("The actionAttributes helper can only be uesd with an ActionDefinition");
                 }
@@ -31,7 +31,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             });
             Handlebars.RegisterHelper("bindingAttribute", (writer, context, parameters) =>
             {
-                if (!(context is ActionDefinition action))
+                if (!(context is AugmentedActionDefinition action))
                 {
                     throw new TemplateCompilationException("The bindingAttribute helper can only be uesd with an ActionDefinition");
                 }

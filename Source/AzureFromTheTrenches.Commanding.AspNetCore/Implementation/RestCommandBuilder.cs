@@ -14,9 +14,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         internal Func<string, Stream> ExternalTemplateProvider { get; set; }
 
         internal Action<string> ConstructedCodeLogger { get; set; }
+        
+        internal ClaimsMappingBuilder ClaimsMappingBuilder { get; }
 
         public RestCommandBuilder()
         {
+            ClaimsMappingBuilder = new ClaimsMappingBuilder();
             ControllerBuilder = new ControllerBuilder();
             OutputNamespace = "AzureFromTheTrenches.Commanding.AspNetCore.Controllers";
         }
@@ -52,6 +55,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         public IRestCommandBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
             ControllerBuilder.Controller(controller, actionBuilder);
+            return this;
+        }
+
+        public IRestCommandBuilder Claims(Action<IClaimsMappingBuilder> claimsMappingBuilder)
+        {
+            claimsMappingBuilder(ClaimsMappingBuilder);
             return this;
         }
     }

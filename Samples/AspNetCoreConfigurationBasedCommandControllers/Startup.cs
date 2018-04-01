@@ -38,20 +38,31 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                 (fromType, toInstance) => services.AddSingleton(fromType, toInstance),
                 (fromType, toType) => services.AddTransient(fromType, toType),
                 (resolveTo) => _serviceProvider.GetService(resolveTo));
+
             ICommandRegistry registry = resolver.UseCommanding();
             registry.Register<UpdatePropertyValueCommandHandler>();
             registry.Register<GetPropertyValueQueryHandler>();
+            registry.Register<GetMessageQueryHandler>();
 
             services
                 .AddMvc()
                 .AddAspNetCoreCommanding(cfg =>
                 {
                     cfg
+                        // Define RESTful controllers and actions based on commands
                         .Controller("PropertyValue", actions =>
                         {
                             actions
                                 .Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get)
                                 .Action<UpdatePropertyValueCommand>(HttpMethod.Put);
+                        })
+                        .Controller("Message", actions => { actions.Action<GetMessageQuery, string>(HttpMethod.Get); })
+                        // Configure claims to automatically populate properties on commands
+                        .Claims(mapping =>
+                        {
+                            mapping
+                                .MapClaimToCommandProperty<GetPropertyValueQuery>("UserId", cmd => cmd.MisspelledUserId)
+                                .MapClaimToPropertyName("UserId", "UserId");
                         });
                 });
 

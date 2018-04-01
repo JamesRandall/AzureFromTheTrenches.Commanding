@@ -2,12 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore
 {
@@ -31,7 +26,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
             IControllerTemplateCompiler controllerTemplateCompiler = new HandlebarsControllerTemplateCompiler(restCommandBuilderInstance.ExternalTemplateProvider);
             IControllerCompiler controllerCompiler = new ControllerCompiler(
                 controllerTemplateCompiler,
-                syntaxTreeCompiler);
+                syntaxTreeCompiler,
+                restCommandBuilderInstance.ClaimsMappingBuilder);
             Assembly assembly = controllerCompiler.Compile(restCommandBuilderInstance.ControllerBuilder.Controllers.Values.ToArray(),
                 restCommandBuilderInstance.OutputNamespace);
             mvcBuilder.AddApplicationPart(assembly);

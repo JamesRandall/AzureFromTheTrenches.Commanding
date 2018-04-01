@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,12 +13,15 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
     {
         private readonly IControllerTemplateCompiler _controllerTemplateCompiler;
         private readonly ISyntaxTreeCompiler _syntaxTreeCompiler;
+        private readonly ClaimsMappingBuilder _claimsMappingBuilder;
 
         public ControllerCompiler(IControllerTemplateCompiler controllerTemplateCompiler,
-            ISyntaxTreeCompiler syntaxTreeCompiler)
+            ISyntaxTreeCompiler syntaxTreeCompiler,
+            ClaimsMappingBuilder claimsMappingBuilder)
         {
             _controllerTemplateCompiler = controllerTemplateCompiler;
             _syntaxTreeCompiler = syntaxTreeCompiler;
+            _claimsMappingBuilder = claimsMappingBuilder;
         }
 
         public Assembly Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName)
@@ -29,7 +33,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             {
                 Func<object,string> template = templates[definition.Name];
                 
-                string controllerClassSource = template(definition);
+                string controllerClassSource = template(AugmentedControllerDefinition.FromControllerDefinition(definition, _claimsMappingBuilder));
 
                 SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(controllerClassSource);
                 syntaxTrees.Add(syntaxTree);
