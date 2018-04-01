@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle\AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.csproj" />
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding.AspNetCore\AzureFromTheTrenches.Commanding.AspNetCore.csproj" />
     <ProjectReference Include="..\..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>

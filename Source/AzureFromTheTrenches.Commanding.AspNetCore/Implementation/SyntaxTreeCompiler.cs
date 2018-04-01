@@ -41,21 +41,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 }
             }
 
-            MetadataReference[] references = locations.Select(x => MetadataReference.CreateFromFile(x)).ToArray();
-
-            /*List<MetadataReference> references = new List<MetadataReference>
-            {
-                MetadataReference.CreateFromFile(typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location), 
-                MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.Controller).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc
-                MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.ControllerBase).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc.core
-                MetadataReference.CreateFromFile(typeof(Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor).GetTypeInfo().Assembly.Location), // microsoft.aspnetcore.mvc.abstractions
-                MetadataReference.CreateFromFile(typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(Hashtable).GetTypeInfo().Assembly.Location),
-                MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location), // this file (that contains the MyTemplate base class)
-                MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll")),
-                MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"))
-            };*/
+            MetadataReference[] references = locations.Select(x => MetadataReference.CreateFromFile(x)).ToArray();            
 
             var compilation = CSharpCompilation.Create(outputAssemblyName,
                 syntaxTrees,
