@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>8.0.0</Version>
+    <Version>7.2.0</Version>
     <Authors>James Randall</Authors>
     <Company>James Randall</Company>
     <Product>Azure From The Trenches Commanding</Product>
@@ -12,7 +12,6 @@
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

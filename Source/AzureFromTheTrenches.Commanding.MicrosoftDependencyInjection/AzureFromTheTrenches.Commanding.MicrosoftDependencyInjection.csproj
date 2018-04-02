@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>James Randall</Authors>
     <Company>James Randall</Company>
-    <Version>8.0.0</Version>
+    <Version>7.2.0</Version>
     <Product>Azure From The Trenches Commanding</Product>
     <Description>Helper class for users of the Microsoft Dependency Injection abstractions.</Description>
     <Copyright>Copyright 2017 James Randall</Copyright>
@@ -12,7 +12,6 @@
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
