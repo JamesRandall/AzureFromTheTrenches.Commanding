@@ -82,6 +82,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web", "Tests\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.csproj", "{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance", "Tests\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.csproj", "{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +218,10 @@ Global
 		{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +258,7 @@ Global
 		{F39ADC55-8DE2-4CC4-87A7-56A94AC243F2} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{EFC15F1D-238A-45DF-B02A-D2DF6554E31B} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
+		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D} = {DDB55A76-331C-41A0-BA9B-60E6A22B4E4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}

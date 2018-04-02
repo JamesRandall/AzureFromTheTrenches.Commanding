@@ -33,11 +33,21 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 _commandClaimMappingDefinitions[typeof(TCommand)] = list;
             }
 
+            PropertyInfo propertyInfo;
+            if (getProperty.Body is UnaryExpression unaryExpression)
+            {
+                propertyInfo = (PropertyInfo)((MemberExpression) unaryExpression.Operand).Member;
+            }
+            else
+            {
+                propertyInfo = (PropertyInfo) ((MemberExpression) getProperty.Body).Member;
+            }
+
             list.Add(new CommandClaimMappingDefinition
             {
                 ClaimType = claimType,
                 CommandType = typeof(TCommand),
-                PropertyInfo = (PropertyInfo)((MemberExpression)getProperty.Body).Member
+                PropertyInfo = propertyInfo
             });
             return this;
         }

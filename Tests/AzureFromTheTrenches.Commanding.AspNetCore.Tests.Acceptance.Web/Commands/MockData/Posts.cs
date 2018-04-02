@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.Responses;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.MockData
 {
     public static class Posts
     {
-        public static readonly List<Post> Items = new List<Post>
+        public static readonly ConcurrentBag<Post> Items = new ConcurrentBag<Post>
         {
             new Post()
             {
@@ -17,9 +17,9 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Comman
             },
             new Post()
             {
-                Id = Guid.NewGuid(),
+                Id = Constants.PresetUserAuthoredPostId,
                 AuthorId = Constants.UserId,
-                Title = "Another post",
+                Title = "Authored user post",
                 Body = "Authored by logged in user"
             }
         };

@@ -46,6 +46,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             registry.Register<GetPostsQueryHandler>();
             registry.Register<GetPostQueryHandler>();
             registry.Register<GetPostsForCurrentUserQueryHandler>();
+            registry.Register<AddNewPostCommandHandler>();
 
             // Register our expensive operation command to be sent to a queue
             registry.Register<ExpensiveOperationCommand>(
@@ -62,16 +63,21 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                 .AddAspNetCoreCommanding(cfg => cfg
                     .Controller("Add", controller => controller
                         .Action<AddCommand>(HttpMethod.Get))
-                    .Controller("Posts", controller => controller
+                    .Controller("Post", controller => controller
                         .Action<GetPostsQuery>(HttpMethod.Get)
                         .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{postId}")
+                        .Action<AddNewPostCommand>(HttpMethod.Post)
                         )
                     .Controller("Profile", controller => controller
                         .Action<GetPostsForCurrentUserQuery>(HttpMethod.Get, "Posts"))
                     .Controller("ExpensiveOperation", controller => controller
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
                     .Claims(mapper => mapper
-                        .MapClaimToPropertyName("UserId", "UserId"))
+                        // this will map the claim UserId to every property on a command called UserId
+                        // this can be used if a convention based approach is being used
+                        .MapClaimToPropertyName("UserId", "UserId")
+                        // this will map the claim UserId to the property AuthorId on the AddNewPostCommand command
+                        .MapClaimToCommandProperty<AddNewPostCommand>("UserId", cmd => cmd.AuthorId))
                     .LogControllerCode(code =>
                     {
                         // this will output the code that is compiled for each controller to the debug window
