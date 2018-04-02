@@ -24,7 +24,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             if (bindingContext.HttpContext.User != null && _commandClaimsBinderProvider.TryGet(bindingContext.ModelType, out Action<object, ClaimsPrincipal> binder))
             {
                 binder(bindingContext.Result.Model, bindingContext.HttpContext.User);
-            }   
+            }
         }
     }
 }
