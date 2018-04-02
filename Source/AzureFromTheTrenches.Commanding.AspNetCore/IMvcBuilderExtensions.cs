@@ -43,6 +43,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
                 options.ModelBinderProviders.Insert(0,
                     new ClaimsMappingModelBinderProvider(complexTypeModelBinderProvider, commandClaimsBinderProvider, BindingSource.Query));
                 options.ModelBinderProviders.Insert(0,
+                    new ClaimsMappingModelBinderProvider(complexTypeModelBinderProvider, commandClaimsBinderProvider, BindingSource.Path));
+                options.ModelBinderProviders.Insert(0,
                     new ClaimsMappingModelBinderProvider(bodyModelBinderProvider, commandClaimsBinderProvider, BindingSource.Body));
                 options.ModelMetadataDetailsProviders.Add(new SecurityPropertyBindingMetadataProvider());
             });

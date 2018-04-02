@@ -58,6 +58,21 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 ParameterExpression claimsPrincipalParameter = Expression.Parameter(typeof(ClaimsPrincipal));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(object));
 
+                // For each claim mapping this essentially builds out C# like the following for string properties
+                //
+                //    Claim claim = claimsPrincipal.FindFirst("UserId");
+                //    if (claim != null)
+                //    {
+                //        query.StringProperty = claim.Value;
+                //    }
+                //
+                // And like this for value properties (or in fact any type that has a static method Parse(string)):
+                //
+                //    Claim claim = claimsPrincipal.FindFirst("UserId");
+                //    if (claim != null)
+                //    {
+                //        query.IntProperty = int.Parse(claim.Value);
+                //    }
                 foreach (ClaimMapping mapping in mappings)
                 {                    
                     ParameterExpression claimVariable = Expression.Variable(typeof(Claim));
@@ -88,7 +103,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                     Expression block = Expression.Block(
                         new [] { claimVariable},
                         Expression.Assign(claimVariable, Expression.Call(claimsPrincipalParameter, findFirstClaim, Expression.Constant(mapping.FromClaimType))),
-                        Expression.IfThen(Expression.Equal(claimVariable, Expression.Constant(null)),
+                        Expression.IfThen(Expression.NotEqual(claimVariable, Expression.Constant(null)),
                             Expression.Call(
                                 Expression.Convert(commandParameter, commandType),
                                 mapping.ToPropertyInfo.SetMethod, claimValueParserExpression))
