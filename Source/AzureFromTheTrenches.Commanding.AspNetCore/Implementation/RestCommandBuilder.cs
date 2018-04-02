@@ -1,22 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     internal class RestCommandBuilder : IRestCommandBuilder
     {
-        internal ControllerBuilder ControllerBuilder { get; }
-
-        internal string OutputNamespace { get; set; }
-
-        internal Func<string, Stream> ExternalTemplateProvider { get; set; }
-
-        internal Action<string> ConstructedCodeLogger { get; set; }
-        
-        internal ClaimsMappingBuilder ClaimsMappingBuilder { get; }
-
         public RestCommandBuilder()
         {
             ClaimsMappingBuilder = new ClaimsMappingBuilder();
@@ -24,27 +13,39 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             OutputNamespace = "AzureFromTheTrenches.Commanding.AspNetCore.Controllers";
         }
 
-        public IRestCommandBuilder Controllers(Action<IControllerBuilder> controllerBuilderAction)
+        IRestCommandBuilder IRestCommandBuilder.Controllers(Action<IControllerBuilder> controllerBuilderAction)
         {
             controllerBuilderAction(ControllerBuilder);
             return this;
         }
 
-        public IRestCommandBuilder SetOutputNamespace(string outputNamespace)
+        IRestCommandBuilder IRestCommandBuilder.SetOutputNamespace(string outputNamespace)
         {
             OutputNamespace = outputNamespace;
             return this;
         }
 
-        public IRestCommandBuilder SetExternalTemplateProvider(Func<string, Stream> externalTemplateProvider)
+        IRestCommandBuilder IRestCommandBuilder.SetExternalTemplateProvider(Func<string, Stream> externalTemplateProvider)
         {
             ExternalTemplateProvider = externalTemplateProvider;
             return this;
         }
 
-        public IRestCommandBuilder SetConstructedCodeLogger(Action<string> logger)
+        IRestCommandBuilder IRestCommandBuilder.SetConstructedCodeLogger(Action<string> logger)
         {
             throw new NotImplementedException();
+        }
+
+        IRestCommandBuilder IRestCommandBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)
+        {
+            ((IControllerBuilder)ControllerBuilder).Controller(controller, actionBuilder);
+            return this;
+        }
+
+        IRestCommandBuilder IRestCommandBuilder.Claims(Action<IClaimsMappingBuilder> claimsMappingBuilder)
+        {
+            claimsMappingBuilder(ClaimsMappingBuilder);
+            return this;
         }
 
         public void SetDefaultNamespaceOnControllers()
@@ -52,16 +53,19 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             ControllerBuilder.SetDefaultNamespace(OutputNamespace);
         }
 
-        public IRestCommandBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
-        {
-            ControllerBuilder.Controller(controller, actionBuilder);
-            return this;
-        }
+        public ControllerBuilder ControllerBuilder { get; }
 
-        public IRestCommandBuilder Claims(Action<IClaimsMappingBuilder> claimsMappingBuilder)
+        public string OutputNamespace { get; set; }
+
+        public Func<string, Stream> ExternalTemplateProvider { get; set; }
+
+        public Action<string> ConstructedCodeLogger { get; set; }
+
+        public ClaimsMappingBuilder ClaimsMappingBuilder { get; }
+
+        public IReadOnlyCollection<Type> GetRegisteredCommandTypes()
         {
-            claimsMappingBuilder(ClaimsMappingBuilder);
-            return this;
+            return ControllerBuilder.GetRegisteredCommandTypes();
         }
     }
 }

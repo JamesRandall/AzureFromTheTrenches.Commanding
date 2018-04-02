@@ -8,12 +8,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
     {
         private readonly Dictionary<string, ControllerDefinition> _controllers = new Dictionary<string, ControllerDefinition>();
 
-        public IControllerBuilder Controller(string controller, Action<IActionBuilder> actionBuilder)
+        IControllerBuilder IControllerBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
-            return Controller(controller, null, actionBuilder);
+            return ((IControllerBuilder)this).Controller(controller, null, actionBuilder);
         }
 
-        public IControllerBuilder Controller(string controller, string route, Action<IActionBuilder> actionBuilder) // TODO: we need to allow attributes to be specified
+        IControllerBuilder IControllerBuilder.Controller(string controller, string route, Action<IActionBuilder> actionBuilder) // TODO: we need to allow attributes to be specified
         {
             if (_controllers.ContainsKey(controller))
             {
@@ -45,5 +45,19 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         }
 
         public IDictionary<string, ControllerDefinition> Controllers => _controllers;
+
+        public IReadOnlyCollection<Type> GetRegisteredCommandTypes()
+        {
+            HashSet<Type> commandTypes = new HashSet<Type>();
+            foreach (ControllerDefinition definition in _controllers.Values)
+            {
+                foreach (ActionDefinition action in definition.Actions)
+                {
+                    commandTypes.Add(action.CommandType);
+                }
+            }
+
+            return commandTypes;
+        }
     }
 }

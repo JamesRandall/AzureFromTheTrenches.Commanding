@@ -33,8 +33,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model
                 BindingAttributeType = from.BindingAttributeType,
                 CommandType = from.CommandType,
                 ResultType = from.ResultType,
-                Verb = from.Verb,
-                ClaimMappings = claimsBuilder.GetMappingsForCommandType(from.CommandType)
+                Verb = from.Verb
             };
         }
     }

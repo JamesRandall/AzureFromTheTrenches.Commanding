@@ -1,11 +1,11 @@
-﻿namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model
+﻿using System.Reflection;
+
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model
 {
     internal class ClaimMapping
     {
         public string FromClaimType { get; set; }
 
-        public string ToPropertyName { get; set; }
-
-        public string ToPropertyType { get; set; }
+        public PropertyInfo ToPropertyInfo { get; set; }        
     }
 }

@@ -34,7 +34,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
                 restCommandBuilderInstance.OutputNamespace);
             mvcBuilder.AddApplicationPart(assembly);
 
-            ICommandClaimsBinderProvider commandClaimsBinderProvider = new CommandClaimsBinderProvider();
+            ICommandClaimsBinderProvider commandClaimsBinderProvider = restCommandBuilderInstance.ClaimsMappingBuilder.Build(restCommandBuilderInstance.GetRegisteredCommandTypes());
 
             mvcBuilder.AddMvcOptions(options =>
             {

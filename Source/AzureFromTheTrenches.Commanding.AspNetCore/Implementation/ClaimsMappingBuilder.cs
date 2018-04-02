@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Claims;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
@@ -10,8 +11,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     internal class ClaimsMappingBuilder : IClaimsMappingBuilder
     {
-        private readonly Dictionary<Type, IReadOnlyCollection<ClaimMapping>> _mappedCommands = new Dictionary<Type, IReadOnlyCollection<ClaimMapping>>();
-
         private readonly List<ClaimMappingDefinition> _claimMappingDefinitions = new List<ClaimMappingDefinition>();
 
         private readonly Dictionary<Type, List<CommandClaimMappingDefinition>> _commandClaimMappingDefinitions = new Dictionary<Type, List<CommandClaimMappingDefinition>>();
@@ -43,13 +42,71 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        internal IReadOnlyCollection<ClaimMapping> GetMappingsForCommandType(Type commandType)
+        public ICommandClaimsBinderProvider Build(IReadOnlyCollection<Type> commandTypes)
         {
-            if (_mappedCommands.TryGetValue(commandType, out IReadOnlyCollection<ClaimMapping> cachedResult))
+            Type claimsPrincipalType = typeof(ClaimsPrincipal);
+            MethodInfo findFirstClaim = claimsPrincipalType.GetMethod("FindFirst", new []{ typeof(string) });
+            Type claimType = typeof(Claim);
+            MethodInfo getClaimValue = claimType.GetProperty("Value").GetMethod;
+            Dictionary<Type, Action<object, ClaimsPrincipal>> compiledClaimMappers = new Dictionary<Type, Action<object, ClaimsPrincipal>>();
+            
+            foreach (Type commandType in commandTypes)
             {
-                return cachedResult;
+                IReadOnlyCollection<ClaimMapping> mappings = GetMappingsForCommandType(commandType);
+
+                List<Expression> blocks = new List<Expression>();
+                ParameterExpression claimsPrincipalParameter = Expression.Parameter(typeof(ClaimsPrincipal));
+                ParameterExpression commandParameter = Expression.Parameter(typeof(object));
+
+                foreach (ClaimMapping mapping in mappings)
+                {                    
+                    ParameterExpression claimVariable = Expression.Variable(typeof(Claim));
+
+                    Expression claimValueParserExpression;
+                    if (mapping.ToPropertyInfo.PropertyType == typeof(string))
+                    {
+                        claimValueParserExpression = Expression.Call(claimVariable, getClaimValue);
+                    }
+                    else
+                    {
+                        MethodInfo parseMethod = mapping.ToPropertyInfo.PropertyType.GetMethod("Parse",
+                            BindingFlags.Public | BindingFlags.Static,
+                            null,
+                            new [] { typeof(string)},
+                            null);
+                        if (parseMethod == null)
+                        {
+                            throw new ClaimMappingCompilationException(
+                                commandType,
+                                mapping.FromClaimType,
+                                mapping.ToPropertyInfo.Name,
+                                mapping.ToPropertyInfo.PropertyType);
+                        }
+                        claimValueParserExpression = Expression.Call(parseMethod, Expression.Call(claimVariable, getClaimValue));
+                    }
+
+                    Expression block = Expression.Block(
+                        new [] { claimVariable},
+                        Expression.Assign(claimVariable, Expression.Call(claimsPrincipalParameter, findFirstClaim, Expression.Constant(mapping.FromClaimType))),
+                        Expression.IfThen(Expression.Equal(claimVariable, Expression.Constant(null)),
+                            Expression.Call(
+                                Expression.Convert(commandParameter, commandType),
+                                mapping.ToPropertyInfo.SetMethod, claimValueParserExpression))
+                    );
+                    blocks.Add(block);
+                }
+
+                var lambda = Expression.Lambda<Action<object, ClaimsPrincipal>>(Expression.Block(blocks), commandParameter,
+                    claimsPrincipalParameter);
+                Action<object, ClaimsPrincipal> compiledMapper = lambda.Compile();
+                compiledClaimMappers[commandType] = compiledMapper;
             }
 
+            return new CommandClaimsBinderProvider(compiledClaimMappers);
+        }
+
+        private IReadOnlyCollection<ClaimMapping> GetMappingsForCommandType(Type commandType)
+        {
             Dictionary<string, PropertyInfo> commandProperties = commandType.GetProperties().ToDictionary(x => x.Name, x => x);
             Dictionary<string, ClaimMapping> mappingsByPropertyName = new Dictionary<string, ClaimMapping>();
             
@@ -62,8 +119,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                     mappingsByPropertyName[property.Name] = new ClaimMapping
                     {
                         FromClaimType = genericMappingDefinition.ClaimType,
-                        ToPropertyName = property.Name,
-                        ToPropertyType = property.PropertyType.FullName
+                        ToPropertyInfo = property                        
                     };
                 }
             }
@@ -76,8 +132,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                     mappingsByPropertyName[definition.PropertyInfo.Name] = new ClaimMapping
                     {
                         FromClaimType = definition.ClaimType,
-                        ToPropertyName = definition.PropertyInfo.Name,
-                        ToPropertyType = definition.PropertyInfo.PropertyType.FullName
+                        ToPropertyInfo = definition.PropertyInfo
                     };
                 }
             }

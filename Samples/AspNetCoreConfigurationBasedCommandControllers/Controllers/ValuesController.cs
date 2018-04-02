@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCoreConfigurationBasedCommandControllers.Commands;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -27,7 +28,13 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromQuery]string id)
         {
-            var result = await _commandDispatcher.DispatchAsync(new GetPropertyValueQuery());
+            GetPropertyValueQuery query = new GetPropertyValueQuery();
+            ClaimsPrincipal claimsPrincipal = User;
+
+            Claim claim = claimsPrincipal.FindFirst("UserId");
+            query.MisspelledUserId = claim.Value;
+
+            var result = await _commandDispatcher.DispatchAsync(query);
             return Ok(result);
         }
 
