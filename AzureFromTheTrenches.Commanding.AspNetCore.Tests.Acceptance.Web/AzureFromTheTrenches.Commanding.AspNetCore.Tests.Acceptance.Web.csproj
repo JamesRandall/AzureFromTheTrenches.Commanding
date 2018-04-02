@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Source\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\Source\AzureFromTheTrenches.Commanding.AspNetCore\AzureFromTheTrenches.Commanding.AspNetCore.csproj" />
+    <ProjectReference Include="..\Source\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
+  </ItemGroup>
+
+</Project>

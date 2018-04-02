@@ -54,10 +54,10 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                         .Controller("PropertyValue", actions =>
                         {
                             actions
-                                .Action<GetPropertyValueQuery, PropertyValue>(HttpMethod.Get)
+                                .Action<GetPropertyValueQuery>(HttpMethod.Get)
                                 .Action<UpdatePropertyValueCommand>(HttpMethod.Put);
                         })
-                        .Controller("Message", actions => { actions.Action<GetMessageQuery, string>(HttpMethod.Get); })
+                        .Controller("Message", actions => { actions.Action<GetMessageQuery>(HttpMethod.Get); })
                         // Configure claims to automatically populate properties on commands
                         .Claims(mapping =>
                         {

@@ -12,12 +12,14 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
     {
         private readonly IControllerTemplateCompiler _controllerTemplateCompiler;
         private readonly ISyntaxTreeCompiler _syntaxTreeCompiler;
+        private readonly Action<string> _constructedCodeLogger;
 
         public ControllerCompiler(IControllerTemplateCompiler controllerTemplateCompiler,
-            ISyntaxTreeCompiler syntaxTreeCompiler)
+            ISyntaxTreeCompiler syntaxTreeCompiler, Action<string> constructedCodeLogger)
         {
             _controllerTemplateCompiler = controllerTemplateCompiler;
             _syntaxTreeCompiler = syntaxTreeCompiler;
+            _constructedCodeLogger = constructedCodeLogger;
         }
 
         public Assembly Compile(IReadOnlyCollection<ControllerDefinition> definitions, string outputNamespaceName)
@@ -30,6 +32,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 Func<object,string> template = templates[definition.Name];
                 
                 string controllerClassSource = template(definition);
+
+                _constructedCodeLogger?.Invoke(controllerClassSource);
 
                 SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(controllerClassSource);
                 syntaxTrees.Add(syntaxTree);
