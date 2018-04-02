@@ -124,3 +124,6 @@ nuget-cmdline
 Help
 
 .vs
+
+#Rider
+.idea
