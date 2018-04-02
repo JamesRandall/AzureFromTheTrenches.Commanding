@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>1.0.0-beta</Version>
+    <Authors>James Randall</Authors>
+    <Product>Azure From The Trenches Commanding</Product>
+    <Description>Adds configuration based REST APIs for commands</Description>
+    <Copyright>Copyright 2018 James Randall</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
