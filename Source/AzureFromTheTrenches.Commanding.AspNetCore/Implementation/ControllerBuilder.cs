@@ -33,10 +33,14 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        public void SetDefaultNamespace(string defaultNamespace)
+        public void SetDefaults(string defaultNamespace, string defaultControllerRoute)
         {
             foreach (ControllerDefinition definition in _controllers.Values)
             {
+                if (string.IsNullOrWhiteSpace(definition.Route))
+                {
+                    definition.Route = defaultControllerRoute;
+                }
                 if (string.IsNullOrWhiteSpace(definition.Namespace))
                 {
                     definition.Namespace = defaultNamespace;

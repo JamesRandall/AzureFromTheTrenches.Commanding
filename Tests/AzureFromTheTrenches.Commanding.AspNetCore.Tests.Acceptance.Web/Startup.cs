@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
+using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Filters;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handlers;
 using AzureFromTheTrenches.Commanding.AzureStorage;
 using AzureFromTheTrenches.Commanding.Queue;
@@ -15,8 +13,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
@@ -60,10 +56,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             // in process by the registered handlers while the ExpensiveOperationCommand is exposed as a POST operation
             // and results in the command being placed on a queue
             services
-                .AddMvc()
+                // this filter adds claims, just stops us having to wire up to a real auth provider in this sample
+                .AddMvc(options => options.Filters.Add<SetClaimsFilter>())
+                // this block configures our commands to be exposed on endpoints
                 .AddAspNetCoreCommanding(cfg => cfg
-                    .Controller("Add", controller =>
-                        controller.Action<AddCommand>(HttpMethod.Get))
+                    .Controller("Add", controller => controller
+                        .Action<AddCommand>(HttpMethod.Get))
                     .Controller("Posts", controller => controller
                         .Action<GetPostsQuery>(HttpMethod.Get)
                         .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{postId}")
@@ -74,9 +72,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
                     .Claims(mapper => mapper
                         .MapClaimToPropertyName("UserId", "UserId"))
-                    .SetConstructedCodeLogger(code =>
+                    .LogControllerCode(code =>
                     {
-                        Debug.WriteLine(code);
+                        // this will output the code that is compiled for each controller to the debug window
+                        Debug.WriteLine(code); 
                     })
                 );
 

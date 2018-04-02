@@ -11,6 +11,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             ClaimsMappingBuilder = new ClaimsMappingBuilder();
             ControllerBuilder = new ControllerBuilder();
             OutputNamespace = "AzureFromTheTrenches.Commanding.AspNetCore.Controllers";
+            _defaultControllerRoute = "api/[controller]";
         }
 
         IRestCommandBuilder IRestCommandBuilder.Controllers(Action<IControllerBuilder> controllerBuilderAction)
@@ -19,7 +20,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        IRestCommandBuilder IRestCommandBuilder.SetOutputNamespace(string outputNamespace)
+        IRestCommandBuilder IRestCommandBuilder.OutputNamespace(string outputNamespace)
         {
             OutputNamespace = outputNamespace;
             return this;
@@ -31,7 +32,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        IRestCommandBuilder IRestCommandBuilder.SetConstructedCodeLogger(Action<string> logger)
+        IRestCommandBuilder IRestCommandBuilder.LogControllerCode(Action<string> logger)
         {
             ConstructedCodeLogger = logger;
             return this;
@@ -49,10 +50,18 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
-        public void SetDefaultNamespaceOnControllers()
+        IRestCommandBuilder IRestCommandBuilder.DefaultControllerRoute(string defaultRoute)
         {
-            ControllerBuilder.SetDefaultNamespace(OutputNamespace);
+            _defaultControllerRoute = defaultRoute;
+            return this;
         }
+
+        public void SetDefaults()
+        {
+            ControllerBuilder.SetDefaults(OutputNamespace, _defaultControllerRoute);
+        }
+
+        private string _defaultControllerRoute;
 
         public ControllerBuilder ControllerBuilder { get; }
 

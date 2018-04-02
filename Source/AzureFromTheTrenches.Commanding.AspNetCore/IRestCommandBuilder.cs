@@ -16,7 +16,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// <summary>
         /// Optional. The output namespace. Defaults to AzureFromTheTrenches.Commanding.AspNetCore.Controllers
         /// </summary>
-        IRestCommandBuilder SetOutputNamespace(string outputNamespace);
+        IRestCommandBuilder OutputNamespace(string outputNamespace);
 
         /// <summary>
         /// Optional. If set then external templates can be loaded on a per controller basis. The function
@@ -29,7 +29,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// Optional. If set then as the code for each controller is created it will be passed to this action
         /// allowing visibility of exactly what code is being compiled.
         /// </summary>
-        IRestCommandBuilder SetConstructedCodeLogger(Action<string> logger);
+        IRestCommandBuilder LogControllerCode(Action<string> logger);
 
         /// <summary>
         /// Define a controller - a short cut for Controllers(cfg => ...)
@@ -45,5 +45,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// <param name="claimsMappingBuilder">An action that is given a claims mapping builder</param>
         /// <returns></returns>
         IRestCommandBuilder Claims(Action<IClaimsMappingBuilder> claimsMappingBuilder);
+
+        /// <summary>
+        /// Set the default route for controllers. Defaults to "api/[controller]"
+        /// </summary>
+        /// <param name="defaultRoute">The route to use for controllers</param>
+        /// <returns></returns>
+        IRestCommandBuilder DefaultControllerRoute(string defaultRoute);
     }
 }

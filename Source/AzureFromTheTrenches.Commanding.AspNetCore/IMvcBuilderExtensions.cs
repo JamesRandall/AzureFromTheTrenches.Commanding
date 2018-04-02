@@ -22,7 +22,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         {
             RestCommandBuilder restCommandBuilderInstance = new RestCommandBuilder();
             configurationBuilder(restCommandBuilderInstance);
-            restCommandBuilderInstance.SetDefaultNamespaceOnControllers();
+            restCommandBuilderInstance.SetDefaults();
 
             // When the user has completed defining their command based API through the builder we compile controllers, using Roslyn, using the definitions
             // that have been supplied
