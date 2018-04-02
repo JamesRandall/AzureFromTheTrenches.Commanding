@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
+using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.MockData;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.Responses;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handlers
@@ -10,7 +11,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handle
     {
         public Task<Post> ExecuteAsync(GetPostQuery command, Post previousResult)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(Posts.Items.SingleOrDefault(x => x.Id == command.PostId));
         }
     }
 }

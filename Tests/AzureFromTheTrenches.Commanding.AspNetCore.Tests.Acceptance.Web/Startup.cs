@@ -53,10 +53,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             registry.Register<ExpensiveOperationCommand>(
                 CloudQueueDispatcherFactory.Create(storageAccountConnectionString, expensiveOperationQueueName));
 
-            // Register our commands as services. This results in an API where the AddCommand, GetPostsQuery and
-            // GetPostQuery are handled as GET requests and executed immediately in process by the registered
-            // handlers while the ExpensiveOperationCommand is exposed as a POST operation and results in the
-            // command being placed on a queue
+            // Register our commands as REST endpoints. This results in an API where the AddCommand, GetPostsQuery,
+            // GetPostsForCurrentUserQuery and GetPostQuery are handled as GET requests and executed immediately
+            // in process by the registered handlers while the ExpensiveOperationCommand is exposed as a POST operation
+            // and results in the command being placed on a queue
             services
                 .AddMvc()
                 .AddAspNetCoreCommanding(cfg => cfg
@@ -66,6 +66,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                         .Action<GetPostsQuery>(HttpMethod.Get)
                         .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{postId}")
                         )
+                    .Controller("Profile", controller => controller
+                        .Action<GetPostsForCurrentUserQuery>(HttpMethod.Get, "Posts"))
                     .Controller("ExpensiveOperation", controller => controller
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
                     .Claims(mapper => mapper

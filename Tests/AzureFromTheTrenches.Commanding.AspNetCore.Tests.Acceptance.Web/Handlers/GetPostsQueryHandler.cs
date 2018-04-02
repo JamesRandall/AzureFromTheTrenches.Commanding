@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
+using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.MockData;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.Responses;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handlers
@@ -11,7 +12,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handle
     {
         public Task<IReadOnlyCollection<Post>> ExecuteAsync(GetPostsQuery command, IReadOnlyCollection<Post> previousResult)
         {
-            throw new NotImplementedException();
+            return Task.FromResult((IReadOnlyCollection<Post>)Posts.Items);
         }
     }
 }
