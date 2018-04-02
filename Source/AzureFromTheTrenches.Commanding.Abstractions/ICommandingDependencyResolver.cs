@@ -2,6 +2,7 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    [Obsolete("This will be deprecated in a future version, please use ICommandingDependencyResolverAdapter instead")]
     public interface ICommandingDependencyResolver
     {
         ICommandingDependencyResolver RegisterInstance<TType>(TType instance);

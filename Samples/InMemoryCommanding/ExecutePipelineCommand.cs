@@ -33,9 +33,9 @@ namespace InMemoryCommanding
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
 
-            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
+            IMicrosoftDependencyInjectionCommandingResolverAdapter dependencyResolver = new MicrosoftDependencyInjectionCommandingResolverAdapter(serviceCollection);
 
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.AddCommanding(options)
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
 

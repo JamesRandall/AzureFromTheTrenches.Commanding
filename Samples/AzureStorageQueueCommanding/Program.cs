@@ -51,9 +51,9 @@ namespace AzureStorageQueueCommanding
         private static void ConfigureCommanding(CloudQueue queue, out ICommandDispatcher dispatcher, out IAzureStorageCommandQueueProcessorFactory listenerFactory)
         {
             ServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
-            ICommandRegistry registry = dependencyResolver.UseCommanding();
-            dependencyResolver.UseQueues(
+            CommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            ICommandRegistry registry = dependencyResolver.AddCommanding();
+            dependencyResolver.AddQueues(
                     (msg, cmd, ex) =>
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -69,7 +69,7 @@ namespace AzureStorageQueueCommanding
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine(msg);
                     })
-                .UseAzureStorageCommanding();
+                .AddAzureStorageCommanding();
 
             registry
                 .Register<OutputWorldToConsoleCommandHandler>(1000, dispatcherFactoryFunc: queue.CreateCommandDispatcherFactory())

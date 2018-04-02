@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Reflection;
-using System.Text;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;

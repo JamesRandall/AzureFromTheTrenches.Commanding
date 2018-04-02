@@ -4,30 +4,28 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection
 {
-    // ReSharper disable once InconsistentNaming
-    [Obsolete("Please use MicrosoftDependencyInjectionCommandingResolverAdapter instead")]
-    public class MicrosoftDependencyInjectionCommandingResolver : IMicrosoftDependencyInjectionCommandingResolver
+    public class MicrosoftDependencyInjectionCommandingResolverAdapter : IMicrosoftDependencyInjectionCommandingResolverAdapter
     {
         private readonly IServiceCollection _serviceCollection;
 
-        public MicrosoftDependencyInjectionCommandingResolver(IServiceCollection serviceCollection)
+        public MicrosoftDependencyInjectionCommandingResolverAdapter(IServiceCollection serviceCollection)
         {
-            _serviceCollection = serviceCollection;            
+            _serviceCollection = serviceCollection;
         }
 
-        public ICommandingDependencyResolver RegisterInstance<TType>(TType instance)
+        public ICommandingDependencyResolverAdapter RegisterInstance<TType>(TType instance)
         {
             _serviceCollection.AddSingleton(typeof(TType), instance);
             return this;
         }
 
-        public ICommandingDependencyResolver TypeMapping<TType, TImpl>() where TImpl : TType
+        public ICommandingDependencyResolverAdapter TypeMapping<TType, TImpl>() where TImpl : TType
         {
             _serviceCollection.AddTransient(typeof(TType), typeof(TImpl));
             return this;
         }
 
-        public ICommandingDependencyResolver TypeMapping(Type type, Type impl)
+        public ICommandingDependencyResolverAdapter TypeMapping(Type type, Type impl)
         {
             _serviceCollection.AddTransient(type, impl);
             return this;

@@ -34,19 +34,16 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             string storageAccountConnectionString = Configuration["storage:connectionstring"];
             string expensiveOperationQueueName = Configuration["storage:queuename"];
 
-            CommandingDependencyResolver resolver = new CommandingDependencyResolver(
+            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
                 (fromType, toInstance) => services.AddSingleton(fromType, toInstance),
                 (fromType, toType) => services.AddTransient(fromType, toType),
                 (resolveTo) => _serviceProvider.GetService(resolveTo));            
-            ICommandRegistry registry = resolver.UseCommanding();
-            resolver.UseQueues().UseAzureStorageCommanding();
+            ICommandRegistry registry = resolver.AddCommanding();
+            resolver.AddQueues().AddAzureStorageCommanding();
 
-            // Register our command handlers as per usual
-            registry.Register<AddCommandHandler>();
-            registry.Register<GetPostsQueryHandler>();
-            registry.Register<GetPostQueryHandler>();
-            registry.Register<GetPostsForCurrentUserQueryHandler>();
-            registry.Register<AddNewPostCommandHandler>();
+            // Register our command handlers using the discovery approach. Our handlers are in this assembly
+            // so we just pass through our assembly
+            registry.Discover(GetType().Assembly);
 
             // Register our expensive operation command to be sent to a queue
             registry.Register<ExpensiveOperationCommand>(

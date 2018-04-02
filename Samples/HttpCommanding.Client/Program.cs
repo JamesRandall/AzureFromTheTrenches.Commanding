@@ -29,10 +29,10 @@ namespace HttpCommanding.Client
         {
             Uri uri = new Uri("http://localhost:52933/api/personalDetails");
             ServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            CommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             
-            ICommandRegistry registry = dependencyResolver.UseCommanding();
-            dependencyResolver.UseHttpCommanding();
+            ICommandRegistry registry = dependencyResolver.AddCommanding();
+            dependencyResolver.AddHttpCommanding();
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             IHttpCommandDispatcherFactory httpCommandDispatcherFactory = _serviceProvider.GetService<IHttpCommandDispatcherFactory>();

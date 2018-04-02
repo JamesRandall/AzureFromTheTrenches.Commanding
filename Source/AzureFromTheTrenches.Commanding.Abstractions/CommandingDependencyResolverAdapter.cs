@@ -2,14 +2,13 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
-    [Obsolete("This will be deprecated in a future version, please use CommandingDependencyResolverAdapter instead")]
-    public class CommandingDependencyResolver : ICommandingDependencyResolver
+    public class CommandingDependencyResolverAdapter : ICommandingDependencyResolverAdapter
     {
         private readonly Action<Type, object> _registerInstance;
         private readonly Action<Type, Type> _typeMapping;
         private readonly Func<Type, object> _resolve;
 
-        public CommandingDependencyResolver(Action<Type, object> registerInstance,
+        public CommandingDependencyResolverAdapter(Action<Type, object> registerInstance,
             Action<Type, Type> typeMapping,
             Func<Type, object> resolve)
         {
@@ -18,19 +17,19 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
             _resolve = resolve;
         }
 
-        public ICommandingDependencyResolver RegisterInstance<TType>(TType instance)
+        public ICommandingDependencyResolverAdapter RegisterInstance<TType>(TType instance)
         {
             _registerInstance(typeof(TType), instance);
             return this;
         }
 
-        public ICommandingDependencyResolver TypeMapping<TType, TImpl>() where TImpl : TType
+        public ICommandingDependencyResolverAdapter TypeMapping<TType, TImpl>() where TImpl : TType
         {
             _typeMapping(typeof(TType), typeof(TImpl));
             return this;
         }
 
-        public ICommandingDependencyResolver TypeMapping(Type type, Type impl) 
+        public ICommandingDependencyResolverAdapter TypeMapping(Type type, Type impl)
         {
             _typeMapping(type, impl);
             return this;

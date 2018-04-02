@@ -64,12 +64,12 @@ namespace ServiceBusDispatchAndDequeue
         {
             IServiceProvider serviceProvider = null;
             IServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver resolver = new CommandingDependencyResolver(
+            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
                 (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
                 (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
                 (resolveType) => serviceProvider.GetService(resolveType));
-            ICommandRegistry commandRegistry = resolver.UseCommanding();
-            resolver.UseAzureServiceBus();
+            ICommandRegistry commandRegistry = resolver.AddCommanding();
+            resolver.AddAzureServiceBus();
 
             // register our command to dispatch to a servie bus queue
             QueueClient client = new QueueClient(ServiceBusConnectionString, "myqueue");
@@ -92,12 +92,12 @@ namespace ServiceBusDispatchAndDequeue
         {
             IServiceProvider serviceProvider = null;
             IServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolver resolver = new CommandingDependencyResolver(
+            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
                 (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
                 (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
                 (resolveType) => serviceProvider.GetService(resolveType));
-            ICommandRegistry commandRegistry = resolver.UseCommanding();
-            resolver.UseQueues().UseAzureServiceBus();
+            ICommandRegistry commandRegistry = resolver.AddCommanding();
+            resolver.AddQueues().AddAzureServiceBus();
 
             // register our command to dispatch to a servie bus queue
             commandRegistry.Register<SimpleCommandHandler>();

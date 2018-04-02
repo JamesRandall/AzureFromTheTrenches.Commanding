@@ -128,5 +128,20 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _commandDispatchers.TryGetValue(commandType, out var dispatcherFactoryFunc);
             return dispatcherFactoryFunc;
         }
+
+        public ICommandRegistry Discover(params Assembly[] assemblies)
+        {
+            Type commandHandlerBase = typeof(ICommandHandlerBase);
+            foreach (Assembly assembly in assemblies)
+            {
+                Type[] handlers = assembly.GetTypes().Where(x => commandHandlerBase.IsAssignableFrom(x)).ToArray();
+                foreach (Type handler in handlers)
+                {
+                    Register(handler);
+                }
+            }
+
+            return this;
+        }
     }
 }

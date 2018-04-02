@@ -106,7 +106,7 @@ namespace InMemoryCommanding
 
             ServiceCollection serviceCollection = new ServiceCollection();
 
-            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
+            IMicrosoftDependencyInjectionCommandingResolverAdapter dependencyResolver = new MicrosoftDependencyInjectionCommandingResolverAdapter(serviceCollection);
 
             Options options = new Options
             {
@@ -114,14 +114,14 @@ namespace InMemoryCommanding
                 Enrichers = new[]
                     { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
-            dependencyResolver.UseCommanding(options) 
+            dependencyResolver.AddCommanding(options) 
                 .Register<NestingCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>()
                 .Register<OutputBigglesToConsoleCommandHandler>();
             dependencyResolver
-                .UsePreDispatchCommandingAuditor<ConsolePreDispatchAuditor>(auditRootOnly)
-                .UsePostDispatchCommandingAuditor<ConsolePostDispatchAuditor>(auditRootOnly)
-                .UseExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
+                .AddPreDispatchCommandingAuditor<ConsolePreDispatchAuditor>(auditRootOnly)
+                .AddPostDispatchCommandingAuditor<ConsolePostDispatchAuditor>(auditRootOnly)
+                .AddExecutionCommandingAuditor<ConsoleExecutionAuditor>(auditRootOnly);
             dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
             return dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();
         }

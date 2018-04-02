@@ -58,12 +58,12 @@ namespace InMemoryCommanding
         private static ICommandDispatcher Configure(Stack<object> stack)
         {
             ServiceCollection serviceCollection = new ServiceCollection();
-            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
+            IMicrosoftDependencyInjectionCommandingResolverAdapter dependencyResolver = new MicrosoftDependencyInjectionCommandingResolverAdapter(serviceCollection);
             Options options = new Options
             {
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.AddCommanding(options)
                 .Register<OutputToConsoleCommand, CountResult>(() => new StackDispatcher(stack));
             dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
             return dependencyResolver.ServiceProvider.GetService<ICommandDispatcher>();

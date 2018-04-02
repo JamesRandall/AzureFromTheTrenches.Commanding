@@ -49,7 +49,7 @@ namespace AzureEventHubAuditing
         private static ICommandDispatcher Configure()
         {
             IServiceCollection serviceCollection = new ServiceCollection();
-            ICommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            ICommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
@@ -58,10 +58,10 @@ namespace AzureEventHubAuditing
                 Enrichers = new[] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
 
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.AddCommanding(options)
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>();
-            dependencyResolver.UseEventHubCommandAuditing(EventHubConnectionString, EventHubName);
+            dependencyResolver.AddEventHubCommandAuditing(EventHubConnectionString, EventHubName);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }

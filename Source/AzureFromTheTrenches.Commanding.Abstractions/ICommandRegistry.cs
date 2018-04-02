@@ -53,5 +53,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// <typeparam name="T">The type of the command</typeparam>
         /// <returns>A function able to create a command dispatcher if one is registered, null if none is</returns>
         Func<ICommandDispatcher> GetCommandDispatcherFactory(ICommand command);
+
+        /// <summary>
+        /// Will search the specified assembly for command handlers and register them
+        /// </summary>
+        /// <param name="assemblies">The assemblies to search</param>
+        /// <returns>The command registery for use in a fluent call style</returns>
+        ICommandRegistry Discover(params Assembly[] assemblies);
     }
 }

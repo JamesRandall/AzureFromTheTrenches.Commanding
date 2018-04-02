@@ -17,10 +17,10 @@ namespace WindowsFormsCommanding
         {
             InitializeComponent();
             IServiceCollection serviceCollection = new ServiceCollection();
-            ICommandingDependencyResolver resolver = new CommandingDependencyResolver((type, instance) => serviceCollection.AddSingleton(type, instance),
+            ICommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter((type, instance) => serviceCollection.AddSingleton(type, instance),
                 (type, impl) => serviceCollection.AddTransient(type, impl),
                 type => _serviceProvider.GetService(type));
-            ICommandRegistry registry = resolver.UseCommanding();
+            ICommandRegistry registry = resolver.AddCommanding();
             registry.Register<GetTextCommandHandler>();
             _serviceProvider = serviceCollection.BuildServiceProvider();
             _dispatcher = _serviceProvider.GetService<ICommandDispatcher>();

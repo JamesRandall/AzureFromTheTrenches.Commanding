@@ -72,7 +72,7 @@ namespace AzureStorageAuditing
             CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
             
             IServiceCollection serviceCollection = new ServiceCollection();
-            ICommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            ICommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
@@ -81,10 +81,10 @@ namespace AzureStorageAuditing
                 Enrichers = new [] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
 
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.AddCommanding(options)
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>();
-            dependencyResolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy);
+            dependencyResolver.AddAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }
@@ -102,7 +102,7 @@ namespace AzureStorageAuditing
             await auditQueue.CreateIfNotExistsAsync();
 
             IServiceCollection serviceCollection = new ServiceCollection();
-            ICommandingDependencyResolver dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            ICommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
 
             IReadOnlyDictionary<string, object> Enricher(IReadOnlyDictionary<string, object> existing) => new Dictionary<string, object> { { "ExampleEnrichedCounter", Interlocked.Increment(ref _counter) } };
             Options options = new Options
@@ -111,10 +111,10 @@ namespace AzureStorageAuditing
                 Enrichers = new[] { new FunctionWrapperCommandDispatchContextEnricher(Enricher) }
             };
 
-            dependencyResolver.UseCommanding(options)
+            dependencyResolver.AddCommanding(options)
                 .Register<ChainCommandHandler>()
                 .Register<OutputWorldToConsoleCommandHandler>();
-            dependencyResolver.UseAzureStorageCommandAuditing(auditQueue);
+            dependencyResolver.AddAzureStorageCommandAuditing(auditQueue);
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }
@@ -132,16 +132,16 @@ namespace AzureStorageAuditing
             await auditQueue.CreateIfNotExistsAsync();
 
             IServiceCollection serviceCollection = new ServiceCollection();
-            ICommandingDependencyResolver resolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
+            ICommandingDependencyResolverAdapter resolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
 
-            resolver.UseCommanding(options);
-            resolver.UseQueues();
-            resolver.UseAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy); // this sets up the table store auditors
-            resolver.UseAzureStorageAuditQueueProcessor(auditQueue); // this sets up queue listening
+            resolver.AddCommanding(options);
+            resolver.AddQueues();
+            resolver.AddAzureStorageCommandAuditing(storageAccount, storageStrategy: storageStrategy); // this sets up the table store auditors
+            resolver.AddAzureStorageAuditQueueProcessor(auditQueue); // this sets up queue listening
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             return _serviceProvider.GetService<IAzureStorageAuditQueueProcessorFactory>();

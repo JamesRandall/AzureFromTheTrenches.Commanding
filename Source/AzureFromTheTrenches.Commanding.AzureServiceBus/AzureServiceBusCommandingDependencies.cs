@@ -5,7 +5,7 @@ namespace AzureFromTheTrenches.Commanding.AzureServiceBus
 {
     public static class AzureServiceBusCommandingDependencies
     {
-        public static ICommandingDependencyResolver UseAzureServiceBus(this ICommandingDependencyResolver dependencyResolver)
+        public static ICommandingDependencyResolverAdapter AddAzureServiceBus(this ICommandingDependencyResolverAdapter dependencyResolver)
         {
             dependencyResolver.TypeMapping<IServiceBusMessageSerializer, JsonServiceBusMessageSerializer>();
             dependencyResolver.TypeMapping<IServiceBusCommandQueueProcessorFactory, ServiceBusCommandQueueProcessorFactory>();
