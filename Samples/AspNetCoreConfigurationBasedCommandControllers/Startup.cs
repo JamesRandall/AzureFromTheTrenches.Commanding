@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using AspNetCoreConfigurationBasedCommandControllers.Commands;
 using AspNetCoreConfigurationBasedCommandControllers.Commands.Responses;
+using AspNetCoreConfigurationBasedCommandControllers.Filters;
 using AspNetCoreConfigurationBasedCommandControllers.Handlers;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
@@ -45,7 +46,7 @@ namespace AspNetCoreConfigurationBasedCommandControllers
             registry.Register<GetMessageQueryHandler>();
 
             services
-                .AddMvc()
+                .AddMvc(cfg => cfg.Filters.Add<ClaimsInjectionFilter>())
                 .AddAspNetCoreCommanding(cfg =>
                 {
                     cfg

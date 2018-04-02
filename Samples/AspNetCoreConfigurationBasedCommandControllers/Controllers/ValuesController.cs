@@ -30,9 +30,11 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
         {
             GetPropertyValueQuery query = new GetPropertyValueQuery();
             ClaimsPrincipal claimsPrincipal = User;
-
             Claim claim = claimsPrincipal.FindFirst("UserId");
-            query.MisspelledUserId = claim.Value;
+            if (claim != null)
+            {
+                query.MisspelledUserId = claim.Value;
+            }
 
             var result = await _commandDispatcher.DispatchAsync(query);
             return Ok(result);

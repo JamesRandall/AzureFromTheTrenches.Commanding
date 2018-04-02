@@ -23,7 +23,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             await _decoratedModelBinder.BindModelAsync(bindingContext);
             if (bindingContext.HttpContext.User != null && _commandClaimsBinderProvider.TryGet(bindingContext.ModelType, out Action<object, ClaimsPrincipal> binder))
             {
-                binder(bindingContext.Model, bindingContext.HttpContext.User);
+                binder(bindingContext.Result.Model, bindingContext.HttpContext.User);
             }   
         }
     }

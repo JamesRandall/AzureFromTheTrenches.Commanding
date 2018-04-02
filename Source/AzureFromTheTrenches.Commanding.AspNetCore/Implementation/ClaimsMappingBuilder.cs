@@ -58,7 +58,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 ParameterExpression claimsPrincipalParameter = Expression.Parameter(typeof(ClaimsPrincipal));
                 ParameterExpression commandParameter = Expression.Parameter(typeof(object));
 
-                // For each claim mapping this essentially builds out C# like the following for string properties
+                // For each claim mapping this essentially builds out an expression like the C# below for string properties
                 //
                 //    Claim claim = claimsPrincipal.FindFirst("UserId");
                 //    if (claim != null)
