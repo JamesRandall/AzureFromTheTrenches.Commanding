@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
-using System.Reflection;
-using System.Runtime.Loader;
 using AspNetCoreConfigurationBasedCommandControllers.Commands;
-using AspNetCoreConfigurationBasedCommandControllers.Commands.Responses;
 using AspNetCoreConfigurationBasedCommandControllers.Filters;
 using AspNetCoreConfigurationBasedCommandControllers.Handlers;
 using AzureFromTheTrenches.Commanding;
@@ -13,8 +9,6 @@ using AzureFromTheTrenches.Commanding.AspNetCore;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -35,12 +29,12 @@ namespace AspNetCoreConfigurationBasedCommandControllers
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            CommandingDependencyResolver resolver = new CommandingDependencyResolver(
+            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
                 (fromType, toInstance) => services.AddSingleton(fromType, toInstance),
                 (fromType, toType) => services.AddTransient(fromType, toType),
                 (resolveTo) => _serviceProvider.GetService(resolveTo));
 
-            ICommandRegistry registry = resolver.UseCommanding();
+            ICommandRegistry registry = resolver.AddCommanding();
             registry.Register<UpdatePropertyValueCommandHandler>();
             registry.Register<GetPropertyValueQueryHandler>();
             registry.Register<GetMessageQueryHandler>();

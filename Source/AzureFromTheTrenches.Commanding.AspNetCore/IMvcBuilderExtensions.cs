@@ -31,8 +31,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
             IControllerCompiler controllerCompiler = new ControllerCompiler(
                 controllerTemplateCompiler,
                 syntaxTreeCompiler,
-                restCommandBuilderInstance.ConstructedCodeLogger);
-            Assembly assembly = controllerCompiler.Compile(restCommandBuilderInstance.ControllerBuilder.Controllers.Values.ToArray(),
+                restCommandBuilderInstance.ConstructedCodeLogger,
+                true);
+            Assembly assembly = controllerCompiler.Compile(
+                restCommandBuilderInstance.ControllerBuilder.Controllers.Values.ToArray(),
                 restCommandBuilderInstance.OutputNamespace);
             mvcBuilder.AddApplicationPart(assembly);
 

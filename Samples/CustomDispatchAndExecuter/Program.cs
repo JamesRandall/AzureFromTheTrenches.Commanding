@@ -15,12 +15,12 @@ namespace CustomDispatchAndExecuter
                 .AddTransient<CustomCommandExecuter>()
                 .AddTransient<CustomCommandDispatcher>();
 
-            ICommandRegistry registry = new CommandingDependencyResolver(
+            ICommandRegistry registry = new CommandingDependencyResolverAdapter(
                     (type, instance) => serviceCollection.AddSingleton(type, instance),
                     (type, impl) => serviceCollection.AddTransient(type, impl),
                     type => serviceProvider.GetService(type)
                 )
-                .UseCommanding();
+                .AddCommanding();
 
             registry.Register<Command>(() => serviceProvider.GetService<CustomCommandDispatcher>());
 

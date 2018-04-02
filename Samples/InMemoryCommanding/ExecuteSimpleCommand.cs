@@ -26,7 +26,7 @@ namespace InMemoryCommanding
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
 
-            IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = serviceCollection.UseCommanding(options);
+            IMicrosoftDependencyInjectionCommandingResolverAdapter dependencyResolver = serviceCollection.AddCommanding(options);
 
             dependencyResolver.Registry
                 .Register<CancellablePipelineAwarePipelineCommandActor>(1)

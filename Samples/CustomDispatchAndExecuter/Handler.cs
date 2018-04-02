@@ -6,9 +6,10 @@ namespace CustomDispatchAndExecuter
 {
     public class Handler : ICommandHandler<Command>
     {
-        public async Task ExecuteAsync(Command command)
+        public Task ExecuteAsync(Command command)
         {
             Console.WriteLine("Handler executing");
+            return Task.CompletedTask;
         }
     }
 }

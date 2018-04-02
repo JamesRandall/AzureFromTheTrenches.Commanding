@@ -10,13 +10,13 @@ namespace AzureFromTheTrenches.Commanding.Tests.Acceptance
         protected AbstractDispatchTestBase(Action<ICommandRegistry, CustomDispatcher> registrations)
         {
             var serviceCollection = new ServiceCollection();
-            var resolver = new CommandingDependencyResolver(
+            var resolver = new CommandingDependencyResolverAdapter(
                 (type, instance) => serviceCollection.AddSingleton(type, instance),
                 (type, impl) => serviceCollection.AddTransient(type, impl),
                 type => ServiceProvider.GetService(type)
             );
             CommandingConfiguration = new CommandingRuntime();
-            var registry = CommandingConfiguration.UseCommanding(resolver);
+            var registry = CommandingConfiguration.AddCommanding(resolver);
             CommandTracer = new CommandTracer();
             serviceCollection.AddSingleton(CommandTracer);
             CustomDispatcher = new CustomDispatcher();

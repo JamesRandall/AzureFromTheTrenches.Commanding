@@ -16,7 +16,7 @@ namespace HttpCommanding.Web
 {
     public class Startup
     {
-        private IMicrosoftDependencyInjectionCommandingResolver _commandingDependencyResolver;
+        private IMicrosoftDependencyInjectionCommandingResolverAdapter _commandingDependencyResolver;
 
         public Startup(IHostingEnvironment env)
         {
@@ -35,10 +35,10 @@ namespace HttpCommanding.Web
         {
             // Add framework services.
             services.AddMvc();
-            _commandingDependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(services);
-            _commandingDependencyResolver.UseCommanding()
+            _commandingDependencyResolver = new MicrosoftDependencyInjectionCommandingResolverAdapter(services);
+            _commandingDependencyResolver.AddCommanding()
                 .Register<UpdatePersonalDetailsCommandHandler>();
-            _commandingDependencyResolver.UseExecutionCommandingAuditor<ExecutionAuditor>();
+            _commandingDependencyResolver.AddExecutionCommandingAuditor<ExecutionAuditor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,7 +5,6 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Filters;
-using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handlers;
 using AzureFromTheTrenches.Commanding.AzureStorage;
 using AzureFromTheTrenches.Commanding.Queue;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +19,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
     public class Startup
     {
         private IServiceProvider _serviceProvider;
+
+        private readonly CommandingRuntime _commandingRuntime = new CommandingRuntime();
 
         public Startup(IConfiguration configuration)
         {
@@ -37,13 +38,20 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
                 (fromType, toInstance) => services.AddSingleton(fromType, toInstance),
                 (fromType, toType) => services.AddTransient(fromType, toType),
-                (resolveTo) => _serviceProvider.GetService(resolveTo));            
-            ICommandRegistry registry = resolver.AddCommanding();
+                (resolveTo) => _serviceProvider.GetService(resolveTo));
+
+            // Using an instance of CommandingRuntime rather than the static helpers isolates
+            // this commanding infrastructure to this startup class / instance of the web app
+            // which means that acceptance tests can be run in parallel with multiple instances
+            // of the ASP.Net Core test server.
+            ICommandRegistry registry = _commandingRuntime.AddCommanding(resolver);
+
+            //ICommandRegistry registry = resolver.AddCommanding();
             resolver.AddQueues().AddAzureStorageCommanding();
 
             // Register our command handlers using the discovery approach. Our handlers are in this assembly
             // so we just pass through our assembly
-            registry.Discover(GetType().Assembly);
+            registry.Discover(typeof(Startup).Assembly);
 
             // Register our expensive operation command to be sent to a queue
             registry.Register<ExpensiveOperationCommand>(

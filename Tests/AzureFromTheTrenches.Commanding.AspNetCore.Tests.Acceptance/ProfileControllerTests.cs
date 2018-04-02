@@ -28,7 +28,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
                     string json = await response.Content.ReadAsStringAsync();
                     Post[] posts = JsonConvert.DeserializeObject<Post[]>(json);
                     Assert.NotNull(posts);
-                    post = posts.Single(x => x.AuthorId == Constants.PresetUserAuthoredPostId); // tests run in parallel and others might add to the bag
+                    post = posts.Single(x => x.Id == Constants.PresetUserAuthoredPostId); // tests run in parallel and others might add to the bag
                 });
             "And the post is the expected post"
                 .x(() =>
