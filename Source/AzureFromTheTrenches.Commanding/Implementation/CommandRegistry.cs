@@ -22,18 +22,38 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         
         public ICommandRegistry Register<TCommandHandler>(int order = CommandHandlerOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null) where TCommandHandler : ICommandHandlerBase
         {
+            Type commandHandlerType = typeof(TCommandHandler);
+            Type candidateCommandType = GetCandidateCommandType(typeof(TCommandHandler));
+
+            return RegisterHandler(candidateCommandType, commandHandlerType, order, dispatcherFactoryFunc);
+        }
+
+        public ICommandRegistry Register(Type commandHandlerType, int order = CommandHandlerOrder.Default, Func<ICommandDispatcher> dispatcherFactoryFunc = null)
+        {
             Type commandHandlerBase = typeof(ICommandHandlerBase);
-            Type handlerType = typeof(TCommandHandler);
-            Type genericHandlerInterface = handlerType.GetInterfaces().Single(x => x.IsGenericType && commandHandlerBase.IsAssignableFrom(x));
+            if (!commandHandlerType.GetInterfaces().Any(x => commandHandlerBase.IsAssignableFrom(x)))
+            {
+                throw new CommandRegistrationException($"Type {commandHandlerType.Name} must implement an interfaces that derives from {commandHandlerBase.Name}");
+            }
+            
+            Type candidateCommandType = GetCandidateCommandType(commandHandlerType);
+
+            return RegisterHandler(candidateCommandType, commandHandlerType, order, dispatcherFactoryFunc);
+        }
+
+        private Type GetCandidateCommandType(Type commandHandlerType)
+        {
+            Type commandHandlerBase = typeof(ICommandHandlerBase);
+            Type genericHandlerInterface = commandHandlerType.GetInterfaces().Single(x => x.IsGenericType && commandHandlerBase.IsAssignableFrom(x));
 
             Type commandType = typeof(ICommand);
             Type candidateCommandType = genericHandlerInterface.GenericTypeArguments.First();
             if (!commandType.IsAssignableFrom(candidateCommandType))
             {
-                throw new CommandRegistrationException($"Type {handlerType.Name} must be a generic type and the first generic type must be the command");
+                throw new CommandRegistrationException($"Type {commandHandlerType.Name} must be a generic type and the first generic type must be the command");
             }
 
-            return RegisterHandler(candidateCommandType, handlerType, order, dispatcherFactoryFunc);
+            return candidateCommandType;
         }
 
         private ICommandRegistry RegisterHandler(Type commandType, Type commandHandlerType, int order,
