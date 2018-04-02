@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using AzureFromTheTrenches.Commanding.AspNetCore.Extensions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 using HandlebarsDotNet;
@@ -13,6 +14,44 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
     class HandlebarsControllerTemplateCompiler : IControllerTemplateCompiler
     {
         private readonly Func<string, Stream> _externalTemplateProvider;
+
+        static string EvaluateType(Type type)
+        {
+            StringBuilder retType = new StringBuilder();
+
+            if (type.IsGenericType)
+            {
+                string[] parentType = type.FullName.Split('`');
+                // We will build the type here.
+                Type[] arguments = type.GetGenericArguments();
+
+                StringBuilder argList = new StringBuilder();
+                foreach (Type t in arguments)
+                {
+                    // Let's make sure we get the argument list.
+                    string arg = EvaluateType(t);
+                    if (argList.Length > 0)
+                    {
+                        argList.AppendFormat(", {0}", arg);
+                    }
+                    else
+                    {
+                        argList.Append(arg);
+                    }
+                }
+
+                if (argList.Length > 0)
+                {
+                    retType.AppendFormat("{0}<{1}>", parentType[0], argList.ToString());
+                }
+            }
+            else
+            {
+                return type.ToString();
+            }
+
+            return retType.ToString();
+        }
 
         static HandlebarsControllerTemplateCompiler()
         {
@@ -31,7 +70,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
                 if (action.ResultType != null)
                 {
-                    writer.WriteLine($"[ProducesResponseType(typeof({action.ResultType.FullName}), 200)]");
+                    string evaluatedType = EvaluateType(action.ResultType);
+                    writer.WriteLine($"[ProducesResponseType(typeof({evaluatedType}), 200)]");
                 }
             });
             Handlebars.RegisterHelper("bindingAttribute", (writer, context, parameters) =>

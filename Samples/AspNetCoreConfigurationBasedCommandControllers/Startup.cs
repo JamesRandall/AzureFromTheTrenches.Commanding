@@ -83,8 +83,6 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.ConfigureCommandRouting();
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

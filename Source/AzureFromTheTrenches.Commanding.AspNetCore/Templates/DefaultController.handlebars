@@ -16,8 +16,8 @@ namespace {{Namespace}}
         }
 
 {{#each Actions}}
-        {{actionAttributes}}
-        public async Task<IActionResult> {{Verb}}({{bindingAttribute}}{{CommandType.FullName}} command)
+        {{{actionAttributes}}}
+        public async Task<IActionResult> {{Verb}}{{CommandType.Name}} ({{bindingAttribute}}{{CommandType.FullName}} command)
         {
             if (!ModelState.IsValid)
             {
