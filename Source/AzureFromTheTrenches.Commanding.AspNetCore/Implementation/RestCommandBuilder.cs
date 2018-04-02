@@ -33,7 +33,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
         IRestCommandBuilder IRestCommandBuilder.SetConstructedCodeLogger(Action<string> logger)
         {
-            throw new NotImplementedException();
+            ConstructedCodeLogger = logger;
+            return this;
         }
 
         IRestCommandBuilder IRestCommandBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)

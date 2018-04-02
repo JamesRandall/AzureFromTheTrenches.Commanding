@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             registry.Register<AddCommandHandler>();
             registry.Register<GetPostsQueryHandler>();
             registry.Register<GetPostQueryHandler>();
+            registry.Register<GetPostsForCurrentUserQueryHandler>();
 
             // Register our expensive operation command to be sent to a queue
             registry.Register<ExpensiveOperationCommand>(
@@ -72,6 +74,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
                     .Claims(mapper => mapper
                         .MapClaimToPropertyName("UserId", "UserId"))
+                    .SetConstructedCodeLogger(code =>
+                    {
+                        Debug.WriteLine(code);
+                    })
                 );
 
             services.AddSwaggerGen(c =>
