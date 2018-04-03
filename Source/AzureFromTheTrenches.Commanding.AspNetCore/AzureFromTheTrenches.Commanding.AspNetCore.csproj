@@ -14,12 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Templates\DefaultController.cstpl" />
     <None Remove="Templates\DefaultController.handlebars" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Templates\DefaultController.cstpl" />
     <EmbeddedResource Include="Templates\DefaultController.handlebars" />
   </ItemGroup>
 

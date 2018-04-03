@@ -18,7 +18,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handle
                 Id = Guid.NewGuid(),
                 Title = command.Title
             };
-            Posts.Items.Add(newPost);
+            Posts.Items[newPost.Id] = newPost;
             return Task.FromResult(newPost.Id);
         }
     }

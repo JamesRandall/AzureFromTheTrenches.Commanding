@@ -18,7 +18,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
         [Scenario]
         public void ShouldAddNewPost(string requestUrl, HttpResponseMessage response, Guid postId)
         {
-            "Given a request for the current users profiles"
+            "Given a request to add a new post"
                 .x(() => requestUrl = "/api/post");
             "When the API call is made"
                 .x(async () =>
@@ -38,8 +38,36 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
             "And the author ID has been set to the current user"
                 .x(() =>
                 {
-                    Post post = Posts.Items.Single(x => x.Id == postId);
+                    Post post = Posts.Items.Values.Single(x => x.Id == postId);
                     Assert.Equal(post.AuthorId, Constants.UserId);
+                });
+        }
+
+        [Scenario]
+        public void ShouldGetSpecificPost(string requestUrl, HttpResponseMessage response, Post post)
+        {
+            "Given a request for a specific post"
+                .x(() => requestUrl = $"/api/post/{Constants.PresetPostId}");
+            "When the API call is made"
+                .x(async () =>
+                {
+                    response = await HttpClient.GetAsync(requestUrl);
+                });
+            "Then the response is 200"
+                .x(() => Assert.Equal(HttpStatusCode.OK, response.StatusCode));
+            "And a post is returned"
+                .x(async () =>
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    post = JsonConvert.DeserializeObject<Post>(json);
+                    Assert.NotNull(post);
+                });
+            "And the properties are as expected"
+                .x(() =>
+                {
+                    Assert.NotEqual(Constants.UserId, post.AuthorId);
+                    Assert.Equal("A preset post with a random author", post.Title);
+                    Assert.Equal("Some text for the post", post.Body);
                 });
         }
     }

@@ -7,11 +7,11 @@ using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands.R
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handlers
 {
-    public class GetPostQueryHandler : ICommandHandler<GetPostQuery, Post>
+    public class DeletePostCommandHandler : ICommandHandler<DeletePostCommand>
     {
-        public Task<Post> ExecuteAsync(GetPostQuery command, Post previousResult)
+        public Task ExecuteAsync(DeletePostCommand command)
         {
-            if (!Posts.Items.TryGetValue(command.PostId, out Post post))
+            if (!Posts.Items.TryRemove(command.PostId, out Post _))
             {
                 // Normally you would implement a validation pattern for command handlers
                 // and have the mediator interpret that and throw these exceptions.
@@ -20,7 +20,8 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handle
                 // simpler.
                 throw new RestApiException(HttpStatusCode.NotFound);
             }
-            return Task.FromResult(post);
+
+            return Task.CompletedTask;
         }
     }
 }

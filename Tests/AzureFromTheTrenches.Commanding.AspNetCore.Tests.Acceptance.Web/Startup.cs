@@ -66,8 +66,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                 .AddMvc(options => options.Filters.Add<SetClaimsFilter>())
                 // this block configures our commands to be exposed on endpoints
                 .AddAspNetCoreCommanding(cfg => cfg
-                    .Controller("Add", controller => controller
-                        .Action<AddCommand>(HttpMethod.Get))
                     .Controller("Post", controller => controller
                         .Action<GetPostsQuery>(HttpMethod.Get)
                         .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{postId}")

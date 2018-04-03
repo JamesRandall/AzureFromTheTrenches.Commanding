@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands
 {
-    public class AddCommand : ICommand<int>
+    public class DeletePostCommand : ICommand
     {
-        public IReadOnlyCollection<int> Numbers { get; set; }
+        public Guid UserId { get; set; }
+
+        public Guid PostId { get; set; }
     }
 }

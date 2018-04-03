@@ -27,6 +27,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 typeof(Microsoft.AspNetCore.Mvc.ControllerBase).GetTypeInfo().Assembly.Location,
                 typeof(Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor).GetTypeInfo().Assembly.Location,
                 typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location,
+                typeof(System.Net.HttpStatusCode).GetTypeInfo().Assembly.Location,
                 typeof(object).GetTypeInfo().Assembly.Location,
                 typeof(Hashtable).GetTypeInfo().Assembly.Location,
                 Assembly.GetExecutingAssembly().Location,

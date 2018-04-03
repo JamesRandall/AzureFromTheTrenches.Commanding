@@ -23,13 +23,20 @@ namespace {{Namespace}}
             {
                 return BadRequest(ModelState);
             }
+            try
+            {
     {{#if ResultType}}
-            var commandResult = await _commandDispatcher.DispatchAsync(command);
-            return Ok(commandResult.Result);
+                var commandResult = await _commandDispatcher.DispatchAsync(command);
+                return Ok(commandResult.Result);
     {{else}}
-            await _commandDispatcher.DispatchAsync(command);
-            return Ok();
+                await _commandDispatcher.DispatchAsync(command);
+                return Ok();
     {{/if}}
+            }
+            catch(RestApiException restApiException)
+            {
+                return StatusCode((int)restApiException.StatusCode, restApiException.Payload);
+            }
         }
 {{/each}}
     }

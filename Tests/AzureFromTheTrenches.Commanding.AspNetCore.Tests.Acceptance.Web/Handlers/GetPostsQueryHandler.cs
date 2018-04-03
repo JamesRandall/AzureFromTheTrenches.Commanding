@@ -12,7 +12,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Handle
     {
         public Task<IReadOnlyCollection<Post>> ExecuteAsync(GetPostsQuery command, IReadOnlyCollection<Post> previousResult)
         {
-            return Task.FromResult((IReadOnlyCollection<Post>)Posts.Items);
+            return Task.FromResult((IReadOnlyCollection<Post>)Posts.Items.Values);
         }
     }
 }

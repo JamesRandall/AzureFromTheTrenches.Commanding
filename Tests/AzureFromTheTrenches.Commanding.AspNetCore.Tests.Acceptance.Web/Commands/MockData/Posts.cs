@@ -6,22 +6,25 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Comman
 {
     public static class Posts
     {
-        public static readonly ConcurrentBag<Post> Items = new ConcurrentBag<Post>
+        public static readonly ConcurrentDictionary<Guid, Post> Items;
+
+        static Posts()
         {
-            new Post()
+            Items = new ConcurrentDictionary<Guid, Post>();
+            Items[Constants.PresetPostId] = new Post()
             {
-                Id = Guid.NewGuid(),
+                Id = Constants.PresetPostId,
                 AuthorId = Guid.NewGuid(),
-                Title = "A random post",
+                Title = "A preset post with a random author",
                 Body = "Some text for the post"
-            },
-            new Post()
+            };
+            Items[Constants.PresetUserAuthoredPostId] = new Post()
             {
                 Id = Constants.PresetUserAuthoredPostId,
                 AuthorId = Constants.UserId,
                 Title = "Authored user post",
                 Body = "Authored by logged in user"
-            }
-        };
+            };
+        }
     }
 }
