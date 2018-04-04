@@ -11,7 +11,7 @@ using Xunit;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
 {
-    public class ProfileControllerTests : AbstractControllerTestBase
+    public class ProfileControllerTests : AbstractControllerTestBase<Startup>
     {
         [Scenario]
         public void ShouldRetrieveLoggedOnUsersPosts(string requestUrl, HttpResponseMessage response, Post post)
@@ -22,7 +22,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
                 .x(async () => response = await HttpClient.GetAsync(requestUrl));
             "Then the response is 200"
                 .x(() => Assert.Equal(HttpStatusCode.OK, response.StatusCode));
-            "And only one post is returned"
+            "And the preauthored post for the user is returned"
                 .x(async () =>
                 {
                     string json = await response.Content.ReadAsStringAsync();

@@ -22,13 +22,11 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             if (type.IsGenericType)
             {
                 string[] parentType = type.FullName.Split('`');
-                // We will build the type here.
                 Type[] arguments = type.GetGenericArguments();
 
                 StringBuilder argList = new StringBuilder();
                 foreach (Type t in arguments)
                 {
-                    // Let's make sure we get the argument list.
                     string arg = EvaluateType(t);
                     if (argList.Length > 0)
                     {
@@ -83,7 +81,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
                 Type bindingAttributeType = action.BindingAttributeType ?? (
                                                 action.Verb == HttpMethod.Get || action.Verb == HttpMethod.Delete
-                                                ? typeof(FromQueryAttribute)
+                                                ? typeof(FromRouteAttribute)
                                                 : typeof(FromBodyAttribute));
                 if (!bindingAttributeType.Name.EndsWith("Attribute"))
                 {

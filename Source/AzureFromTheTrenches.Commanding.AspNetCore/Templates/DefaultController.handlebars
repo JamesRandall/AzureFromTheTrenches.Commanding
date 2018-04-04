@@ -17,8 +17,15 @@ namespace {{Namespace}}
 
 {{#each Actions}}
         {{{actionAttributes}}}
+    {{#if HasProperties}}
         public async Task<IActionResult> {{Verb}}{{CommandType.Name}} ({{bindingAttribute}}{{CommandType.FullName}} command)
+    {{else}}
+        public async Task<IActionResult> {{Verb}}{{CommandType.Name}} ()
+    {{/if}}
         {
+    {{#unless HasProperties}}
+            var command = new {{CommandType.FullName}}();
+    {{/unless}}
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -33,9 +40,17 @@ namespace {{Namespace}}
                 return Ok();
     {{/if}}
             }
-            catch(RestApiException restApiException)
+            catch(AzureFromTheTrenches.Commanding.AspNetCore.RestApiException restApiException)
             {
                 return StatusCode((int)restApiException.StatusCode, restApiException.Payload);
+            }
+            catch(AzureFromTheTrenches.Commanding.CommandExecutionException cex)
+            {
+                if (cex.InnerException is AzureFromTheTrenches.Commanding.AspNetCore.RestApiException restApiException)
+                {
+                    return StatusCode((int)restApiException.StatusCode, restApiException.Payload);
+                }
+                throw;
             }
         }
 {{/each}}

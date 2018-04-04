@@ -2,10 +2,12 @@
 
 ## Introduction
 
-## TODO
+## Configuration
 
-* Register attributes such as Authorize at the controller or Action level
+### Controllers
 
-* Allow a mediator decorator to influence the respones type of the controller
+### Actions
 
-* Allow additional assemblies to be routed through to the SyntaxTreeCompiler for inclusion as MetaDataReferences
+Get and delete default to FromRoute while put and post defaule to FromBody
+
+

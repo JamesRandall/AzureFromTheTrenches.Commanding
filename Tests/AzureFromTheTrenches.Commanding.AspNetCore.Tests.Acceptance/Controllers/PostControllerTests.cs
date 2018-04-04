@@ -13,7 +13,7 @@ using Xunit;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
 {
-    public class PostControllerTests : AbstractControllerTestBase
+    public class PostControllerTests : AbstractControllerTestBase<Startup>
     {
         [Scenario]
         public void ShouldAddNewPost(string requestUrl, HttpResponseMessage response, Guid postId)
@@ -69,6 +69,75 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance
                     Assert.Equal("A preset post with a random author", post.Title);
                     Assert.Equal("Some text for the post", post.Body);
                 });
+        }
+
+        [Scenario]
+        public void ShouldReturnNotFoundWhenTryingToGetPostThatDoesNotExist(string requestUrl, HttpResponseMessage response)
+        {
+            "Given a request for a specific post that does not exist"
+                .x(() => requestUrl = $"/api/post/{Guid.NewGuid()}");
+            "When the API call is made"
+                .x(async () =>
+                {
+                    response = await HttpClient.GetAsync(requestUrl);
+                });
+            "Then the response is 404 NotFound"
+                .x(() => Assert.Equal(HttpStatusCode.NotFound, response.StatusCode));
+        }
+
+        [Scenario]
+        public void ShouldGetAllPosts(string requestUrl, HttpResponseMessage response)
+        {
+            "Given a request for all posts"
+                .x(() => requestUrl = $"/api/post");
+            "When the API call is made"
+                .x(async () =>
+                {
+                    response = await HttpClient.GetAsync(requestUrl);
+                });
+            "Then the response is 200"
+                .x(() => Assert.Equal(HttpStatusCode.OK, response.StatusCode));
+            "And at least two posts are returned"
+                .x(async () =>
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Post[] posts = JsonConvert.DeserializeObject<Post[]>(json);
+                    Assert.NotNull(posts);
+                    Assert.True(posts.Length > 1);
+                });
+        }
+
+        [Scenario]
+        public void ShouldDeleteSpecificPost(string requestUrl, HttpResponseMessage response)
+        {
+            "Given a request to delete a specific post"
+                .x(() => requestUrl = $"/api/post/{Constants.PresetPostIdForDeletion}");
+            "When the API call is made"
+                .x(async () =>
+                {
+                    response = await HttpClient.DeleteAsync(requestUrl);
+                });
+            "Then the response is 200"
+                .x(() => Assert.Equal(HttpStatusCode.OK, response.StatusCode));
+            "And the post has been deleted"
+                .x(() =>
+                {
+                    Assert.False(Posts.Items.ContainsKey(Constants.PresetPostIdForDeletion));
+                });
+        }
+
+        [Scenario]
+        public void ShouldReturnNotFoundWhenTryingToDeletePostThatDoesNotExist(string requestUrl, HttpResponseMessage response)
+        {
+            "Given a request to delete a specific post that does not exist"
+                .x(() => requestUrl = $"/api/post/{Guid.NewGuid()}");
+            "When the API call is made"
+                .x(async () =>
+                {
+                    response = await HttpClient.DeleteAsync(requestUrl);
+                });
+            "Then the response is 404 NotFound"
+                .x(() => Assert.Equal(HttpStatusCode.NotFound, response.StatusCode));
         }
     }
 }

@@ -14,5 +14,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
         public Type ResultType { get; set; }
 
         public Type BindingAttributeType { get; set; }
+
+        public bool HasProperties => CommandType.GetProperties().Length > 0;
     }
 }

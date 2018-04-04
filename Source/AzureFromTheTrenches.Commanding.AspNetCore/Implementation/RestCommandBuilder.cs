@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
@@ -76,6 +77,11 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         public IReadOnlyCollection<Type> GetRegisteredCommandTypes()
         {
             return ControllerBuilder.GetRegisteredCommandTypes();
+        }
+
+        public IReadOnlyCollection<MemberInfo> GetSecurityPropertyMembers()
+        {
+            return new MemberInfo[0];
         }
     }
 }

@@ -25,6 +25,13 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Comman
                 Title = "Authored user post",
                 Body = "Authored by logged in user"
             };
+            Items[Constants.PresetPostIdForDeletion] = new Post()
+            {
+                Id = Constants.PresetPostIdForDeletion,
+                AuthorId = Constants.UserId,
+                Title = "Post for deletion",
+                Body = "A post used in deletion tests"
+            };
         }
     }
 }

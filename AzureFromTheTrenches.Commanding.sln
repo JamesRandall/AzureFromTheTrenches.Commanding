@@ -82,7 +82,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web", "Tests\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.csproj", "{1A1E3503-C1AF-4136-81C2-4A9D2EE8D127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance", "Tests\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.csproj", "{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance", "Tests\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance\AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.csproj", "{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

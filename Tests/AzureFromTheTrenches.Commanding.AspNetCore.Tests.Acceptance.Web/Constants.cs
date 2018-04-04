@@ -9,5 +9,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
         public static readonly Guid PresetPostId = Guid.NewGuid();
 
         public static readonly Guid PresetUserAuthoredPostId = Guid.NewGuid();
+
+        public static readonly Guid PresetPostIdForDeletion = Guid.NewGuid();
     }
 }

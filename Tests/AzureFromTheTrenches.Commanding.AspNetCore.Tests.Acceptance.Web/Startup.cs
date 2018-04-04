@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
@@ -29,8 +30,26 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
 
         public IConfiguration Configuration { get; }
 
+        // this exists as a virtual to let us disable the SetClaimsFilter in some tests
+        public virtual void ConfigureMvcOptions(MvcOptions options)
+        {
+            // this filter adds claims, just stops us having to wire up to a real auth provider in this sample
+            options.Filters.Add<SetClaimsFilter>();
+        }
+
+        // This is virtual to allow acceptance tests to disable claims mapping
+        public virtual void ConfigureClaimsMapping(IClaimsMappingBuilder mapper)
+        {
+            mapper
+                // this will map the claim UserId to every property on a command called UserId
+                // this can be used if a convention based approach is being used
+                .MapClaimToPropertyName("UserId", "UserId")
+                // this will map the claim UserId to the property AuthorId on the AddNewPostCommand command
+                .MapClaimToCommandProperty<AddNewPostCommand>("UserId", cmd => cmd.AuthorId);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             string storageAccountConnectionString = Configuration["storage:connectionstring"];
             string expensiveOperationQueueName = Configuration["storage:queuename"];
@@ -62,25 +81,22 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
             // in process by the registered handlers while the ExpensiveOperationCommand is exposed as a POST operation
             // and results in the command being placed on a queue
             services
-                // this filter adds claims, just stops us having to wire up to a real auth provider in this sample
-                .AddMvc(options => options.Filters.Add<SetClaimsFilter>())
+                .AddMvc(ConfigureMvcOptions)
                 // this block configures our commands to be exposed on endpoints
                 .AddAspNetCoreCommanding(cfg => cfg
                     .Controller("Post", controller => controller
                         .Action<GetPostsQuery>(HttpMethod.Get)
-                        .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{postId}")
+                        .Action<GetPostQuery, FromRouteAttribute>(HttpMethod.Get, "{PostId}")
                         .Action<AddNewPostCommand>(HttpMethod.Post)
+                        .Action<DeletePostCommand>(HttpMethod.Delete, "{PostId}")
                         )
                     .Controller("Profile", controller => controller
                         .Action<GetPostsForCurrentUserQuery>(HttpMethod.Get, "Posts"))
                     .Controller("ExpensiveOperation", controller => controller
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
-                    .Claims(mapper => mapper
-                        // this will map the claim UserId to every property on a command called UserId
-                        // this can be used if a convention based approach is being used
-                        .MapClaimToPropertyName("UserId", "UserId")
-                        // this will map the claim UserId to the property AuthorId on the AddNewPostCommand command
-                        .MapClaimToCommandProperty<AddNewPostCommand>("UserId", cmd => cmd.AuthorId))
+                    .Controller("SecurityTest", controller => controller
+                        .Action<SecurityTestCommand>(HttpMethod.Post))
+                    .Claims(ConfigureClaimsMapping)
                     .LogControllerCode(code =>
                     {
                         // this will output the code that is compiled for each controller to the debug window
