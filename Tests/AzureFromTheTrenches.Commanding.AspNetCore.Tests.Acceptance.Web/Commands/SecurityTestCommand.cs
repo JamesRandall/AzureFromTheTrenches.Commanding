@@ -1,5 +1,4 @@
 ﻿using AzureFromTheTrenches.Commanding.Abstractions;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands
 {
@@ -12,7 +11,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Comman
     public class SecurityTestCommand : ICommand
     {
         [SecurityProperty]
-        [BindNever]
         public string SensitiveData { get; set; }
 
         public string AnotherPieceOfData { get; set; }
