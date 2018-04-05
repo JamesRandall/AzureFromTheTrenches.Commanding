@@ -33,7 +33,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Security
         [Scenario]
         public void AttemptToPokeInValueViaPostRequestFails(string requestUrl)
         {
-            "Given a URL with a secure property"
+            "Given a URL with a post body with a secure property"
                 .x(() => requestUrl = "/api/securityTest");
             "When the request attempts to set the property via a POST operation"
                 .x(async () => await HttpClient.PostAsync(requestUrl,
@@ -52,5 +52,24 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Security
                     Assert.Null(((SecurityTestCommand)commandDispatcher.CommandLog.Single()).SensitiveData);
                 });
         }
+
+        [Scenario]
+        public void AttemptToPokeInValueViaGetQueryParamaterRequestFails(string requestUrl)
+        {
+            "Given a URL with a secure property"
+                .x(() => requestUrl = "/api/securityTest/asQueryParam?SensitiveData=shouldbeblocked&AnotherPieceOfData=something");
+            "When the request attempts to set the property via a GET operation"
+                .x(async () => await HttpClient.GetAsync(requestUrl));
+            "Then the captured command ignores the data in the payload and the command contains a null SensitiveData property"
+                .x(() =>
+                {
+                    CaptureCommandDispatcher commandDispatcher = (CaptureCommandDispatcher)CommandDispatcher;
+                    Assert.Equal(1, commandDispatcher.CommandLog.Count);
+                    Assert.IsType<SecurityTestCommand>(commandDispatcher.CommandLog.Single());
+                    Assert.Null(((SecurityTestCommand)commandDispatcher.CommandLog.Single()).SensitiveData);
+                });
+        }
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Commands;
 using AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web.Filters;
@@ -95,7 +96,16 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Tests.Acceptance.Web
                     .Controller("ExpensiveOperation", controller => controller
                         .Action<ExpensiveOperationCommand>(HttpMethod.Post))
                     .Controller("SecurityTest", controller => controller
-                        .Action<SecurityTestCommand>(HttpMethod.Post))
+                        .Action<SecurityTestCommand>(HttpMethod.Post)
+                        // we wire this one up with an ActionDefinition model to cover that test path
+                        .Action(new ActionDefinition
+                        {
+                            BindingAttributeType = typeof(FromQueryAttribute),
+                            CommandType = typeof(SecurityTestCommand),
+                            ResultType = null,
+                            Route = "asQueryParam",
+                            Verb = HttpMethod.Get
+                        }))
                     .Claims(ConfigureClaimsMapping)
                     .LogControllerCode(code =>
                     {
