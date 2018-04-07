@@ -4,8 +4,6 @@
 
 * Register attributes such as Authorize at the controller or Action level
 
-* Allow additional assemblies to be routed through to the SyntaxTreeCompiler for inclusion as MetaDataReferences
-
 * Documentation
 
 ## General
@@ -17,6 +15,9 @@
 ## Done
 
 * Allow a mediator decorator to influence the respones type of the controller
+
+* Allow additional assemblies to be routed through to the SyntaxTreeCompiler for inclusion as MetaDataReferences
+
 
 # vNext + 1
 

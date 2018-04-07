@@ -14,6 +14,13 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 {
     internal class SyntaxTreeCompiler : ISyntaxTreeCompiler
     {
+        private readonly IReadOnlyCollection<Assembly> _templateCompilationReferences;
+
+        public SyntaxTreeCompiler(IReadOnlyCollection<Assembly> templateCompilationReferences)
+        {
+            _templateCompilationReferences = templateCompilationReferences;
+        }
+
         public Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees)
         {
             // TODO: We need to allow consumers of the package to be able to add their own metadata references / assemblies
@@ -37,6 +44,14 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             foreach (Assembly assembly in loadedAssemblies)
             {
                 if (!assembly.IsDynamic)
+                {
+                    locations.Add(assembly.Location);
+                }
+            }
+
+            if (_templateCompilationReferences != null)
+            {
+                foreach (Assembly assembly in _templateCompilationReferences)
                 {
                     locations.Add(assembly.Location);
                 }

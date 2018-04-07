@@ -39,6 +39,12 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
             return this;
         }
 
+        IRestCommandBuilder IRestCommandBuilder.TemplateCompilationRefences(IReadOnlyCollection<Assembly> assemblies)
+        {
+            TemplateCompilationReferences = assemblies;
+            return this;
+        }
+
         IRestCommandBuilder IRestCommandBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
             ((IControllerBuilder)ControllerBuilder).Controller(controller, actionBuilder);
@@ -68,11 +74,13 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
         public string OutputNamespace { get; set; }
 
-        public Func<string, Stream> ExternalTemplateProvider { get; set; }
+        public Func<string, Stream> ExternalTemplateProvider { get; private set; }
 
         public Action<string> ConstructedCodeLogger { get; set; }
 
         public ClaimsMappingBuilder ClaimsMappingBuilder { get; }
+
+        public IReadOnlyCollection<Assembly> TemplateCompilationReferences { get; private set; }
 
         public IReadOnlyCollection<Type> GetRegisteredCommandTypes()
         {

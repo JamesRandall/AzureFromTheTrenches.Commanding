@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore
 {
@@ -30,6 +32,14 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// allowing visibility of exactly what code is being compiled.
         /// </summary>
         IRestCommandBuilder LogControllerCode(Action<string> logger);
+
+        /// <summary>
+        /// Optional. If you are using custom controller templates you will need to provide assemblies for
+        /// any references / assemblies you make use of.
+        /// </summary>
+        /// <param name="assemblies"></param>
+        /// <returns></returns>
+        IRestCommandBuilder TemplateCompilationRefences(IReadOnlyCollection<Assembly> assemblies);
 
         /// <summary>
         /// Define a controller - a short cut for Controllers(cfg => ...)

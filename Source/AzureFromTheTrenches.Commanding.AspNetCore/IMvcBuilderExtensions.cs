@@ -28,7 +28,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
 
             // When the user has completed defining their command based API through the builder we compile controllers, using Roslyn, using the definitions
             // that have been supplied
-            ISyntaxTreeCompiler syntaxTreeCompiler = new SyntaxTreeCompiler();
+            ISyntaxTreeCompiler syntaxTreeCompiler = new SyntaxTreeCompiler(restCommandBuilderInstance.TemplateCompilationReferences);
             IControllerTemplateCompiler controllerTemplateCompiler = new HandlebarsControllerTemplateCompiler(restCommandBuilderInstance.ExternalTemplateProvider);
             IControllerCompiler controllerCompiler = new ControllerCompiler(
                 controllerTemplateCompiler,
