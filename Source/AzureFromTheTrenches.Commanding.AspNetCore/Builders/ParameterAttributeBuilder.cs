@@ -1,6 +1,6 @@
 ﻿using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
 {
     class ParameterAttributeBuilder : IParameterAttributeBuilder
     {

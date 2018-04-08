@@ -4,7 +4,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Json
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Json
 {
     class JsonSecurityPropertyContractResolver : DefaultContractResolver
     {

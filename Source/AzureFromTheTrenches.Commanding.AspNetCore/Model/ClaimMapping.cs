@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
 {
     internal class ClaimMapping
     {

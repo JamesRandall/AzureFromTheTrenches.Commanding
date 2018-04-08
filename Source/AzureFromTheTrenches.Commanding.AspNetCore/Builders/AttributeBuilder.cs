@@ -1,7 +1,7 @@
 ﻿using System;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
 {
     internal class AttributeBuilder: IAttributeBuilder
     {

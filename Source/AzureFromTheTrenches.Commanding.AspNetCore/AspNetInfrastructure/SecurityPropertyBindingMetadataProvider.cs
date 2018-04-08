@@ -2,7 +2,7 @@
 using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
+namespace AzureFromTheTrenches.Commanding.AspNetCore.AspNetInfrastructure
 {
     class SecurityPropertyBindingMetadataProvider : IBindingMetadataProvider
     {

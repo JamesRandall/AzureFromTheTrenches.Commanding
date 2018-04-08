@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.CodeAnalysis;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
 {
     internal interface ISyntaxTreeCompiler
     {

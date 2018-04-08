@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
 {
     interface IControllerTemplateCompiler
     {

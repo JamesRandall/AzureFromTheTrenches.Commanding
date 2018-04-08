@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation;
-using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Json;
+using AzureFromTheTrenches.Commanding.AspNetCore.AspNetInfrastructure;
+using AzureFromTheTrenches.Commanding.AspNetCore.Builders;
+using AzureFromTheTrenches.Commanding.AspNetCore.Compilation;
+using AzureFromTheTrenches.Commanding.AspNetCore.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;

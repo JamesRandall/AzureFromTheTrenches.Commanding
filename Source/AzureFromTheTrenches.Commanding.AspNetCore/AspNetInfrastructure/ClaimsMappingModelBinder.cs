@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
+namespace AzureFromTheTrenches.Commanding.AspNetCore.AspNetInfrastructure
 {
     class ClaimsMappingModelBinder : IModelBinder
     {

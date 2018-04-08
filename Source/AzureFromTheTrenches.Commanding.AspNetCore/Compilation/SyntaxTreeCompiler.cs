@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
 {
     internal class SyntaxTreeCompiler : ISyntaxTreeCompiler
     {

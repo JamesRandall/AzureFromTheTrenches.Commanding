@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
 {
     internal class ControllerBuilder : IControllerBuilder
     {

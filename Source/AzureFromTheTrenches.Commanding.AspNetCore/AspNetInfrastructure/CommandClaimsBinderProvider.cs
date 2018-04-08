@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
+namespace AzureFromTheTrenches.Commanding.AspNetCore.AspNetInfrastructure
 {
     class CommandClaimsBinderProvider : ICommandClaimsBinderProvider
     {

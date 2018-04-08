@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
 {
     internal class RestCommandBuilder : IRestCommandBuilder
     {
