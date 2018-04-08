@@ -49,6 +49,15 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// <returns></returns>
         IRestCommandBuilder Controller(string controller, Action<IActionBuilder> actionBuilder);
 
+        IRestCommandBuilder Controller(string controller,
+            Action<IAttributeBuilder> attributeBuilder,
+            Action<IActionBuilder> actionBuilder);
+
+        IRestCommandBuilder Controller(string controller,
+            string route,
+            Action<IAttributeBuilder> attributeBuilder,
+            Action<IActionBuilder> actionBuilder);
+
         /// <summary>
         /// Allow claims to be mapped to command properties
         /// </summary>

@@ -7,6 +7,7 @@ using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore;
 using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -45,12 +46,11 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                 {
                     cfg
                         // Define RESTful controllers and actions based on commands
-                        .Controller("PropertyValue", actions =>
-                        {
-                            actions
+                        .Controller("PropertyValue",
+                            attributes => attributes.Attribute<AuthorizeAttribute>(p => p.Parameter("mypolicy")),
+                            actions =>  actions
                                 .Action<GetPropertyValueQuery>(HttpMethod.Get)
-                                .Action<UpdatePropertyValueCommand>(HttpMethod.Put);
-                        })
+                                .Action<UpdatePropertyValueCommand>(HttpMethod.Put))
                         .Controller("Message", actions => { actions.Action<GetMessageQuery>(HttpMethod.Get); })
                         // Configure claims to automatically populate properties on commands
                         .Claims(mapping =>

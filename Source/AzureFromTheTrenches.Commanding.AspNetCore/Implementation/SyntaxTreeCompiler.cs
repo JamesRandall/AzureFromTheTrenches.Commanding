@@ -23,10 +23,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
         public Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees)
         {
-            // TODO: We need to allow consumers of the package to be able to add their own metadata references / assemblies
-            // so that they can add filter attributes in packages we haven't directly references (even custom fitlers)
             Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            //Assembly[] dynamicAssemblies = loadedAssemblies.Where(x => x.IsDynamic).ToArray();
             HashSet<string> locations = new HashSet<string>
             {
                 typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location,
@@ -57,7 +54,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 }
             }
 
-            MetadataReference[] references = locations.Select(x => MetadataReference.CreateFromFile(x)).ToArray();            
+            PortableExecutableReference[] references = locations.Select(x => MetadataReference.CreateFromFile(x)).ToArray();            
 
             var compilation = CSharpCompilation.Create(outputAssemblyName,
                 syntaxTrees,
