@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
 {
     internal class ControllerBuilder : IControllerBuilder
     {
@@ -10,10 +10,18 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
 
         IControllerBuilder IControllerBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
-            return ((IControllerBuilder)this).Controller(controller, null, actionBuilder);
+            return ((IControllerBuilder)this).Controller(controller, null, null, actionBuilder);
         }
 
-        IControllerBuilder IControllerBuilder.Controller(string controller, string route, Action<IActionBuilder> actionBuilder) // TODO: we need to allow attributes to be specified
+        IControllerBuilder IControllerBuilder.Controller(string controller, Action<IAttributeBuilder> attributeBuilder, Action<IActionBuilder> actionBuilder)
+        {
+            return ((IControllerBuilder)this).Controller(controller, null, attributeBuilder, actionBuilder);
+        }
+
+        IControllerBuilder IControllerBuilder.Controller(string controller,
+            string route,
+            Action<IAttributeBuilder> attributeBuilder,
+            Action<IActionBuilder> actionBuilder)
         {
             if (_controllers.ContainsKey(controller))
             {
@@ -24,13 +32,22 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
                 controller.EndsWith("Controller") ? controller : string.Concat(controller, "Controller");
             ActionBuilder actionBuilderInstance = new ActionBuilder();
             actionBuilder(actionBuilderInstance);
-            _controllers[resolvedName] = new ControllerDefinition
+            ControllerDefinition definition = new ControllerDefinition
             {
                 Actions = actionBuilderInstance.Actions,
                 Name = resolvedName,
                 Route = route
             };
+            _controllers[resolvedName] = definition;
+
+            attributeBuilder?.Invoke(new AttributeBuilder(definition));
+
             return this;
+        }
+
+        IControllerBuilder IControllerBuilder.Controller(string controller, string route, Action<IActionBuilder> actionBuilder) // TODO: we need to allow attributes to be specified
+        {
+            return ((IControllerBuilder)this).Controller(controller, route, null, actionBuilder);
         }
 
         public void SetDefaults(string defaultNamespace, string defaultControllerRoute)

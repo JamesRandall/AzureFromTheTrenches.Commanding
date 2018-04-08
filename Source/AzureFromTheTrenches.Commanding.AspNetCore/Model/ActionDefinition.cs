@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
 {
-    public class ActionDefinition
+    public class ActionDefinition : AbstractAttributableDefinition
     {
         public HttpMethod Verb { get; set; }
 

@@ -14,5 +14,9 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
             string route,
             Action<IAttributeBuilder> attributeBuilder,
             Action<IActionBuilder> actionBuilder);
+
+        IControllerBuilder Controller(string controller,
+            string route,
+            Action<IActionBuilder> actionBuilder);
     }
 }

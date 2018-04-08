@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Claims;
+using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure;
 using AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Model;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
 {
     internal class ClaimsMappingBuilder : IClaimsMappingBuilder
     {

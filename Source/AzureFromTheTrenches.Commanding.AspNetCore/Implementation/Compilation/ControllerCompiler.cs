@@ -6,7 +6,7 @@ using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
 {
     class ControllerCompiler : IControllerCompiler
     {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
 {
     internal interface ICommandClaimsBinderProvider
     {

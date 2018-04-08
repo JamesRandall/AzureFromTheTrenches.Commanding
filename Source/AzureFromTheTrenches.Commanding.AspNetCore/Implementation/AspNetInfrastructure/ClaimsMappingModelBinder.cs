@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
 {
     class ClaimsMappingModelBinder : IModelBinder
     {

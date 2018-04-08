@@ -5,7 +5,7 @@ using System.Net.Http;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
 {
     internal class ActionBuilder : IActionBuilder
     {

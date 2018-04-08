@@ -9,7 +9,7 @@ using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
 {
     class HandlebarsControllerTemplateCompiler : IControllerTemplateCompiler
     {

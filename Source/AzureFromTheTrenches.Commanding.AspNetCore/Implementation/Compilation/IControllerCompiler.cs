@@ -2,7 +2,7 @@
 using System.Reflection;
 using AzureFromTheTrenches.Commanding.AspNetCore.Model;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Compilation
 {
     interface IControllerCompiler
     {

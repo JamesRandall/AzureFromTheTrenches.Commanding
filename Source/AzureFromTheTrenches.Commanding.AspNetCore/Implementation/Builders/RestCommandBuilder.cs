@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.Builders
 {
     internal class RestCommandBuilder : IRestCommandBuilder
     {
@@ -48,6 +48,18 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
         IRestCommandBuilder IRestCommandBuilder.Controller(string controller, Action<IActionBuilder> actionBuilder)
         {
             ((IControllerBuilder)ControllerBuilder).Controller(controller, actionBuilder);
+            return this;
+        }
+
+        public IRestCommandBuilder Controller(string controller, Action<IAttributeBuilder> attributeBuilder, Action<IActionBuilder> actionBuilder)
+        {
+            ((IControllerBuilder) ControllerBuilder).Controller(controller, attributeBuilder, actionBuilder);
+            return this;
+        }
+
+        public IRestCommandBuilder Controller(string controller, string route, Action<IAttributeBuilder> attributeBuilder, Action<IActionBuilder> actionBuilder)
+        {
+            ((IControllerBuilder)ControllerBuilder).Controller(controller, route, attributeBuilder, actionBuilder);
             return this;
         }
 

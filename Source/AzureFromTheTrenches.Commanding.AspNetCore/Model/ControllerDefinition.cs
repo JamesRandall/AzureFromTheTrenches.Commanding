@@ -2,7 +2,7 @@
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Model
 {
-    public class ControllerDefinition
+    public class ControllerDefinition : AbstractAttributableDefinition
     {
         public string Name { get; set; }
 

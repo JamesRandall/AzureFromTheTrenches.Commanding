@@ -2,7 +2,7 @@
 using AzureFromTheTrenches.Commanding.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation
+namespace AzureFromTheTrenches.Commanding.AspNetCore.Implementation.AspNetInfrastructure
 {
     internal class ClaimsMappingModelBinderProvider : IModelBinderProvider
     {
