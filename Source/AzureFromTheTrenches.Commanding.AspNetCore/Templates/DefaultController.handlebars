@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace {{Namespace}}
 {
+{{#each Attributes}}
+    {{{attribute}}}
+{{/each}}
     [Route("{{Route}}")]
     public class {{Name}} : Controller
     {
@@ -16,6 +19,9 @@ namespace {{Namespace}}
         }
 
 {{#each Actions}}
+    {{#each Attributes}}
+        {{{attribute}}}
+    {{/each}}
         {{{actionAttributes}}}
     {{#if HasProperties}}
         public async Task<IActionResult> {{Verb}}{{CommandType.Name}} ({{bindingAttribute}}{{CommandType.FullName}} command)

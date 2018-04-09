@@ -47,7 +47,7 @@ namespace AspNetCoreConfigurationBasedCommandControllers
                     cfg
                         // Define RESTful controllers and actions based on commands
                         .Controller("PropertyValue",
-                            attributes => attributes.Attribute<AuthorizeAttribute>(p => p.Parameter("mypolicy")),
+                            attributes => attributes.Attribute<AuthorizeAttribute>(),
                             actions =>  actions
                                 .Action<GetPropertyValueQuery>(HttpMethod.Get)
                                 .Action<UpdatePropertyValueCommand>(HttpMethod.Put))

@@ -12,6 +12,15 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
             _attributableDefinition = attributableDefinition;
         }
 
+        public IAttributeBuilder Attribute<TAttribute>() where TAttribute : Attribute
+        {
+            _attributableDefinition.Attributes.Add(new AttributeDefinition
+            {
+                AttributeType = typeof(TAttribute)
+            });
+            return this;
+        }
+
         public IAttributeBuilder Attribute<TAttribute>(Action<IParameterAttributeBuilder> parameterAttributeBuilder) where TAttribute : Attribute
         {
             AttributeDefinition definition = new AttributeDefinition()

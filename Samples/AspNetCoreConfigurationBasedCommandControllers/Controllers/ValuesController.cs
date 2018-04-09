@@ -3,11 +3,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCoreConfigurationBasedCommandControllers.Commands;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(policy: "")]
     public class ValuesController : Controller
     {
         private readonly ICommandDispatcher _commandDispatcher;
@@ -19,6 +21,7 @@ namespace AspNetCoreConfigurationBasedCommandControllers.Controllers
 
         // GET api/values
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

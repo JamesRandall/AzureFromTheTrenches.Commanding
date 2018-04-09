@@ -2,93 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using AzureFromTheTrenches.Commanding.AspNetCore.Extensions;
-using AzureFromTheTrenches.Commanding.AspNetCore.Model;
+using AzureFromTheTrenches.Commanding.AspNetCore.Compilation.HandlebarsHelpers;
 using HandlebarsDotNet;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
 {
     class HandlebarsControllerTemplateCompiler : IControllerTemplateCompiler
     {
         private readonly Func<string, Stream> _externalTemplateProvider;
-
-        static string EvaluateType(Type type)
-        {
-            StringBuilder retType = new StringBuilder();
-
-            if (type.IsGenericType)
-            {
-                string[] parentType = type.FullName.Split('`');
-                Type[] arguments = type.GetGenericArguments();
-
-                StringBuilder argList = new StringBuilder();
-                foreach (Type t in arguments)
-                {
-                    string arg = EvaluateType(t);
-                    if (argList.Length > 0)
-                    {
-                        argList.AppendFormat(", {0}", arg);
-                    }
-                    else
-                    {
-                        argList.Append(arg);
-                    }
-                }
-
-                if (argList.Length > 0)
-                {
-                    retType.AppendFormat("{0}<{1}>", parentType[0], argList.ToString());
-                }
-            }
-            else
-            {
-                return type.ToString();
-            }
-
-            return retType.ToString();
-        }
-
+        
         static HandlebarsControllerTemplateCompiler()
         {
-            Handlebars.RegisterHelper("actionAttributes", (writer, context, parameters) =>
-            {
-                if (!(context is ActionDefinition action))
-                {
-                    throw new TemplateCompilationException("The actionAttributes helper can only be uesd with an ActionDefinition");
-                }
-                
-                writer.WriteLine(action.Verb.ToControllerAttribute());
-                if (!string.IsNullOrWhiteSpace(action.Route))
-                {
-                    writer.WriteLine($"[Route(\"{action.Route}\")]");
-                }
-
-                if (action.ResultType != null)
-                {
-                    string evaluatedType = EvaluateType(action.ResultType);
-                    writer.WriteLine($"[ProducesResponseType(typeof({evaluatedType}), 200)]");
-                }
-            });
-            Handlebars.RegisterHelper("bindingAttribute", (writer, context, parameters) =>
-            {
-                if (!(context is ActionDefinition action))
-                {
-                    throw new TemplateCompilationException("The bindingAttribute helper can only be uesd with an ActionDefinition");
-                }
-
-                Type bindingAttributeType = action.BindingAttributeType ?? (
-                                                action.Verb == HttpMethod.Get || action.Verb == HttpMethod.Delete
-                                                ? typeof(FromRouteAttribute)
-                                                : typeof(FromBodyAttribute));
-                if (!bindingAttributeType.Name.EndsWith("Attribute"))
-                {
-                    throw new TemplateCompilationException("BindingAttributeType must be an attribute");
-                }
-                writer.WriteLine($"[{bindingAttributeType.Name.Substring(0, bindingAttributeType.Name.Length-9)}]");
-            });
+            ActionAttributesHelper.Register();
+            AttributesHelper.Register();
+            BindingAttributeHelper.Register();
         }
 
         public HandlebarsControllerTemplateCompiler(Func<string, Stream> externalTemplateProvider)
