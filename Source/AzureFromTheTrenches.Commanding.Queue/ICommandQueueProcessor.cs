@@ -10,5 +10,7 @@ namespace AzureFromTheTrenches.Commanding.Queue
         Task<bool> DequeueErrorHandler(Exception ex);
 
         Task<bool> HandleRecievedItemAsync<TCommand, TResult>(QueueItem<TCommand> item, int maxDequeueCount) where TCommand : class, ICommand<TResult>;
+
+        Task<bool> HandleRecievedItemAsync<TCommand>(QueueItem<TCommand> item, int maxDequeueCount) where TCommand : class, ICommand;
     }
 }
