@@ -11,28 +11,67 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
     {
         private readonly List<ActionDefinition> _actions = new List<ActionDefinition>();
 
-        public IActionBuilder Action<TCommand, TBindingAttribute>(HttpMethod method, string route = null) where TCommand : ICommand where TBindingAttribute : Attribute
+        public IActionBuilder Action<TCommand, TBindingAttribute>(HttpMethod method) where TCommand : ICommand where TBindingAttribute : Attribute
         {
-            _actions.Add(new ActionDefinition
+            return Action<TCommand, TBindingAttribute>(method, null, null);
+        }
+
+        public IActionBuilder Action<TCommand, TBindingAttribute>(HttpMethod method, string route)
+            where TCommand : ICommand where TBindingAttribute : Attribute
+        {
+            return Action<TCommand, TBindingAttribute>(method, route, null);
+        }
+
+        public IActionBuilder Action<TCommand, TBindingAttribute>(HttpMethod method, Action<IAttributeBuilder> attributeBuilder) where TCommand : ICommand where TBindingAttribute : Attribute
+        {
+            return Action<TCommand, TBindingAttribute>(method, null, attributeBuilder);
+        }
+
+        public IActionBuilder Action<TCommand, TBindingAttribute>(HttpMethod method, string route, Action<IAttributeBuilder> attributeBuilder) where TCommand : ICommand where TBindingAttribute : Attribute
+        {
+            ActionDefinition definition = new ActionDefinition
             {
                 Route = route,
                 Verb = method,
                 CommandType = typeof(TCommand),
                 ResultType = GetResultType(typeof(TCommand)),
                 BindingAttributeType = typeof(TBindingAttribute)
-            });
+            };
+
+            attributeBuilder?.Invoke(new AttributeBuilder(definition));
+            _actions.Add(definition);
+
             return this;
         }
 
-        public IActionBuilder Action<TCommand>(HttpMethod method, string route = null) where TCommand : ICommand
+        public IActionBuilder Action<TCommand>(HttpMethod method) where TCommand : ICommand
         {
-            _actions.Add(new ActionDefinition
+            return Action<TCommand>(method, null, null);
+        }
+
+        public IActionBuilder Action<TCommand>(HttpMethod method, string route) where TCommand : ICommand
+        {
+            return Action<TCommand>(method, route, null);
+        }
+
+        public IActionBuilder Action<TCommand>(HttpMethod method, Action<IAttributeBuilder> attributeBuilder) where TCommand : ICommand
+        {
+            return Action<TCommand>(method, null, attributeBuilder);
+        }
+
+        public IActionBuilder Action<TCommand>(HttpMethod method, string route, Action<IAttributeBuilder> attributeBuilder) where TCommand : ICommand
+        {
+            ActionDefinition definition = new ActionDefinition
             {
                 Route = route,
                 Verb = method,
                 CommandType = typeof(TCommand),
                 ResultType = GetResultType(typeof(TCommand))
-            });
+            };
+
+            attributeBuilder?.Invoke(new AttributeBuilder(definition));
+            _actions.Add(definition);
+            
             return this;
         }
 
