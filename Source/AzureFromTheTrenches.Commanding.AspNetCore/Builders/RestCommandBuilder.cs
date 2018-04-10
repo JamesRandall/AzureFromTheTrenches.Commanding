@@ -39,7 +39,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Builders
             return this;
         }
 
-        IRestCommandBuilder IRestCommandBuilder.TemplateCompilationRefences(IReadOnlyCollection<Assembly> assemblies)
+        IRestCommandBuilder IRestCommandBuilder.TemplateCompilationReferences(params Assembly[] assemblies)
         {
             TemplateCompilationReferences = assemblies;
             return this;

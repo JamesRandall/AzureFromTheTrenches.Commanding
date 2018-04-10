@@ -37,9 +37,9 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore
         /// Optional. If you are using custom controller templates you will need to provide assemblies for
         /// any references / assemblies you make use of.
         /// </summary>
-        /// <param name="assemblies"></param>
+        /// <param name="assemblies">The assemblies to reference</param>
         /// <returns></returns>
-        IRestCommandBuilder TemplateCompilationRefences(IReadOnlyCollection<Assembly> assemblies);
+        IRestCommandBuilder TemplateCompilationReferences(params Assembly[] assemblies);
 
         /// <summary>
         /// Define a controller - a short cut for Controllers(cfg => ...)

@@ -45,9 +45,22 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
                 }
                 var templates = _controllerTemplateCompiler.CompileTemplates(definitions.Select(x => x.Name).ToArray());
                 List<SyntaxTree> syntaxTrees = new List<SyntaxTree>();
+                HashSet<Assembly> attributeAssemblies = new HashSet<Assembly>();
 
                 foreach (ControllerDefinition definition in definitions)
                 {
+                    foreach (AttributeDefinition attributeDefinition in definition.Attributes)
+                    {
+                        attributeAssemblies.Add(attributeDefinition.AttributeType.Assembly);
+                    }
+                    foreach (ActionDefinition actionDefinition in definition.Actions)
+                    {
+                        foreach (AttributeDefinition attributeDefinition in actionDefinition.Attributes)
+                        {
+                            attributeAssemblies.Add(attributeDefinition.AttributeType.Assembly);
+                        }
+                    }
+
                     Func<object, string> template = templates[definition.Name];
 
                     string controllerClassSource = template(definition);
@@ -58,7 +71,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
                     syntaxTrees.Add(syntaxTree);
                 }
 
-                Assembly controllersAssembly = _syntaxTreeCompiler.CompileAssembly(string.Concat(outputNamespaceName, ".dll"), syntaxTrees);
+                Assembly controllersAssembly = _syntaxTreeCompiler.CompileAssembly(string.Concat(outputNamespaceName, ".dll"), syntaxTrees, attributeAssemblies);
                 return controllersAssembly;
             }
         }

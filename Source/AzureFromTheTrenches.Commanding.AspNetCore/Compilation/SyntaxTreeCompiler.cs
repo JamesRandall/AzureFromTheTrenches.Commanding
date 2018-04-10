@@ -21,7 +21,7 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
             _templateCompilationReferences = templateCompilationReferences;
         }
 
-        public Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees)
+        public Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees, IReadOnlyCollection<Assembly> attributeAssemblies)
         {
             Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             HashSet<string> locations = new HashSet<string>
@@ -44,6 +44,10 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
                 {
                     locations.Add(assembly.Location);
                 }
+            }
+            foreach (Assembly assembly in attributeAssemblies)
+            {
+                locations.Add(assembly.Location);
             }
 
             if (_templateCompilationReferences != null)

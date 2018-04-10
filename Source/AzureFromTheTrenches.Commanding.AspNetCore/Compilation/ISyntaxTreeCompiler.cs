@@ -6,6 +6,6 @@ namespace AzureFromTheTrenches.Commanding.AspNetCore.Compilation
 {
     internal interface ISyntaxTreeCompiler
     {
-        Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees);
+        Assembly CompileAssembly(string outputAssemblyName, IReadOnlyCollection<SyntaxTree> syntaxTrees, IReadOnlyCollection<Assembly> attributeAssemblies);
     }
 }

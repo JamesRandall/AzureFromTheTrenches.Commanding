@@ -92,7 +92,7 @@ In the following sections we'll explore some of the additional options available
 A controller can be configured with:
 
 * A name (mandatory)
-* An optional route - this is attached to the controller using the [[Route(...)]] attribute and so if you want the controller name to form part of the route it should include the {controller} component
+* An optional route - this is attached to the controller using the [Route(...)] attribute and so if you want the controller name to form part of the route it should include the [controller] component
 * An optional set of attribute filters - see Attributes below
 * One or more actions - see Actions below
 
@@ -106,7 +106,7 @@ A sample illustrating all four of the above options is shown below:
             .AddMvc()
             .AddAspNetCoreCommanding(cfg => cfg
                 .Controller("Basket",
-                    "api/v1/{controller}",
+                    "api/v1/[controller]",
                     attributes => attributes.Attribute<AuthorizeAttribute>(),
                     actions => actions.Action<AddToBasketCommand>(HttpMethod.Post)
                 )
@@ -176,7 +176,6 @@ Additionally by adding and configuring the AzureFromTheTrenches.Commanding.AspNe
         });
     }
 
-
 ### Claims Mapping
 
 Properties on commands can be set by mapping the values from claims. If we consider our previous example:
@@ -230,6 +229,42 @@ Then we can set up a specific mapping for the GetBasketQuery command as follows:
     }
 
 Claims are mapped during model binding and so are present when validation takes place.
+
+### Additional Configuration Options
+
+The options described here for the most part influence how the controllers are compiled and it's probably worth reading the "How It Works" section below in order to better understand them. I'll describe them by way of reference to an example that makes use of them all:
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // ... normal setup of commanding and other infrastructure
+
+        services
+            .AddMvc()
+            .AddAspNetCoreCommanding(cfg => cfg
+
+                .DefaultControllerRoute("api/v2/[controller]")
+                .LogControllerCode(code => Debug.WriteLine(code))
+                .OutputNamespace("My.Namespace")
+                .SetExternalTemplateProvider(GetExternalTemplate)
+                .TemplateCompilationReferences(typeof(MyAttribute).Assembly)
+                
+                .Controller("Basket", controller => controller
+                    .Action<AddToBasketCommand>(HttpMethod.Post))
+            );
+    }
+
+    private Stream GetExternalTemplate(string controllerName)
+    {
+        // return a stream to a template
+    }
+
+|Option|Description|
+|------|-----------|
+|DefaultControllerRoute|Allows the default route for a controller to be specified. This defaults to "api/[controller]"|
+|LogControllerCode|As the controller code is prepared the C# for it can be output to the action specified by this option|
+|OutputNamespace|The compiled controllers will be placed in the namespace specified here with a matching assembly name. This defaults to AzureFromTheTrenches.Commanding.AspNetCore.Controllers|
+|SetExternalTemplateProvider|You can use your own templates for compiling controllers. Every time a template is required the function supplied to this option will be called and passed the controller name, a stream should be returned open at the start of the template. Return null to use the built in template|
+|TemplateCompilationReferences|If you use a custom controller template that contains references to types not in the core MVC assemblies you may need to supply a list of assemblies that are referenced|
 
 ## How It Works
 
