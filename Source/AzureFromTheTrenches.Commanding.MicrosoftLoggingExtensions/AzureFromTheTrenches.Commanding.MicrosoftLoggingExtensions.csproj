@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
-    <ProjectReference Include="..\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
   </ItemGroup>
 
 </Project>

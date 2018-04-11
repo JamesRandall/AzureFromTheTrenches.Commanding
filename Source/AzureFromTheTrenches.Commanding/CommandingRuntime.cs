@@ -13,7 +13,7 @@ namespace AzureFromTheTrenches.Commanding
     /// simpler registration semantics however if you want an isolated commanding runtime to be configured
     /// on a per thread basis with different options (rather than shared) this class should be used.
     /// </summary>
-    public class CommandingRuntime
+    public class CommandingRuntime : ICommandingRuntime
     {
         private ICommandRegistry _registry;
         private readonly object _registryLockObject = new object();
@@ -77,9 +77,11 @@ namespace AzureFromTheTrenches.Commanding
         /// <returns>The dependency resolver</returns>
         [Obsolete("Please use AddCommanding instead")]
         public ICommandRegistry UseCommanding(ICommandingDependencyResolver dependencyResolver,
-            Options options = null)
+            IOptions options = null)
         {
             options = options ?? new Options();
+
+            dependencyResolver.AssociatedCommandingRuntime = this;
 
             ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
             dependencyResolver.RegisterInstance(commandHandlerExecuter);
@@ -180,9 +182,11 @@ namespace AzureFromTheTrenches.Commanding
         /// <param name="options">Configuration options for the commanding system</param>
         /// <returns>The dependency resolver</returns>
         public ICommandRegistry AddCommanding(ICommandingDependencyResolverAdapter dependencyResolver,
-            Options options = null)
+            IOptions options = null)
         {
             options = options ?? new Options();
+
+            dependencyResolver.AssociatedCommandingRuntime = this;
 
             ICommandHandlerExecuter commandHandlerExecuter = new CommandHandlerExecuter();
             dependencyResolver.RegisterInstance(commandHandlerExecuter);

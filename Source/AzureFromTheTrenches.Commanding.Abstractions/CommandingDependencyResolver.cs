@@ -45,5 +45,7 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         {
             return _resolve(type);
         }
+
+        public ICommandingRuntime AssociatedCommandingRuntime { get; set; }
     }
 }

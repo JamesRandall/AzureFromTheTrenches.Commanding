@@ -1,12 +1,14 @@
-﻿namespace AzureFromTheTrenches.Commanding.Implementation
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     class OptionsProvider : IOptionsProvider
     {
-        public OptionsProvider(Options options)
+        public OptionsProvider(IOptions options)
         {
             Options = options;
         }
 
-        public Options Options { get; }
+        public IOptions Options { get; }
     }
 }

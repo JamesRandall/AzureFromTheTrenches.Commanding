@@ -19,15 +19,18 @@ namespace AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions
 
             if (options.UsePreDispatchAuditor)
             {
-                resolver.UsePreDispatchCommandingAuditor<LoggerCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.UsePreDispatchCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                resolver.UsePostDispatchCommandingAuditor<LoggerCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.UsePostDispatchCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UsePreDispatchAuditor)
             {
-                resolver.UseExecutionCommandingAuditor<LoggerCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.UseExecutionCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditExecuteDispatchRootOnly);
             }
 
             return resolver;
@@ -44,18 +47,38 @@ namespace AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions
 
             if (options.UsePreDispatchAuditor)
             {
-                resolver.AddPreDispatchCommandingAuditor<LoggerCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.AddPreDispatchCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                resolver.AddPostDispatchCommandingAuditor<LoggerCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.AddPostDispatchCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UsePreDispatchAuditor)
             {
-                resolver.AddExecutionCommandingAuditor<LoggerCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(resolver);
+                resolver.AssociatedCommandingRuntime.AddExecutionCommandingAuditor<LoggerCommandAuditor>(resolver, options.AuditExecuteDispatchRootOnly);
             }
 
             return resolver;
+        }
+
+        [Obsolete]
+        private static void EnsureCommandingRuntime(ICommandingDependencyResolver dependencyResolver)
+        {
+            if (dependencyResolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The commanding package should be configured first");
+            }
+        }
+
+        private static void EnsureCommandingRuntime(ICommandingDependencyResolverAdapter dependencyResolver)
+        {
+            if (dependencyResolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The commanding package should be configured first");
+            }
         }
     }
 }

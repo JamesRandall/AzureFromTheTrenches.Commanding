@@ -92,18 +92,30 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             dependencyResolver.RegisterInstance(storageStrategy);
             if (options.UsePreDispatchAuditor)
             {
-                dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UsePreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                dependencyResolver.UsePostDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UsePostDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                dependencyResolver.UseExecutionCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UseExecutionCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditExecuteDispatchRootOnly);
             }
 
             return dependencyResolver;
+        }
+
+        [Obsolete]
+        private static void EnsureCommandingRuntime(ICommandingDependencyResolver dependencyResolver)
+        {
+            if (dependencyResolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The commanding package should be configured first");
+            }
         }
 
         /// <summary>
@@ -142,18 +154,29 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             dependencyResolver.RegisterInstance(storageStrategy);
             if (options.UsePreDispatchAuditor)
             {
-                dependencyResolver.AddPreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddPreDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                dependencyResolver.AddPostDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddPostDispatchCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                dependencyResolver.AddExecutionCommandingAuditor<AzureStorageTableCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddExecutionCommandingAuditor<AzureStorageTableCommandAuditor>(dependencyResolver, options.AuditExecuteDispatchRootOnly);
             }
 
             return dependencyResolver;
+        }
+
+        private static void EnsureCommandingRuntime(ICommandingDependencyResolverAdapter dependencyResolver)
+        {
+            if (dependencyResolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The commanding package should be configured first");
+            }
         }
 
         /// <summary>
@@ -190,15 +213,18 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
             if (options.UsePreDispatchAuditor)
             {
-                dependencyResolver.UsePreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UsePreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                dependencyResolver.UsePostDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UsePostDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                dependencyResolver.UseExecutionCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.UseExecutionCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditExecuteDispatchRootOnly);
             }
             return dependencyResolver;
         }
@@ -236,15 +262,18 @@ namespace AzureFromTheTrenches.Commanding.AzureStorage
             dependencyResolver.TypeMapping<IAzureStorageQueueSerializer, AzureStorageQueueSerializer>();
             if (options.UsePreDispatchAuditor)
             {
-                dependencyResolver.AddPreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddPreDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                dependencyResolver.AddPostDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddPostDispatchCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                dependencyResolver.AddExecutionCommandingAuditor<AzureStorageQueueCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureCommandingRuntime(dependencyResolver);
+                dependencyResolver.AssociatedCommandingRuntime.AddExecutionCommandingAuditor<AzureStorageQueueCommandAuditor>(dependencyResolver, options.AuditExecuteDispatchRootOnly);
             }
             return dependencyResolver;
         }

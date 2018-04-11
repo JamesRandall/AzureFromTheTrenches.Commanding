@@ -10,5 +10,7 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         ICommandingDependencyResolver TypeMapping(Type type, Type impl);
         TType Resolve<TType>();
         object Resolve(Type type);
+
+        ICommandingRuntime AssociatedCommandingRuntime { get; set; }
     }
 }

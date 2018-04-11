@@ -1,7 +1,9 @@
-﻿namespace AzureFromTheTrenches.Commanding.Implementation
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
+
+namespace AzureFromTheTrenches.Commanding.Implementation
 {
     internal interface IOptionsProvider
     {
-        Options Options { get; }
+        IOptions Options { get; }
     }
 }

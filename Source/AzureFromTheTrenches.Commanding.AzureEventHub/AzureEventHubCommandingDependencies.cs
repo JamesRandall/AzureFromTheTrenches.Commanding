@@ -36,17 +36,29 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
             resolver.TypeMapping<IEventHubSerializer, EventHubSerializer>();
             if (options.UsePreDispatchAuditor)
             {
-                resolver.UsePreDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.UsePreDispatchCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                resolver.UsePostDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.UsePostDispatchCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                resolver.UseExecutionCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.UseExecutionCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditExecuteDispatchRootOnly);
             }
             return resolver;
+        }
+
+        [Obsolete]
+        private static void EnsureRuntimeIsAssociated(ICommandingDependencyResolver resolver)
+        {
+            if (resolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The core commanding framework must be registered first.");
+            }
         }
 
         /// <summary>
@@ -75,17 +87,28 @@ namespace AzureFromTheTrenches.Commanding.AzureEventHub
             resolver.TypeMapping<IEventHubSerializer, EventHubSerializer>();
             if (options.UsePreDispatchAuditor)
             {
-                resolver.AddPreDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPreDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.AddPreDispatchCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditPreDispatchRootOnly);
             }
             if (options.UsePostDispatchAuditor)
             {
-                resolver.AddPostDispatchCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditPostDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.AddPostDispatchCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditPostDispatchRootOnly);
             }
             if (options.UseExecutionAuditor)
             {
-                resolver.AddExecutionCommandingAuditor<AzureEventHubCommandAuditor>(options.AuditExecuteDispatchRootOnly);
+                EnsureRuntimeIsAssociated(resolver);
+                resolver.AssociatedCommandingRuntime.AddExecutionCommandingAuditor<AzureEventHubCommandAuditor>(resolver, options.AuditExecuteDispatchRootOnly);
             }
             return resolver;
+        }
+
+        private static void EnsureRuntimeIsAssociated(ICommandingDependencyResolverAdapter resolver)
+        {
+            if (resolver.AssociatedCommandingRuntime == null)
+            {
+                throw new CommandFrameworkConfigurationException("The core commanding framework must be registered first.");
+            }
         }
 
         /// <summary>

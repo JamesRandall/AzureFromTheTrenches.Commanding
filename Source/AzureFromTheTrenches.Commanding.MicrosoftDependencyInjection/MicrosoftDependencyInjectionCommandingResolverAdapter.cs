@@ -41,6 +41,8 @@ namespace AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection
             return GetServiceProvider().GetService(type);
         }
 
+        public ICommandingRuntime AssociatedCommandingRuntime { get; set; }
+
         public ICommandRegistry Registry { get; internal set; }
 
         public IServiceProvider ServiceProvider { get; set; }
