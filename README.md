@@ -1,4 +1,5 @@
 # AzureFromTheTrenches.Commanding
+[![Build Status](https://accidentalfish.visualstudio.com/_apis/public/build/definitions/09076561-bff4-4f58-b28a-ff4b483b7e65/21/badge)](https://accidentalfish.visualstudio.com/AzureFromTheTrenches.Commanding/_build/index?definitionId=21)
 
 A simple configuration based asynchronous command message framework designed to be both easy to use and highly extensible allowing projects to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
 
