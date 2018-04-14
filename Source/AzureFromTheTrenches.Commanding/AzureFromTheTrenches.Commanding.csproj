@@ -15,7 +15,7 @@
     <PackageId>AzureFromTheTrenches.Commanding</PackageId>
     <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <FileVersion>8.0.0.0</FileVersion>
-    <Version>8.0.0</Version>
+    <Version>8.0.0-beta1</Version>
     <AssemblyName>AzureFromTheTrenches.Commanding</AssemblyName>
   </PropertyGroup>
 

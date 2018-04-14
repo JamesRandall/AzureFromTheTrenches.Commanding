@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>James Randall</Authors>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.0-beta1</Version>
     <Product>Azure From The Trenches Commanding</Product>
     <Description>Adds Swashbuckle support to the REST API commanding framework that is able to hide properties marked as SecurityProperty from the API definition.</Description>
     <Copyright>Copyright 2018 James Randall</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
