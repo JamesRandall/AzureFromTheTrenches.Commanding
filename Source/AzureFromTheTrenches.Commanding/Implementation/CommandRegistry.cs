@@ -143,5 +143,10 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             return this;
         }
+
+        public ICommandRegistry Discover<TTypeInAssembly>()
+        {
+            return Discover(typeof(TTypeInAssembly).Assembly);
+        }
     }
 }

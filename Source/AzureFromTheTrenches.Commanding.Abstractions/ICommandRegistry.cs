@@ -60,5 +60,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// <param name="assemblies">The assemblies to search</param>
         /// <returns>The command registery for use in a fluent call style</returns>
         ICommandRegistry Discover(params Assembly[] assemblies);
+
+        /// <summary>
+        /// Will search the assemly that TTypeInAssembly belongs in 
+        /// for command handlers and register them
+        /// </summary>        
+        /// <returns>The command registery for use in a fluent call style</returns>
+        ICommandRegistry Discover<TTypeInAssembly>();
     }
 }
