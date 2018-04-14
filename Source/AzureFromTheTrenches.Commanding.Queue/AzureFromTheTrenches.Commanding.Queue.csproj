@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Authors>James Randall</Authors>
     <Company></Company>
@@ -12,7 +11,8 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
-    <Version>8.0.0-beta1</Version>
+    <Version>8.0.0$(VersionSuffix)</Version>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <FileVersion>8.0.0.0</FileVersion>
   </PropertyGroup>
