@@ -17,7 +17,7 @@ footer{
       <strong>Commanding </strong>
     </div>    
     <div class="minitext">
-    A commanding mediator framework designed for clean code, API first development and evolving modular-monoliths into micro-services
+    A commanding mediator framework designed for clean code, rapid development and evolving modular-monoliths into micro-services
     </div>
     <div class="buttons-unit">
       <a href="guides/gettingStarted.html" class="button"><i class="fas fa-paper-plane"></i><span style="margin-left: 4px;">Getting Started</span></a>
