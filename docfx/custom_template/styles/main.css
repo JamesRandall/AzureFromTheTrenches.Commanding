@@ -159,6 +159,15 @@ svg:hover path {
     display: block;
     margin: 12px;
   }
+
+  .hero .subtext {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .hero .text {
+    font-size: 48px;
+  }
 }
 
 .navbar-inverse{
