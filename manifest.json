@@ -1,0 +1,1989 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/a/1/s/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandFrameworkConfigurationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandFrameworkConfigurationException.html",
+          "hash": "KkMHQjgJvMMqLDyyvh0Agw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandHandlerOrder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandHandlerOrder.html",
+          "hash": "fQxg8LpYWenKly2kg9vMWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolver.html",
+          "hash": "IdK/MsHF+E9a/hmBAFglOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolverAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolverAdapter.html",
+          "hash": "XIlFDh9ml1QycZpkui7v/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IAuditItemEnricher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IAuditItemEnricher.html",
+          "hash": "QKN0jd+zwZY1V2dXB9mdmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-1.html",
+          "hash": "48FGFnRnSocWPskolGKz7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-2.html",
+          "hash": "44VgpHXXLiLC2OrRDsn3zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler.html",
+          "hash": "UL7IbdvVJFyQudoLDksXOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler-2.html",
+          "hash": "QtIID+YCqhU5yEZLIcHW8w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler.html",
+          "hash": "E34V+4gVfAR7nWztMVz8SQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand-1.html",
+          "hash": "ertr6US7HbgVgA3V+L6yaA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand.html",
+          "hash": "eVuSYbbKy+zmc3zeCmvthA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditPipeline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditPipeline.html",
+          "hash": "0Ht642n3afWLS/kAUij/1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditSerializer.html",
+          "hash": "ewv/2pv6/4yjZ4fewFYVtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditor.html",
+          "hash": "y2RQd+286Q7R3F01yHaXIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditorFactory.html",
+          "hash": "DDTHRwn/W1V/ruOvwKY7Hw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandCorrelationIdProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandCorrelationIdProvider.html",
+          "hash": "Jb5QF1t4v/XdK/cqd0Q01g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html",
+          "hash": "nfnfMzCPErITDCaATCr/EA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContextEnricher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContextEnricher.html",
+          "hash": "7RfRGq298f+2xIctQWhIQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatcher.html",
+          "hash": "WMIsTQR1i1vd+TXaUdz/Tg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecuter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecuter.html",
+          "hash": "S4W+xNnO6IdxB15LR6zdug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecutionExceptionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecutionExceptionHandler.html",
+          "hash": "9X9o6dO/isM67wODPC8Q6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-1.html",
+          "hash": "5zEvMI4AxL9c8LeCQCfflg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-2.html",
+          "hash": "JXHUrUttD5/s11+ad/0fDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler.html",
+          "hash": "r0XNawzobYI8BWx924Mrow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerBase.html",
+          "hash": "lEXtwY8i2rWFiUwupgVVfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerFactory.html",
+          "hash": "X3XoAr04Vb0tvZTqWoWQ+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html",
+          "hash": "vKvTfl7as9oFPr1H3XlX7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html",
+          "hash": "wayrKLD/m2ZbI4zEZZg+rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html",
+          "hash": "WXlhTIkqfx8aWOd6xyEf4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingRuntime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingRuntime.html",
+          "hash": "6Hm5hgMKgXDBToVY/B970A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IDirectCommandExecuter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IDirectCommandExecuter.html",
+          "hash": "mYB8JVyCf1GWZRQGC7cq4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandDispatcher.html",
+          "hash": "K2j8sa4gN/RHCsjIUJgnLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandExecuter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandExecuter.html",
+          "hash": "+wfCLrQNv7OYxI5h9PuEzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IIdentifiableCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IIdentifiableCommand.html",
+          "hash": "AiVPDFY5icdN8vC3WDRvDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IOptions.html",
+          "hash": "+P8rld248B6AtM2IhPxJww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler-2.html",
+          "hash": "gbjnw7Ag4Jf9SrcVxCPAQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler.html",
+          "hash": "AhH3ZoMLaVwgL7qSrV4tHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPrioritisedCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPrioritisedCommandHandler.html",
+          "hash": "jEd/OspYo8QkaNhwhUl4HA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IQueueableCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IQueueableCommand.html",
+          "hash": "hXJZcZhXncQf7E6OMgv5yg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.AuditItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.AuditItem.html",
+          "hash": "K2Y4QdMl6Xr+qNXQEADc2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult-1.html",
+          "hash": "lE6LpUeH5TYTKk9oEiLBZw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult.html",
+          "hash": "91OtORINTK/HsfGrp5Pg+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.DeferredCommandResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.DeferredCommandResult.html",
+          "hash": "ur/6SfRuQOkXmQ8OM0YzDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResult.html",
+          "hash": "0HJVc6oYzV1uak7CJ4UhCA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResultCommandWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResultCommandWrapper.html",
+          "hash": "KT6Y4LlhuX4betf4Vb3CIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.PipelineAwareCommandHandlerResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.PipelineAwareCommandHandlerResult-1.html",
+          "hash": "YMTrrdKY2nr1ZbR36TVzQQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.html",
+          "hash": "bBczmTwE4cn6nqWifFk44Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.SecurityPropertyAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.SecurityPropertyAttribute.html",
+          "hash": "5anXu+zl/+HVKWsUUoh54w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.html",
+          "hash": "bXvFvtPMpYGC1/nxjZZEVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.html",
+          "hash": "X4cEag2mCAyW2aYRi+3law=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder.html",
+          "hash": "RcFlaB+elKAiiqywzt80AA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder.html",
+          "hash": "rvbvRsJhJdTzZYF5pBLJYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder.html",
+          "hash": "XJ1VxavlAp5q8oFuFjUoMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IMvcBuilderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IMvcBuilderExtensions.html",
+          "hash": "rog29B6UvnBBzvVomwG9Wg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.INamedParameterAttributeBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.INamedParameterAttributeBuilder.html",
+          "hash": "noA0xZfuRP7SWP23jNkTJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IParameterAttributeBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IParameterAttributeBuilder.html",
+          "hash": "o7+MbiheCA7UKRojjUqgQQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html",
+          "hash": "VFBEvee1eQegBMXmSS660A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AbstractAttributableDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AbstractAttributableDefinition.html",
+          "hash": "BE60hTmmda+8qwiip3wzRw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ActionDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ActionDefinition.html",
+          "hash": "AGt7LG5D9OTxDe0862Fe7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AttributeDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AttributeDefinition.html",
+          "hash": "AO9yGbHTZuT5OSP5QTT4oQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ClaimMappingDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ClaimMappingDefinition.html",
+          "hash": "U4na3X0227AnTUt6AT1URQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.CommandClaimMappingDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.CommandClaimMappingDefinition.html",
+          "hash": "9cFMdcRcMCB1f2SFk8AJIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ControllerDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ControllerDefinition.html",
+          "hash": "iBbRYl0ORQlhYnRl3LynpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.html",
+          "hash": "ocSYEaIoWEeAMwcy+bp/qw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.RestApiException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.RestApiException.html",
+          "hash": "u72tMTSS2i6QhrEjsO01ig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.SwaggerGenOptionsExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.SwaggerGenOptionsExtensions.html",
+          "hash": "Eo0rL+6Svao+0+O8grJ47w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.html",
+          "hash": "66iuZ8FP9WdZokVq/fWCJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.html",
+          "hash": "VNkYXQg+rrWH0i49BrlKGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AuditConfigurationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AuditConfigurationException.html",
+          "hash": "ln85Ns034e4gUbN2OZj83A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AuditorException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AuditorException.html",
+          "hash": "ScMwIobubJDT0c6vlJUqzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubAuditorOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubAuditorOptions.html",
+          "hash": "S9AffXlsgDAbaG76uF4GjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubCommandingDependencies.html",
+          "hash": "dt++g/rLUf4mIjSznSBIqg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions.html",
+          "hash": "7lC4V/ialdsaHh9GDG6FhQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer.html",
+          "hash": "DZWwyB8710RB/4byeBv3Kg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IPartitionKeyProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IPartitionKeyProvider.html",
+          "hash": "JW9zwVRxKwwkXx9yWhuzHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.EventHubAuditItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.EventHubAuditItem.html",
+          "hash": "De+VTiGwF9x3uk7THEoQ6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.html",
+          "hash": "HecESAEKOk7UVkzM8TaaAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.html",
+          "hash": "RUywVplk43V1G/TW3pk8Ug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.AzureServiceBusCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.AzureServiceBusCommandingDependencies.html",
+          "hash": "6TXrPeW7rr/+eRTBzDjYIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessor.html",
+          "hash": "6An5hV7UZI90qoS56AM7WQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessorFactory.html",
+          "hash": "Y2toSrI5gusVYIGGyQWq3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer.html",
+          "hash": "KW1+mGGaNZKLD/b58Gm9pQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientDispatcherFactory.html",
+          "hash": "GILOd8xRWkv/lkAhBwlaTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.html",
+          "hash": "hrQMblHFDlLxQ82cAstOtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientDispatcherFactory.html",
+          "hash": "I5UDzAMh+bImsNcAdHEx1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientExtensions.html",
+          "hash": "zRxmr6dlpYj0pYLi6P2G/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.html",
+          "hash": "IS4NI+/fB/LrNJpLhNvw1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageAuditorOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageAuditorOptions.html",
+          "hash": "5pa1MyiUsNCHrQXWseKMrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageCommandingDependencies.html",
+          "hash": "nbDK4HZZlE95yKOwseuifw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageConfigurationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageConfigurationException.html",
+          "hash": "Oe6jVB7CuAQCFO8Xl6ispA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueDispatcherFactory.html",
+          "hash": "eIabMf5UvfN6t0lfKm6+zg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueExtensions.html",
+          "hash": "P8ixAv5nKerUDRtAV8EGHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.html",
+          "hash": "WRXolOs9M1CUTRWW3aalAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessorFactory.html",
+          "hash": "ybGYhp3+eHOscDiV86VPGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageCommandQueueProcessorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageCommandQueueProcessorFactory.html",
+          "hash": "RBcWF4siZz3cfa5nAZBTKA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueDispatcherFactory.html",
+          "hash": "UoFkynULOUaCpONGk65Dnw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueSerializer.html",
+          "hash": "oqxqjN5hwoSLxF/el6C87A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IStorageStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IStorageStrategy.html",
+          "hash": "hU87vU3iuceG9ssuJkZKcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.AbstractCommandAuditTableEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.AbstractCommandAuditTableEntity.html",
+          "hash": "NtwxAK86QJdN9HyK9oR6TQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByCorrelationIdItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByCorrelationIdItem.html",
+          "hash": "YCN4wnYDtSZZb3z1gF56qQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByDateDescItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByDateDescItem.html",
+          "hash": "VocNDt3AYqCBW3xIjdKc+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.IAuditTableEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.IAuditTableEntity.html",
+          "hash": "y4GBvNFRkBYA+l8qketEHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.html",
+          "hash": "SVyTI4WXFKnB+SGpk9EDIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.SingleTableStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.SingleTableStrategy.html",
+          "hash": "/JPhMzjXBpgZPIlisA027g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.TablePerDayStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.TablePerDayStrategy.html",
+          "hash": "/QMksPGqshKDRfhtZvN+QA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.html",
+          "hash": "IMPJtRb9pA/3aH5hX5+jqw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.html",
+          "hash": "B/ICRyPLRiEJPoUUdQtpdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheCommandingDependencies.html",
+          "hash": "Qc/0C+60v9wQcunOUdIzhg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheConfigurationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheConfigurationException.html",
+          "hash": "7OS8ZPOgq2UbOR0u84f2+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions-1.html",
+          "hash": "NW8g+Ccp+qCvGQvZsUqIbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions.html",
+          "hash": "Zz1NnSaovG1x6kBILly90Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.EvalCacheOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.EvalCacheOptions.html",
+          "hash": "FpLFqxZsQikZHjGeteuPJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheAdapter.html",
+          "hash": "YW+X2239ZH9x5hSmnooNVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyHash.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyHash.html",
+          "hash": "HgPQtuYZk+PXu+80HjRuig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyProvider.html",
+          "hash": "Blby6xZbN3OQj0WYrOR9KQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICachedCommandDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICachedCommandDispatcher.html",
+          "hash": "uSYQlygwjbZpNUIG8TIZAA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.MemoryCacheCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.MemoryCacheCommandingDependencies.html",
+          "hash": "44v3z3EYd5UqGCVrI3gGdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.html",
+          "hash": "al2CSWtQ/dkQPjC/jZYtlQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.IDependencyResolverExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.IDependencyResolverExtensions.html",
+          "hash": "4m5crZXRA7W4RsiAABZiZg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.html",
+          "hash": "jCku2Vob9rl/1rHTQChs4w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Cache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.html",
+          "hash": "LR3ObG6SgdXcMySvr+tz6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandDispatchException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandDispatchException.html",
+          "hash": "rfdMMyAe8JjmoVdIAETs9w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException-1.html",
+          "hash": "AGgt3qIjvtgFVfwsBR1YOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException.html",
+          "hash": "VUAkggkofTdLrycjd+a8Ow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandRegistrationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandRegistrationException.html",
+          "hash": "1CeNwjn6mizQLhtOrDj2BQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandingDependencies.html",
+          "hash": "iHb699o16oKzWF/85nN+qw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.CommandingRuntime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.CommandingRuntime.html",
+          "hash": "mM5gmWRTS6+5p5tPPeTNdQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.FunctionWrapperCommandDispatchContextEnricher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.FunctionWrapperCommandDispatchContextEnricher.html",
+          "hash": "oxUVl20Yz+Y4dgaZyyW0PA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.html",
+          "hash": "fAF0Nxl5IBqfN3VWlxVAYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html",
+          "hash": "a8O4HiYsxp+/blfF377FRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html",
+          "hash": "T8XlMe2eFp7MzTelF3wtQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer.html",
+          "hash": "vKMHwlRuZymlIcz/X1YWbQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder.html",
+          "hash": "76wOT4Ke7Y/dwydOH0c8jQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.html",
+          "hash": "lwcxzqXWpqKdt9mRUZjXGg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolver.html",
+          "hash": "XcJ3nWYcSyILz9JfHXbjpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolverAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolverAdapter.html",
+          "hash": "UzMrdWwGVrTHGQLSUZ0HDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IServiceCollectionExtensions.html",
+          "hash": "VhOqT03m77jqDKT8uZj0Sg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolver.html",
+          "hash": "8J0cnS48wbMhsybmvEIjCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolverAdapter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolverAdapter.html",
+          "hash": "xbXCOKmPKS79VbdMbzmqgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.html",
+          "hash": "loW4cRaeZ2Ble017sQ+cgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsAuditorOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsAuditorOptions.html",
+          "hash": "KXsdOFpufjSZf3MJ60G0ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsDependencies.html",
+          "hash": "XpNUkBrFmuZx0czs4Uu03A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.html",
+          "hash": "32cn4zsSH2xbnr2D2h8b3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.MissingCommandHandlerRegistrationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.MissingCommandHandlerRegistrationException.html",
+          "hash": "oxe6ClbXUN6KBWzxwYPtuA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Options.html",
+          "hash": "5iOTo7UwLLAbmI3SkyuRUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicy.html",
+          "hash": "WTfCiNBSRPDYQAq98jPjAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicyFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicyFactory.html",
+          "hash": "aJXsTzWaJlRdtdS5GwvmIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessor.html",
+          "hash": "YKMJ4edBDi/kJLRe2c8UDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessorLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessorLogger.html",
+          "hash": "xlnuY2lgb6X2A5K322CJ1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.QueueItem-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.QueueItem-1.html",
+          "hash": "YyDVrG0EEfRrcdapoU4qww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.html",
+          "hash": "W8wgTsSEhFSQDeN2bK8bwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.QueueCommandingDependencies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.QueueCommandingDependencies.html",
+          "hash": "EjxjoZGWddqgtKlQ2+H+6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Queue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.html",
+          "hash": "WfFu2UOfuln7VATGxtZ1NQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.UnableToExecuteHandlerException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.UnableToExecuteHandlerException.html",
+          "hash": "yJk/JSVbzbhttTWJd5qB7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.html",
+          "hash": "2mJp8x1ERjxS2jyt/U2eNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "fQvit5IKKaafM9rbMnUeMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "fihdD+G1xbfJAJTcv83CbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "RDZKNitL3HHsedYiE02PDA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "xVlQaX7Tk85omoiWv3O+Ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "2bXMICX3LMU62sl47h/Etg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "ob7LqWp4kTNLz+9W4omdTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

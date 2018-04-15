@@ -1,0 +1,645 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IRestCommandBuilder
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IRestCommandBuilder
+   ">
+    <meta name="generator" content="docfx 2.33.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder">
+  
+  
+  <h1 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder" class="text-break">Interface IRestCommandBuilder
+  </h1>
+  <div class="markdown level0 summary"><p>RestCommandBuilder block for the convention system, uses a fluent API approach</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.html">AzureFromTheTrenches.Commanding.AspNetCore</a></h6>
+  <h6><strong>Assembly</strong>: AzureFromTheTrenches.Commanding.AspNetCore.dll</h6>
+  <h5 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRestCommandBuilder</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Claims_Action_AzureFromTheTrenches_Commanding_AspNetCore_IClaimsMappingBuilder__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Claims(Action%7BAzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L66">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Claims_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Claims*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Claims_Action_AzureFromTheTrenches_Commanding_AspNetCore_IClaimsMappingBuilder__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Claims(Action{AzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder})">Claims(Action&lt;IClaimsMappingBuilder&gt;)</h4>
+  <div class="markdown level1 summary"><p>Allow claims to be mapped to command properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder Claims(Action&lt;IClaimsMappingBuilder&gt; claimsMappingBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder.html">IClaimsMappingBuilder</a>&gt;</td>
+        <td><span class="parametername">claimsMappingBuilder</span></td>
+        <td><p>An action that is given a claims mapping builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String%2CAction%7BAzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L50">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String,Action{AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder})">Controller(String, Action&lt;IActionBuilder&gt;)</h4>
+  <div class="markdown level1 summary"><p>Define a controller - a short cut for Controllers(cfg =&gt; ...)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder Controller(string controller, Action&lt;IActionBuilder&gt; actionBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">controller</span></td>
+        <td><p>The name of the controller</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.html">IActionBuilder</a>&gt;</td>
+        <td><span class="parametername">actionBuilder</span></td>
+        <td><p>The action builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IAttributeBuilder__Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String%2CAction%7BAzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder%7D%2CAction%7BAzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L52">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IAttributeBuilder__Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String,Action{AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder},Action{AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder})">Controller(String, Action&lt;IAttributeBuilder&gt;, Action&lt;IActionBuilder&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder Controller(string controller, Action&lt;IAttributeBuilder&gt; attributeBuilder, Action&lt;IActionBuilder&gt; actionBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">controller</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder.html">IAttributeBuilder</a>&gt;</td>
+        <td><span class="parametername">attributeBuilder</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.html">IActionBuilder</a>&gt;</td>
+        <td><span class="parametername">actionBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IAttributeBuilder__Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String%2CSystem.String%2CAction%7BAzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder%7D%2CAction%7BAzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L56">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controller_System_String_System_String_Action_AzureFromTheTrenches_Commanding_AspNetCore_IAttributeBuilder__Action_AzureFromTheTrenches_Commanding_AspNetCore_IActionBuilder__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controller(System.String,System.String,Action{AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder},Action{AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder})">Controller(String, String, Action&lt;IAttributeBuilder&gt;, Action&lt;IActionBuilder&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder Controller(string controller, string route, Action&lt;IAttributeBuilder&gt; attributeBuilder, Action&lt;IActionBuilder&gt; actionBuilder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">controller</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">route</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder.html">IAttributeBuilder</a>&gt;</td>
+        <td><span class="parametername">attributeBuilder</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.html">IActionBuilder</a>&gt;</td>
+        <td><span class="parametername">actionBuilder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controllers_Action_AzureFromTheTrenches_Commanding_AspNetCore_IControllerBuilder__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controllers(Action%7BAzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L16">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controllers_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controllers*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_Controllers_Action_AzureFromTheTrenches_Commanding_AspNetCore_IControllerBuilder__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.Controllers(Action{AzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder})">Controllers(Action&lt;IControllerBuilder&gt;)</h4>
+  <div class="markdown level1 summary"><p>Define controllers using this builder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder Controllers(Action&lt;IControllerBuilder&gt; controllerBuilderAction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder.html">IControllerBuilder</a>&gt;</td>
+        <td><span class="parametername">controllerBuilderAction</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_DefaultControllerRoute_System_String_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.DefaultControllerRoute(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L73">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_DefaultControllerRoute_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.DefaultControllerRoute*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_DefaultControllerRoute_System_String_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.DefaultControllerRoute(System.String)">DefaultControllerRoute(String)</h4>
+  <div class="markdown level1 summary"><p>Set the default route for controllers. Defaults to &quot;api/[controller]&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder DefaultControllerRoute(string defaultRoute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">defaultRoute</span></td>
+        <td><p>The route to use for controllers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_LogControllerCode_Action_System_String__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.LogControllerCode(Action%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L34">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_LogControllerCode_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.LogControllerCode*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_LogControllerCode_Action_System_String__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.LogControllerCode(Action{System.String})">LogControllerCode(Action&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Optional. If set then as the code for each controller is created it will be passed to this action
+allowing visibility of exactly what code is being compiled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder LogControllerCode(Action&lt;string&gt; logger)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">logger</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_OutputNamespace_System_String_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.OutputNamespace(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L21">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_OutputNamespace_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.OutputNamespace*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_OutputNamespace_System_String_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.OutputNamespace(System.String)">OutputNamespace(String)</h4>
+  <div class="markdown level1 summary"><p>Optional. The output namespace. Defaults to AzureFromTheTrenches.Commanding.AspNetCore.Controllers</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder OutputNamespace(string outputNamespace)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">outputNamespace</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_SetExternalTemplateProvider_Func_System_String_Stream__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.SetExternalTemplateProvider(Func%7BSystem.String%2CStream%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L28">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_SetExternalTemplateProvider_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.SetExternalTemplateProvider*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_SetExternalTemplateProvider_Func_System_String_Stream__" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.SetExternalTemplateProvider(Func{System.String,Stream})">SetExternalTemplateProvider(Func&lt;String, Stream&gt;)</h4>
+  <div class="markdown level1 summary"><p>Optional. If set then external templates can be loaded on a per controller basis. The function
+will be passed a controller name (from the configuration set on the controller builder) and
+should return null if the default template is to be used or a stream to an alternative template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder SetExternalTemplateProvider(Func&lt;string, Stream&gt; externalTemplateProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;<span class="xref">System.String</span>, <span class="xref">Stream</span>&gt;</td>
+        <td><span class="parametername">externalTemplateProvider</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_TemplateCompilationReferences_Assembly___.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.TemplateCompilationReferences(Assembly%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L42">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_TemplateCompilationReferences_" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.TemplateCompilationReferences*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder_TemplateCompilationReferences_Assembly___" data-uid="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.TemplateCompilationReferences(Assembly[])">TemplateCompilationReferences(Assembly[])</h4>
+  <div class="markdown level1 summary"><p>Optional. If you are using custom controller templates you will need to provide assemblies for
+any references / assemblies you make use of.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IRestCommandBuilder TemplateCompilationReferences(params Assembly[] assemblies)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Assembly</span>[]</td>
+        <td><span class="parametername">assemblies</span></td>
+        <td><p>The assemblies to reference</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html">IRestCommandBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AspNetCore_IRestCommandBuilder.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AspNetCore/IRestCommandBuilder.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

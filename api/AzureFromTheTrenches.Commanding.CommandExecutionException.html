@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CommandExecutionException
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CommandExecutionException
+   ">
+    <meta name="generator" content="docfx 2.33.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException">
+  
+  
+  <h1 id="AzureFromTheTrenches_Commanding_CommandExecutionException" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException" class="text-break">Class CommandExecutionException
+  </h1>
+  <div class="markdown level0 summary"><p>Raised if an error occurs during command execution</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">CommandExecutionException</span></div>
+      <div class="level2"><a class="xref" href="AzureFromTheTrenches.Commanding.CommandExecutionException-1.html">CommandExecutionException&lt;TCommand&gt;</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AzureFromTheTrenches.Commanding.html">AzureFromTheTrenches.Commanding</a></h6>
+  <h6><strong>Assembly</strong>: AzureFromTheTrenches.Commanding.dll</h6>
+  <h5 id="AzureFromTheTrenches_Commanding_CommandExecutionException_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CommandExecutionException : Exception</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.%23ctor(System.Object%2CType%2CSystem.Int32%2CAzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L18">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor(System.Object,Type,System.Int32,AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext)">CommandExecutionException(Object, Type, Int32, ICommandDispatchContext)</h4>
+  <div class="markdown level1 summary"><p>Constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>The command</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">handlerType</span></td>
+        <td><p>The handler in use when the execution failed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">handlerExecutionIndex</span></td>
+        <td><p>The index of the handler in the pipeline</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html">ICommandDispatchContext</a></td>
+        <td><span class="parametername">commandDispatchContext</span></td>
+        <td><p>The dispatch context</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_System_String_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.%23ctor(System.Object%2CType%2CSystem.Int32%2CAzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L34">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_System_String_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor(System.Object,Type,System.Int32,AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext,System.String)">CommandExecutionException(Object, Type, Int32, ICommandDispatchContext, String)</h4>
+  <div class="markdown level1 summary"><p>Constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>The command</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">handlerType</span></td>
+        <td><p>The handler in use when the execution failed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">handlerExecutionIndex</span></td>
+        <td><p>The index of the handler in the pipeline</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html">ICommandDispatchContext</a></td>
+        <td><span class="parametername">commandDispatchContext</span></td>
+        <td><p>The dispatch context</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>Error message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_System_String_Exception_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.%23ctor(System.Object%2CType%2CSystem.Int32%2CAzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext%2CSystem.String%2CException)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L51">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException__ctor_System_Object_Type_System_Int32_AzureFromTheTrenches_Commanding_Abstractions_ICommandDispatchContext_System_String_Exception_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.#ctor(System.Object,Type,System.Int32,AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext,System.String,Exception)">CommandExecutionException(Object, Type, Int32, ICommandDispatchContext, String, Exception)</h4>
+  <div class="markdown level1 summary"><p>Constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CommandExecutionException(object command, Type handlerType, int handlerExecutionIndex, ICommandDispatchContext commandDispatchContext, string message, Exception innerException)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>The command</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td><span class="parametername">handlerType</span></td>
+        <td><p>The handler in use when the execution failed</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">handlerExecutionIndex</span></td>
+        <td><p>The index of the handler in the pipeline</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html">ICommandDispatchContext</a></td>
+        <td><span class="parametername">commandDispatchContext</span></td>
+        <td><p>The dispatch context</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>Error message</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">innerException</span></td>
+        <td><p>The exception that caused the fault</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException_Command.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.Command%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L62">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException_Command_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.Command*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException_Command" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.Command">Command</h4>
+  <div class="markdown level1 summary"><p>The command</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Command { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException_CommandDispatchContext.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.CommandDispatchContext%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L77">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException_CommandDispatchContext_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.CommandDispatchContext*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException_CommandDispatchContext" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.CommandDispatchContext">CommandDispatchContext</h4>
+  <div class="markdown level1 summary"><p>The command dispatch context</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandDispatchContext CommandDispatchContext { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html">ICommandDispatchContext</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerExecutionIndex.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerExecutionIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L72">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerExecutionIndex_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerExecutionIndex*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerExecutionIndex" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerExecutionIndex">HandlerExecutionIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the handler in the pipeline</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int HandlerExecutionIndex { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerType.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L67">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerType_" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerType*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandExecutionException_HandlerType" data-uid="AzureFromTheTrenches.Commanding.CommandExecutionException.HandlerType">HandlerType</h4>
+  <div class="markdown level1 summary"><p>The type of the handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Type HandlerType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandExecutionException.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandExecutionException%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding/CommandExecutionException.cs/#L9" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
