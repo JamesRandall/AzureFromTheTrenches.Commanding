@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandFrameworkConfigurationException.html",
-          "hash": "2rYGTsDa9umE5/MiukllcQ=="
+          "hash": "dxR2CwV7yiwATkXXroEMWg=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandHandlerOrder.html",
-          "hash": "e+q+UGeA9CC9Lj1yYa3UXw=="
+          "hash": "R4LUmdZ+LFjCw9koHHD1Rw=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolver.html",
-          "hash": "DkXl9ndEoROJkVC0lPAGIg=="
+          "hash": "QB95/CmsVX6jRc8xGE7G6w=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.CommandingDependencyResolverAdapter.html",
-          "hash": "VtKlurQNzDRIjFtQZlb++g=="
+          "hash": "13zk0rDb9sVOTd6J72pSMQ=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IAuditItemEnricher.html",
-          "hash": "M52lFDeWAJ26yekvpvtEEw=="
+          "hash": "dpWh928MsmKpVlB/JMteig=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-1.html",
-          "hash": "Sk4dR/dGf856XIngGxlbCA=="
+          "hash": "AALOqW8C34op0KIWs618qA=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler-2.html",
-          "hash": "8I5A7jxxM5WC6NuqVSUuNA=="
+          "hash": "W6s7Yz9rYCsD+rsvL60aLA=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellableCommandHandler.html",
-          "hash": "3kcR0QzORVJVHRdIfABmdg=="
+          "hash": "+uA66woaHXgdWQKsZhLKZQ=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler-2.html",
-          "hash": "dDAREbwYkSeqdhtUpfY13A=="
+          "hash": "DwaIr0LaVvIevppqN19jIQ=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICancellablePipelineAwareCommandHandler.html",
-          "hash": "WCJof0xAp7koIONIjgwYoA=="
+          "hash": "IHVR86u4PbSu6W0FTZ5IkA=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand-1.html",
-          "hash": "CXXntmRJxtBCkos6Dv+P5w=="
+          "hash": "XcOAE7oZqpd6qWVWS5TKsw=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommand.html",
-          "hash": "BZx0nswFzfxpAynbXLBPDw=="
+          "hash": "PBWWsV5JUTllhGJhI6VvmQ=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditPipeline.html",
-          "hash": "F9gQalk/KcfQNAn57byztg=="
+          "hash": "Yx6lQ+fsnq4HSVHPQhGsuw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditSerializer.html",
-          "hash": "UtgQzpGwIOyPHa1Giws0Vg=="
+          "hash": "6eKPhs5TLhLIArnWdSQ/qQ=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditor.html",
-          "hash": "wyKjl8pa54Xy3vXjaLBjWg=="
+          "hash": "2Tcfu409H7/Ky2VXkWPz9Q=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandAuditorFactory.html",
-          "hash": "ZXHSWGFBOBdoYeXcQmUrfg=="
+          "hash": "sq+f1TzdZObKQBOSD/PGNg=="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandCorrelationIdProvider.html",
-          "hash": "5siVImm1dSHaPHD9zc659w=="
+          "hash": "qsZ0iHj0TFh3sBKjXQVqWw=="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContext.html",
-          "hash": "HSMCJqh/HZG9xM7jmjO6XA=="
+          "hash": "ee/lrt9t4dnbIN7u8uE5qw=="
         }
       },
       "is_incremental": false,
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatchContextEnricher.html",
-          "hash": "BugRGZ3Ylxk/TzkPFWxUiQ=="
+          "hash": "zkhhmRIevCHsroSQaGbV1g=="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatcher.html",
-          "hash": "XXvN4/6dhoCJyED+Xwsizw=="
+          "hash": "x5KEjJUIev5CjFgPOEv2Jg=="
         }
       },
       "is_incremental": false,
@@ -249,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecuter.html",
-          "hash": "Oxbnx1t6vnANiCkezKlKHw=="
+          "hash": "+mb/I4le+6nKgIncEZfMZg=="
         }
       },
       "is_incremental": false,
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandExecutionExceptionHandler.html",
-          "hash": "6UrPo0hkriB0Zz5JFVTinA=="
+          "hash": "L/qzBuKOUspqyJX5xfAEjg=="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-1.html",
-          "hash": "uDO53dSMxlxX2ii4im/hxg=="
+          "hash": "QwXgGMuW0n5kg/oZUqJObA=="
         }
       },
       "is_incremental": false,
@@ -285,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler-2.html",
-          "hash": "THNb6s4Rneh2lwAo5S6ijw=="
+          "hash": "0pRpU+W5tHMYNR/Z+TszeA=="
         }
       },
       "is_incremental": false,
@@ -297,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandler.html",
-          "hash": "XFOQ1J2+2GkK03FGeoTcYA=="
+          "hash": "aTc8R9Gvx4O0rhZ1vsMJ3w=="
         }
       },
       "is_incremental": false,
@@ -309,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerBase.html",
-          "hash": "8wYtDaSkrG/hRHkGRpQKaQ=="
+          "hash": "pw6lkbmAW5y/7zk3J/YspQ=="
         }
       },
       "is_incremental": false,
@@ -321,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandHandlerFactory.html",
-          "hash": "OiEwOsSyRaVzynOLVtH/GQ=="
+          "hash": "zCsC+mqJ+Mm41eWYsdJHDA=="
         }
       },
       "is_incremental": false,
@@ -333,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html",
-          "hash": "gtJXRkYMOb4r13bE5u3UYQ=="
+          "hash": "DzsYpaRfcxLK5mufvU4vpQ=="
         }
       },
       "is_incremental": false,
@@ -345,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html",
-          "hash": "8MYDmuTZKpKQY8JFeLvUlg=="
+          "hash": "DA+gOGdrrWKyiylAyAVMpw=="
         }
       },
       "is_incremental": false,
@@ -357,7 +357,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html",
-          "hash": "w9a+4hSBtYxew2OaLy612w=="
+          "hash": "VCRrVVCkilY+08c4u+3UJA=="
         }
       },
       "is_incremental": false,
@@ -369,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.ICommandingRuntime.html",
-          "hash": "XC/ZqpZ7jo1C+nPkqwngCg=="
+          "hash": "WCg1NHxYUDW1JMUfyPyU0A=="
         }
       },
       "is_incremental": false,
@@ -381,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IDirectCommandExecuter.html",
-          "hash": "dMOGdFXhOGpcR02fnaCJ6A=="
+          "hash": "fegmkaR4LLNdhcOHwkII5g=="
         }
       },
       "is_incremental": false,
@@ -393,7 +393,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandDispatcher.html",
-          "hash": "CcWiOVNGhf6RSkSJSBT9pQ=="
+          "hash": "cd6yyaajAvsbc8z65mawvQ=="
         }
       },
       "is_incremental": false,
@@ -405,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IFrameworkCommandExecuter.html",
-          "hash": "ukJ3eVd2NpvBVrlb34JCvg=="
+          "hash": "naKT+GXmMCRZkTrhJQmSOg=="
         }
       },
       "is_incremental": false,
@@ -417,7 +417,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IIdentifiableCommand.html",
-          "hash": "R8oa+Ew1b8MIFzQHD68zEg=="
+          "hash": "WXNIcBQ50a2SOwA2iXpWHw=="
         }
       },
       "is_incremental": false,
@@ -429,7 +429,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IOptions.html",
-          "hash": "ap36bU7+BaPisNxHptJg5g=="
+          "hash": "VzzMXHITwp1TII3TUeI7rQ=="
         }
       },
       "is_incremental": false,
@@ -441,7 +441,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler-2.html",
-          "hash": "gPH3fivcNyc20amCSgHJ2A=="
+          "hash": "S8Vx6vgnxfKBNfAso6eWkw=="
         }
       },
       "is_incremental": false,
@@ -453,7 +453,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPipelineAwareCommandHandler.html",
-          "hash": "AEOxlA0qWqqxHgELPr6Kcw=="
+          "hash": "qlzYEDiKnBxZXj41MMhTaQ=="
         }
       },
       "is_incremental": false,
@@ -465,7 +465,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IPrioritisedCommandHandler.html",
-          "hash": "UnQdmXS/u3L1o9rciGCF9g=="
+          "hash": "gXYElrgLj/UID9uGpkuyew=="
         }
       },
       "is_incremental": false,
@@ -477,7 +477,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.IQueueableCommand.html",
-          "hash": "GYekzAlrgl0n2a6p7dMdzw=="
+          "hash": "1Q7DtyMhs2Msay2fPyeQMw=="
         }
       },
       "is_incremental": false,
@@ -489,7 +489,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.AuditItem.html",
-          "hash": "7tNf+qP22zuViCg6PUsiVw=="
+          "hash": "ofPg1Auld73oRF4ddOQ6kQ=="
         }
       },
       "is_incremental": false,
@@ -501,7 +501,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult-1.html",
-          "hash": "kiaD4xGMvrgHMtWSvHiSeA=="
+          "hash": "kGrQpdQPps9+2Cnn3P/whw=="
         }
       },
       "is_incremental": false,
@@ -513,7 +513,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.CommandResult.html",
-          "hash": "0hPpx7EfRl2TmHVntVYVWw=="
+          "hash": "n9vTu96hqncL9mzhVETJKQ=="
         }
       },
       "is_incremental": false,
@@ -525,7 +525,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.DeferredCommandResult.html",
-          "hash": "5F1yE9wDPcpX9v3euxeiRg=="
+          "hash": "5xTwdFPsCqqFLeq1Y0SqXw=="
         }
       },
       "is_incremental": false,
@@ -537,7 +537,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResult.html",
-          "hash": "3acCx9oDDjn2hMmc5++/rA=="
+          "hash": "IW2TiRHWDVS/eiwVom7PPw=="
         }
       },
       "is_incremental": false,
@@ -549,7 +549,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.NoResultCommandWrapper.html",
-          "hash": "hLm2u/FMjZsqT2DjJDiAVA=="
+          "hash": "Vb8vidXFXS80TX6djPQ+Gw=="
         }
       },
       "is_incremental": false,
@@ -561,7 +561,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.PipelineAwareCommandHandlerResult-1.html",
-          "hash": "QbELLhw0peerX8p1BN07Iw=="
+          "hash": "VIsrjvb1vhLGL6mqe0oDIA=="
         }
       },
       "is_incremental": false,
@@ -573,7 +573,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.Model.html",
-          "hash": "rcagWRS81TeiJrkff9AJ5A=="
+          "hash": "DQ/buzBiL8RGFAni3IOI4w=="
         }
       },
       "is_incremental": false,
@@ -585,7 +585,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.SecurityPropertyAttribute.html",
-          "hash": "cvctW4elpBoUpkXfVHrMFQ=="
+          "hash": "8ymz4MYUR1kHmXlt8owA1A=="
         }
       },
       "is_incremental": false,
@@ -597,7 +597,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Abstractions.html",
-          "hash": "DwG0ltrD5gKKEmoHKl2Y6Q=="
+          "hash": "dHu3l61c5A6TsXY59GtKKQ=="
         }
       },
       "is_incremental": false,
@@ -609,7 +609,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IActionBuilder.html",
-          "hash": "neSDjNGT0Xv6/5jQJNuEaQ=="
+          "hash": "Jydw1Pf4OFU+jZlR8NEq7A=="
         }
       },
       "is_incremental": false,
@@ -621,7 +621,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IAttributeBuilder.html",
-          "hash": "6VkkIN4fzl5l/wru2umr3g=="
+          "hash": "zOelo8xnP1YtXjrY2QIleA=="
         }
       },
       "is_incremental": false,
@@ -633,7 +633,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IClaimsMappingBuilder.html",
-          "hash": "pQQZuGSbTYeUA2yFZBEuqw=="
+          "hash": "orWGS8DA1XvUdtok7xkhTg=="
         }
       },
       "is_incremental": false,
@@ -645,7 +645,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IControllerBuilder.html",
-          "hash": "4W+l1JMsPwwu6BDgwFR5dA=="
+          "hash": "rPPFVZB6sJTrY+kli4R5rg=="
         }
       },
       "is_incremental": false,
@@ -657,7 +657,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IMvcBuilderExtensions.html",
-          "hash": "csfRsiWFk5nnWqUJqTRSBQ=="
+          "hash": "IWWTVGfzlCBAbiBR55yllQ=="
         }
       },
       "is_incremental": false,
@@ -669,7 +669,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.INamedParameterAttributeBuilder.html",
-          "hash": "YHmSOXA5RiVsw8/Xqa3ROw=="
+          "hash": "Kzz/bSepJvX6cCU3kWbEug=="
         }
       },
       "is_incremental": false,
@@ -681,7 +681,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IParameterAttributeBuilder.html",
-          "hash": "iWgem1j7sO741u2SqkgHjQ=="
+          "hash": "eGPSdx72ocbHXDOQTt87/A=="
         }
       },
       "is_incremental": false,
@@ -693,7 +693,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.IRestCommandBuilder.html",
-          "hash": "ECk++SeaiF7znwTC/7Oixg=="
+          "hash": "JbeCrk5ek+IJlSQl9oUoKA=="
         }
       },
       "is_incremental": false,
@@ -705,7 +705,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AbstractAttributableDefinition.html",
-          "hash": "7uIOXinbrZmGenk8zqnHcQ=="
+          "hash": "LSbeQ7TnARgRpemAqkGxdw=="
         }
       },
       "is_incremental": false,
@@ -717,7 +717,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ActionDefinition.html",
-          "hash": "1MKjSiUc0bRQg8anRQ3HfQ=="
+          "hash": "L4iZgo8wr6Vvyj8LHfEi8w=="
         }
       },
       "is_incremental": false,
@@ -729,7 +729,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.AttributeDefinition.html",
-          "hash": "5p3cW6rwcuPXvubfle07fg=="
+          "hash": "SrLykRvDQgcrRP+lQPk3yA=="
         }
       },
       "is_incremental": false,
@@ -741,7 +741,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ClaimMappingDefinition.html",
-          "hash": "3DIEv2/9U+GZJ09Hx3ZWOw=="
+          "hash": "xoVOd8sQYBJ6Auf2OltzMw=="
         }
       },
       "is_incremental": false,
@@ -753,7 +753,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.CommandClaimMappingDefinition.html",
-          "hash": "i66CscBNFLRbWe0VXUkTeg=="
+          "hash": "TU31cPk0a22dpMPb+abu9A=="
         }
       },
       "is_incremental": false,
@@ -765,7 +765,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.ControllerDefinition.html",
-          "hash": "VPa82TOi7HpMRNLEPt0HZA=="
+          "hash": "o6ZNpHgSf0BpcRA1QSkViQ=="
         }
       },
       "is_incremental": false,
@@ -777,7 +777,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Model.html",
-          "hash": "9lwqEj9QR0XokD72Ijuesw=="
+          "hash": "9OTbYxTcuqlXS92wUORU8Q=="
         }
       },
       "is_incremental": false,
@@ -789,7 +789,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.RestApiException.html",
-          "hash": "PNHdKaynvpLCHs2TDYhQqw=="
+          "hash": "iUftDT0vo37J6UziPycNWg=="
         }
       },
       "is_incremental": false,
@@ -801,7 +801,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.SwaggerGenOptionsExtensions.html",
-          "hash": "6kTQw2G4o4SM0LUm1eMdOQ=="
+          "hash": "eBHlm0NAb5P0CvDuexURHQ=="
         }
       },
       "is_incremental": false,
@@ -813,7 +813,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.html",
-          "hash": "ksjJenMyMk4ztFh4fqJDzg=="
+          "hash": "8sfK+P98Kadz5MXcv5TvUQ=="
         }
       },
       "is_incremental": false,
@@ -825,7 +825,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AspNetCore.html",
-          "hash": "Zl141y4+Ed45nGt8FZiYLA=="
+          "hash": "qNiRRkzWuOc1K7im6wFhcQ=="
         }
       },
       "is_incremental": false,
@@ -837,7 +837,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AuditConfigurationException.html",
-          "hash": "fJ62sPAX9EcG1aFplR6tUg=="
+          "hash": "FWltDt4wdoak/DpvrXOxFA=="
         }
       },
       "is_incremental": false,
@@ -849,7 +849,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AuditorException.html",
-          "hash": "Rc+gU9j3oNrpct+CfPvP1Q=="
+          "hash": "cCEenstNwq6P9TuTodTk4A=="
         }
       },
       "is_incremental": false,
@@ -861,7 +861,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubAuditorOptions.html",
-          "hash": "xA8g4uSjrCxjFOKvIozB6Q=="
+          "hash": "FG1xfS+sEPaeXjvgXf1enQ=="
         }
       },
       "is_incremental": false,
@@ -873,7 +873,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubCommandingDependencies.html",
-          "hash": "x2JcgNWfVS2uf0PeVzsXOQ=="
+          "hash": "tez8e9Z9WoJeqij4Jh0Zhg=="
         }
       },
       "is_incremental": false,
@@ -885,7 +885,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions.html",
-          "hash": "JIx+U04bQVKw1ylf3xfIeQ=="
+          "hash": "xo4gk4N6mOOk9KeX+d13LQ=="
         }
       },
       "is_incremental": false,
@@ -897,7 +897,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer.html",
-          "hash": "Lr8vlhML1WPD9PHLCOPfDw=="
+          "hash": "shPammsoBcePYKiYT8MOfQ=="
         }
       },
       "is_incremental": false,
@@ -909,7 +909,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.IPartitionKeyProvider.html",
-          "hash": "XVfrmeUybixiv9yUjL2Gwg=="
+          "hash": "RBsjFv1NAAwqhW+Nnhi3MA=="
         }
       },
       "is_incremental": false,
@@ -921,7 +921,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.EventHubAuditItem.html",
-          "hash": "qm79XRRnPHH3UIe69xp78w=="
+          "hash": "dKd3c56Ohf4CQ06xcshbQQ=="
         }
       },
       "is_incremental": false,
@@ -933,7 +933,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.Model.html",
-          "hash": "pNijFeWcCHX373PEtrdMvQ=="
+          "hash": "AsgmGyO/LYZeqn73FGqWUg=="
         }
       },
       "is_incremental": false,
@@ -945,7 +945,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.html",
-          "hash": "c3oPI7lrcuzvSQ8Od1akeA=="
+          "hash": "J21QEAFhdjt+KY4Y9W1cIA=="
         }
       },
       "is_incremental": false,
@@ -957,7 +957,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.AzureServiceBusCommandingDependencies.html",
-          "hash": "PqtM0A3Jp1WcaWaDRHKGhw=="
+          "hash": "NXhKuY+xzeWg9rC8h8VXJg=="
         }
       },
       "is_incremental": false,
@@ -969,7 +969,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessor.html",
-          "hash": "D9+2eSsezEqTZ01eQVeXOA=="
+          "hash": "gbpw90OZyGO1hdPEvEMjEw=="
         }
       },
       "is_incremental": false,
@@ -981,7 +981,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusCommandQueueProcessorFactory.html",
-          "hash": "BLzCBCcZiQjDAyoaPUEaYg=="
+          "hash": "RoH8jncp1aM6pA4vYPCGhw=="
         }
       },
       "is_incremental": false,
@@ -993,7 +993,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer.html",
-          "hash": "po99+fzDcSAwQx8P8Npu3w=="
+          "hash": "5dTHK3VjxQhxbgeD/fKN4A=="
         }
       },
       "is_incremental": false,
@@ -1005,7 +1005,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientDispatcherFactory.html",
-          "hash": "YHygNwmqfM46w/YRmRDnjA=="
+          "hash": "oZKh6SeCIeHNd9RSi/2FFg=="
         }
       },
       "is_incremental": false,
@@ -1017,7 +1017,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.html",
-          "hash": "hXfKXp1Rc/uGKoXY6J/XHg=="
+          "hash": "GkIjBP5Uaueq4TkjJMG7fw=="
         }
       },
       "is_incremental": false,
@@ -1029,7 +1029,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientDispatcherFactory.html",
-          "hash": "oT/yiDpbeVMlihGpza/s2g=="
+          "hash": "yxx2VZzJDD/lWNoKISX5FQ=="
         }
       },
       "is_incremental": false,
@@ -1041,7 +1041,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientExtensions.html",
-          "hash": "Ukyl9/CMcrVzKE23oaEXog=="
+          "hash": "R8OvwiwqRTQprIHsa4oZqw=="
         }
       },
       "is_incremental": false,
@@ -1053,7 +1053,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureServiceBus.html",
-          "hash": "vk7j70YTXNI7WzSLkA966w=="
+          "hash": "NETR6/9xXTBMS6eUxwH3DA=="
         }
       },
       "is_incremental": false,
@@ -1065,7 +1065,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageAuditorOptions.html",
-          "hash": "FYjZHszqPMy9jUlwRg/VzQ=="
+          "hash": "7bVzoi+ipppwb+m2RTvCAQ=="
         }
       },
       "is_incremental": false,
@@ -1077,7 +1077,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageCommandingDependencies.html",
-          "hash": "skK5I2jmcciL8SaP7lwvBw=="
+          "hash": "DISEY9CDsilOTQ+FYSl82g=="
         }
       },
       "is_incremental": false,
@@ -1089,7 +1089,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.AzureStorageConfigurationException.html",
-          "hash": "Ysko8GIW5o3mynY5Oy50yQ=="
+          "hash": "QfuZTRtA7d8II/moGH3fUw=="
         }
       },
       "is_incremental": false,
@@ -1101,7 +1101,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueDispatcherFactory.html",
-          "hash": "ybGLsCToBaJXdED4EQxOOw=="
+          "hash": "FKpFYwDU8gNPb7zSnspRgw=="
         }
       },
       "is_incremental": false,
@@ -1113,7 +1113,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.CloudQueueExtensions.html",
-          "hash": "BhNC2CodcqKyvs7JQsPCvw=="
+          "hash": "4wwuOTce5BlxynjvXyUphQ=="
         }
       },
       "is_incremental": false,
@@ -1125,7 +1125,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.html",
-          "hash": "A+d0GzbXp+P3L+Bf35A/uw=="
+          "hash": "sQ3kFco3g6k+5pNVERdVDA=="
         }
       },
       "is_incremental": false,
@@ -1137,7 +1137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessorFactory.html",
-          "hash": "pvx3mcPEe/YA4C3a1nd8OA=="
+          "hash": "sPV6/D2Y03OAv8rxkzagdw=="
         }
       },
       "is_incremental": false,
@@ -1149,7 +1149,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageCommandQueueProcessorFactory.html",
-          "hash": "+3jSV6DoIIgzpxNPmNdj6g=="
+          "hash": "r6HW1KduR1y4NdkiEdG8gQ=="
         }
       },
       "is_incremental": false,
@@ -1161,7 +1161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueDispatcherFactory.html",
-          "hash": "rGO/Jic3ddLnvTScONTn4Q=="
+          "hash": "HneAt18QYDQOUJyxH9pQ6w=="
         }
       },
       "is_incremental": false,
@@ -1173,7 +1173,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageQueueSerializer.html",
-          "hash": "VFCwV0xYxfvVcZ87sGNhqA=="
+          "hash": "FpbuR0Mp+JDJVGpAnxNIEg=="
         }
       },
       "is_incremental": false,
@@ -1185,7 +1185,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.IStorageStrategy.html",
-          "hash": "yJQgxKBOw9/EgAV+0bH/WA=="
+          "hash": "US2nhQh8OCjy6/3SVIfLIg=="
         }
       },
       "is_incremental": false,
@@ -1197,7 +1197,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.AbstractCommandAuditTableEntity.html",
-          "hash": "CrX0q+M5/p4veGebkV5Wuw=="
+          "hash": "nvb2X4XsAN7L00NEsdX5Zw=="
         }
       },
       "is_incremental": false,
@@ -1209,7 +1209,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByCorrelationIdItem.html",
-          "hash": "MPMuJwq2TCfZeN/kRTucCg=="
+          "hash": "TQb+9WAJvaIq/rK+03VhLw=="
         }
       },
       "is_incremental": false,
@@ -1221,7 +1221,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.CommandAuditByDateDescItem.html",
-          "hash": "p9teibDV81To15JcmH0/hQ=="
+          "hash": "S5rlKSZOtAour3c1WRw5Tg=="
         }
       },
       "is_incremental": false,
@@ -1233,7 +1233,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.IAuditTableEntity.html",
-          "hash": "GzjAPYotQb9idcvhui/iBQ=="
+          "hash": "hggAbAC1qwXDioS7A425PQ=="
         }
       },
       "is_incremental": false,
@@ -1245,7 +1245,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Model.html",
-          "hash": "XYNSr/cN9TMaSUfYIBKXbQ=="
+          "hash": "0StvW5IlGOZK1lX+e4bPIA=="
         }
       },
       "is_incremental": false,
@@ -1257,7 +1257,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.SingleTableStrategy.html",
-          "hash": "JXHlbpffivEhVhvqoO0GSQ=="
+          "hash": "pzSZWbUscvhYse4jtv2IFg=="
         }
       },
       "is_incremental": false,
@@ -1269,7 +1269,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.TablePerDayStrategy.html",
-          "hash": "ewid20IX4EEzDvXXZQaWpQ=="
+          "hash": "STwWxQ8eJ2WMdmqmMANNmg=="
         }
       },
       "is_incremental": false,
@@ -1281,7 +1281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.Strategies.html",
-          "hash": "diFbmslTaZt++wYOan5Tdw=="
+          "hash": "zmzmyHHYHOIHqGbUYWwctw=="
         }
       },
       "is_incremental": false,
@@ -1293,7 +1293,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureStorage.html",
-          "hash": "JaJwlUEKeCZjBUZEE1rt+w=="
+          "hash": "15n0TS6MGu5GCT5WBO5f6Q=="
         }
       },
       "is_incremental": false,
@@ -1305,7 +1305,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheCommandingDependencies.html",
-          "hash": "KUG8U4WIgsMBkTSJ6FgPDA=="
+          "hash": "T3oEVqquXG7IK224+V+QWw=="
         }
       },
       "is_incremental": false,
@@ -1317,7 +1317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheConfigurationException.html",
-          "hash": "+ZgTWOVHmlF882HQLVo/Dg=="
+          "hash": "mce80UhtESiwKx7FrtFXkg=="
         }
       },
       "is_incremental": false,
@@ -1329,7 +1329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions-1.html",
-          "hash": "YO14APA0hb/ApSOQp8Wcpw=="
+          "hash": "x1Hb/q3iFUAfSAlQrgGdcg=="
         }
       },
       "is_incremental": false,
@@ -1341,7 +1341,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.CacheOptions.html",
-          "hash": "BNorME8hNwbv2yfmoxIbUw=="
+          "hash": "0RxDUU1lyaPRFHgOB7vXqw=="
         }
       },
       "is_incremental": false,
@@ -1353,7 +1353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.EvalCacheOptions.html",
-          "hash": "lwOnk4S4c/LWgXG7PYriHA=="
+          "hash": "WGdTSQt3txJFBWn+Dd4t7w=="
         }
       },
       "is_incremental": false,
@@ -1365,7 +1365,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheAdapter.html",
-          "hash": "dJ2angavZ1S0ydF5kHRlMg=="
+          "hash": "2X9bYZMIC7lb9TmUb8xXtw=="
         }
       },
       "is_incremental": false,
@@ -1377,7 +1377,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyHash.html",
-          "hash": "T0NLZKjjuyqk0OitM058Fw=="
+          "hash": "oMnh2loE+avecWYeND7A+Q=="
         }
       },
       "is_incremental": false,
@@ -1389,7 +1389,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICacheKeyProvider.html",
-          "hash": "VM3/leO8X/Tb1viNjvxuOw=="
+          "hash": "EmsjBR7ZPIVjOGBPPbFKoA=="
         }
       },
       "is_incremental": false,
@@ -1401,7 +1401,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.ICachedCommandDispatcher.html",
-          "hash": "pV4vqW03bIHMxKBrYQuBxw=="
+          "hash": "kBNq6s2pfLWsxVI1Q4iGQQ=="
         }
       },
       "is_incremental": false,
@@ -1413,7 +1413,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.MemoryCacheCommandingDependencies.html",
-          "hash": "iKN7VR5jKjfeYcLY9KYIHw=="
+          "hash": "93L8tkD7JHzxHKpUSsqn/w=="
         }
       },
       "is_incremental": false,
@@ -1425,7 +1425,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.MemoryCache.html",
-          "hash": "HVh8pIC5XxJIi7aYLGmFnA=="
+          "hash": "YfwRhZ1KSQNcCapmEJn2hQ=="
         }
       },
       "is_incremental": false,
@@ -1437,7 +1437,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.IDependencyResolverExtensions.html",
-          "hash": "M69C1I055PYKu01IdRF/cw=="
+          "hash": "thKOVM2LKIsDscQFWzn0cw=="
         }
       },
       "is_incremental": false,
@@ -1449,7 +1449,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.Redis.html",
-          "hash": "XCdagD4d46MhZpz3EfaOdA=="
+          "hash": "TB0lnmI6cfuGu8KYt3Hz0A=="
         }
       },
       "is_incremental": false,
@@ -1461,7 +1461,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Cache.html",
-          "hash": "Lq2aen7NBjQsCXzxIda8og=="
+          "hash": "wOspzGbyOn33U9d2CjpE+Q=="
         }
       },
       "is_incremental": false,
@@ -1473,7 +1473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandDispatchException.html",
-          "hash": "Qtq9M97xlP1wFW8MccBzqQ=="
+          "hash": "M5dqc0qa0GToxAw1+cuHYQ=="
         }
       },
       "is_incremental": false,
@@ -1485,7 +1485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException-1.html",
-          "hash": "4+7ocFlpw0FcBxKx9JQH/A=="
+          "hash": "alQ+auPybE5ZuNLc5jUWOg=="
         }
       },
       "is_incremental": false,
@@ -1497,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandExecutionException.html",
-          "hash": "iL1tzwWRNkqlsnLe5xvcWQ=="
+          "hash": "QA5zDPjcvddGlFPRwcS7Bw=="
         }
       },
       "is_incremental": false,
@@ -1509,7 +1509,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandRegistrationException.html",
-          "hash": "EHwDOxhfQ7sSozSKuixzVw=="
+          "hash": "EsbY27f3ErR2cc2S6yCYNw=="
         }
       },
       "is_incremental": false,
@@ -1521,7 +1521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandingDependencies.html",
-          "hash": "hax3RR7kqjGrhEsDL8ejlA=="
+          "hash": "kUbKkvhFhQ/9CPDMrBX/6g=="
         }
       },
       "is_incremental": false,
@@ -1533,7 +1533,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.CommandingRuntime.html",
-          "hash": "z4uBNcgXiGeEyUsvV9P9qQ=="
+          "hash": "DmhlHTGGsQPT6r9iRzGEww=="
         }
       },
       "is_incremental": false,
@@ -1545,7 +1545,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.FunctionWrapperCommandDispatchContextEnricher.html",
-          "hash": "blb/kN7gafBJjUWtjtfw7A=="
+          "hash": "xZXHiH6FC7JTYdswR8zmgA=="
         }
       },
       "is_incremental": false,
@@ -1557,7 +1557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.html",
-          "hash": "9FuJNXGi2Leom3idf8ip8g=="
+          "hash": "uTWKjs8TkVUxIU5TwAbNKg=="
         }
       },
       "is_incremental": false,
@@ -1569,7 +1569,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html",
-          "hash": "bTMew50UY7mCsW2yj/tqEg=="
+          "hash": "ei91yPyMei9XCqG/1dUynQ=="
         }
       },
       "is_incremental": false,
@@ -1581,7 +1581,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html",
-          "hash": "wjTAcdhxfA2PFV0MSdlW2Q=="
+          "hash": "Y39EQrDrNAKIrl5MFuhsaw=="
         }
       },
       "is_incremental": false,
@@ -1593,7 +1593,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer.html",
-          "hash": "vaV0XhDMpLAD562hh+iC7w=="
+          "hash": "oiIDdY6Y+KBQNJkKNQrfNw=="
         }
       },
       "is_incremental": false,
@@ -1605,7 +1605,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder.html",
-          "hash": "d8ZQGMTVdnfD+yQ/cpUNbg=="
+          "hash": "1iTwh7DnAd1lZWtuajbnlg=="
         }
       },
       "is_incremental": false,
@@ -1617,7 +1617,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.html",
-          "hash": "HKi5BnPObMN8KZI7HYqsPQ=="
+          "hash": "A6yd2lP133ZGMr4yhquFAA=="
         }
       },
       "is_incremental": false,
@@ -1629,7 +1629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolver.html",
-          "hash": "nWDvwGHmU2Y/+lXyfpIyQg=="
+          "hash": "OuGh1vqLzmN+Cd0DpoD3Bw=="
         }
       },
       "is_incremental": false,
@@ -1641,7 +1641,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IMicrosoftDependencyInjectionCommandingResolverAdapter.html",
-          "hash": "fHcYzh8YmOGqZPLuHBAvjA=="
+          "hash": "y8I98F+tFX8i9wYkAT/0FA=="
         }
       },
       "is_incremental": false,
@@ -1653,7 +1653,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.IServiceCollectionExtensions.html",
-          "hash": "BtzKfvthNsAdSfDWZYC0Cg=="
+          "hash": "8yrQTJOeHPD0hqz39MfCCw=="
         }
       },
       "is_incremental": false,
@@ -1665,7 +1665,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolver.html",
-          "hash": "E2T8Xh66tkwhyKMz67l7+w=="
+          "hash": "OCOgEsuDPPBApvixgk/HgQ=="
         }
       },
       "is_incremental": false,
@@ -1677,7 +1677,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.MicrosoftDependencyInjectionCommandingResolverAdapter.html",
-          "hash": "1+E1GdQxHxFWanzSKTWKTQ=="
+          "hash": "9W1l8HexFvv/Bxo4Rc8YBg=="
         }
       },
       "is_incremental": false,
@@ -1689,7 +1689,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection.html",
-          "hash": "02iqZK5YLS6eTLv5vxzGAw=="
+          "hash": "C9YWbR2aJ09LIqe08E8f+Q=="
         }
       },
       "is_incremental": false,
@@ -1701,7 +1701,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsAuditorOptions.html",
-          "hash": "i45ELXi5bJ3jw85VFHlbkg=="
+          "hash": "oQ01zrZd9MZj2tYzDEVQjA=="
         }
       },
       "is_incremental": false,
@@ -1713,7 +1713,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.MicrosoftLoggingExtensionsDependencies.html",
-          "hash": "nrbWzMNIVSOjAJMs023HQg=="
+          "hash": "dOzBRMCK1mADKN1lyXxhWA=="
         }
       },
       "is_incremental": false,
@@ -1725,7 +1725,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions.html",
-          "hash": "iPy3gMQuVtrhoO7/ABCVcw=="
+          "hash": "MIZaxulKWbONQK30ICrPAg=="
         }
       },
       "is_incremental": false,
@@ -1737,7 +1737,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.MissingCommandHandlerRegistrationException.html",
-          "hash": "yoWu5F3v9s1Hnp5yvvsOsw=="
+          "hash": "tqLlMZR5HvSGyYWVU6vXjA=="
         }
       },
       "is_incremental": false,
@@ -1749,7 +1749,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Options.html",
-          "hash": "GEHgDezdMiO91T4TN3W0jw=="
+          "hash": "nLIUv8HoCDGD8LS+EfSPOg=="
         }
       },
       "is_incremental": false,
@@ -1761,7 +1761,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicy.html",
-          "hash": "tjRr2ksYMkltN9xpXBHCjw=="
+          "hash": "3Vr+wPyYMwKaCBP+TBxJFQ=="
         }
       },
       "is_incremental": false,
@@ -1773,7 +1773,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.IAsynchronousBackoffPolicyFactory.html",
-          "hash": "c3Opl4KYJjZaXQKti6MxgQ=="
+          "hash": "ab9dtGdseKC8UeccUnPsYw=="
         }
       },
       "is_incremental": false,
@@ -1785,7 +1785,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessor.html",
-          "hash": "c/OH6ZPIEdsK56jfy9iveg=="
+          "hash": "mvtP1q+hy+cJfTDSsd+edQ=="
         }
       },
       "is_incremental": false,
@@ -1797,7 +1797,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.ICommandQueueProcessorLogger.html",
-          "hash": "Y+lJXcb17R2gxJ1E7HisaQ=="
+          "hash": "uJdK2H2r5q9lxcLlIukRow=="
         }
       },
       "is_incremental": false,
@@ -1809,7 +1809,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.QueueItem-1.html",
-          "hash": "0icMlJK4IShBLKt7O6eOPA=="
+          "hash": "uU+fGmLlvZZPNR6Zk7ebyA=="
         }
       },
       "is_incremental": false,
@@ -1821,7 +1821,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.Model.html",
-          "hash": "yr/gapHdJ/cihD2UWR69YA=="
+          "hash": "Em1xzYzpD4bswvLZg0Kq/w=="
         }
       },
       "is_incremental": false,
@@ -1833,7 +1833,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.QueueCommandingDependencies.html",
-          "hash": "adQiD3Pf5h2Thh0UktzY8Q=="
+          "hash": "SJpBQvGQVAjXLJXOQi8TNw=="
         }
       },
       "is_incremental": false,
@@ -1845,7 +1845,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Queue.html",
-          "hash": "j+sEUkhduiQjubzBRGVhiQ=="
+          "hash": "CrOuzOwcuJ+6xz9LSupSqA=="
         }
       },
       "is_incremental": false,
@@ -1857,7 +1857,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.UnableToExecuteHandlerException.html",
-          "hash": "83bg5+/Iie9lTuCWvIOB7w=="
+          "hash": "ojto1l4OeqDrM96hxe2wXQ=="
         }
       },
       "is_incremental": false,
@@ -1869,7 +1869,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.html",
-          "hash": "N126jjn3PxMhvFY+HdcvsQ=="
+          "hash": "SOeEk7Yjt7yZe4SXeNBMEQ=="
         }
       },
       "is_incremental": false,
@@ -1881,7 +1881,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "oeIFr9Tb0LeU3Dmfato2rQ=="
+          "hash": "kII3kK5SFTmKIP8VsVOiEA=="
         }
       },
       "is_incremental": false,
@@ -1901,23 +1901,50 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/intro.md",
+      "source_relative_path": "guides/generalUsage.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html",
-          "hash": "b9bW96VD5zv3VkILOBB/7A=="
+          "relative_path": "guides/generalUsage.html",
+          "hash": "EqM8/EsY4i5xP190LeNTXw=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
-      "type": "Toc",
-      "source_relative_path": "articles/toc.yml",
+      "type": "Conceptual",
+      "source_relative_path": "guides/introduction.md",
       "output": {
         ".html": {
-          "relative_path": "articles/toc.html",
-          "hash": "xVlQaX7Tk85omoiWv3O+Ag=="
+          "relative_path": "guides/introduction.html",
+          "hash": "+81VGeX9MAJT5SAjdsg/Kg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/philosophy.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/philosophy.html",
+          "hash": "jpGg8rlxEcYRHfci/LqyFQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "guides/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "guides/toc.html",
+          "hash": "i26tgAuPw7J7tadMthg24g=="
         }
       },
       "is_incremental": false,
@@ -1976,7 +2003,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "By5frBWe8lfp98OcvBFThw=="
+          "hash": "+6unzX70Ni4A+VshWBqrqw=="
         }
       },
       "is_incremental": false,
@@ -1988,7 +2015,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "ob7LqWp4kTNLz+9W4omdTw=="
+          "hash": "CjJXn/nkIhnt+T4pogE/Zg=="
         }
       },
       "is_incremental": false,
@@ -2007,8 +2034,9 @@
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {
@@ -2016,9 +2044,8 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }
