@@ -1,0 +1,1005 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CommandingRuntime
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CommandingRuntime
+   ">
+    <meta name="generator" content="docfx 2.34.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime">
+  
+  
+  <h1 id="AzureFromTheTrenches_Commanding_CommandingRuntime" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime" class="text-break">Class CommandingRuntime
+  </h1>
+  <div class="markdown level0 summary"><p>The commanding runtime allows an instance of the commanding runtime to be registered within
+a IoC container.</p>
+<p>Generally the CommandingDependencies methods should be used for this as that allows for slightly
+simpler registration semantics however if you want an isolated commanding runtime to be configured
+on a per thread basis with different options (rather than shared) this class should be used.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">CommandingRuntime</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingRuntime.html">ICommandingRuntime</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AzureFromTheTrenches.Commanding.html">AzureFromTheTrenches.Commanding</a></h6>
+  <h6><strong>Assembly</strong>: AzureFromTheTrenches.Commanding.dll</h6>
+  <h5 id="AzureFromTheTrenches_Commanding_CommandingRuntime_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CommandingRuntime : ICommandingRuntime</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddAuditItemEnricher__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddAuditItemEnricher%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L469">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddAuditItemEnricher_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddAuditItemEnricher*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddAuditItemEnricher__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddAuditItemEnricher``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter)">AddAuditItemEnricher&lt;TAuditItemEnricher&gt;(ICommandingDependencyResolverAdapter)</h4>
+  <div class="markdown level1 summary"><p>Adds an audit item enricher</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandingDependencyResolverAdapter AddAuditItemEnricher&lt;TAuditItemEnricher&gt;(ICommandingDependencyResolverAdapter commandingDependencyResolver)
+    where TAuditItemEnricher : IAuditItemEnricher</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">commandingDependencyResolver</span></td>
+        <td><p>The commanding dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><p>The commanding dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAuditItemEnricher</span></td>
+        <td><p>The type of the enricher</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_AzureFromTheTrenches_Commanding_Abstractions_IOptions_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter%2CAzureFromTheTrenches.Commanding.Abstractions.IOptions)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L184">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_AzureFromTheTrenches_Commanding_Abstractions_IOptions_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter,AzureFromTheTrenches.Commanding.Abstractions.IOptions)">AddCommanding(ICommandingDependencyResolverAdapter, IOptions)</h4>
+  <div class="markdown level1 summary"><p>Registers the commanding system in an ioc container.
+If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
+the commandHandlerContainerRegistration should be used to perform the type registration for the handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandRegistry AddCommanding(ICommandingDependencyResolverAdapter dependencyResolver, IOptions options = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver to register inside</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.IOptions.html">IOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Configuration options for the commanding system</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html">ICommandRegistry</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Action_System_Type__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter%2CSystem.Action%7BSystem.Type%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L63">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Action_System_Type__" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter,System.Action{System.Type})">AddCommanding(ICommandingDependencyResolverAdapter, Action&lt;Type&gt;)</h4>
+  <div class="markdown level1 summary"><p>Registers the commanding system in an ioc container.
+If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
+the commandHandlerContainerRegistration should be used to perform the type registration for the handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandRegistry AddCommanding(ICommandingDependencyResolverAdapter dependencyResolver, Action&lt;Type&gt; commandHandlerContainerRegistration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver to register inside</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><span class="parametername">commandHandlerContainerRegistration</span></td>
+        <td><p>Unless an alternative implementation of ICommandHandlerFactory is supplied then actors are created through the dependency resolver
+but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection
+and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandHandlerContainerRegistration
+action that registers the actors in the container. For example using an IServiceCollection instance of serviceCollection:
+resolver.UseCommanding(type =&gt; services.AddTransient(type, type));</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html">ICommandRegistry</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddExecutionCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddExecutionCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L424">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddExecutionCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddExecutionCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddExecutionCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddExecutionCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter,System.Boolean)">AddExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(ICommandingDependencyResolverAdapter, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly after a command has been executed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandingDependencyResolverAdapter AddExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TExecutionAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TExecutionAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddPostDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddPostDispatchCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L371">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddPostDispatchCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddPostDispatchCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddPostDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddPostDispatchCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter,System.Boolean)">AddPostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolverAdapter, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly after a command has been dispatched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandingDependencyResolverAdapter AddPostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDispatchAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_AddPreDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.AddPreDispatchCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L318">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddPreDispatchCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddPreDispatchCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_AddPreDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolverAdapter_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.AddPreDispatchCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter,System.Boolean)">AddPreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolverAdapter, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly before a command has been dispatched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommandingDependencyResolverAdapter AddPreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolverAdapter.html">ICommandingDependencyResolverAdapter</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDispatchAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UseAuditItemEnricher__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UseAuditItemEnricher%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L446">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseAuditItemEnricher_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseAuditItemEnricher*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseAuditItemEnricher__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseAuditItemEnricher``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver)">UseAuditItemEnricher&lt;TAuditItemEnricher&gt;(ICommandingDependencyResolver)</h4>
+  <div class="markdown level1 summary"><p>Adds an audit item enricher</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddAuditItemEnricher instead&quot;)]
+public ICommandingDependencyResolver UseAuditItemEnricher&lt;TAuditItemEnricher&gt;(ICommandingDependencyResolver commandingDependencyResolver)
+    where TAuditItemEnricher : IAuditItemEnricher</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">commandingDependencyResolver</span></td>
+        <td><p>The commanding dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><p>The commanding dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAuditItemEnricher</span></td>
+        <td><p>The type of the enricher</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_AzureFromTheTrenches_Commanding_Abstractions_IOptions_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver%2CAzureFromTheTrenches.Commanding.Abstractions.IOptions)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L78">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_AzureFromTheTrenches_Commanding_Abstractions_IOptions_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver,AzureFromTheTrenches.Commanding.Abstractions.IOptions)">UseCommanding(ICommandingDependencyResolver, IOptions)</h4>
+  <div class="markdown level1 summary"><p>Registers the commanding system in an ioc container.
+If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
+the commandHandlerContainerRegistration should be used to perform the type registration for the handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddCommanding instead&quot;)]
+public ICommandRegistry UseCommanding(ICommandingDependencyResolver dependencyResolver, IOptions options = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver to register inside</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.IOptions.html">IOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Configuration options for the commanding system</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html">ICommandRegistry</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Action_System_Type__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver%2CSystem.Action%7BSystem.Type%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L41">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseCommanding_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Action_System_Type__" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseCommanding(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver,System.Action{System.Type})">UseCommanding(ICommandingDependencyResolver, Action&lt;Type&gt;)</h4>
+  <div class="markdown level1 summary"><p>Registers the commanding system in an ioc container.
+If the container is not able to resolve unregistered types (for example the NetStandard Microsoft container) then
+the commandHandlerContainerRegistration should be used to perform the type registration for the handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddCommanding instead&quot;)]
+public ICommandRegistry UseCommanding(ICommandingDependencyResolver dependencyResolver, Action&lt;Type&gt; commandHandlerContainerRegistration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver to register inside</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Type</span>&gt;</td>
+        <td><span class="parametername">commandHandlerContainerRegistration</span></td>
+        <td><p>Unless an alternative implementation of ICommandHandlerFactory is supplied then actors are created through the dependency resolver
+but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection
+and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandHandlerContainerRegistration
+action that registers the actors in the container. For example using an IServiceCollection instance of serviceCollection:
+resolver.UseCommanding(type =&gt; services.AddTransient(type, type));</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html">ICommandRegistry</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UseExecutionCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UseExecutionCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L397">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseExecutionCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseExecutionCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UseExecutionCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UseExecutionCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver,System.Boolean)">UseExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(ICommandingDependencyResolver, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly after a command has been executed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddExecutionCommandingAuditor instead&quot;)]
+public ICommandingDependencyResolver UseExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TExecutionAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TExecutionAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UsePostDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UsePostDispatchCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L344">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UsePostDispatchCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UsePostDispatchCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UsePostDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UsePostDispatchCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver,System.Boolean)">UsePostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolver, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly after a command has been dispatched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddPostDispatchCommandingAuditor instead&quot;)]
+public ICommandingDependencyResolver UsePostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDispatchAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime_UsePreDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime.UsePreDispatchCommandingAuditor%60%601(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L291">View Source</a>
+  </span>
+  <a id="AzureFromTheTrenches_Commanding_CommandingRuntime_UsePreDispatchCommandingAuditor_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UsePreDispatchCommandingAuditor*"></a>
+  <h4 id="AzureFromTheTrenches_Commanding_CommandingRuntime_UsePreDispatchCommandingAuditor__1_AzureFromTheTrenches_Commanding_Abstractions_ICommandingDependencyResolver_System_Boolean_" data-uid="AzureFromTheTrenches.Commanding.CommandingRuntime.UsePreDispatchCommandingAuditor``1(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver,System.Boolean)">UsePreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolver, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers an auditor that will be invoked directly before a command has been dispatched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use AddPreDispatchCommandingAuditor instead&quot;)]
+public ICommandingDependencyResolver UsePreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><span class="parametername">dependencyResolver</span></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">auditRootCommandOnly</span></td>
+        <td><p>By default the built in auditor will audit every command that is dispatched however if using the audit as part of an
+event sourcing pipeline it can be useful to only audit the root command and exclude any commands dispatched as a result
+of that root command. Set this property to true to audit only the root commands, leave null or set to false to audit all
+commands.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver.html">ICommandingDependencyResolver</a></td>
+        <td><p>The dependency resolver</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TDispatchAuditorImpl</span></td>
+        <td><p>The type of the auditor</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommandingRuntime.html">ICommandingRuntime</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/develop/apiSpec/new?filename=AzureFromTheTrenches_Commanding_CommandingRuntime.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.CommandingRuntime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/develop/Source/AzureFromTheTrenches.Commanding/CommandingRuntime.cs/#L16" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
