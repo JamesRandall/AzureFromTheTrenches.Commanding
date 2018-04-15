@@ -1925,6 +1925,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "guides/packages.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/packages.html",
+          "hash": "DOs1sJqmG1VZgRrfpqlXMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "guides/philosophy.md",
       "output": {
         ".html": {
@@ -2020,15 +2032,12 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Toc",
       "source_relative_path": "guides/toc.yml",
       "output": {
         ".html": {
           "relative_path": "guides/toc.html",
-          "hash": "lfm9yHWwrCbEuu7uFup5PQ=="
+          "hash": "3Ny3xUYjdcwnR34pI+RlwQ=="
         }
       },
       "is_incremental": false,
