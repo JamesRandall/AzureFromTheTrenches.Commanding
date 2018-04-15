@@ -20,7 +20,7 @@ footer{
     A commanding mediator framework designed for clean code, API first development and evolving modular-monoliths into micro-services
     </div>
     <div class="buttons-unit">
-      <a href="tutorial/getting_started.md" class="button"><i class="fas fa-paper-plane"></i><span style="margin-left: 4px;">Getting Started</span></a>
+      <a href="guides/generalUsage.html" class="button"><i class="fas fa-paper-plane"></i><span style="margin-left: 4px;">Getting Started</span></a>
       <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding" class="button"><i class="fab fa-github"></i><span style="margin-left: 4px;">View on GitHub</span></a>
     </div>
   </div>
