@@ -3,7 +3,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Model
 {
-    public sealed class PrioritisedCommandHandler : IComparable, IPrioritisedCommandHandler
+    internal sealed class PrioritisedCommandHandler : IComparable, IPrioritisedCommandHandler
     {
         internal PrioritisedCommandHandler(int priority, Type commandHandlerType)
         {

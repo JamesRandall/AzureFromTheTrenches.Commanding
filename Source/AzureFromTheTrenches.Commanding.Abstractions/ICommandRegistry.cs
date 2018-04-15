@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Allows command handlers to be registered
+    /// </summary>
     public interface ICommandRegistry
     {
         /// <summary>

@@ -1,13 +1,21 @@
 ﻿namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Suggested orders for command handler pipelines
+    /// </summary>
     public class CommandHandlerOrder
     {
-        public const int BeginAuditor = int.MinValue;
-        public const int Permission = 0;
+        /// <summary>
+        /// Default order
+        /// </summary>
         public const int Default = 1000;
-        public const int EndAuditor = int.MaxValue - 1;
-        public const int Analytic = int.MaxValue;
+        /// <summary>
+        /// Pre-default handler
+        /// </summary>
         public const int Pre = Default - 100;
+        /// <summary>
+        /// Post-default handler
+        /// </summary>
         public const int Post = Default + 100;
     }
 }

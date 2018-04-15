@@ -2,8 +2,14 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Context information used during command dispatch and execution to track and correlate commands
+    /// </summary>
     public interface ICommandDispatchContext
     {
+        /// <summary>
+        /// The correlation ID for the current context
+        /// </summary>
         string CorrelationId { get; }
 
         /// <summary>
@@ -20,12 +26,28 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// </summary>
         int Depth { get; }
 
+        /// <summary>
+        /// Audit item enrichers are able to add properties into this dictionary so that they are
+        /// available for audit across the dispatch process
+        /// </summary>
         IReadOnlyDictionary<string, object> AdditionalProperties { get; }
 
+        /// <summary>
+        /// Increment the command depth tracker
+        /// </summary>
+        /// <returns>The depth</returns>
         int Increment();
 
+        /// <summary>
+        /// Decrement the command depth tracker
+        /// </summary>
+        /// <returns>The depth</returns>
         int Decrement();
 
+        /// <summary>
+        /// Return a copy of the context
+        /// </summary>
+        /// <returns>A new copy</returns>
         ICommandDispatchContext Copy();
     }
 }

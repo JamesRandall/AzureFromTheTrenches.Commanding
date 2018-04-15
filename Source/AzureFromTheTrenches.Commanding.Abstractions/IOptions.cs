@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Interface that represents the options that can be specified when configuring the commanding runtime
+    /// </summary>
     public interface IOptions
     {
         /// <summary>

@@ -3,6 +3,7 @@
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
     [Obsolete("This will be deprecated in a future version, please use CommandingDependencyResolverAdapter instead")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class CommandingDependencyResolver : ICommandingDependencyResolver
     {
         private readonly Action<Type, object> _registerInstance;
@@ -48,4 +49,5 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
 
         public ICommandingRuntime AssociatedCommandingRuntime { get; set; }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

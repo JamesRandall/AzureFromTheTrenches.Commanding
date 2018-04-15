@@ -2,6 +2,9 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Represents a runtime for the commanding system. Manages some shared configuration.
+    /// </summary>
     public interface ICommandingRuntime
     {
         /// <summary>

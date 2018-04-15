@@ -3,6 +3,9 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding
 {
+    /// <summary>
+    /// Extension methods for registering commanding dependencies
+    /// </summary>
     public static class CommandingDependencies
     {
         private static readonly CommandingRuntime Instance = new CommandingRuntime();

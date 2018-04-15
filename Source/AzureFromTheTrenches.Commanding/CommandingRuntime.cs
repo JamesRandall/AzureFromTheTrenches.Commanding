@@ -437,6 +437,12 @@ namespace AzureFromTheTrenches.Commanding
             return dependencyResolver;
         }
 
+        /// <summary>
+        /// Adds an audit item enricher
+        /// </summary>
+        /// <typeparam name="TAuditItemEnricher">The type of the enricher</typeparam>
+        /// <param name="commandingDependencyResolver">The commanding dependency resolver</param>
+        /// <returns>The commanding dependency resolver</returns>
         [Obsolete("Please use AddAuditItemEnricher instead")]
         public ICommandingDependencyResolver UseAuditItemEnricher<TAuditItemEnricher>(ICommandingDependencyResolver commandingDependencyResolver)
             where TAuditItemEnricher : IAuditItemEnricher

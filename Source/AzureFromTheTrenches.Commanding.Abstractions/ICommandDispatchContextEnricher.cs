@@ -2,6 +2,9 @@
 
 namespace AzureFromTheTrenches.Commanding.Abstractions
 {
+    /// <summary>
+    /// Allows the command dispatch context to be enriched
+    /// </summary>
     public interface ICommandDispatchContextEnricher
     {
         /// <summary>

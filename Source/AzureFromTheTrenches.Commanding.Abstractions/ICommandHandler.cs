@@ -10,6 +10,11 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TCommand">The type of the command</typeparam>
     public interface ICommandHandler<in TCommand> : ICommandHandler where TCommand : ICommand
     {
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <returns>An awaitable task</returns>
         Task ExecuteAsync(TCommand command);
     }
 
@@ -19,6 +24,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TCommand">The type of the command</typeparam>
     public interface ICancellableCommandHandler<in TCommand> : ICancellableCommandHandler where TCommand : ICommand
     {
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <param name="cancellationToken">A cancellation tokan</param>
+        /// <returns>An awaitable task</returns>
         Task ExecuteAsync(TCommand command, CancellationToken cancellationToken);
     }
 
@@ -29,6 +40,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TResult">The result type of the command</typeparam>
     public interface ICommandHandler<in TCommand, TResult> : ICommandHandler where TCommand : ICommand<TResult>
     {
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <param name="previousResult">The previous result set by the last (if any) command in the handler chain. Will be default(TResult) if the first command in the pipeline.</param>
+        /// <returns>An awaitable task</returns>
         Task<TResult> ExecuteAsync(TCommand command, TResult previousResult);
     }
 
@@ -39,6 +56,13 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TResult">The result type of the command</typeparam>
     public interface ICancellableCommandHandler<in TCommand, TResult> : ICancellableCommandHandler where TCommand : ICommand<TResult>
     {
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <param name="previousResult">The previous result set by the last (if any) command in the handler chain. Will be default(TResult) if the first command in the pipeline.</param>
+        /// <param name="cancellationToken">A cancellation token</param>
+        /// <returns>An awaitable task</returns>
         Task<TResult> ExecuteAsync(TCommand command, TResult previousResult, CancellationToken cancellationToken);
     }
 
@@ -50,7 +74,12 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TResult">The result type of the command</typeparam>
     public interface IPipelineAwareCommandHandler<in TCommand, TResult> : IPipelineAwareCommandHandler where TCommand : ICommand<TResult>
     {
-        // return true to stop after execution
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <param name="previousResult">The previous result set by the last (if any) command in the handler chain. Will be default(TResult) if the first command in the pipeline.</param>
+        /// <returns>An awaitable task with the result wrapped in a class that allows the handler to halt execution</returns>
         Task<PipelineAwareCommandHandlerResult<TResult>> ExecuteAsync(TCommand command, TResult previousResult);
     }
 
@@ -62,7 +91,13 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
     /// <typeparam name="TResult">The result type of the command</typeparam>
     public interface ICancellablePipelineAwareCommandHandler<in TCommand, TResult> : ICancellablePipelineAwareCommandHandler where TCommand : ICommand<TResult>
     {
-        // return true to stop after execution
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <param name="previousResult">The previous result set by the last (if any) command in the handler chain. Will be default(TResult) if the first command in the pipeline.</param>
+        /// <param name="cancellationToken">A cancellation token</param>
+        /// <returns>An awaitable task with the result wrapped in a class that allows the handler to halt execution</returns>
         Task<PipelineAwareCommandHandlerResult<TResult>> ExecuteAsync(TCommand command, TResult previousResult, CancellationToken cancellationToken);
     }
 }
