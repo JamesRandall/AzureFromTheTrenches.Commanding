@@ -57,12 +57,16 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "_exported_templates/default",
+      "custom_template"
     ],
     "postProcessors": [],
     "noLangKeyword": false,
     "keepFileLink": false,
-    "cleanupCacheHistory": false,
-    "disableGitFeatures": false
+    "cleanupCacheHistory": true,
+    "disableGitFeatures": false,
+    "globalMetadata": {
+      "_appLogoPath": "images/largeLogo.png"
+    }    
   }
 }
