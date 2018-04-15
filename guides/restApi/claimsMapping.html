@@ -5,17 +5,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Introduction </title>
+    <title>Claims Mapping </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Introduction ">
+    <meta name="title" content="Claims Mapping ">
     <meta name="generator" content="docfx 2.33.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
     
     
@@ -34,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" width="56" height="52" src="../images/largeLogo.png" alt="">
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -67,24 +67,51 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="introduction">Introduction</h1>
+<h1 id="claims-mapping">Claims Mapping</h1>
 
-<p>AzureFromTheTrenches.Commanding is a configuration based asynchronous command mediator framework with a number of key design goals:</p>
-<ul>
-<li>To provide a highly performant mediator for simple usage</li>
-<li>To support evolution across a projects lifecycle allowing for easy decomposition from a modular-monolith to a fully distributed micro-service architecture</li>
-<li>To provide a none-leaking abstraction over command dispatch and execution semantics</li>
-<li>To reduce boilerplate code - simplistically less code means less errors and less to maintain</li>
-</ul>
-<p>To support these goals the framework supports .NET Standard 2.0 (and higher) and so can be used in a wide variety of scenarios and a number of fully optional extension packages are available to enable:</p>
-<ul>
-<li>Building a <a href="restApi/quickstart.html">REST API</a> directly from commands using a configuration based approach</li>
-<li>Dispatching commands to queues (Service Bus Queues and Topics, and Azure Storage)</li>
-<li>Dispatching commands to event hubs</li>
-<li>Using queues as a source for executing commands </li>
-<li>Caching commands based on signatures in local memory caches or Redis caches</li>
-</ul>
-<p>For an introduction on taking the Commanding and Mediator approach to application architecture using this framework <a href="https://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-with-a-mediator-the-full-series/">please see this series of posts here</a>.</p>
+<p>Properties on commands can be set by mapping the values from claims. If we consider our previous example:</p>
+<pre><code>public class AddToBasketCommand : ICommand
+{
+    [SecurityProperty]
+    public Guid UserId { get; set; }
+
+    public Guid ProductId { get; set; }
+}
+</code></pre><p>It is quite likely that the value for the UserId property will actually be found in a claim. If you stick to a convention based approach (e.g. all user IDs on all commands are called UserId) then a single claim mapping can deal with all commands that contain a UserID property. Assuming our claim containing the user ID is called UniqueUserId (I&#39;ve just differentiated the name to make the example clear) then this can be setup as shown in the example below:</p>
+<pre><code>public void ConfigureServices(IServiceCollection services)
+{
+    // ... normal setup of commanding and other infrastructure
+
+    services
+        .AddMvc()
+        .AddAspNetCoreCommanding(cfg =&gt; cfg
+            .Controller(&quot;Basket&quot;, controller =&gt; controller
+                .Action&lt;AddToBasketCommand&gt;(HttpMethod.Post))
+            .Claims(mapping =&gt; mapping.MapClaimToPropertyName(&quot;UniqueUserId&quot;, &quot;UserId))
+        );
+}
+</code></pre><p>If you have some commands that don&#39;t follow the pattern then the generic claim mapping can be overridden by setting up a mapping for a specific command type. For example lets assume our GetBasketQuery has a property called BasketUserId:</p>
+<pre><code>public class GetBasketQuery : ICommand&lt;Basket&gt;
+{
+    [SecurityProperty]
+    public Guid BasketUserId { get; set; }
+}
+</code></pre><p>Then we can set up a specific mapping for the GetBasketQuery command as follows:</p>
+<pre><code>public void ConfigureServices(IServiceCollection services)
+{
+    // ... normal setup of commanding and other infrastructure
+
+    services
+        .AddMvc()
+        .AddAspNetCoreCommanding(cfg =&gt; cfg
+            .Controller(&quot;Basket&quot;, controller =&gt; controller
+                .Action&lt;AddToBasketCommand&gt;(HttpMethod.Post))
+            .Claims(mapping =&gt; mapping
+                .MapClaimToPropertyName(&quot;UniqueUserId&quot;, &quot;UserId)
+                .MapClaimToCommandProperty&lt;GetBasketQuery&gt;(&quot;UserId&quot;, cmd =&gt; cmd.BasketUserId))
+        );
+}
+</code></pre><p>Claims are mapped during model binding and so are present when validation takes place.</p>
 <div id="disqus_thread"></div>
             </article>
           </div>
@@ -94,7 +121,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/introduction.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/restApi/claimsMapping.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="#disqus_thread" class="contribution-link">0 Comments</a>
@@ -123,9 +150,9 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
     <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
     
     <script>

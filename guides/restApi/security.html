@@ -5,17 +5,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Introduction </title>
+    <title>Security </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Introduction ">
+    <meta name="title" content="Security ">
     <meta name="generator" content="docfx 2.33.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
     
     
@@ -34,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" width="56" height="52" src="../images/largeLogo.png" alt="">
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -67,25 +67,33 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="introduction">Introduction</h1>
+<h1 id="security">Security</h1>
 
-<p>AzureFromTheTrenches.Commanding is a configuration based asynchronous command mediator framework with a number of key design goals:</p>
-<ul>
-<li>To provide a highly performant mediator for simple usage</li>
-<li>To support evolution across a projects lifecycle allowing for easy decomposition from a modular-monolith to a fully distributed micro-service architecture</li>
-<li>To provide a none-leaking abstraction over command dispatch and execution semantics</li>
-<li>To reduce boilerplate code - simplistically less code means less errors and less to maintain</li>
-</ul>
-<p>To support these goals the framework supports .NET Standard 2.0 (and higher) and so can be used in a wide variety of scenarios and a number of fully optional extension packages are available to enable:</p>
-<ul>
-<li>Building a <a href="restApi/quickstart.html">REST API</a> directly from commands using a configuration based approach</li>
-<li>Dispatching commands to queues (Service Bus Queues and Topics, and Azure Storage)</li>
-<li>Dispatching commands to event hubs</li>
-<li>Using queues as a source for executing commands </li>
-<li>Caching commands based on signatures in local memory caches or Redis caches</li>
-</ul>
-<p>For an introduction on taking the Commanding and Mediator approach to application architecture using this framework <a href="https://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-with-a-mediator-the-full-series/">please see this series of posts here</a>.</p>
-<div id="disqus_thread"></div>
+<p>When ASP.Net Core is configured with this framework the standard authentication and authorization mechanisms continue to apply.</p>
+<p>However by exposing commands as REST endpoints we need to take care not to expose any sensitive properies as commands may may contain properties that you never want a caller to be able to set either via a query string, route parameter or body as doing so may cause unwanted side effects such as a data breach. Often such properties need to be populated from claims rather than by caller modifiable data.</p>
+<p>A good example might be a user ID. If we consider our earlier AddToBasketCommand command in order for the product to be added to the correct basket it is likely that the command handler and downstream systems will need to be aware of which users basket we are dealing with and so a more realistic representation of this class might be:</p>
+<pre><code>public class AddToBasketCommand : ICommand
+{
+    [SecurityProperty]
+    public Guid UserId { get; set; }
+
+    public Guid ProductId { get; set; }
+}
+</code></pre><p>By marking the UserId property with the attribute [SecurityProperty] that property cannot be set by sending data to the API endpoint.</p>
+<p>Additionally by adding and configuring the AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle package the properties will never be shown in the Swagger definition. The package and Swashbuckle are configured together in ConfigureServices by using the AddSwaggerGen options:</p>
+<pre><code>public void ConfigureServices(IServiceCollection services)
+{
+    // ... normal setup of commanding and other infrastructure
+
+    // ... configure REST API commanding
+
+    services.AddSwaggerGen(c =&gt;
+    {
+        c.SwaggerDoc(&quot;v1&quot;, new Info { Title = &quot;My API&quot;, Version = &quot;v1&quot; });
+        c.AddAspNetCoreCommanding();
+    });
+}
+</code></pre><div id="disqus_thread"></div>
             </article>
           </div>
           
@@ -94,7 +102,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/introduction.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/restApi/security.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="#disqus_thread" class="contribution-link">0 Comments</a>
@@ -123,9 +131,9 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
     <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
     
     <script>

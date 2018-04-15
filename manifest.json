@@ -1901,11 +1901,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "guides/generalUsage.md",
+      "source_relative_path": "guides/gettingStarted.md",
       "output": {
         ".html": {
-          "relative_path": "guides/generalUsage.html",
-          "hash": "EqM8/EsY4i5xP190LeNTXw=="
+          "relative_path": "guides/gettingStarted.html",
+          "hash": "VGy9RDL3btWQ5pDZDRwlbg=="
         }
       },
       "is_incremental": false,
@@ -1917,7 +1917,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/introduction.html",
-          "hash": "+81VGeX9MAJT5SAjdsg/Kg=="
+          "hash": "IAhElbXSf02QvxiZzhUDFQ=="
         }
       },
       "is_incremental": false,
@@ -1936,6 +1936,90 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/bestPractices.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/bestPractices.html",
+          "hash": "D0/R9nmsvHURSTRXz56RHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/claimsMapping.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/claimsMapping.html",
+          "hash": "uBHC1ovfO4TeIR74sNWe5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/configuringActions.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/configuringActions.html",
+          "hash": "C6B+jvL91HolqGjQ8ygxkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/configuringControllers.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/configuringControllers.html",
+          "hash": "BedK3J6oqNqFoLm8+qSp7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/filterAttributes.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/filterAttributes.html",
+          "hash": "cTE+nGj8wIheULKMF2qj3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/quickstart.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/quickstart.html",
+          "hash": "qnCDWFS+OQ0fOSFDEUwK7g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/restApi/security.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/restApi/security.html",
+          "hash": "CEtbZQM9O6exLsuSnmgBrg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "log_codes": [
         "InvalidFileLink"
       ],
@@ -1944,7 +2028,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/toc.html",
-          "hash": "i26tgAuPw7J7tadMthg24g=="
+          "hash": "lfm9yHWwrCbEuu7uFup5PQ=="
         }
       },
       "is_incremental": false,
@@ -2003,7 +2087,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "+6unzX70Ni4A+VshWBqrqw=="
+          "hash": "EbhW0GHOAalHpI6PxxuQOg=="
         }
       },
       "is_incremental": false,
@@ -2030,13 +2114,13 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {
