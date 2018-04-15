@@ -1,4 +1,4 @@
-# General Usage
+# Getting Started
 
 Firstly install the nuget package for commanding:
 

@@ -9,7 +9,7 @@ AzureFromTheTrenches.Commanding is a configuration based asynchronous command me
 
 To support these goals the framework supports .NET Standard 2.0 (and higher) and so can be used in a wide variety of scenarios and a number of fully optional extension packages are available to enable:
 
-* Building a REST API directly from commands using a configuration based approach
+* Building a [REST API](restApi/quickstart.md) directly from commands using a configuration based approach
 * Dispatching commands to queues (Service Bus Queues and Topics, and Azure Storage)
 * Dispatching commands to event hubs
 * Using queues as a source for executing commands 

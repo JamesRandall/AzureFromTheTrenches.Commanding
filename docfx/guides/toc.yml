@@ -2,13 +2,25 @@
   items:
     - name: Introduction
       href: introduction.md
+    - name: Getting Started
+      href: gettingStarted.md
     - name: Packages
       href: packages.md
     - name: Philosophy
       href: philosophy.md
-- name: Quickstarts
+- name: REST API
   items:
-    - name: General Usage
-      href: generalUsage.md
-    - name: ASP.NET Core REST API
-      href: restApi.md
+    - name: Quickstart
+      href: restApi/quickstart.md
+    - name: Configuring Controllers
+      href: restApi/configuringControllers.md
+    - name: Configuring Actions
+      href: restApi/configuringActions.md  
+    - name: Filter Attributes
+      href: restApi/filterAttributes.md
+    - name: Security
+      href: restApi/security.md
+    - name: Claims Mapping
+      href: restApi/claimsMapping.md
+    - name: Best Practices
+      href: restApi/bestPractices.md
