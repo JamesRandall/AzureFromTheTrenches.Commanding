@@ -1,34 +1,34 @@
 # AzureFromTheTrenches.Commanding
 ![Build Status](https://accidentalfish.visualstudio.com/_apis/public/build/definitions/09076561-bff4-4f58-b28a-ff4b483b7e65/21/badge)
 
-A simple configuration based asynchronous command message framework designed to be both easy to use and highly extensible allowing projects to start with a simple in memory based approach to commanding and over time adopt advanced techniques such as event sourcing, remote commanding over REST and auditing. Out the box support is provided for dispatch and execution to occur in-process, over HTTP, and in a deferred manner over Azure Storage Queues. Support is also provided for popping commands directly from queues and executing them along with support for auditing.
+Note that [full documentation](https://commanding.azurefromthetrenches.com) including [guides](https://commanding.azurefromthetrenches.com/guides/introduction.html) and an [API reference](https://commanding.azurefromthetrenches.com/api/index.html) can be found on the help site.
 
-The framework supports .NET Standard 2.0 (and higher) and so, at the time of writing, can be used with the following _minimum version_ runtimes:
+I also have a series on moving from "onion layer" architecture to making use of a mediated command pattern in a [series of posts on my blog](https://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-with-a-mediator-the-full-series/).
 
-* .NET 4.6.1
-* .NET Core 2.0
-* Mono 5.4
-* Xamarin.iOS 10.14
-* Xamarin.Mac 3.8
-* Xamarin.Android 10.8
-* Universal Windows Platform 10.0.16299
+## Introduction
 
-As such it can easily be used in a varierty of scenarios such as ASP.Net, ASP.Net Core, Console apps, Worker Roles, WebJobs etc.
+AzureFromTheTrenches.Commanding is a configuration based asynchronous command mediator framework with a number of key design goals:
 
-Additionally the framework is designed specifically for use with a dependency injection approach and can be used with any of the
-common dependency injectors (e.g. Autofac, Ninject, Unity, ASP.Net Core Services Container etc.) through the use of a simple adapter.
+* To provide a highly performant mediator for simple usage
+* To support evolution across a projects lifecycle allowing for easy decomposition from a modular-monolith to a fully distributed micro-service architecture
+* To provide a none-leaking abstraction over command dispatch and execution semantics
+* To reduce boilerplate code - simplistically less code means less errors and less to maintain
 
-For an introduction on taking the Commanding and Mediator approach to application architecture using this framework [please see this series of posts here](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
+To support these goals the framework supports .NET Standard 2.0 (and higher) and so can be used in a wide variety of scenarios and a number of fully optional extension packages are available to enable:
+
+* Building a [REST API](restApi/quickstart.md) directly from commands using a configuration based approach
+* Dispatching commands to queues (Service Bus Queues and Topics, and Azure Storage)
+* Dispatching commands to event hubs
+* Using queues as a source for executing commands 
+* Caching commands based on signatures in local memory caches or Redis caches
+
+You don't need to take advantage of that functionality but you can, if you want, adopt it over time without changing your core code.
 
 ## Getting Started
 
 Firstly install the nuget package for commanding:
 
     Install-Package AzureFromTheTrenches.Commanding
-
-In our example we're going to be using the Microsoft.Extensions.DependencyInjection framework for our IoC container and so add the helper package too:
-
-    Install-Package AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection
 
 As an example let's create a command that adds two numbers together and returns a result:
 
@@ -44,7 +44,7 @@ As an example let's create a command that adds two numbers together and returns 
         public int SecondNumber { get; set; }
     }
 
-Commands are acted on by handlers and our add action looks like this:
+Commands are acted on by handlers and our add handler looks like this:
 
     public AddCommandHandler : ICommandHandler<AddCommand, MathResult>
     {
@@ -58,12 +58,20 @@ Commands are acted on by handlers and our add action looks like this:
 
 Having defined our command, result and handler, we need to register these with the commanding system. If you're just writing a console app you can do this in Program.cs but for more realistic usage you'd do this where you configure your IoC container - it's handy to think of command registrations as just another part of your applications configuration, besides which you'll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:
 
+    // First register the commanding framework with the IoC container
+    IServiceProvider serviceProvider = null;
     IServiceCollection serviceCollection = new ServiceCollection();
-    IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = serviceCollection.UseCommanding(options);
-    dependencyResolver.UseCommanding().Register<AddCommandHandler>();
-    dependencyResolver.ServiceProvider = serviceCollection.BuildServiceProvider();
+    CommandingDependencyResolverAdapter adapter = new CommandingDependencyResolverAdapter(
+        (fromType, toInstance) => services.AddSingleton(fromType, toInstance),
+        (fromType, toType) => services.AddTransient(fromType, toType),
+        (resolveTo) => _serviceProvider.GetService(resolveTo));
+    ICommandRegistry registry = adapter.AddCommanding();
+    serviceProvider = serviceCollection.BuildServiceProvider();
 
-The _UseCommanding_ method is an extension method on the dependency resolver that registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register handlers - you only need to register a handler, the framework will figure out the rest. Registration uses a fluent API style for concise code.
+    // Now register our handler
+    registry.Register<AddCommandHandler>();
+
+The _CommandingDependencyResolverAdapter_ class is an adapter that allows the framework to be registed with any IoC container and the _AddCommanding_ method registers the injectable commaning interfaces and returns an _ICommandRegistry_ interface that allows you to register handlers - you only need to register a handler, the framework will figure out the rest and registration uses a fluent API style for concise readable code.
 
 To dispatch our command we need to get hold of the ICommandDispatcher interface and send the command. We'll do that and output the result to the console:
 
@@ -71,11 +79,7 @@ To dispatch our command we need to get hold of the ICommandDispatcher interface 
     MathResult mathResult = await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
     Console.WriteLine(mathResult.Value); // hopefully says 11
 
-And for simple usage that's it. The above is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your commands in the appropriate place, for example if you're using ASP.Net Core then all the dependency injection boilerplate is in place.
-
-## Documentation
-
-Documentation can be [found in the wiki](https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/0.-Contents). There are also samples below and there's a [series of posts on my blog](http://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-via-a-mediator-part-1/).
+And for simple usage that's it. This example is a bit contrived as we're resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your command handlers in the appropriate place, for example if you're using ASP.Net Core then all the dependency injection boilerplate is in place.
 
 ## Samples
 
