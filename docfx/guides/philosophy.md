@@ -6,7 +6,7 @@ I began work on the framework when I found myself facing some challenging constr
 * Very small teams.
 * High expectations.
 * Emerging requirements while searching for market fit.
-* The need to address scale - not on launch day but in the comparatively near future.
+* The need to address scale as the product became established - both technical (requests per second etc.) and development (larger and more teams)
 
 Essentially I knew I would be heading towards a micro-service architecture but wouldn't be able to pay the [micro-service tax](https://martinfowler.com/bliki/MicroservicePremium.html) until the product was established.
 
@@ -18,4 +18,4 @@ I wanted to be able to construct this modular monolith in C# in a way that would
 
 I looked at the popular [Mediatr](https://github.com/jbogard/MediatR) framework however given my own goals I was concerned that it did not pull apart dispatch and execution. This was something I felt that ought to be masked by the mediator when executing commands but ought to be exposed in a way that would allow for extension. With hindsight I'm not sure how much of this was luck or genuine forward thinking on my part but it was a realisation that proved to be key when I wanted to execute commands over HTTP connections and dispatch them to queues.
 
-All that being the case I began work on this framework. Of course I didn't get all this implemented in version 1 - it's rather been a process of steadily learning and evolving the framework based on experience and feedback. If you look back at my initial commits things changed massively to begin with as I worked through concepts and ideas. Lots of things have been added and changed and a few ideas dropped but the core has been stable for a while now and recent work has been about adding additional extensions, smoothing out the developer experience, and reducing boilerplate.
+All that being the case I began work on this framework. Of course I didn't get all this implemented in version 1. It's rather been a process of steadily learning and evolving both the thinking behind the approach and the framework based on experience and feedback. If you look back at my initial commits things changed massively to begin with as I worked through concepts and ideas. Lots of things have been added and changed and a few ideas dropped but the core has been stable for a while now and recent work has been about adding additional extensions, smoothing out the developer experience, and reducing boilerplate.
