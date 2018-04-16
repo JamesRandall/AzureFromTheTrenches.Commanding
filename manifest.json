@@ -881,6 +881,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.html",
+          "hash": "fFu163L+cW8H/wdZFTeDtg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions.yml",
       "output": {
         ".html": {
@@ -945,7 +957,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.AzureEventHub.html",
-          "hash": "7kV50/BdC5vzglPcDEUAcA=="
+          "hash": "EoCw8j4P4ewUpLBRiIWoqw=="
         }
       },
       "is_incremental": false,
@@ -1905,7 +1917,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ZpQQpsgf5TIvuzPqbTkb5w=="
+          "hash": "bnBjEC8CgUb3Hj1F9ikI4g=="
         }
       },
       "is_incremental": false,
@@ -2210,9 +2222,12 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         },
         "ResourceDocumentProcessor": {
@@ -2220,12 +2235,9 @@
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

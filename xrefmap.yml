@@ -2871,6 +2871,37 @@ references:
   isSpec: "True"
   fullName: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubCommandingDependencies.UseEventHubCommandAuditing
   nameWithType: AzureEventHubCommandingDependencies.UseEventHubCommandAuditing
+- uid: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory
+  name: AzureEventHubDispatcherFactory
+  href: api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.html
+  commentId: T:AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory
+  fullName: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory
+  nameWithType: AzureEventHubDispatcherFactory
+- uid: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String,AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer,Func{AzureFromTheTrenches.Commanding.Abstractions.ICommand,System.String})
+  name: CreateCommandDispatcherFactory(String, IEventHubSerializer, Func<ICommand, String>)
+  href: api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.html#AzureFromTheTrenches_Commanding_AzureEventHub_AzureEventHubDispatcherFactory_CreateCommandDispatcherFactory_System_String_AzureFromTheTrenches_Commanding_AzureEventHub_IEventHubSerializer_Func_AzureFromTheTrenches_Commanding_Abstractions_ICommand_System_String__
+  commentId: M:AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String,AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer,Func{AzureFromTheTrenches.Commanding.Abstractions.ICommand,System.String})
+  name.vb: CreateCommandDispatcherFactory(String, IEventHubSerializer, Func(Of ICommand, String))
+  fullName: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String, AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer, Func<AzureFromTheTrenches.Commanding.Abstractions.ICommand, System.String>)
+  fullName.vb: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String, AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer, Func(Of AzureFromTheTrenches.Commanding.Abstractions.ICommand, System.String))
+  nameWithType: AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(String, IEventHubSerializer, Func<ICommand, String>)
+  nameWithType.vb: AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(String, IEventHubSerializer, Func(Of ICommand, String))
+- uid: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String,System.String,AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer,Func{AzureFromTheTrenches.Commanding.Abstractions.ICommand,System.String})
+  name: CreateCommandDispatcherFactory(String, String, IEventHubSerializer, Func<ICommand, String>)
+  href: api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.html#AzureFromTheTrenches_Commanding_AzureEventHub_AzureEventHubDispatcherFactory_CreateCommandDispatcherFactory_System_String_System_String_AzureFromTheTrenches_Commanding_AzureEventHub_IEventHubSerializer_Func_AzureFromTheTrenches_Commanding_Abstractions_ICommand_System_String__
+  commentId: M:AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String,System.String,AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer,Func{AzureFromTheTrenches.Commanding.Abstractions.ICommand,System.String})
+  name.vb: CreateCommandDispatcherFactory(String, String, IEventHubSerializer, Func(Of ICommand, String))
+  fullName: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String, System.String, AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer, Func<AzureFromTheTrenches.Commanding.Abstractions.ICommand, System.String>)
+  fullName.vb: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(System.String, System.String, AzureFromTheTrenches.Commanding.AzureEventHub.IEventHubSerializer, Func(Of AzureFromTheTrenches.Commanding.Abstractions.ICommand, System.String))
+  nameWithType: AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(String, String, IEventHubSerializer, Func<ICommand, String>)
+  nameWithType.vb: AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(String, String, IEventHubSerializer, Func(Of ICommand, String))
+- uid: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory*
+  name: CreateCommandDispatcherFactory
+  href: api/AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.html#AzureFromTheTrenches_Commanding_AzureEventHub_AzureEventHubDispatcherFactory_CreateCommandDispatcherFactory_
+  commentId: Overload:AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.AzureEventHub.AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory
+  nameWithType: AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory
 - uid: AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions
   name: EventHubClientExtensions
   href: api/AzureFromTheTrenches.Commanding.AzureEventHub.EventHubClientExtensions.html
