@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Command Handlers </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Command Handlers ">
+    <meta name="generator" content="docfx 2.33.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="command-handlers">Command Handlers</h1>
+
+<p>A command handler contains the execution logic for it&#39;s associated type of command. Multiple handlers can be associated with a type of command and these can be arranged to run in a specific execution order - the execution of this set of handlers is referred to as the execution pipeline.</p>
+<p>Command handlers are classes that implement one of the following interfaces each of which requires a single variant of <em>ExecuteAsync</em> to be implemented:</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ICommandHandler&lt;in TCommand&gt;</td>
+<td>Implemented for commands that require no result</td>
+</tr>
+<tr>
+<td>ICancellableCommandHandler&lt;in TCommand&gt;</td>
+<td>Implemented for commands that require no result. Implementations of this handler also have access to a cancellation token</td>
+</tr>
+<tr>
+<td>ICommandHandler&lt;in TCommand, TResult&gt;</td>
+<td>Implemented for commands that require a result</td>
+</tr>
+<tr>
+<td>ICancellableommandHandler&lt;in TCommand, TResult&gt;</td>
+<td>Implemented for commands that require a result. Implementations of this handler also have access to a cancellation token</td>
+</tr>
+<tr>
+<td>IPipelineAwareCommandHandler&lt;in TCommand, TResult&gt;</td>
+<td>Implemented for commands that require a result and wish to be able to interact with the handler</td>
+</tr>
+<tr>
+<td>ICancellablePipelineAwareCommandHandler&lt;in TCommand, TResult&gt;</td>
+<td>Implemented for commands that require a result and wish to be able to interact with the handler. Implementations of this handler also have access to a cancellation token.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="registering-a-command-handler">Registering a Command Handler</h2>
+<p>Command handlers are registered with the ICommandRegistry interface. This is returned by the <em>UseCommanding()</em> method, for example using the Microsoft.Extensions.DependencyInjector framework:</p>
+<pre><code>IServiceCollection serviceCollection = new ServiceCollection();
+IMicrosoftDependencyInjectionCommandingResolver dependencyResolver = new MicrosoftDependencyInjectionCommandingResolver(serviceCollection);
+ICommandRegistry registry = dependencyResolver.UseCommanding(options);
+</code></pre><p>A command handler can then be registered simply by providing the type:</p>
+<pre><code>registry.Register&lt;MyCommandHandler&gt;();
+</code></pre><p>Additionally an execution order can be supplied that determines the order within the execution pipeline - lower numbers will be executed first:</p>
+<pre><code>registry.Register&lt;FirstHandler&gt;(1);
+registry.Register&lt;SecondHandler&gt;(2);
+</code></pre><p>The order numbers do not nbeed to be sequential but if two command handlers have the same order their is no guarantee about the execution order.</p>
+<p>An additional parameter is available during handler registration that primarily exists to enable custom command dispatch operations such as via HTTP. That is described in the section on <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/wiki/Custom-Command-Dispatchers">Custom Dispatchers</a>.</p>
+<p>Command handlers are constructed using the IoC container and so support all the construction and injection techniques supported by that container.</p>
+<h2 id="discovering-command-handlers">Discovering Command Handlers</h2>
+<p>As a shortcut to register many similar command handlers the framework provides a Discover method. This will search a given set of assemblies for command handlers and register them. For example:</p>
+<pre><code>Assembly myFirstHandlerAssembly = ...;
+Assembly mySecondHandlerAssembly = ...;
+
+registry.Discover(myFirstHandlerAssembly, mySecondHandlerAssembly);
+</code></pre><p>Alternatively a type can be used as a reference for an assembly (the assembly that contains the type will be searched):</p>
+<pre><code>registry.Discover&lt;BasedOnType&gt;();
+</code></pre><h2 id="examples-of-command-handlers">Examples of Command Handlers</h2>
+<p>Examples for each interface are shown below.</p>
+<h3 id="icommandhandlerltin-tcommandgt">ICommandHandler&lt;in TCommand&gt;</h3>
+<p>The simplest form of command handler simply returns a task:</p>
+<pre><code>class MyCommandHandler : ICommandHandler&lt;MyCommand&gt;
+{
+    public Task ExecuteAsync(MyCommand command)
+    {
+        Console.WriteLine(&quot;I&#39;m doing something&quot;);
+        return Task.FromResult(0);
+    }
+}
+</code></pre><h3 id="icancellablecommandhandlerltin-tcommandgt">ICancellableCommandHandler&lt;in TCommand&gt;</h3>
+<p>This form of command handler builds on the above and also has access to a cancellation token if one was supplied during the dispatch call:</p>
+<pre><code>class MyCommandHandler : ICancellableCommandHandler&lt;MyCommand&gt;
+{
+    public Task ExecuteAsync(MyCommand command, CancellationToken cancellationToken)
+    {
+        Console.WriteLine(&quot;I&#39;m doing something&quot;);
+        return Task.FromResult(0);
+    }
+}
+</code></pre><h3 id="icommandhandlerin-tcommand-tresult">ICommandHandler&lt;in TCommand, TResult&gt;</h3>
+<p>When a command handler returns a result it also has access to the result returned by the previous handler in the pipeline.</p>
+<pre><code>class MyCommandHandler : ICommandHandler&lt;MyCommand, bool&gt;
+{
+    public Task&lt;bool&gt; ExecuteAsync(MyCommand command, bool previousResult)
+    {
+        Console.WriteLine(&quot;I&#39;m doing something&quot;);
+        return Task.FromResult(true);
+    }
+}
+</code></pre><h3 id="icancellablecommandhandlerin-tcommand-tresult">ICancellableCommandHandler&lt;in TCommand, TResult&gt;</h3>
+<p>Similar to the above but also has access to a cancellation token.</p>
+<pre><code>class MyCommandHandler : ICancellableCommandHandler&lt;MyCommand, bool&gt;
+{
+    public Task&lt;bool&gt; ExecuteAsync(MyCommand command, bool previousResult, CancellationToken cancellationToken)
+    {
+        Console.WriteLine(&quot;I&#39;m doing something&quot;);
+        return Task.FromResult(true);
+    }
+}
+</code></pre><h3 id="ipipelineawarecommandhandlerltin-tcommand-tresult">IPipelineAwareCommandHandler&lt;in TCommand, TResult&gt;</h3>
+<p>A pipeline aware command handler returns an annotated result that states whether or not the pipeline should continue executing. This enables a handler to prevent subsequent handlers from running (for example in the event of a terminal error).</p>
+<pre><code>class MyCommandHandler : IPipelineAwareCommandHandler&lt;MyCommand, int&gt;
+{
+    public Task&lt;PipelineAwareCommandHandlerResult&lt;int&gt;&gt; ExecuteAsync(PipelineCommand command, bool previousResult)
+    {
+        Console.WriteLine(&quot;Pipeline command actor with cancellation token&quot;);
+        // The below will stop execution of the pipeline due to the true passed to the constructor
+        return Task.FromResult(new PipelineAwareCommandHandlerResult&lt;bool&gt;(true, 25));
+    }
+}
+</code></pre><p>The example above will stop the pipeline as true is supplied as the first parameter to the constructor of the <em>PipelineAwareCommandHandlerResult</em> class, the second parameter is the result for the command. The example below will continue executing handlers:</p>
+<pre><code>class MyCommandHandler : IPipelineAwareCommandHandler&lt;MyCommand, int&gt;
+{
+    public Task&lt;PipelineAwareCommandHandlerResult&lt;int&gt;&gt; ExecuteAsync(PipelineCommand command, bool previousResult)
+    {
+        Console.WriteLine(&quot;Pipeline command actor with cancellation token&quot;);
+        // The below will continue execution of the pipeline due to the true passed to the constructor
+        return Task.FromResult(new PipelineAwareCommandHandlerResult&lt;bool&gt;(false, 25));
+    }
+}
+</code></pre><h3 id="icancellablepipelineawarecommandhandlerltin-tcommand-tresult">ICancellablePipelineAwareCommandHandler&lt;in TCommand, TResult&gt;</h3>
+<p>This operates the same as the previous interface but implementations are also supplied a cancellation token:</p>
+<pre><code>class MyCommandHandler : ICancellablePipelineAwareCommandHandler&lt;MyCommand, int&gt;
+{
+    public Task&lt;PipelineAwareCommandHandlerResult&lt;int&gt;&gt; ExecuteAsync(PipelineCommand command, bool previousResult, CancellationToken token)
+    {
+        Console.WriteLine(&quot;Pipeline command actor with cancellation token&quot;);
+        // The below will continue execution of the pipeline due to the true passed to the constructor
+        return Task.FromResult(new PipelineAwareCommandHandlerResult&lt;bool&gt;(false, 25));
+    }
+}
+</code></pre><div id="disqus_thread"></div>
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/core/commandHandlers.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="#disqus_thread" class="contribution-link">0 Comments</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2018 James Randall
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-20735760-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-20735760-7');
+    </script>
+    
+    <script defer="" src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>  </body>
+</html>

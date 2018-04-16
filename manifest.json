@@ -1901,6 +1901,30 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "guides/core/commandHandlers.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/core/commandHandlers.html",
+          "hash": "/hWYnjl1WJCqTV0gz00L9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/core/commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/core/commands.html",
+          "hash": "uQ4ENZ0GkM60At/kZt1iBA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "guides/gettingStarted.md",
       "output": {
         ".html": {
@@ -2037,7 +2061,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/toc.html",
-          "hash": "3Ny3xUYjdcwnR34pI+RlwQ=="
+          "hash": "kuveRqX+9JiaUgA7+YPZEg=="
         }
       },
       "is_incremental": false,
@@ -2123,11 +2147,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
