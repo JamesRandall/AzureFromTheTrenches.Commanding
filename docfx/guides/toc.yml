@@ -8,6 +8,12 @@
       href: packages.md
     - name: Philosophy
       href: philosophy.md
+- name: Core
+  items:
+    - name: Commands
+      href: core/commands.md
+    - name: Command Handlers
+      href: core/commandHandlers.md
 - name: REST API
   items:
     - name: Quickstart
