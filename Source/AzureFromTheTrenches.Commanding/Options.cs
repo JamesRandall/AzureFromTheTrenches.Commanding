@@ -18,6 +18,7 @@ namespace AzureFromTheTrenches.Commanding
             CommandHandlerContainerRegistration = null;
             CommandHandlerFactoryFunc = null;
             CommandExecutionExceptionHandler = null;
+            MetricCollectionEnabled = true;
             Reset = false;
             Enrichers = null;
         }

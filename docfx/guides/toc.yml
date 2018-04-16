@@ -9,11 +9,21 @@
     - name: Philosophy
       href: philosophy.md
 - name: Core
-  items:
+  items:    
     - name: Commands
       href: core/commands.md
     - name: Command Handlers
       href: core/commandHandlers.md
+    - name: Error Handling
+      href: core/errorHandling.md
+    - name: Auditing and Event Sourcing
+      href: core/auditing.md
+    - name: Configuration Options
+      href: core/configurationOptions.md
+- name: HTTP Dispatch
+  items:
+    - name: Quickstart
+      href: http/quickstart.md
 - name: REST API
   items:
     - name: Quickstart

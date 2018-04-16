@@ -35,8 +35,7 @@ namespace HttpCommanding.Client
             dependencyResolver.AddHttpCommanding();
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            IHttpCommandDispatcherFactory httpCommandDispatcherFactory = _serviceProvider.GetService<IHttpCommandDispatcherFactory>();
-            registry.Register<UpdatePersonalDetailsCommand, UpdateResult>(() => httpCommandDispatcherFactory.Create(uri, HttpMethod.Put));
+            registry.Register<UpdatePersonalDetailsCommand, UpdateResult>(HttpCommandDispatcherFactory.Create(uri, HttpMethod.Put));
 
             ICommandDispatcher dispatcher = _serviceProvider.GetService<ICommandDispatcher>();
             return dispatcher;

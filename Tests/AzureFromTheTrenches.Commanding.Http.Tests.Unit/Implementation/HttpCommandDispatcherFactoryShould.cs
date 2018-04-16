@@ -15,7 +15,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Tests.Unit.Implementation
             Mock<IUriCommandQueryBuilder> uriCommandQueryBuilder = new Mock<IUriCommandQueryBuilder>();
             Mock<IHttpClientProvider> httpClientProvider = new Mock<IHttpClientProvider>();
 
-            HttpCommandDispatcherFactory testSubject = new HttpCommandDispatcherFactory(serializer.Object,
+            HttpCommandDispatcherFactoryImpl testSubject = new HttpCommandDispatcherFactoryImpl(serializer.Object,
                 uriCommandQueryBuilder.Object,
                 httpClientProvider.Object);
             ICommandDispatcher dispatcher = testSubject.Create(new Uri("http://localhost"));

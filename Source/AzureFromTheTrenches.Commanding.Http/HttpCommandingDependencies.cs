@@ -26,11 +26,11 @@ namespace AzureFromTheTrenches.Commanding.Http
         [Obsolete]
         private static ICommandingDependencyResolver Register<TSerializer>(ICommandingDependencyResolver dependencyResolver, HttpClient client) where TSerializer : IHttpCommandSerializer
         {
-            HttpClientProvider = client == null ? new HttpClientProvider() : new HttpClientProvider(client);
+            HttpClientProvider = client == null ? HttpCommandDispatcherFactory.HttpClientProvider : new HttpClientProvider(client);
             dependencyResolver.RegisterInstance(HttpClientProvider);
             dependencyResolver.TypeMapping<IHttpCommandSerializer, TSerializer>();
             dependencyResolver.TypeMapping<IUriCommandQueryBuilder, UriCommandQueryBuilder>();
-            dependencyResolver.TypeMapping<IHttpCommandDispatcherFactory, HttpCommandDispatcherFactory>();
+            dependencyResolver.TypeMapping<IHttpCommandDispatcherFactory, HttpCommandDispatcherFactoryImpl>();
             return dependencyResolver;
         }
 
@@ -52,7 +52,7 @@ namespace AzureFromTheTrenches.Commanding.Http
             dependencyResolver.RegisterInstance(HttpClientProvider);
             dependencyResolver.TypeMapping<IHttpCommandSerializer, TSerializer>();
             dependencyResolver.TypeMapping<IUriCommandQueryBuilder, UriCommandQueryBuilder>();
-            dependencyResolver.TypeMapping<IHttpCommandDispatcherFactory, HttpCommandDispatcherFactory>();
+            dependencyResolver.TypeMapping<IHttpCommandDispatcherFactory, HttpCommandDispatcherFactoryImpl>();
             return dependencyResolver;
         }
     }

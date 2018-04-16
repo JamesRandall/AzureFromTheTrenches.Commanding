@@ -83,6 +83,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             CommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
+                MetricCollectionEnabled = false, // set to false to compare like for like
                 DisableCorrelationIds = true, // as a comparison to mediatr we disable correlation IDs
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };
@@ -98,6 +99,7 @@ namespace AzureFromTheTrenches.Commanding.Tests.Performance.Console
             CommandingDependencyResolverAdapter dependencyResolver = serviceCollection.GetCommandingDependencyResolver(() => _serviceProvider);
             Options options = new Options
             {
+                MetricCollectionEnabled = false, // set to false to compare like for like
                 DisableCorrelationIds = true, // as a comparison to mediatr we disable correlation IDs
                 Reset = true // we reset the registry because we allow repeat runs, in a normal app this isn't required                
             };

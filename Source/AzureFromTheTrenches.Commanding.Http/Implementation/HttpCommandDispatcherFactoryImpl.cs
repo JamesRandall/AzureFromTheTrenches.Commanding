@@ -4,13 +4,13 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace AzureFromTheTrenches.Commanding.Http.Implementation
 {
-    internal class HttpCommandDispatcherFactory : IHttpCommandDispatcherFactory
+    internal class HttpCommandDispatcherFactoryImpl : IHttpCommandDispatcherFactory
     {
         private readonly IHttpCommandSerializer _httpCommandSerializer;
         private readonly IUriCommandQueryBuilder _uriCommandQueryBuilder;
         private readonly IHttpClientProvider _httpClientProvider;
         
-        public HttpCommandDispatcherFactory(IHttpCommandSerializer httpCommandSerializer,
+        public HttpCommandDispatcherFactoryImpl(IHttpCommandSerializer httpCommandSerializer,
             IUriCommandQueryBuilder uriCommandQueryBuilder,
             IHttpClientProvider httpClientProvider)
         {
