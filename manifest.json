@@ -1553,6 +1553,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.html",
+          "hash": "XeAdriNmRcsYkOQ+tlMqcw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.yml",
       "output": {
         ".html": {
@@ -1617,7 +1629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Http.html",
-          "hash": "rr+9Q/ohchxdPPQsiv7lMA=="
+          "hash": "lWNo7Mz0SKQSODIML3Bl8A=="
         }
       },
       "is_incremental": false,
@@ -1749,7 +1761,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AzureFromTheTrenches.Commanding.Options.html",
-          "hash": "OpZcmiyQTmjaA0YfCUzAuw=="
+          "hash": "vNWgjW2qSQVYrHX62riIrg=="
         }
       },
       "is_incremental": false,
@@ -1893,7 +1905,19 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "fihdD+G1xbfJAJTcv83CbA=="
+          "hash": "ZpQQpsgf5TIvuzPqbTkb5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/core/auditing.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/core/auditing.html",
+          "hash": "dVGpUfi3+aPev0OwOH5sLA=="
         }
       },
       "is_incremental": false,
@@ -1924,12 +1948,51 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "guides/core/configurationOptions.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/core/configurationOptions.html",
+          "hash": "CDXXgHRAKBTe0W3KvzflVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/core/errorHandling.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/core/errorHandling.html",
+          "hash": "LvzArx5WC26gSbXOZhzkXw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "guides/gettingStarted.md",
       "output": {
         ".html": {
           "relative_path": "guides/gettingStarted.html",
           "hash": "RiPsT94wKFekWIzAtx87jg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/http/quickstart.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/http/quickstart.html",
+          "hash": "aJPDxyQA9wFsivwaE3POpQ=="
         }
       },
       "is_incremental": false,
@@ -2061,7 +2124,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/toc.html",
-          "hash": "kuveRqX+9JiaUgA7+YPZEg=="
+          "hash": "49nxVH6F127dkRxbI3i95w=="
         }
       },
       "is_incremental": false,
@@ -2147,12 +2210,9 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ResourceDocumentProcessor": {
@@ -2160,9 +2220,12 @@
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }

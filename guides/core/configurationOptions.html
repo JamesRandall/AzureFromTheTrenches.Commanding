@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Configuration Options </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Configuration Options ">
+    <meta name="generator" content="docfx 2.33.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="configuration-options">Configuration Options</h1>
+
+<p>The <em>AddCommanding()</em> method can be supplied an optional Options object to further configure the commanding system. For example:</p>
+<pre><code>var options = new Options() { CommandActorContainerRegistration = type =&gt; services.AddTransient(type, type) };
+resolver.AddCommanding(options);
+</code></pre><p>The options class has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuditItemEnricherFactoryFunc</td>
+<td>By default audit item enrichers are created through the dependency resolver but if a function is assigned to the AuditItemEnricherFactoryFunc property then that function will be used to instantiate an enricher. See <a href="auditing.html">Auditing and Event Sourcing</a>.</td>
+</tr>
+<tr>
+<td>CommandExecutionExceptionHandler</td>
+<td>Can be used to register a type that implements the ICommandExecutionExceptionHandler interface that will be invoked in the event of an execution error. See <a href="errorHandling/md">error handling</a>.</td>
+</tr>
+<tr>
+<td>CommandHandlerContainerRegistration</td>
+<td>Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandHandlerFactoryFunc in this options class is set then handlers are created through the dependency resolver but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandHandlerContainerRegistration action that registers the handlers in the container. For example using an IServiceCollection instance of serviceCollection:<br><code>var options = new Options() { CommandHandlerContainerRegistration = type =&gt; services.AddTransient(type, type) };</code></td>
+</tr>
+<tr>
+<td>CommandHandlerFactoryFunc</td>
+<td>By default handlers are created through the dependency resolver but if a function is assigned to the CommandHandlerFactoryFunc property then that function will be called to instantiate a handler.</td>
+</tr>
+<tr>
+<td>DisableCorrelationIds</td>
+<td>Setting this to true will disable all correlatin ID generation which can give a small performance boost in super-low latency situations if you&#39;re prepared to trade off correlation.</td>
+</tr>
+<tr>
+<td>Enrichers</td>
+<td>It can be useful to include additional properties in the command context, for example the Application Insights Operation ID. This can be done by setting this property to a set of enrichment functions - these functions are called in sequence and are passed the current state of the command contexts enriched properties and can return a dictionary of properties to insert. If the returned dictionary contains a property that already exists it will be replaced in the command context property bag.</td>
+</tr>
+<tr>
+<td>MetricCollectionEnabled</td>
+<td>Set to false to disable timing metrics around command dispatch and execution and gain a minor performance gain in very high throughput local execution scenarios where you are trying to squeeze out fractions of milliseconds</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>The commanding system maintains command registrations, command context enrichers, and auditors between calls to UseCommanding to enable sub-modules to extend the system without any awareness / tight coupling between them. If you want to force a reset of the shared state then set this property to true (generally this is only useful in sample apps where you might repeatedly recreate and reconfigure an IoC container as the included samples do.</td>
+</tr>
+<tr>
+<td>UseLocallyUniqueCorrelationIds</td>
+<td>By default correlation IDs will be generated as GUIDs so that they are unique across as distributed system however if performance is key a local;y unique (incrementing long, thread safe) correlation ID can be used by setting this to true</td>
+</tr>
+</tbody>
+</table>
+<div id="disqus_thread"></div>
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/core/configurationOptions.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="#disqus_thread" class="contribution-link">0 Comments</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2018 James Randall
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-20735760-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-20735760-7');
+    </script>
+    
+    <script defer="" src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>  </body>
+</html>

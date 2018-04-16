@@ -5,19 +5,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AzureFromTheTrenches.Commanding.Http
-   </title>
+    <title>Error Handling </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AzureFromTheTrenches.Commanding.Http
-   ">
+    <meta name="title" content="Error Handling ">
     <meta name="generator" content="docfx 2.33.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
     
     
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" width="56" height="52" src="../images/largeLogo.png" alt="">
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -68,30 +66,49 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.Http">
-  
-  <h1 id="AzureFromTheTrenches_Commanding_Http" data-uid="AzureFromTheTrenches.Commanding.Http" class="text-break">Namespace AzureFromTheTrenches.Commanding.Http
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.html">HttpCommandDispatcherFactory</a></h4>
-      <section><p>Creates HTTP command dispatcher functions</p>
-</section>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.html">HttpCommandingDependencies</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html">ICommandRegistryExtensions</a></h4>
-      <section></section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html">IHttpCommandDispatcherFactory</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer.html">IHttpCommandSerializer</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder.html">IUriCommandQueryBuilder</a></h4>
-      <section></section>
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="error-handling">Error Handling</h1>
+
+<p>By default any errors in command handlers will bubble back up to the site of dispatch but be wrapped inside a CommandExecutionException that provides additional context so if we have a handler like so:</p>
+<pre><code>public class MyCommandHandler : ICommandHandler&lt;MyCommand&gt;
+{
+    public Task ExecuteAsync(MyCommand command)
+    {
+        throw new NotSupportedException();
+    }
+}
+</code></pre><p>Then we can trap our NotSupportedException at the site of dispatch as follows:</p>
+<pre><code>public async Task DispatchMyCommand(ICommandDispatcher dispatcher)
+{
+    try
+    {
+        await dispatcher.DispatchAsync(new MyCommand());
+    }
+    catch(CommandExecutionException ex)
+    {
+        Console.WriteLine($&quot;Inner Exception: {ex.InnerException.GetType().Name}&quot;) // will write NotSupportedException
+        Console.WriteLine(&quot;Success we caught it&quot;);
+    }
+}
+</code></pre><p>It is possible to override this standard behaviour (for example to do logging or take a conditional approach to exception rethrow) by implementing an instance of ICommandExecutionExceptionHandler such as that shown below:</p>
+<pre><code>public class MyCustomExceptionHandler : ICommandExecutionExceptionHandler
+{
+    public MyCustomExceptionHandler(ILogger logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task&lt;bool&gt; HandleException&lt;TResult&gt;(Exception ex, object handler, int handlerExecutionIndex, ICommand&lt;TResult&gt; command, ICommandDispatchContext dispatchContext)
+    {
+        if (ex is IgnoreException)
+        {
+            return true;
+        }
+        _logger.Error(&quot;Unexpected error occurred during command execution&quot;, ex);
+        throw ex; // In our example this would cause the NotSupportedException to reach the dispatch point
+    }
+}
+</code></pre><p>Each exception raised during the execution of a handler will be passed to this method and it can rethrow the exception or take some other form of action. If an exception is not rethrown then the method should return true if the command system should continue to execute subsequent command handlers or return false to halt the execution pipeline (without throwing an exception).</p>
 <div id="disqus_thread"></div>
             </article>
           </div>
@@ -100,6 +117,9 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/core/errorHandling.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                   <li>
                     <a href="#disqus_thread" class="contribution-link">0 Comments</a>
                   </li>
@@ -127,9 +147,9 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
     <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
     
     <!-- Global site tag (gtag.js) - Google Analytics -->

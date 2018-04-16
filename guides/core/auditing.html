@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Auditing and Event Sourcing </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Auditing and Event Sourcing ">
+    <meta name="generator" content="docfx 2.33.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" width="56" height="52" src="../../images/largeLogo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="auditing-and-event-sourcing">Auditing and Event Sourcing</h1>
+
+<p>A benefit of invoking actions through commands expressed as state is that it allows for these actions to be persisted to maintain a log or audit of all the interactions that took place. Given an appropriate data storage and command handler design this further allows the persisted events to be utilised with patterns such as <a href="https://martinfowler.com/eaaDev/EventSourcing.html">event sourcing</a> or compensating transactions in order to deal with failed operations concerned with, for example, distributed none-transactional storage operations.</p>
+<p>This makes the command pattern with a mediator particularly useful for distributed systems running in the cloud where such requirements are common.</p>
+<p>The framework has extension points for auditors at three points in the command dispatch and execution process:</p>
+<ol>
+<li>Before the framework dispatches the command</li>
+<li>After the framework has successfully dispatched the command but before it has executed the command</li>
+<li>After the framework has executed the command (this also logs whether this completed successfully or encountered errors)</li>
+</ol>
+<p>Auditors are required to implement the ICommandAuditor interface and are constructed by the commanding framework the first time they are used (and then held onto) through the IoC container and so can be injected with any registered dependencies. For example:</p>
+<pre><code>public class ConsoleAuditor : ICommandAuditor
+{
+    public Task Audit(AuditItem item, CancellationToken cancellationToken)
+    {
+        ConsoleColor previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.WriteLine($&quot;Type: {item.CommandTypeFullName}&quot;);
+        Console.WriteLine($&quot;Correlation ID: {item.CorrelationId}&quot;);
+        Console.WriteLine($&quot;Depth: {item.Depth}&quot;);
+        foreach (KeyValuePair&lt;string, string&gt; enrichedProperty in item.AdditionalProperties)
+        {
+            Console.WriteLine($&quot;{enrichedProperty.Key}: {enrichedProperty.Value}&quot;);
+        }
+        Console.ForegroundColor = previousColor;
+        return Task.FromResult(0);
+    }        
+}
+</code></pre><p>Auditors must then be registered with the commanding system before any commands are dispatched:</p>
+<pre><code>ICommandingDependencyResolverAdapter resolver = ...;
+ICommandRegistry registry = resolver.AddCommanding();
+// register commands here
+resolver.AddPreDispatchCommandingAuditor&lt;ConsoleAuditor&gt;();
+resolver.AddPostDispatchCommandingAuditor&lt;ConsoleAuditor&gt;();
+resolver.AddExecutionDispatchCommandingAuditor&lt;ConsoleAuditor&gt;();
+</code></pre><p>By default auditors will only audit the root command i.e. if one command handler dispatches a command from within itself only the initial command will be audited. To change this behavior and audit all commands pass false to the registration methods, for example:</p>
+<pre><code>resolver.AddPreDispatchCommandingAuditor&lt;ConsoleAuditor&gt;(false);
+</code></pre><p>Finally it&#39;s worth noting that multiple auditors can be configured for each event so it&#39;s possible to write the command to an event store and also log some basic details into a diagnostic log system.</p>
+<h2 id="presupplied-auditors">Presupplied Auditors</h2>
+<p>The framework is supplied with a number of prebuilt auditors and these are described below.</p>
+<h3 id="azure-event-hubs">Azure Event Hubs</h3>
+<p>By adding this package commands will be audited to an Azure event hub. First install the NuGet package:</p>
+<pre><code>Install-Package AzureFromTheTrenches.Commanding.AzureEventHub
+</code></pre><p>Then register the auditor:</p>
+<pre><code>resolver.AddEventHubCommandAuditing(&quot;eventhubconnectionstring&quot;, &quot;myhub&quot;);
+</code></pre><p>For high volume systems a partition key provider can be supplied by implementing and supplying an instance of an IPartitionKeyProvider. And finally a parameter can be supplied of type AzureEventHubAuditorOptions that determines what audit events the auditor is bound to and whether each audit should only audit the root command (this option set defaults to all events and root command only). For example:</p>
+<pre><code>resolver.AddEventHubCommandAuditing(&quot;eventhubconnectionstring&quot;, &quot;myhub&quot;, new MyPartitionKeyProvider(), new AzureEventHubAuditorOptions {
+    UsePostDispatchAuditor = false
+});
+</code></pre><h3 id="azure-table-storage">Azure Table Storage</h3>
+<p>By adding this package commands will be audited to Azure Table Storage. First install the NuGet package:</p>
+<pre><code>Install-Package AzureFromTheTrenches.Commanding.AzureStorage
+</code></pre><p>Then register the auditor:</p>
+<pre><code>CloudStorageAccount account = ...;
+resolver.AddAzureStorageCommandAuditing(cloudStorageAccount);
+</code></pre><p>By default this will bind to all audit events and output audit details into two tables:</p>
+<pre><code>commandauditbydate
+commandauditbycorrelationid
+</code></pre><p>It&#39;s possible to also output the full command payload into blob storage by passing a blob container reference when configuring storage:</p>
+<pre><code>CloudStorageAccount account = ...;
+CloudBlobContainer container = ...;
+resolver.AddAzureStorageCommandAuditing(cloudStorageAccount, container);
+</code></pre><p>Alternative storage strategies can be provided by supplying an implementation of the IStorageStrategy interface (the auditor comes with two strategies built in: SingleTableStrategy and TablePerDayStrategy). And finally a parameter can be supplied of type AzureStorageAuditorOptions that determines what audit events the auditor is bound to and whether each audit should only audit the root command (this option set defaults to all events and root command only). For example:</p>
+<pre><code>CloudStorageAccount account = ...;
+CloudBlobContainer container = ...;
+resolver.AddAzureStorageCommandAuditing(cloudStorageAccount, container, new TablePerDayStrategy(), new AzureStorageAuditorOptions  {
+    UsePostDispatchAuditor = false
+});
+</code></pre><h3 id="azure-storage-queues">Azure Storage Queues</h3>
+<p>By adding this package commands will be audited to Azure Table Storage. First install the NuGet package:</p>
+<pre><code>Install-Package AzureFromTheTrenches.Commanding.AzureStorage
+</code></pre><p>Then register the auditor:</p>
+<pre><code>CloudQueue queue = ...;
+resolver.AddAzureStorageCommandAuditing(queue);
+</code></pre><p>Like with table storage auditing a blob container to persist full command payloads and auditor options can also be supplied:</p>
+<pre><code>CloudQueue queue = ...;
+CloudBlobContainer container = ...;
+resolver.AddAzureStorageCommandAuditing(cloudStorageAccount, container, null, new AzureStorageAuditorOptions  {
+    UsePostDispatchAuditor = false
+});
+</code></pre><p><em>(Note: the third, null, parameter is for an unused storage strategy and will be removed in a future version)</em></p>
+<p>Events can be popped from the queue and further processed by use of the built in queue processor - this will read the queue and write the events to configured auditors. For example if you want to write audit information out to multiple storage providers you may not want to do this inline in your services execution due to the added latency this would cost. Using the queue and a queue processor along with the standard audit mechanisms allows the audit to take place asynchronously.</p>
+<p>An example of this is <a href="https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageAuditing">available here</a>.</p>
+<h3 id="microsoft-logging-extensions">Microsoft Logging Extensions</h3>
+<p>A summary of audit events can be sent to the Microsoft.Extensions.Logging framework. To install this auditor first add the package:</p>
+<pre><code>Install-Package AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions
+</code></pre><p>And then register the auditors:</p>
+<pre><code>resolver.AddMicrosoftLoggingExtensionsAuditor();
+</code></pre><p>By default dispatch operations and successful executions will be logged at the Trace level and execution failures at the Warning level (this default may change to Error in a future version depending on feedback) however these can be overridden:</p>
+<pre><code>resolver.AddMicrosoftLoggingExtensionsAuditor(
+    LogLevel.Information, // the level for dispatch and successful execution
+    LogLevel.Error // the level for failed execution
+);
+</code></pre><p>Finally a parameter can be supplied of type MicrosoftLoggingExtensionsAuditorOptions that determines what audit events the auditor is bound to and whether each audit should only audit the root command (this option set defaults to all events and root command only). For example:</p>
+<pre><code>resolver.AddMicrosoftLoggingExtensionsAuditor(
+    LogLevel.Information, // the level for dispatch and successful execution
+    LogLevel.Error, // the level for failed execution
+    new MicrosoftLoggingExtensionsAuditorOptions {
+        UseExecutionAuditor=false,
+        AuditPreDispatchRootOnly=false
+    }
+);
+</code></pre><div id="disqus_thread"></div>
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/core/auditing.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="#disqus_thread" class="contribution-link">0 Comments</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2018 James Randall
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script id="dsq-count-scr" src="//docfx-github.disqus.com/count.js" async=""></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-20735760-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-20735760-7');
+    </script>
+    
+    <script defer="" src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>  </body>
+</html>
