@@ -13,9 +13,11 @@ namespace ServiceBusDispatchAndDequeue
 {
     class Program
     {
-        private const string ServiceBusConnectionString = "Endpoint=sb://serverlesswebcrawler.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=KgbUlQ1TWvZSLFlm2qdDWKNbXaVZ2luhGBg26QLn3GQ=";
+        private const string ServiceBusConnectionString = "Endpoint=sb://serverlesswebcrawler.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=yourkey";
         private static int _counter = 0;
         private static IServiceBusCommandQueueProcessor _commandQueueProcessor;
+        private static IServiceProvider _dispatchServiceProvider;
+        private static IServiceProvider _dequeueServiceProvider;
 
         static void Main(string[] args)
         {
@@ -62,21 +64,25 @@ namespace ServiceBusDispatchAndDequeue
 
         private static ICommandDispatcher ConfigureForDispatchToQueue()
         {
-            IServiceProvider serviceProvider = null;
-            IServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
-                (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
-                (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
-                (resolveType) => serviceProvider.GetService(resolveType));
-            ICommandRegistry commandRegistry = resolver.AddCommanding();
-            resolver.AddAzureServiceBus();
+            if (_dispatchServiceProvider == null)
+            {
+                IServiceCollection serviceCollection = new ServiceCollection();
+                CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
+                    (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
+                    (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
+                    (resolveType) => _dispatchServiceProvider.GetService(resolveType));
+                ICommandRegistry commandRegistry = resolver.AddCommanding();
+                resolver.AddAzureServiceBus();
 
-            // register our command to dispatch to a servie bus queue
-            QueueClient client = new QueueClient(ServiceBusConnectionString, "myqueue");
-            commandRegistry.Register<SimpleCommand>(client.CreateCommandDispatcherFactory());
+                // register our command to dispatch to a servie bus queue
+                QueueClient client = new QueueClient(ServiceBusConnectionString, "myqueue");
+                commandRegistry.Register<SimpleCommand>(client.CreateCommandDispatcherFactory());
 
-            serviceProvider = serviceCollection.BuildServiceProvider();
-            ICommandDispatcher dispatcher = serviceProvider.GetService<ICommandDispatcher>();
+                _dispatchServiceProvider = serviceCollection.BuildServiceProvider();
+            }
+            
+            
+            ICommandDispatcher dispatcher = _dispatchServiceProvider.GetService<ICommandDispatcher>();
             return dispatcher;
         }
 
@@ -90,22 +96,23 @@ namespace ServiceBusDispatchAndDequeue
 
         private static IServiceBusCommandQueueProcessorFactory ConfigureForDequeue()
         {
-            IServiceProvider serviceProvider = null;
-            IServiceCollection serviceCollection = new ServiceCollection();
-            CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
-                (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
-                (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
-                (resolveType) => serviceProvider.GetService(resolveType));
-            ICommandRegistry commandRegistry = resolver.AddCommanding();
-            resolver.AddQueues().AddAzureServiceBus();
+            if (_dequeueServiceProvider == null)
+            {
+                IServiceCollection serviceCollection = new ServiceCollection();
+                CommandingDependencyResolverAdapter resolver = new CommandingDependencyResolverAdapter(
+                    (fromType, toInstance) => serviceCollection.AddSingleton(fromType, toInstance),
+                    (fromType, toType) => serviceCollection.AddTransient(fromType, toType),
+                    (resolveType) => _dispatchServiceProvider.GetService(resolveType));
+                ICommandRegistry commandRegistry = resolver.AddCommanding();
+                resolver.AddQueues().AddAzureServiceBus();
 
-            // register our command to dispatch to a servie bus queue
-            commandRegistry.Register<SimpleCommandHandler>();
+                // register our command to dispatch to a servie bus queue
+                commandRegistry.Register<SimpleCommandHandler>();
 
+                _dequeueServiceProvider = serviceCollection.BuildServiceProvider();
+            }
             
-            
-            serviceProvider = serviceCollection.BuildServiceProvider();
-            IServiceBusCommandQueueProcessorFactory serviceBusCommandQueueProcessorFactory = serviceProvider.GetService<IServiceBusCommandQueueProcessorFactory>();
+            IServiceBusCommandQueueProcessorFactory serviceBusCommandQueueProcessorFactory = _dispatchServiceProvider.GetService<IServiceBusCommandQueueProcessorFactory>();
             return serviceBusCommandQueueProcessorFactory;
         }
     }

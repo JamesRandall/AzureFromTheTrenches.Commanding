@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AzureEventHubAuditing.Commands;
-using AzureEventHubAuditing.Handlers;
+using AzureEventHubAuditing;
+using AzureEventHubDispatch.Commands;
 using AzureFromTheTrenches.Commanding;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AzureEventHub;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AzureEventHubAuditing
+namespace AzureEventHubDispatch
 {
     class Program
     {
@@ -20,7 +20,7 @@ namespace AzureEventHubAuditing
 
         static void Main(string[] args)
         {
-            Console.WriteLine("1. Dispatch a command that will be audited to an event hub");
+            Console.WriteLine("1. Dispatch to an event hub");
             Console.WriteLine("ESC. Quit");
 
             do
@@ -43,7 +43,7 @@ namespace AzureEventHubAuditing
         private static async Task RunDemo()
         {
             ICommandDispatcher dispatcher = _serviceProvider == null ? Configure() : _serviceProvider.GetService<ICommandDispatcher>();
-            await dispatcher.DispatchAsync(new OutputToConsoleCommand { Message = "Hello Console"});
+            await dispatcher.DispatchAsync(new SimpleCommand() { Message = "Hello Console" });
         }
 
         private static ICommandDispatcher Configure()
@@ -59,9 +59,7 @@ namespace AzureEventHubAuditing
             };
 
             dependencyResolver.AddCommanding(options)
-                .Register<ChainCommandHandler>()
-                .Register<OutputWorldToConsoleCommandHandler>();
-            dependencyResolver.AddEventHubCommandAuditing(EventHubConnectionString, EventHubName);
+                .Register<SimpleCommand>(AzureEventHubDispatcherFactory.CreateCommandDispatcherFactory(EventHubConnectionString, EventHubName));            
             _serviceProvider = serviceCollection.BuildServiceProvider();
             return _serviceProvider.GetService<ICommandDispatcher>();
         }

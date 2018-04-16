@@ -90,6 +90,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Performance", "Performance"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7B9FED91-1FE9-420E-814D-BF61A33D4A01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureEventHubDispatch", "Samples\AzureEventHubDispatch\AzureEventHubDispatch.csproj", "{4D90E6DF-0A68-466F-AE61-BCB157BCD569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,6 +230,10 @@ Global
 		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2BCD4A-996E-422C-8D27-B4BDA00B150D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -268,6 +274,7 @@ Global
 		{7C82B6E6-026C-406A-914B-10D12ED80BFC} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{6206ED34-1978-4BE2-B088-098916C1AC6D} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{7B9FED91-1FE9-420E-814D-BF61A33D4A01} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
+		{4D90E6DF-0A68-466F-AE61-BCB157BCD569} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}
