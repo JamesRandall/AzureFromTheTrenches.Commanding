@@ -66,7 +66,8 @@
     "cleanupCacheHistory": true,
     "disableGitFeatures": false,
     "globalMetadata": {
-      "_appLogoPath": "images/largeLogo.png"
+      "_appLogoPath": "images/largeLogo.png",
+      "_appFooter": "Copyright © 2018 James Randall"
     }    
   }
 }

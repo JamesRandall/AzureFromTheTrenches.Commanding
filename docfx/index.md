@@ -28,7 +28,7 @@ footer{
 <div class="key-section">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
+      <div class="col-md-10 col-md-offset-1 text-center">
         <div class="icon-container"><i class="fas fa-fast-forward"></i></div>
         <section>
           <h2>Start Simple And Evolve</h2>
@@ -41,7 +41,7 @@ footer{
 <div class="counter-key-section">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
+      <div class="col-md-10 col-md-offset-1 text-center">
         <div class="icon-container"><i class="fas fa-code"></i></div>
         <section>
           <h2>Less Boilerplate, Less To Go Wrong</h2>
@@ -54,7 +54,7 @@ footer{
 <div class="key-section">
   <div class="container content">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
+      <div class="col-md-10 col-md-offset-1 text-center">
         <div class="icon-container"><i class="fas fa-wrench"></i></div>
         <section>
           <h2>Extensible</h2>
