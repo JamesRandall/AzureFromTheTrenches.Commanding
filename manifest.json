@@ -1925,11 +1925,47 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "guides/azureStorage/queueAuditing.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/azureStorage/queueAuditing.html",
+          "hash": "Nam54S1aHcqD5ns24CrB8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/azureStorage/queueQuickstart.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/azureStorage/queueQuickstart.html",
+          "hash": "7opz7P4Bp7SdUZ/aKCAdDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "guides/azureStorage/tableAuditing.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/azureStorage/tableAuditing.html",
+          "hash": "ylSeghWrSK6zaMYX+GQvPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "guides/core/auditing.md",
       "output": {
         ".html": {
           "relative_path": "guides/core/auditing.html",
-          "hash": "dVGpUfi3+aPev0OwOH5sLA=="
+          "hash": "L3nzzAS0ra8mkUGnrf2F4A=="
         }
       },
       "is_incremental": false,
@@ -1960,15 +1996,12 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "guides/core/configurationOptions.md",
       "output": {
         ".html": {
           "relative_path": "guides/core/configurationOptions.html",
-          "hash": "CDXXgHRAKBTe0W3KvzflVg=="
+          "hash": "XARZZTrgYmHk3GaUKwtC0g=="
         }
       },
       "is_incremental": false,
@@ -2136,7 +2169,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/toc.html",
-          "hash": "49nxVH6F127dkRxbI3i95w=="
+          "hash": "3ioKlPtokfL2MjdfRV5lpA=="
         }
       },
       "is_incremental": false,
@@ -2222,22 +2255,22 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }

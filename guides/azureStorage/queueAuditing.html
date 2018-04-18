@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Configuration Options </title>
+    <title>Auditing with Azure Storage Queues </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Configuration Options ">
+    <meta name="title" content="Auditing with Azure Storage Queues ">
     <meta name="generator" content="docfx 2.33.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,58 +67,22 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="configuration-options">Configuration Options</h1>
+<h1 id="auditing-with-azure-storage-queues">Auditing with Azure Storage Queues</h1>
 
-<p>The <em>AddCommanding()</em> method can be supplied an optional Options object to further configure the commanding system. For example:</p>
-<pre><code>var options = new Options() { CommandActorContainerRegistration = type =&gt; services.AddTransient(type, type) };
-resolver.AddCommanding(options);
-</code></pre><p>The options class has the following properties:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AuditItemEnricherFactoryFunc</td>
-<td>By default audit item enrichers are created through the dependency resolver but if a function is assigned to the AuditItemEnricherFactoryFunc property then that function will be used to instantiate an enricher. See <a href="auditing.html">Auditing and Event Sourcing</a>.</td>
-</tr>
-<tr>
-<td>CommandExecutionExceptionHandler</td>
-<td>Can be used to register a type that implements the ICommandExecutionExceptionHandler interface that will be invoked in the event of an execution error. See <a href="errorHandling.html">error handling</a>.</td>
-</tr>
-<tr>
-<td>CommandHandlerContainerRegistration</td>
-<td>Unless an alternative implementation of ICommandHandlerFactory is supplied or the CommandHandlerFactoryFunc in this options class is set then handlers are created through the dependency resolver but not all IoC containers can resolve unregistered concrete types (for example the built in ASP.Net Core IServiceCollection and IServiceProvider IoC cannot). Where this is the case supply an implementation for the CommandHandlerContainerRegistration action that registers the handlers in the container. For example using an IServiceCollection instance of serviceCollection:<br><code>var options = new Options() { CommandHandlerContainerRegistration = type =&gt; services.AddTransient(type, type) };</code></td>
-</tr>
-<tr>
-<td>CommandHandlerFactoryFunc</td>
-<td>By default handlers are created through the dependency resolver but if a function is assigned to the CommandHandlerFactoryFunc property then that function will be called to instantiate a handler.</td>
-</tr>
-<tr>
-<td>DisableCorrelationIds</td>
-<td>Setting this to true will disable all correlatin ID generation which can give a small performance boost in super-low latency situations if you&#39;re prepared to trade off correlation.</td>
-</tr>
-<tr>
-<td>Enrichers</td>
-<td>It can be useful to include additional properties in the command context, for example the Application Insights Operation ID. This can be done by setting this property to a set of enrichment functions - these functions are called in sequence and are passed the current state of the command contexts enriched properties and can return a dictionary of properties to insert. If the returned dictionary contains a property that already exists it will be replaced in the command context property bag.</td>
-</tr>
-<tr>
-<td>MetricCollectionEnabled</td>
-<td>Set to false to disable timing metrics around command dispatch and execution and gain a minor performance gain in very high throughput local execution scenarios where you are trying to squeeze out fractions of milliseconds</td>
-</tr>
-<tr>
-<td>Reset</td>
-<td>The commanding system maintains command registrations, command context enrichers, and auditors between calls to UseCommanding to enable sub-modules to extend the system without any awareness / tight coupling between them. If you want to force a reset of the shared state then set this property to true (generally this is only useful in sample apps where you might repeatedly recreate and reconfigure an IoC container as the included samples do.</td>
-</tr>
-<tr>
-<td>UseLocallyUniqueCorrelationIds</td>
-<td>By default correlation IDs will be generated as GUIDs so that they are unique across as distributed system however if performance is key a local;y unique (incrementing long, thread safe) correlation ID can be used by setting this to true</td>
-</tr>
-</tbody>
-</table>
+<p>The Azure Storage extension package contains an auditor that supports output to Azure Storage Queues. To get started you&#39;ll need to install the Azure Storage NuGet package:</p>
+<pre><code>Install-Package AzureFromTheTrenches.Commanding.AzureStorage
+</code></pre><p>Then register the auditor:</p>
+<pre><code>CloudQueue queue = ...;
+resolver.AddAzureStorageCommandAuditing(queue);
+</code></pre><p>A blob container to persist full command payloads and auditor options can also be supplied:</p>
+<pre><code>CloudQueue queue = ...;
+CloudBlobContainer container = ...;
+resolver.AddAzureStorageCommandAuditing(queue, container, null, new AzureStorageAuditorOptions  {
+    UsePostDispatchAuditor = false
+});
+</code></pre><p><em>(Note: the third, null, parameter is for an unused storage strategy and will be removed in a future version)</em></p>
+<p>Events can be popped from the queue and further processed by use of the built in queue processor - this will read the queue and write the events to configured auditors. For example if you want to write audit information out to multiple storage providers you may not want to do this inline in your services execution due to the added latency this would cost. Using the queue and a queue processor along with the standard audit mechanisms allows the audit to take place asynchronously.</p>
+<p>An example of this is <a href="https://github.com/JamesRandall/AccidentalFish.Commanding/tree/master/Samples/AzureStorageAuditing">available here</a>.</p>
 <div id="disqus_thread"></div>
             </article>
           </div>
@@ -128,7 +92,7 @@ resolver.AddCommanding(options);
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/core/configurationOptions.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/docfx/guides/azureStorage/queueAuditing.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="#disqus_thread" class="contribution-link">0 Comments</a>
