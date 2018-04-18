@@ -40,3 +40,11 @@
       href: restApi/claimsMapping.md
     - name: Best Practices
       href: restApi/bestPractices.md
+- name: Azure Storage
+  items:
+    - name: Queue Dispatch Quickstart
+      href: azureStorage/queueQuickstart.md
+    - name: Azure Table Storage Auditing
+      href: azureStorage/tableAuditing.md
+    - name: Azure Storage Queue Auditing
+      href: azureStorage/queueAuditing.md

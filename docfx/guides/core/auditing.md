@@ -97,7 +97,7 @@ Alternative storage strategies can be provided by supplying an implementation of
 
 ### Azure Storage Queues
 
-By adding this package commands will be audited to Azure Table Storage. First install the NuGet package:
+By adding this package commands will be audited to an Azure Storage Queue. First install the NuGet package:
 
     Install-Package AzureFromTheTrenches.Commanding.AzureStorage
 
@@ -106,11 +106,11 @@ Then register the auditor:
     CloudQueue queue = ...;
     resolver.AddAzureStorageCommandAuditing(queue);
 
-Like with table storage auditing a blob container to persist full command payloads and auditor options can also be supplied:
+A blob container to persist full command payloads and auditor options can also be supplied:
 
     CloudQueue queue = ...;
     CloudBlobContainer container = ...;
-    resolver.AddAzureStorageCommandAuditing(cloudStorageAccount, container, null, new AzureStorageAuditorOptions  {
+    resolver.AddAzureStorageCommandAuditing(queue, container, null, new AzureStorageAuditorOptions  {
         UsePostDispatchAuditor = false
     });
 
