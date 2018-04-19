@@ -48,3 +48,8 @@
       href: azureStorage/tableAuditing.md
     - name: Azure Storage Queue Auditing
       href: azureStorage/queueAuditing.md
+- name: Azure Service Bus
+  items:
+    - name: Queue and Topic Dispatch Quickstart
+      href: azureServiceBus/queueQuickstart.md
+      

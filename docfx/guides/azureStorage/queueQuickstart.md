@@ -1,4 +1,4 @@
-# Queue Dispatch Quickstart
+# Azure Storage Queue Quickstart
 
 This quickstart walks through how to configure the commanding system to dispatch commands to queues and execute commands from queues.
 
@@ -6,7 +6,7 @@ A [sample is available](https://github.com/JamesRandall/AzureFromTheTrenches.Com
 
 ## Dispatching Commands
 
-To get started you'll need to install a NuGet packages in both the dispatch and process halves (so in our example in the REST API and the Web Job):
+To get started you'll need to install a NuGet package:
 
     Install-Package AzureFromTheTrenches.Commanding.AzureStorage
 
@@ -36,7 +36,7 @@ Again, in addition to the core commanding package, we need to install the Azure 
 
     Install-Package AzureFromTheTrenches.Commanding.AzureStorage
 
-And then we need to register the commanding system with our IoC container along with :
+And then we need to register the commanding system with our IoC container along with the command and its handler:
 
     ICommandRegistry registry = resolver.AddCommanding();
     resolver.AddQueues().AddAzureStorageCommanding();
