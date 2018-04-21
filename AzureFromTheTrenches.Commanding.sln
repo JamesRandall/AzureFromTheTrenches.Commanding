@@ -106,6 +106,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleFunctionConfiguration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureFunctions", "Source\AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions.csproj", "{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp1", "FunctionApp1\FunctionApp1.csproj", "{FA0EB6EC-9592-4E07-B09D-9837BCE0811A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,13 +259,16 @@ Global
 		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0EB6EC-9592-4E07-B09D-9837BCE0811A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0EB6EC-9592-4E07-B09D-9837BCE0811A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0EB6EC-9592-4E07-B09D-9837BCE0811A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0EB6EC-9592-4E07-B09D-9837BCE0811A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -312,6 +317,7 @@ Global
 		{B4F4286A-86E5-4E1C-9339-58753A43DCEE} = {9F9F7946-749E-485D-87D2-AA45991E5F47}
 		{91772D16-6A05-4198-9E8E-8113A3D85C1F} = {E027B96A-3DC7-464A-B588-FC5E0BB403D0}
 		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169} = {9F9F7946-749E-485D-87D2-AA45991E5F47}
+		{FA0EB6EC-9592-4E07-B09D-9837BCE0811A} = {E027B96A-3DC7-464A-B588-FC5E0BB403D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}

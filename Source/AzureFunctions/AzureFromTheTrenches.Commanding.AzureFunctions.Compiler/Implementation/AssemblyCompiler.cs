@@ -28,7 +28,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             _templateProvider = templateProvider ?? new TemplateProvider();
         }
 
-        public async Task Compile(IReadOnlyCollection<AbstractFunctionDefinition> functionDefinitions,
+        public void Compile(IReadOnlyCollection<AbstractFunctionDefinition> functionDefinitions,
             IReadOnlyCollection<Assembly> externalAssemblies,
             string outputBinaryFolder,
             string assemblyName)
@@ -60,7 +60,9 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             string outputBinaryFolder,
             string outputAssemblyName)
         {
-            
+            var nugetCache = Environment.GetEnvironmentVariable("UserProfile") + @"\.nuget\packages\";
+
+
             HashSet<string> locations = new HashSet<string>
             {
                 typeof(Runtime).GetTypeInfo().Assembly.Location,
@@ -76,8 +78,11 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
                 typeof(FunctionNameAttribute).GetTypeInfo().Assembly.Location,
                 typeof(ILogger).GetTypeInfo().Assembly.Location,
                 Assembly.GetExecutingAssembly().Location,
-                Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll"),
-                Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"),
+                typeof(Attribute).Assembly.Location,
+                //Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll"),
+                //Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"),
+                //nugetCache + @"System.Runtime\4.3.0\ref\netstandard1.5\System.Runtime.dll",
+                //nugetCache + @"System.Runtime.Extensions\4.3.0\ref\netstandard1.5\System.Runtime.Extensions.dll"
             };
             foreach (Assembly externalAssembly in externalAssemblies)
             {

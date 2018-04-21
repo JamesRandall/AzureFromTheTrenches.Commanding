@@ -20,6 +20,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
         private readonly ICommandRegistry _commandRegistry;
         private readonly IAssemblyCompiler _assemblyCompiler;
         private readonly ITriggerReferenceProvider _triggerReferenceProvider;
+        private readonly JsonCompiler _jsonCompiler;
 
         public FunctionCompiler(
             Assembly configurationSourceAssembly,
@@ -40,6 +41,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             _commandRegistry = adapter.AddCommanding();
             _assemblyCompiler = assemblyCompiler ?? new AssemblyCompiler();
             _triggerReferenceProvider = triggerReferenceProvider ?? new TriggerReferenceProvider();
+            _jsonCompiler = new JsonCompiler();
         }
 
         public async Task Compile()
@@ -56,7 +58,8 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             PatchInDefaults(builder, newAssemblyNamespace);
             
             IReadOnlyCollection<Assembly> externalAssemblies = GetExternalAssemblies(builder.FunctionDefinitions);
-            await _assemblyCompiler.Compile(builder.FunctionDefinitions, externalAssemblies, _outputBinaryFolder, $"{newAssemblyNamespace}.dll");
+            _assemblyCompiler.Compile(builder.FunctionDefinitions, externalAssemblies, _outputBinaryFolder, $"{newAssemblyNamespace}.dll");
+            _jsonCompiler.Compile(builder.FunctionDefinitions, _outputBinaryFolder, newAssemblyNamespace);
         }
 
         private void PatchInDefaults(FunctionHostBuilder builder, string newAssemblyNamespace)

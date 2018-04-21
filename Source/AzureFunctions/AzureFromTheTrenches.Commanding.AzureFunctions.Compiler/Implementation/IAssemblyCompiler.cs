@@ -9,7 +9,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
 {
     internal interface IAssemblyCompiler
     {
-        Task Compile(IReadOnlyCollection<AbstractFunctionDefinition> functionDefinitions,
+        void Compile(IReadOnlyCollection<AbstractFunctionDefinition> functionDefinitions,
             IReadOnlyCollection<Assembly> externalAssemblies,
             string outputBinaryFolder,
             string assemblyName);
