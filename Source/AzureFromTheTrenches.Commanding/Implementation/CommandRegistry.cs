@@ -8,7 +8,7 @@ using AzureFromTheTrenches.Commanding.Model;
 
 namespace AzureFromTheTrenches.Commanding.Implementation
 {
-    internal class CommandRegistry : ICommandRegistry
+    internal class CommandRegistry : ICommandRegistry, IRegistrationCatalogue
     {
         private readonly ICommandHandlerExecuter _executer;
         private readonly Action<Type> _commandHandlerContainerRegistration;
@@ -147,6 +147,41 @@ namespace AzureFromTheTrenches.Commanding.Implementation
         public ICommandRegistry Discover<TTypeInAssembly>()
         {
             return Discover(typeof(TTypeInAssembly).Assembly);
+        }
+
+        IReadOnlyCollection<Type> IRegistrationCatalogue.GetRegisteredHandlers()
+        {
+            HashSet<Type> handlers = new HashSet<Type>();
+            foreach (IReadOnlyCollection<IPrioritisedCommandHandler> collection in _sortedHandlers.Values)
+            {
+                foreach (IPrioritisedCommandHandler handler in collection)
+                {
+                    handlers.Add(handler.CommandHandlerType);
+                }
+            }
+
+            return handlers;
+        }
+
+        IReadOnlyCollection<Func<ICommandDispatcher>> IRegistrationCatalogue.GetRegisteredDispatcherFactories()
+        {
+            return _commandDispatchers.Values;
+        }
+
+        IReadOnlyCollection<Type> IRegistrationCatalogue.GetRegisteredCommands()
+        {
+            HashSet<Type> commands = new HashSet<Type>();
+            foreach (Type commandType in _sortedHandlers.Keys)
+            {
+                commands.Add(commandType);
+            }
+
+            foreach (Type commandType in _commandDispatchers.Keys)
+            {
+                commands.Add(commandType);
+            }
+
+            return commands;
         }
     }
 }

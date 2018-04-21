@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using AzureFromTheTrenches.Commanding.Abstractions;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
@@ -12,12 +14,11 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
 
         public FunctionHostBuilder(
             IServiceCollection serviceCollection,
-            ICommandRegistry commandRegistry,
-            IFunctionBuilder functionBuilder)
+            ICommandRegistry commandRegistry)
         {
             ServiceCollection = serviceCollection;
             CommandRegistry = commandRegistry;
-            FunctionBuilder = functionBuilder;
+            FunctionBuilder = new FunctionBuilder();
         }
 
         public IFunctionHostBuilder Services(Action<IServiceCollection> services)
@@ -37,5 +38,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
             functions(FunctionBuilder);
             return this;
         }
+
+        public IReadOnlyCollection<AbstractFunctionDefinition> FunctionDefinitions => ((FunctionBuilder)FunctionBuilder).Definitions;
     }
 }

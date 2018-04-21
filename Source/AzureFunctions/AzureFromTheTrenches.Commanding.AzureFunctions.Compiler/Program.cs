@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler
 {
@@ -13,10 +15,13 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler
             }
 
             string inputAssemblyFile = args[0];
-            string outputDirectory = args[1];
+            string outputFunctionDirectory = args[1];
 
             Assembly assembly = Assembly.LoadFile(inputAssemblyFile);
-            
+            string outputBinaryDirectory = Path.GetDirectoryName(assembly.Location);
+
+            FunctionCompiler compiler = new FunctionCompiler(assembly, outputBinaryDirectory, outputFunctionDirectory);
+            compiler.Compile().Wait();
         }
     }
 }

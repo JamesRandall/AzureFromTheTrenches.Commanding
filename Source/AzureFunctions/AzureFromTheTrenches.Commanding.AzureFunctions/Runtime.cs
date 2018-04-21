@@ -23,7 +23,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions
             );
 
             ICommandRegistry commandRegistry;
-            IFunctionAppConfiguration configuration = FindConfiguration();
+            IFunctionAppConfiguration configuration = ConfigurationLocator.FindConfiguration();
             if (configuration is ICommandingConfigurator commandingConfigurator)
             {
                 commandRegistry = commandingConfigurator.AddCommanding(adapter);
@@ -33,36 +33,10 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions
                 commandRegistry = adapter.AddCommanding();
             }
 
-            FunctionHostBuilder builder = new FunctionHostBuilder(serviceCollection, commandRegistry, new FunctionBuilder());
+            FunctionHostBuilder builder = new FunctionHostBuilder(serviceCollection, commandRegistry);
             configuration.Build(builder);
             
             ServiceProvider = serviceCollection.BuildServiceProvider();
-        }
-
-        public static IFunctionAppConfiguration FindConfiguration()
-        {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in assemblies)
-            {
-                IFunctionAppConfiguration configuration = FindConfiguration(assembly);
-                if (configuration != null)
-                {
-                    return configuration;
-                }
-            }
-            throw new ConfigurationException("Unable to find implementation of IFunctionHostBuilder");
-        }
-
-        public static IFunctionAppConfiguration FindConfiguration(Assembly assembly)
-        {
-            Type interfaceType = typeof(IFunctionAppConfiguration);
-            Type foundType = assembly.GetTypes().FirstOrDefault(x => interfaceType.IsAssignableFrom(interfaceType) && x.IsClass);
-            if (foundType != null)
-            {
-                return (IFunctionAppConfiguration)Activator.CreateInstance(foundType);
-            }
-
-            return null;
         }
 
         public static ICommandDispatcher CommandDispatcher => ServiceProvider.GetService<ICommandDispatcher>();

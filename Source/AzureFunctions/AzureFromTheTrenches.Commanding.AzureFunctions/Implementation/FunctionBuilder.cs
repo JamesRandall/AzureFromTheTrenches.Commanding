@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 
@@ -6,6 +7,8 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
 {
     internal class FunctionBuilder : IFunctionBuilder
     {
+        private readonly List<AbstractFunctionDefinition> _definitions = new List<AbstractFunctionDefinition>();
+
         public IFunctionBuilder HttpFunction<TCommand>() where TCommand : ICommand
         {
             return HttpFunction<TCommand>(null, null);
@@ -26,9 +29,11 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
             string functionName = GetFunctionName<TCommand>(name);
             HttpFunctionDefinition definition = new HttpFunctionDefinition
             {
-                Name = functionName
+                Name = functionName,
+                CommandType = typeof(TCommand).FullName
             };
             httpFunctionBuilder?.Invoke(new HttpFunctionBuilder(definition));
+            _definitions.Add(definition);
             return this;
         }
 
@@ -74,5 +79,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
 
             return name;
         }
+
+        public IReadOnlyCollection<AbstractFunctionDefinition> Definitions => _definitions;
     }
 }

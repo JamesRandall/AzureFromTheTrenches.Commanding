@@ -20,7 +20,8 @@ namespace SampleFunctionConfiguration
                 .Functions(functions => functions
                     .HttpFunction<EchoMessageCommand>()
                     .HttpFunction<AddCommand>()
-                    .StorageQueueFunction<BackgroundOperationCommand>());
+                    //.StorageQueueFunction<BackgroundOperationCommand>()
+                );
         }
     }
 }
