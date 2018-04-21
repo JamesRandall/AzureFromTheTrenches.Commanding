@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AzureFromTheTrenches.Commanding.AzureFunctions.Compiler": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\wip\\AzureFromTheTrenches.Commanding\\Source\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin\\SampleFunctionConfiguration.dll D:\\wip\\AzureFromTheTrenches.Commanding\\Source\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin"
+    }
+  }
+}

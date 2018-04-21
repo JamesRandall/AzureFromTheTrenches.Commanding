@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler
 {
@@ -6,7 +7,16 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            if (args.Length < 2)
+            {
+                throw new ArgumentException("Must specify at least <ASSMEBLY_FILE> and <OUTPUT_DIR>");
+            }
+
+            string inputAssemblyFile = args[0];
+            string outputDirectory = args[1];
+
+            Assembly assembly = Assembly.LoadFile(inputAssemblyFile);
+            
         }
     }
 }
