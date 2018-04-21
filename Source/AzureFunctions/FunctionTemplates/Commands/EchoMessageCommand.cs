@@ -2,7 +2,7 @@
 
 namespace FunctionTemplates.Commands
 {
-    internal class EchoMessageCommand : ICommand<string>
+    public class EchoMessageCommand : ICommand<string>
     {
         public string Message { get; set; }
     }

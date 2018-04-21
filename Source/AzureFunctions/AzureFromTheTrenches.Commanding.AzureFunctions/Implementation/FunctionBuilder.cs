@@ -30,7 +30,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
             HttpFunctionDefinition definition = new HttpFunctionDefinition
             {
                 Name = functionName,
-                CommandType = typeof(TCommand).FullName
+                CommandType = typeof(TCommand)
             };
             httpFunctionBuilder?.Invoke(new HttpFunctionBuilder(definition));
             _definitions.Add(definition);

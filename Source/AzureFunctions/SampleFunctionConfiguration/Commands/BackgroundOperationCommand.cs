@@ -5,7 +5,7 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 
 namespace SampleFunctionConfiguration.Commands
 {
-    internal class BackgroundOperationCommand : ICommand
+    public class BackgroundOperationCommand : ICommand
     {
     }
 }

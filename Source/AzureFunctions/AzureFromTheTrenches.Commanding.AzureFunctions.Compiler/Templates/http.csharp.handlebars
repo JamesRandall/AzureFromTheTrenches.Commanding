@@ -1,17 +1,15 @@
 using System.IO;
 using System.Threading.Tasks;
-using FunctionTemplates.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace {{Namespace}}
 {
-    public static class {{FunctionName}}
+    public static class {{Name}}
     {
         [FunctionName("{{Name}}")]
         public static async Task<IActionResult> Run(
@@ -25,10 +23,9 @@ namespace {{Namespace}}
             log.LogInformation("HTTP trigger function {{Name}} processed a request.");
 
             string requestBody = new StreamReader(req.Body).ReadToEnd();
-            {{CommandType}} command = JsonConvert.DeserializeObject<{{CommandType}}>(requestBody);
-            string result = await Infrastructure.CommandDispatcher.DispatchAsync(command);
-            string jsonResult = JsonConvert.SerializeObject(result);
-            return new OkObjectResult(jsonResult);
+            {{CommandTypeName}} command = JsonConvert.DeserializeObject<{{CommandTypeName}}>(requestBody);
+            {{CommandResultTypeName}} result = await AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.CommandDispatcher.DispatchAsync(command);
+            return new OkObjectResult(result);
         }
     }
 }

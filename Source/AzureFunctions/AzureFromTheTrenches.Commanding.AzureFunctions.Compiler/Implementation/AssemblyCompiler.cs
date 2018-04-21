@@ -8,9 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 using HandlebarsDotNet;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
 {
@@ -55,13 +60,21 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             string outputBinaryFolder,
             string outputAssemblyName)
         {
+            
             HashSet<string> locations = new HashSet<string>
             {
+                typeof(Runtime).GetTypeInfo().Assembly.Location,
                 typeof(Abstractions.ICommand).GetTypeInfo().Assembly.Location,
                 typeof(System.Net.Http.HttpMethod).GetTypeInfo().Assembly.Location,
                 typeof(System.Net.HttpStatusCode).GetTypeInfo().Assembly.Location,
+                typeof(HttpRequest).Assembly.Location,
                 typeof(object).GetTypeInfo().Assembly.Location,
                 typeof(Hashtable).GetTypeInfo().Assembly.Location,
+                typeof(JsonConvert).GetTypeInfo().Assembly.Location,
+                typeof(OkObjectResult).GetTypeInfo().Assembly.Location,
+                typeof(IActionResult).GetTypeInfo().Assembly.Location,
+                typeof(FunctionNameAttribute).GetTypeInfo().Assembly.Location,
+                typeof(ILogger).GetTypeInfo().Assembly.Location,
                 Assembly.GetExecutingAssembly().Location,
                 Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll"),
                 Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"),
