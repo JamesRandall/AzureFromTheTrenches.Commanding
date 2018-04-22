@@ -92,19 +92,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureEventHubDispatch", "Samples\AzureEventHubDispatch\AzureEventHubDispatch.csproj", "{4D90E6DF-0A68-466F-AE61-BCB157BCD569}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFunctions", "AzureFunctions", "{9F9F7946-749E-485D-87D2-AA45991E5F47}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{7B9A667C-702D-4D97-BF11-B35F8A35C658}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateAndSample", "TemplateAndSample", "{E027B96A-3DC7-464A-B588-FC5E0BB403D0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionTemplates", "Source\AzureFunctions\FunctionTemplates\FunctionTemplates.csproj", "{0E441995-3ED8-4217-A93C-B3F57C06EDD4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureFunctions.Compiler", "Source\AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions.Compiler\AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.csproj", "{B4F4286A-86E5-4E1C-9339-58753A43DCEE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleFunctionConfiguration", "Source\AzureFunctions\SampleFunctionConfiguration\SampleFunctionConfiguration.csproj", "{91772D16-6A05-4198-9E8E-8113A3D85C1F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFromTheTrenches.Commanding.AzureFunctions", "Source\AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions.csproj", "{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -248,22 +236,6 @@ Global
 		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D90E6DF-0A68-466F-AE61-BCB157BCD569}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E441995-3ED8-4217-A93C-B3F57C06EDD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E441995-3ED8-4217-A93C-B3F57C06EDD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E441995-3ED8-4217-A93C-B3F57C06EDD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E441995-3ED8-4217-A93C-B3F57C06EDD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4F4286A-86E5-4E1C-9339-58753A43DCEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -305,13 +277,7 @@ Global
 		{6206ED34-1978-4BE2-B088-098916C1AC6D} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{7B9FED91-1FE9-420E-814D-BF61A33D4A01} = {7D8076F8-81D4-49B7-A296-CED4B9401A61}
 		{4D90E6DF-0A68-466F-AE61-BCB157BCD569} = {2B385448-F9E4-4014-9FFD-74C40B593B71}
-		{9F9F7946-749E-485D-87D2-AA45991E5F47} = {7B9FED91-1FE9-420E-814D-BF61A33D4A01}
 		{7B9A667C-702D-4D97-BF11-B35F8A35C658} = {7B9FED91-1FE9-420E-814D-BF61A33D4A01}
-		{E027B96A-3DC7-464A-B588-FC5E0BB403D0} = {9F9F7946-749E-485D-87D2-AA45991E5F47}
-		{0E441995-3ED8-4217-A93C-B3F57C06EDD4} = {E027B96A-3DC7-464A-B588-FC5E0BB403D0}
-		{B4F4286A-86E5-4E1C-9339-58753A43DCEE} = {9F9F7946-749E-485D-87D2-AA45991E5F47}
-		{91772D16-6A05-4198-9E8E-8113A3D85C1F} = {E027B96A-3DC7-464A-B588-FC5E0BB403D0}
-		{5F9144BC-C07E-4E58-ACFC-6D32D4AB5169} = {9F9F7946-749E-485D-87D2-AA45991E5F47}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFA95DEB-D5BE-4F95-A89A-79CD00DF2247}
