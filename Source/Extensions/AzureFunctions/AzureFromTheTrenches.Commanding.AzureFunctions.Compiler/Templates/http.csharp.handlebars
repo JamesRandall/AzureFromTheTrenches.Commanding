@@ -1,0 +1,31 @@
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+
+namespace {{Namespace}}
+{
+    public static class {{Name}}
+    {
+        [FunctionName("{{Name}}")]
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(
+                AuthorizationLevel.Function,
+                "get", "post",
+                Route = null)]
+            HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("HTTP trigger function {{Name}} processed a request.");
+
+            string requestBody = new StreamReader(req.Body).ReadToEnd();
+            {{CommandTypeName}} command = JsonConvert.DeserializeObject<{{CommandTypeName}}>(requestBody);
+            {{CommandResultTypeName}} result = await AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.CommandDispatcher.DispatchAsync(command);
+            return new OkObjectResult(result);
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\http.csharp.handlebars" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\http.csharp.handlebars" />
+    <EmbeddedResource Include="Templates\http.json.handlebars" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AzureFromTheTrenches.Commanding" Version="8.1.0" />
+    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.0-beta5" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.7.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AzureFromTheTrenches.Commanding.Abstractions\AzureFromTheTrenches.Commanding.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
+    <ProjectReference Include="..\AzureFromTheTrenches.Commanding.AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions.csproj" />
+  </ItemGroup>
+
+</Project>
