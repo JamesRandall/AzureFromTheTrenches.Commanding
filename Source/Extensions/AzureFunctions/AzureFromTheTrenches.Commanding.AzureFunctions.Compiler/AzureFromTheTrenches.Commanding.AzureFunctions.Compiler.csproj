@@ -2,7 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>    
+    <Version>0.1.0-beta2</Version>
+    <AssemblyName>CompileCommandingFunctions</AssemblyName>
+    <PackageId>CompileCommandingFunctions</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AzureFromTheTrenches.Commanding" Version="8.1.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.0-beta5" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.7.0" />
@@ -27,5 +29,31 @@
     <ProjectReference Include="..\..\..\AzureFromTheTrenches.Commanding\AzureFromTheTrenches.Commanding.csproj" />
     <ProjectReference Include="..\AzureFromTheTrenches.Commanding.AzureFunctions\AzureFromTheTrenches.Commanding.AzureFunctions.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CompileCommandingFunctions.targets">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Pack settings -->
+  <PropertyGroup>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <NuspecFile>CompileCommandingFunctions.nuspec</NuspecFile>
+    <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
+    <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
+    <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
+  </PropertyGroup>
+
+  <!-- Executes /t:Publish for all target frameworks before packing-->
+  <Target Name="PublishAll" BeforeTargets="GenerateNuspec">
+    <ItemGroup>
+      <_TargetFramework Include="$(TargetFramework)" />
+    </ItemGroup>
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" Properties="TargetFramework=%(_TargetFramework.Identity)" />
+  </Target>
 
 </Project>

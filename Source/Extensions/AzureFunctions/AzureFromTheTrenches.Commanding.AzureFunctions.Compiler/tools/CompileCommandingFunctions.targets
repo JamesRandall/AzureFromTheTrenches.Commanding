@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <FunctionCompilerExe Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' OR '$(TargetFrameworkIdentifier)' == '.NETStandard'">dotnet "$(MSBuildThisFileDirectory)/netcoreapp2.0/dotnet-compilecommandingfunctions.dll"</TsGenFileExe>
+    <FunctionJsonOutput>"$(MSBuildProjectDir)/bin/Debug/netstandard2.0"</TypescriptOutput>
+  </PropertyGroup>
+
+  <Target Name="CompileCommandingFunctions" AfterTargets="CoreCompile">
+    <Exec Command="$(FunctionCompilerExe) $(TargetPathWithTargetPlatformMoniker) $(FunctionJsonOutput)" />
+  </Target>
+</Project>

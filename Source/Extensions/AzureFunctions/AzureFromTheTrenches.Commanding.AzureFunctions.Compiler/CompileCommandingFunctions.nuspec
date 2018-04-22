@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CompileCommandingFunctions</id>
+    <version>0.1.0-beta9</version>
+    <authors>James Randall</authors>
+    <description>Generates Azure Functions from command registrations</description>
+  </metadata>
+  <files>
+    <file src="Sdk.targets" target="Sdk/Sdk.targets" />
+    <file src="CompileCommandingFunctions.targets" target="build/netstandard1.0/CompileCommandingFunctions.targets" />
+    <file src="_._" target="lib/netstandard1.0/" />
+    <file src="CompileCommandingFunctions.targets" target="tools/" />
+    <file src="$publishdir$\netcoreapp2.0\**\*" target="tools/netcoreapp2.0/" />
+  </files>
+</package>
