@@ -12,10 +12,12 @@ namespace SampleFunctionConfiguration
         public void Build(IFunctionHostBuilder builder)
         {
             builder
-                // register services
-                .Services(services => services.AddTransient<ICalculator, Calculator>())
-                // register command handlers
-                .Register(registry => registry.Discover<MyFunctionAppConfiguration>()) // use the command and handler auto-discovery process
+                // register services and commands
+                .Setup((services, commandRegistry) =>
+                {
+                    services.AddTransient<ICalculator, Calculator>();
+                    commandRegistry.Discover<MyFunctionAppConfiguration>();
+                })
                 // register functions - by default the functions will be given the name of the command minus the postfix Command and use the GET verb
                 .Functions(functions => functions
                     .HttpFunction<EchoMessageCommand>()

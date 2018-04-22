@@ -9,17 +9,10 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions
         /// <summary>
         /// Surfaces an IServiceCollection into which dependencies (for command handlers) can be registered
         /// </summary>
-        /// <param name="serviceCollection">The service collection</param>
+        /// <param name="services">An action that will be given a command registry and service collection</param>
         /// <returns>The function host builder for use in a Fluent API</returns>
-        IFunctionHostBuilder Services(Action<IServiceCollection> serviceCollection);
-
-        /// <summary>
-        /// Surfaces an ICommandRegistry that allows commands and command handlers to be registered
-        /// </summary>
-        /// <param name="registry">The command registry</param>
-        /// <returns>The function host builder to support a Fluent API</returns>
-        IFunctionHostBuilder Register(Action<ICommandRegistry> registry);
-
+        IFunctionHostBuilder Setup(Action<IServiceCollection, ICommandRegistry> services);
+        
         /// <summary>
         /// Surfaces a builder for declaring the command to function bindings
         /// </summary>

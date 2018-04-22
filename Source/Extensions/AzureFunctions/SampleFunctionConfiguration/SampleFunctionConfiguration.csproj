@@ -4,7 +4,6 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CompileCommandingFunctions" Version="0.1.0-beta00011" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
   </ItemGroup>
   <ItemGroup>

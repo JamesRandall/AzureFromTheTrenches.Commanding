@@ -21,17 +21,11 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
             FunctionBuilder = new FunctionBuilder();
         }
 
-        public IFunctionHostBuilder Services(Action<IServiceCollection> services)
+        public IFunctionHostBuilder Setup(Action<IServiceCollection, ICommandRegistry> services)
         {
-            services(ServiceCollection);
+            services(ServiceCollection, CommandRegistry);
             return this;
-        }
-
-        public IFunctionHostBuilder Register(Action<ICommandRegistry> registry)
-        {
-            registry(CommandRegistry);
-            return this;
-        }
+        }        
 
         public IFunctionHostBuilder Functions(Action<IFunctionBuilder> functions)
         {
