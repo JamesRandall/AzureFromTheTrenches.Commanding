@@ -2,9 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>CompileCommandingFunctions</id>
-    <version>0.1.0-beta00011</version>
+    <version>0.1.0-beta00012</version>
     <authors>James Randall</authors>
     <description>Generates Azure Functions from command registrations</description>
+    <licenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</licenseUrl>
+    <projectUrl>https://commanding.azurefromthetrenches.com/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
   </metadata>
   <files>
     <file src="Sdk.targets" target="Sdk/Sdk.targets" />
