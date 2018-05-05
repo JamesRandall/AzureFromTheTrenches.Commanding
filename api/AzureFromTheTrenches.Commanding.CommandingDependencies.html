@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CommandingDependencies
    ">
-    <meta name="generator" content="docfx 2.33.2.0">
+    <meta name="generator" content="docfx 2.35.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -103,7 +103,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddAuditItemEnricher&lt;TAuditItemEnricher&gt;(this ICommandingDependencyResolverAdapter commandingDependencyResolver)where TAuditItemEnricher : IAuditItemEnricher</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddAuditItemEnricher&lt;TAuditItemEnricher&gt;(this ICommandingDependencyResolverAdapter commandingDependencyResolver)
+    where TAuditItemEnricher : IAuditItemEnricher</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -289,7 +290,8 @@ the commandHandlerContainerRegistration should be used to perform the type regis
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)where TExecutionAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TExecutionAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -364,7 +366,8 @@ commands.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddPostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddPostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -439,7 +442,8 @@ commands.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddPreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolverAdapter AddPreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolverAdapter dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -514,7 +518,8 @@ commands.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UseAuditItemEnricher&lt;TAuditItemEnricher&gt;(this ICommandingDependencyResolver commandingDependencyResolver)where TAuditItemEnricher : IAuditItemEnricher</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UseAuditItemEnricher&lt;TAuditItemEnricher&gt;(this ICommandingDependencyResolver commandingDependencyResolver)
+    where TAuditItemEnricher : IAuditItemEnricher</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -700,7 +705,8 @@ the commandHandlerContainerRegistration should be used to perform the type regis
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UseExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)where TExecutionAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UseExecutionCommandingAuditor&lt;TExecutionAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TExecutionAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -775,7 +781,8 @@ commands.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UsePostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UsePostDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -850,7 +857,8 @@ commands.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UsePreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)where TDispatchAuditorImpl : ICommandAuditor</code></pre>
+    <pre><code class="lang-csharp hljs">public static ICommandingDependencyResolver UsePreDispatchCommandingAuditor&lt;TDispatchAuditorImpl&gt;(this ICommandingDependencyResolver dependencyResolver, bool auditRootCommandOnly = true)
+    where TDispatchAuditorImpl : ICommandAuditor</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
