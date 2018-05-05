@@ -15,6 +15,6 @@ To support these goals the framework supports .NET Standard 2.0 (and higher) and
 * Using queues as a source for executing commands 
 * Caching commands based on signatures in local memory caches or Redis caches
 
-You don't need to take advantage of that functionality but you can, if you want, adopt it over time without changing your core code.
+You don't need to take advantage of that functionality but you can, if you want, adopt it over time without changing your core code - just add the packages you need as and when you need them and update configuration.
 
 For an introduction on moving from a layered "onion" architecture to a mediated command approach that makes use of  this framework [please see this series of posts here](https://www.azurefromthetrenches.com/c-cloud-application-architecture-commanding-with-a-mediator-the-full-series/).
