@@ -2,7 +2,7 @@
   "profiles": {
     "AzureFromTheTrenches.Commanding.AzureFunctions.Compiler": {
       "commandName": "Project",
-      "commandLineArgs": "d:\\wip\\AzureFromTheTrenches.Commanding\\Source\\Extensions\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin\\SampleFunctionConfiguration.dll d:\\wip\\AzureFromTheTrenches.Commanding\\Source\\Extensions\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin"
+      "commandLineArgs": "C:\\wip\\AzureFromTheTrenches.Commanding\\Source\\Extensions\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin\\SampleFunctionConfiguration.dll C:\\wip\\AzureFromTheTrenches.Commanding\\Source\\Extensions\\AzureFunctions\\SampleFunctionConfiguration\\bin\\Debug\\netstandard2.0\\bin"
     }
   }
 }

@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -14,18 +15,69 @@ namespace {{Namespace}}
         [FunctionName("{{Name}}")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(
-                AuthorizationLevel.Function,
-                "get", "post",
+                {{{azureAuthenticationType}}},
+                {{{httpVerbs}}},
                 Route = null)]
             HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("HTTP trigger function {{Name}} processed a request.");
-
+            log.LogInformation("HTTP trigger function {{Name}} processed a request.");            
+            
+            // If we validate tokens then we need to read the header, validate it and retrieve a claims principal. Returning unauthorized if
+            // there are any issues
+            {{#if ValidatesToken}}
+            if (req.Headers["Authorization"].Count == 0)
+            {
+                return new UnauthorizedResult();
+            }
+            string authorizationHeader = req.Headers["Authorization"][0];
+            if (string.IsNullOrWhiteSpace(authorizationHeader))
+            {
+                return new UnauthorizedResult();
+            }
+            var tokenValidator = (AzureFromTheTrenches.Commanding.AzureFunctions.ITokenValidator)
+                AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.ServiceProvider.GetService(typeof(AzureFromTheTrenches.Commanding.AzureFunctions.ITokenValidator));
+            System.Security.Claims.ClaimsPrincipal principal = await tokenValidator.ValidateAsync(authorizationHeader);
+            if (principal == null)
+            {
+                return new UnauthorizedResult();
+            }
+            {{/if}}
+            
             string requestBody = new StreamReader(req.Body).ReadToEnd();
-            {{CommandTypeName}} command = JsonConvert.DeserializeObject<{{CommandTypeName}}>(requestBody);
-            {{CommandResultTypeName}} result = await AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.CommandDispatcher.DispatchAsync(command);
-            return new OkObjectResult(result);
+            {{CommandTypeName}} command;
+            if (!System.String.IsNullOrWhiteSpace(requestBody))
+            {
+                var deserializer = (AzureFromTheTrenches.Commanding.AzureFunctions.ICommandDeserializer)
+                    AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.ServiceProvider.GetService(typeof(AzureFromTheTrenches.Commanding.AzureFunctions.ICommandDeserializer));
+                command = deserializer.Deserialize<{{CommandTypeName}}>(requestBody);
+            }
+            else
+            {
+                command = new {{CommandTypeName}}();
+            }
+
+            Microsoft.Extensions.Primitives.StringValues queryParameterValues;
+            {{#each AcceptsQueryParameters}}
+            if (req.Query.TryGetValue("{{Name}}", out queryParameterValues))
+            {
+                {{#if IsString}}
+                command.{{Name}} = queryParameterValues[0];
+                {{else}}
+                {{TypeName}}.TryParse(queryParameterValues[0], out var candidate);
+                command.{{Name}} = candidate;
+                {{/if}}
+            }
+            {{/each}}
+            
+            {{#if ValidatesToken}}
+            var claimsBinder = (AzureFromTheTrenches.Commanding.AzureFunctions.ICommandClaimsBinder)
+                AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.ServiceProvider.GetService(typeof(AzureFromTheTrenches.Commanding.AzureFunctions.ICommandClaimsBinder));
+            claimsBinder.Bind(principal, command);
+            {{/if}}
+            
+            var result = await AzureFromTheTrenches.Commanding.AzureFunctions.Runtime.CommandDispatcher.DispatchAsync(command);
+            return new OkObjectResult(result.Result);
         }
     }
 }

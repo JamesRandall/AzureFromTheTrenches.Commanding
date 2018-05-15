@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using AzureFromTheTrenches.Commanding.Abstractions;
-using AzureFromTheTrenches.Commanding.AzureFunctions.Implementation;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Builders;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions
 {
     public static class Runtime
     {
-        private static readonly IServiceProvider ServiceProvider;
+        public static readonly IServiceProvider ServiceProvider;
         private static readonly IServiceCollection ServiceCollection;
 
         static Runtime()
@@ -23,6 +21,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions
                 (resolveType) => ServiceProvider.GetService(resolveType)
             );
 
+            // Find the configuration implementation
             ICommandRegistry commandRegistry;
             IFunctionAppConfiguration configuration = ConfigurationLocator.FindConfiguration();
             if (configuration is ICommandingConfigurator commandingConfigurator)
@@ -34,8 +33,25 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions
                 commandRegistry = adapter.AddCommanding();
             }
 
+            // Register internal implementations
+            ServiceCollection.AddTransient<ICommandClaimsBinder, CommandClaimsBinder>();
+            ServiceCollection.AddTransient<ICommandDeserializer, CommandDeserializer>();
+
+            // Invoke the builder process
             FunctionHostBuilder builder = new FunctionHostBuilder(ServiceCollection, commandRegistry);
             configuration.Build(builder);
+            new PostBuildPatcher().Patch(builder, "");
+
+            FunctionBuilder functionBuilder = (FunctionBuilder) builder.FunctionBuilder;
+            AuthorizationBuilder authorizationBuilder = (AuthorizationBuilder) builder.AuthorizationBuilder;
+            if (authorizationBuilder.TokenValidatorType != null)
+            {
+                ServiceCollection.AddTransient(typeof(ITokenValidator), authorizationBuilder.TokenValidatorType);
+            }
+
+            ICommandClaimsBinder commandClaimsBinder = authorizationBuilder.ClaimsMappingBuilder.Build(
+                functionBuilder.GetHttpFunctionDefinitions().Select(x => x.CommandType).ToArray());
+            ServiceCollection.AddSingleton(commandClaimsBinder);
             
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }

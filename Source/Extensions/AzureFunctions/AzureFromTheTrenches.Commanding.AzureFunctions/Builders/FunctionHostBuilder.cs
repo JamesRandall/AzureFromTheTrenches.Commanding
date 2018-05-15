@@ -4,13 +4,14 @@ using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
+namespace AzureFromTheTrenches.Commanding.AzureFunctions.Builders
 {
     public class FunctionHostBuilder : IFunctionHostBuilder
     {
         public IServiceCollection ServiceCollection { get; }
         public ICommandRegistry CommandRegistry { get; }
-        public IFunctionBuilder FunctionBuilder { get; }
+        public IFunctionBuilder FunctionBuilder { get; } = new FunctionBuilder();
+        public IAuthorizationBuilder AuthorizationBuilder { get; } = new AuthorizationBuilder();
 
         public FunctionHostBuilder(
             IServiceCollection serviceCollection,
@@ -18,14 +19,19 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Implementation
         {
             ServiceCollection = serviceCollection;
             CommandRegistry = commandRegistry;
-            FunctionBuilder = new FunctionBuilder();
         }
 
         public IFunctionHostBuilder Setup(Action<IServiceCollection, ICommandRegistry> services)
         {
             services(ServiceCollection, CommandRegistry);
             return this;
-        }        
+        }
+
+        public IFunctionHostBuilder Authorization(Action<IAuthorizationBuilder> authorization)
+        {
+            authorization(AuthorizationBuilder);
+            return this;
+        }
 
         public IFunctionHostBuilder Functions(Action<IFunctionBuilder> functions)
         {

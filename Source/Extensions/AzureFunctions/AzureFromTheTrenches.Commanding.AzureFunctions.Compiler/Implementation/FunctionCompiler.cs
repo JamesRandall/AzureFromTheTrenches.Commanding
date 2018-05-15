@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using AzureFromTheTrenches.Commanding.Abstractions;
-using AzureFromTheTrenches.Commanding.AzureFunctions.Implementation;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Builders;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Infrastructure;
 using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
         private readonly IAssemblyCompiler _assemblyCompiler;
         private readonly ITriggerReferenceProvider _triggerReferenceProvider;
         private readonly JsonCompiler _jsonCompiler;
+        private readonly ProxiesJsonCompiler _proxiesJsonCompiler;
 
         public FunctionCompiler(
             Assembly configurationSourceAssembly,
@@ -42,6 +44,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             _assemblyCompiler = assemblyCompiler ?? new AssemblyCompiler();
             _triggerReferenceProvider = triggerReferenceProvider ?? new TriggerReferenceProvider();
             _jsonCompiler = new JsonCompiler();
+            _proxiesJsonCompiler = new ProxiesJsonCompiler();
         }
 
         public async Task Compile()
@@ -55,19 +58,12 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             string newAssemblyNamespace = $"{_configurationSourceAssembly.GetName().Name}.Functions";
             FunctionHostBuilder builder = new FunctionHostBuilder(_serviceCollection, _commandRegistry);
             configuration.Build(builder);
-            PatchInDefaults(builder, newAssemblyNamespace);
+            new PostBuildPatcher().Patch(builder, newAssemblyNamespace);
             
             IReadOnlyCollection<Assembly> externalAssemblies = GetExternalAssemblies(builder.FunctionDefinitions);
             _assemblyCompiler.Compile(builder.FunctionDefinitions, externalAssemblies, _outputBinaryFolder, $"{newAssemblyNamespace}.dll");
             _jsonCompiler.Compile(builder.FunctionDefinitions, _outputBinaryFolder, newAssemblyNamespace);
-        }
-
-        private void PatchInDefaults(FunctionHostBuilder builder, string newAssemblyNamespace)
-        {            
-            foreach (AbstractFunctionDefinition definition in builder.FunctionDefinitions)
-            {
-                definition.Namespace = newAssemblyNamespace;
-            }
+            _proxiesJsonCompiler.Compile(builder.FunctionDefinitions, _outputBinaryFolder);
         }
 
         private IReadOnlyCollection<Assembly> GetExternalAssemblies(
@@ -78,6 +74,8 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             foreach (AbstractFunctionDefinition functionDefinition in functionDefinitions)
             {
                 assemblies.Add(_triggerReferenceProvider.GetTriggerReference(functionDefinition));
+                assemblies.Add(functionDefinition.CommandResultType.Assembly);
+                assemblies.Add(functionDefinition.CommandType.Assembly);
             }
 
             foreach (ServiceDescriptor descriptor in _serviceCollection)

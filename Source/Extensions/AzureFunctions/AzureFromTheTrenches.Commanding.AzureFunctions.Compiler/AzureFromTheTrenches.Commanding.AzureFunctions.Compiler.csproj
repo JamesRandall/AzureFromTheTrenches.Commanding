@@ -10,9 +10,11 @@
 
   <ItemGroup>
     <None Remove="Templates\http.csharp.handlebars" />
+    <None Remove="Templates\proxies.json.handlebars" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Templates\proxies.json.handlebars" />
     <EmbeddedResource Include="Templates\http.csharp.handlebars" />
     <EmbeddedResource Include="Templates\http.json.handlebars" />
   </ItemGroup>

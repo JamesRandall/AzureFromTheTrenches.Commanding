@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.HandlebarsHelpers;
 using AzureFromTheTrenches.Commanding.AzureFunctions.Model;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +17,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
 namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
@@ -33,6 +36,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             string outputBinaryFolder,
             string assemblyName)
         {
+            HandlebarsHelperRegistration.RegisterHelpers();
             IReadOnlyCollection<SyntaxTree> syntaxTrees = CompileSource(functionDefinitions);
 
             CompileAssembly(syntaxTrees, externalAssemblies, outputBinaryFolder, assemblyName);
@@ -60,9 +64,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
             string outputBinaryFolder,
             string outputAssemblyName)
         {
-            var nugetCache = Environment.GetEnvironmentVariable("UserProfile") + @"\.nuget\packages\";
-
-
+            // These are assemblies that Roslyn requires from usage within the template
             HashSet<string> locations = new HashSet<string>
             {
                 typeof(Runtime).GetTypeInfo().Assembly.Location,
@@ -77,12 +79,14 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
                 typeof(IActionResult).GetTypeInfo().Assembly.Location,
                 typeof(FunctionNameAttribute).GetTypeInfo().Assembly.Location,
                 typeof(ILogger).GetTypeInfo().Assembly.Location,
+                typeof(IServiceProvider).GetTypeInfo().Assembly.Location,
+                typeof(ClaimsPrincipal).GetTypeInfo().Assembly.Location,
+                typeof(IHeaderDictionary).GetTypeInfo().Assembly.Location,
+                typeof(StringValues).GetTypeInfo().Assembly.Location,
                 Assembly.GetExecutingAssembly().Location,
                 typeof(Attribute).Assembly.Location,
                 Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll"),
                 Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll"),
-                //nugetCache + @"System.Runtime\4.3.0\ref\netstandard1.5\System.Runtime.dll",
-                //nugetCache + @"System.Runtime.Extensions\4.3.0\ref\netstandard1.5\System.Runtime.Extensions.dll"
             };
             foreach (Assembly externalAssembly in externalAssemblies)
             {
@@ -107,7 +111,7 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Compiler.Implementation
 
                     foreach (Diagnostic diagnostic in failures)
                     {
-                        messageBuilder.AppendFormat("{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
+                        messageBuilder.AppendFormat("{0}:{1} {2}", diagnostic.Id, diagnostic.GetMessage(), diagnostic.Location.ToString());
                     }
 
                     throw new ConfigurationException(messageBuilder.ToString());

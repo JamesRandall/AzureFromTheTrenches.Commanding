@@ -31,7 +31,6 @@ namespace AzureFromTheTrenches.Commanding.AzureFunctions.Model
             }
         }
 
-        public string CommandResultTypeName => CommandResultType?.FullName;
-
+        public string CommandResultTypeName => CommandResultType?.FullName;        
     }
 }
