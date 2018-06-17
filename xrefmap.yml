@@ -1476,6 +1476,51 @@ references:
   isSpec: "True"
   fullName: AzureFromTheTrenches.Commanding.Abstractions.IQueueableCommand.ShouldDequeue
   nameWithType: IQueueableCommand.ShouldDequeue
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue
+  name: IRegistrationCatalogue
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html
+  commentId: T:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue
+  nameWithType: IRegistrationCatalogue
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands
+  name: GetRegisteredCommands()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredCommands
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands()
+  nameWithType: IRegistrationCatalogue.GetRegisteredCommands()
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands*
+  name: GetRegisteredCommands
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredCommands_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredCommands
+  nameWithType: IRegistrationCatalogue.GetRegisteredCommands
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories
+  name: GetRegisteredDispatcherFactories()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredDispatcherFactories
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories()
+  nameWithType: IRegistrationCatalogue.GetRegisteredDispatcherFactories()
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories*
+  name: GetRegisteredDispatcherFactories
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredDispatcherFactories_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredDispatcherFactories
+  nameWithType: IRegistrationCatalogue.GetRegisteredDispatcherFactories
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers
+  name: GetRegisteredHandlers()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredHandlers
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers()
+  nameWithType: IRegistrationCatalogue.GetRegisteredHandlers()
+- uid: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers*
+  name: GetRegisteredHandlers
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.html#AzureFromTheTrenches_Commanding_Abstractions_IRegistrationCatalogue_GetRegisteredHandlers_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.IRegistrationCatalogue.GetRegisteredHandlers
+  nameWithType: IRegistrationCatalogue.GetRegisteredHandlers
 - uid: AzureFromTheTrenches.Commanding.Abstractions.Model
   name: AzureFromTheTrenches.Commanding.Abstractions.Model
   href: api/AzureFromTheTrenches.Commanding.Abstractions.Model.html
