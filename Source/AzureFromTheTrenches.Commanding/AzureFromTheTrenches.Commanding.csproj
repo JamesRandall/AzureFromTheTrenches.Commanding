@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
     <PackageId>AzureFromTheTrenches.Commanding</PackageId>
-    <AssemblyVersion>8.1.0.0</AssemblyVersion>
-    <FileVersion>8.1.0.0</FileVersion>
-    <Version>8.1.0-beta000</Version>
+    <AssemblyVersion>8.1.1.0</AssemblyVersion>
+    <FileVersion>8.1.1.0</FileVersion>
+    <Version>8.1.1</Version>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <AssemblyName>AzureFromTheTrenches.Commanding</AssemblyName>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

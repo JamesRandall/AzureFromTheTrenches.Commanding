@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Json
 {
-    class JsonSecurityPropertyContractResolver : DefaultContractResolver
+    class JsonSecurityPropertyContractResolver : CamelCasePropertyNamesContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
