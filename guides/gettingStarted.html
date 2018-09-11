@@ -8,7 +8,7 @@
     <title>Getting Started </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Getting Started ">
-    <meta name="generator" content="docfx 2.36.2.0">
+    <meta name="generator" content="docfx 2.39.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -72,7 +72,7 @@
 <p>Firstly install the nuget package for commanding:</p>
 <pre><code>Install-Package AzureFromTheTrenches.Commanding
 </code></pre><p>As an example let&#39;s create a command that adds two numbers together and returns a result:</p>
-<pre><code>public class MathResult
+<pre><code class="lang-c#">public class MathResult
 {
     public int Value { get; set; }
 }
@@ -84,7 +84,7 @@ public class AddCommand : ICommand&lt;MathResult&gt;
     public int SecondNumber { get; set; }
 }
 </code></pre><p>Commands are acted on by handlers and our add handler looks like this:</p>
-<pre><code>public AddCommandHandler : ICommandHandler&lt;AddCommand, MathResult&gt;
+<pre><code class="lang-c#">public AddCommandHandler : ICommandHandler&lt;AddCommand, MathResult&gt;
 {
     public Task&lt;MathResult&gt; ExecuteAsync(AddCommand command, MathResult previousResult)
     {
@@ -94,24 +94,25 @@ public class AddCommand : ICommand&lt;MathResult&gt;
     }
 }
 </code></pre><p>Having defined our command, result and handler, we need to register these with the commanding system. If you&#39;re just writing a console app you can do this in Program.cs but for more realistic usage you&#39;d do this where you configure your IoC container - it&#39;s handy to think of command registrations as just another part of your applications configuration, besides which you&#39;ll need access to the container. The example below demonstrates registration with the Microsoft ASP.Net Core Service Provider:</p>
-<pre><code>// First register the commanding framework with the IoC container
-IServiceProvider serviceProvider = null;
-IServiceCollection serviceCollection = new ServiceCollection();
-CommandingDependencyResolverAdapter adapter = new CommandingDependencyResolverAdapter(
+<p>In your Startup.cs add a private variable to hold the IServiceProvider which we&#39;ll need to use when registering the commanding system.</p>
+<p><code>private IServiceProvider _serviceProvider;</code></p>
+<p>Now in your <code>Configure(IApplicationBuilder app, IHostingEnvironment env)</code> method assign this variable with the app.ApplicationServices.</p>
+<p><code>_serviceProvider = app.ApplicationServices;</code></p>
+<p>Once this is done, we can get the commanding framework registered within the <code>ConfigureServices(IServiceCollection services)</code> method. Add the following lines of code.</p>
+<pre><code class="lang-c#">var adapter = new CommandingDependencyResolverAdapter(
     (fromType, toInstance) =&gt; services.AddSingleton(fromType, toInstance),
     (fromType, toType) =&gt; services.AddTransient(fromType, toType),
     (resolveTo) =&gt; _serviceProvider.GetService(resolveTo));
-ICommandRegistry registry = adapter.AddCommanding();
-serviceProvider = serviceCollection.BuildServiceProvider();
 
-// Now register our handler
-registry.Register&lt;AddCommandHandler&gt;();
-</code></pre><p>The <em>CommandingDependencyResolverAdapter</em> class is an adapter that allows the framework to be registed with any IoC container and the <em>AddCommanding</em> method registers the injectable commaning interfaces and returns an <em>ICommandRegistry</em> interface that allows you to register handlers - you only need to register a handler, the framework will figure out the rest and registration uses a fluent API style for concise readable code.</p>
+var registry = adapter.AddCommanding();
+</code></pre><p>The commanding framework is now registered, and we can register our handler(s) using the registry variable</p>
+<p><code>registry.Register&lt;AddCommandHandler&gt;();</code></p>
+<p>The <em>CommandingDependencyResolverAdapter</em> class is an adapter that allows the framework to be registed with any IoC container and the <em>AddCommanding</em> method registers the injectable commanding interfaces and returns an <em>ICommandRegistry</em> interface that allows you to register handlers - you only need to register a handler, the framework will figure out the rest and registration uses a fluent API style for concise readable code.</p>
 <p>To dispatch our command we need to get hold of the ICommandDispatcher interface and send the command. We&#39;ll do that and output the result to the console:</p>
-<pre><code>ICommandDispatcher commandDispatcher = dependencyResolver.ServiceProvider.GetService&lt;ICommandDispatcher&gt;();
+<pre><code class="lang-c#">ICommandDispatcher commandDispatcher = dependencyResolver.ServiceProvider.GetService&lt;ICommandDispatcher&gt;();
 MathResult mathResult = await commandDispatcher.DispatchAsync(new AddCommand { FirstNumber = 5, SecondNumber = 6});
 Console.WriteLine(mathResult.Value); // hopefully says 11
-</code></pre><p>And for simple usage that&#39;s it. This example is a bit contrived as we&#39;re resolving dependencies by hand and theres a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your command handlers in the appropriate place, for example if you&#39;re using ASP.Net Core then all the dependency injection boilerplate is in place.</p>
+</code></pre><p>And for simple usage that&#39;s it. This example is a bit contrived as we&#39;re resolving dependencies by hand and there&#39;s a lot of boilerplate to add two numbers together but in real world scenarios all you really need to do is register your command handlers in the appropriate place, for example if you&#39;re using ASP.Net Core then all the dependency injection boilerplate is in place.</p>
 <div id="disqus_thread"></div>
             </article>
           </div>
