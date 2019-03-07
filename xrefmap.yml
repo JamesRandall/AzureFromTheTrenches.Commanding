@@ -1169,6 +1169,54 @@ references:
   fullName.vb: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Register(Of TCommand, TResult)(Func(Of AzureFromTheTrenches.Commanding.Abstractions.ICommandDispatcher))
   nameWithType: ICommandRegistry.Register<TCommand, TResult>(Func<ICommandDispatcher>)
   nameWithType.vb: ICommandRegistry.Register(Of TCommand, TResult)(Func(Of ICommandDispatcher))
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove*
+  name: Remove
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Remove_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove
+  nameWithType: ICommandRegistry.Remove
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove``1
+  name: Remove<TCommandHandler>()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Remove__1
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove``1
+  name.vb: Remove(Of TCommandHandler)()
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove<TCommandHandler>()
+  fullName.vb: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.Remove(Of TCommandHandler)()
+  nameWithType: ICommandRegistry.Remove<TCommandHandler>()
+  nameWithType.vb: ICommandRegistry.Remove(Of TCommandHandler)()
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher*
+  name: RemoveDispatcher
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_RemoveDispatcher_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher
+  nameWithType: ICommandRegistry.RemoveDispatcher
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher``1
+  name: RemoveDispatcher<TCommand>()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_RemoveDispatcher__1
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher``1
+  name.vb: RemoveDispatcher(Of TCommand)()
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher<TCommand>()
+  fullName.vb: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveDispatcher(Of TCommand)()
+  nameWithType: ICommandRegistry.RemoveDispatcher<TCommand>()
+  nameWithType.vb: ICommandRegistry.RemoveDispatcher(Of TCommand)()
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers*
+  name: RemoveHandlers
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_RemoveHandlers_
+  commentId: Overload:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers
+  isSpec: "True"
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers
+  nameWithType: ICommandRegistry.RemoveHandlers
+- uid: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers``1
+  name: RemoveHandlers<TCommand>()
+  href: api/AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.html#AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_RemoveHandlers__1
+  commentId: M:AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers``1
+  name.vb: RemoveHandlers(Of TCommand)()
+  fullName: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers<TCommand>()
+  fullName.vb: AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry.RemoveHandlers(Of TCommand)()
+  nameWithType: ICommandRegistry.RemoveHandlers<TCommand>()
+  nameWithType.vb: ICommandRegistry.RemoveHandlers(Of TCommand)()
 - uid: AzureFromTheTrenches.Commanding.Abstractions.IDirectCommandExecuter
   name: IDirectCommandExecuter
   href: api/AzureFromTheTrenches.Commanding.Abstractions.IDirectCommandExecuter.html
