@@ -83,6 +83,42 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             return this;
         }
 
+        public ICommandRegistry RemoveDispatcher<TCommand>() where TCommand : ICommand
+        {
+            _commandDispatchers.Remove(typeof(TCommand));
+            return this;
+        }
+
+        public ICommandRegistry RemoveHandlers<TCommand>() where TCommand : ICommand
+        {
+            _sortedHandlers.Remove(typeof(TCommand));
+            return this;
+        }
+
+        public ICommandRegistry Remove<TCommandHandler>() where TCommandHandler : ICommandHandler
+        {
+            Type commandHandlerType = typeof(TCommandHandler);
+            Type commandType = GetCandidateCommandType(typeof(TCommandHandler));
+
+            if (!_sortedHandlers.TryGetValue(commandType, out var handlers))
+            {
+                return this;
+            }
+
+            SortedSet<IPrioritisedCommandHandler> set = new SortedSet<IPrioritisedCommandHandler>(handlers.Where(x => x.CommandHandlerType != commandHandlerType));
+
+            if (set.Count == 0)
+            {
+                _sortedHandlers.Remove(commandType);
+            }
+            else
+            {
+                _sortedHandlers[commandType] = set.ToArray();
+            }
+            
+            return this;
+        }
+
         public ICommandRegistry Register<TCommand, TResult>(Func<ICommandDispatcher> dispatcherFactoryFunc) where TCommand : ICommand<TResult>
         {
             _commandDispatchers[typeof(TCommand)] = dispatcherFactoryFunc ?? throw new ArgumentNullException(nameof(dispatcherFactoryFunc));

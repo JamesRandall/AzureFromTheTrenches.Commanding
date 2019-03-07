@@ -112,5 +112,51 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
                 if (pca.Priority != 1500) throw new Exception("Wrong order");
             });
         }
+
+        [Fact]
+        public void CommandHandlerIsRemoved()
+        {
+            // Arrange
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
+
+            // Act
+            registry.Register<SimpleCommandHandler>();
+            registry.Remove<SimpleCommandHandler>();
+
+            // Assert
+            Assert.Throws<MissingCommandHandlerRegistrationException>(() =>
+                registry.GetPrioritisedCommandHandlers(new SimpleCommand()));            
+        }
+
+        [Fact]
+        public void CommandHandlersAreRemoved()
+        {
+            // Arrange
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
+
+            // Act
+            registry.Register<SimpleCommandHandler>();
+            registry.RemoveHandlers<SimpleCommand>();
+
+            // Assert
+            Assert.Throws<MissingCommandHandlerRegistrationException>(() =>
+                registry.GetPrioritisedCommandHandlers(new SimpleCommand()));
+        }
+
+        [Fact]
+        public void DispatcherIsRemoved()
+        {
+            // Arrange
+            var registry = new CommandRegistry(new Mock<ICommandHandlerExecuter>().Object);
+            ICommandDispatcher DispatcherFunc() => new Mock<ICommandDispatcher>().Object;
+
+            // Act
+            registry.Register<SimpleCommand, SimpleResult>(DispatcherFunc);
+            registry.RemoveDispatcher<SimpleCommand>();
+
+            // Assert
+            var result = registry.GetCommandDispatcherFactory(new SimpleCommand());
+            Assert.Null(result);
+        }
     }
 }

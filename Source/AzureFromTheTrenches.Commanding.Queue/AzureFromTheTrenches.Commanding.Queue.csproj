@@ -11,10 +11,11 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
-    <Version>8.0.0$(VersionSuffix)</Version>
+    <Version>9.0.1</Version>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
-    <FileVersion>8.0.0.0</FileVersion>
+    <AssemblyVersion>9.0.1.0</AssemblyVersion>
+    <FileVersion>9.0.1.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>

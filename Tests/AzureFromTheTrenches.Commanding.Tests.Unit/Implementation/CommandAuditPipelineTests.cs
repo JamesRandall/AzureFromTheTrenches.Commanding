@@ -111,6 +111,30 @@ namespace AzureFromTheTrenches.Commanding.Tests.Unit.Implementation
         }
 
         [Fact]
+        public async Task PreDispatchAuditorSetsUnderlyingCommandTypeForNoResultCommand()
+        {
+            // Arrange
+            List<string> auditors = new EditableList<string>();
+            List<AuditItem> auditItems = new List<AuditItem>();
+            Mock<ICommandAuditSerializer> serializer = new Mock<ICommandAuditSerializer>();
+            Mock<IAuditItemEnricherPipeline> enricherPipeline = new Mock<IAuditItemEnricherPipeline>();
+            CommandAuditPipeline pipeline = new CommandAuditPipeline(t => new FirstAuditor(auditors, auditItems),
+                () => serializer.Object,
+                enricherPipeline.Object);
+            pipeline.RegisterPreDispatchAuditor<FirstAuditor>(true);
+            SimpleIdentifiableCommand command = new SimpleIdentifiableCommand
+            {
+                CommandId = "helloworld"
+            };
+
+            // Act
+            await pipeline.AuditPreDispatch(command, new CommandDispatchContext("someid", new Dictionary<string, object>()), default(CancellationToken));
+
+            // Assert
+            Assert.Equal("SimpleIdentifiableCommand", auditItems.Single().CommandType);
+        }
+
+        [Fact]
         public async Task PreDispatchAuditorPipelineExtractsCommandId()
         {
             // Arrange

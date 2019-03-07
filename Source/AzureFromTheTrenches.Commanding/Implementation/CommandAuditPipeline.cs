@@ -56,13 +56,15 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             if (_registeredPreDispatchAuditors.Count == 0) return;
 
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
+
+            Type commandType = GetUnderlyingCommandType(command);
             
             AuditItem auditItem = new AuditItem
             {
                 AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 CommandId = null,
-                CommandTypeFullName = command.GetType().AssemblyQualifiedName,
-                CommandType = command.GetType().Name,
+                CommandTypeFullName = commandType.AssemblyQualifiedName,
+                CommandType = commandType.Name,
                 CorrelationId = dispatchContext.CorrelationId,
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,
@@ -77,6 +79,21 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             _auditItemEnricherPipeline.Enrich(auditItem.AdditionalProperties, command, dispatchContext);
 
             await AuditPreDispatch(auditItem, cancellationToken);
+        }
+
+        private static Type GetUnderlyingCommandType(ICommand command)
+        {
+            Type commandType;
+            if (command is NoResultCommandWrapper noResultCommandWrapper)
+            {
+                commandType = noResultCommandWrapper.Command.GetType();
+            }
+            else
+            {
+                commandType = command.GetType();
+            }
+
+            return commandType;
         }
 
         private async Task AuditPreDispatch(AuditItem auditItem, CancellationToken cancellationToken)
@@ -97,12 +114,14 @@ namespace AzureFromTheTrenches.Commanding.Implementation
 
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
 
+            Type commandType = GetUnderlyingCommandType(command);
+
             AuditItem auditItem = new AuditItem
             {
                 AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 CommandId = null,
-                CommandType = command.GetType().Name,
-                CommandTypeFullName = command.GetType().AssemblyQualifiedName,
+                CommandType = commandType.Name,
+                CommandTypeFullName = commandType.AssemblyQualifiedName,
                 CorrelationId = dispatchContext.CorrelationId,
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,
@@ -137,12 +156,13 @@ namespace AzureFromTheTrenches.Commanding.Implementation
             if (_registeredExecutionAuditors.Count == 0) return;
 
             ICommandAuditSerializer serializer = _auditorSerializerFunc();
+            Type commandType = GetUnderlyingCommandType(command);
             AuditItem auditItem = new AuditItem
             {
                 AdditionalProperties = dispatchContext.AdditionalProperties.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 CommandId = null,
-                CommandType = command.GetType().Name,
-                CommandTypeFullName = command.GetType().AssemblyQualifiedName,
+                CommandType = commandType.Name,
+                CommandTypeFullName = commandType.AssemblyQualifiedName,
                 CorrelationId = dispatchContext.CorrelationId,
                 Depth = dispatchContext.Depth,
                 DispatchedUtc = DateTime.UtcNow,

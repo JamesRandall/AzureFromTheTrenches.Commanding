@@ -1,4 +1,5 @@
 ﻿using AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle.Implementation;
+using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace AzureFromTheTrenches.Commanding.AspNetCore.Swashbuckle

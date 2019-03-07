@@ -36,17 +36,17 @@ if (-not $disableBuild)
 
 if ($pushLocal)
 {
-	cp .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.Http\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.Queue\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository	
-	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
-	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\release\*.nupkg \MicroserviceAnalyticPackageRepository
+	cp .\Source\AzureFromTheTrenches.Commanding.Abstractions\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding.AzureStorage\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding.AzureEventHub\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding.Http\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding.Queue\bin\release\*.nupkg \wip\functionMonkeyNuget	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache\bin\release\*.nupkg \wip\functionMonkeyNuget	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache.MemoryCache\bin\release\*.nupkg \wip\functionMonkeyNuget	
+	cp .\Source\AzureFromTheTrenches.Commanding.Cache.Redis\bin\release\*.nupkg \wip\functionMonkeyNuget	
+	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftDependencyInjection\bin\release\*.nupkg \wip\functionMonkeyNuget
+	cp .\Source\AzureFromTheTrenches.Commanding.MicrosoftLoggingExtensions\bin\release\*.nupkg \wip\functionMonkeyNuget
 }
 
 if ($pushNuget)

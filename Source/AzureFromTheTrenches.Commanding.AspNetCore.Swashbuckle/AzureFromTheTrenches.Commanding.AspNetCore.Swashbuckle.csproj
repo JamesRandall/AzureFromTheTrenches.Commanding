@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>James Randall</Authors>
-    <Version>1.0.0$(VersionSuffix)</Version>
+    <Version>2.2.1</Version>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>Azure From The Trenches Commanding</Product>
     <Description>Adds Swashbuckle support to the REST API commanding framework that is able to hide properties marked as SecurityProperty from the API definition.</Description>
@@ -11,6 +11,8 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/JamesRandall/AzureFromTheTrenches.Commanding/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JamesRandall/AzureFromTheTrenches.Commanding.git</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -22,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="2.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

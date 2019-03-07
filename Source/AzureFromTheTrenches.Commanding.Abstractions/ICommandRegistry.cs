@@ -61,7 +61,7 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// Will search the specified assembly for command handlers and register them
         /// </summary>
         /// <param name="assemblies">The assemblies to search</param>
-        /// <returns>The command registery for use in a fluent call style</returns>
+        /// <returns>The command registry for use in a fluent call style</returns>
         ICommandRegistry Discover(params Assembly[] assemblies);
 
         /// <summary>
@@ -70,5 +70,26 @@ namespace AzureFromTheTrenches.Commanding.Abstractions
         /// </summary>        
         /// <returns>The command registery for use in a fluent call style</returns>
         ICommandRegistry Discover<TTypeInAssembly>();
+
+        /// <summary>
+        /// Removes any assigned dispatcher from a command
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <returns>The command registry for use in a fluent call style</returns>
+        ICommandRegistry RemoveDispatcher<TCommand>() where TCommand : ICommand;
+
+        /// <summary>
+        /// Removes all handlers for the registered command
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command</typeparam>
+        /// <returns>The command registry for use in a fluent call style</returns>
+        ICommandRegistry RemoveHandlers<TCommand>() where TCommand : ICommand;
+
+        /// <summary>
+        /// Removes the registered command handler
+        /// </summary>
+        /// <typeparam name="TCommandHandler">The type of the command handler</typeparam>
+        /// <returns>The command registry for use in a fluent call style</returns>
+        ICommandRegistry Remove<TCommandHandler>() where TCommandHandler : ICommandHandler;
     }
 }
