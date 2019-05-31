@@ -16,6 +16,7 @@
     <AssemblyVersion>9.0.1.0</AssemblyVersion>
     <FileVersion>9.0.1.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageVersion>9.1.1</PackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

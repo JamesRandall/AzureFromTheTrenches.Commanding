@@ -13,13 +13,15 @@ namespace AzureFromTheTrenches.Commanding.Http
             HttpMethod httpMethod = null,
             Func<string> authenticationHeaderContent = null,
             IHttpCommandSerializer httpCommandSerializer = null,
-            IUriCommandQueryBuilder uriCommandQueryBuilder = null) where TCommand : ICommand<TResult>
+            IUriCommandQueryBuilder uriCommandQueryBuilder = null,
+            HttpDispatchErrorHandler httpDispatchErrorHandler = null) where TCommand : ICommand<TResult>
         {
             registry.Register<TCommand, TResult>(() => new HttpCommandDispatcher(new HttpCommandExecuter(
                 uri,
                 httpMethod, authenticationHeaderContent, httpCommandSerializer ?? new JsonCommandSerializer(),
                 uriCommandQueryBuilder ?? new UriCommandQueryBuilder(),
-                HttpCommandingDependencies.HttpClientProvider)));
+                HttpCommandingDependencies.HttpClientProvider,
+                httpDispatchErrorHandler)));
         }
     }
 }

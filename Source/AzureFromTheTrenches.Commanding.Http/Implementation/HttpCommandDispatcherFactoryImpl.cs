@@ -19,7 +19,10 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
             _httpClientProvider = httpClientProvider;
         }
 
-        public ICommandDispatcher Create(Uri uri, HttpMethod httpMethod = null, Func<string> authenticationHeaderContent = null)
+        public ICommandDispatcher Create(Uri uri,
+            HttpMethod httpMethod = null,
+            Func<string> authenticationHeaderContent = null,
+            HttpDispatchErrorHandler httpDispatchErrorHandler = null)
         {
             return new HttpCommandDispatcher(new HttpCommandExecuter(
                 uri,
@@ -27,7 +30,8 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
                 authenticationHeaderContent,
                 _httpCommandSerializer,
                 _uriCommandQueryBuilder,
-                _httpClientProvider));
+                _httpClientProvider,
+                httpDispatchErrorHandler));
         }
     }
 }

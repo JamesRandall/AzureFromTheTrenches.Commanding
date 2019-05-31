@@ -1,10 +1,19 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using AzureFromTheTrenches.Commanding.Abstractions;
 using AzureFromTheTrenches.Commanding.Http.Implementation;
 
 namespace AzureFromTheTrenches.Commanding.Http
 {
+    /// <summary>
+    /// A delegate used for custom exception raising when HTTP calls fail
+    /// </summary>
+    /// <param name="statusCode">The (non-success) HTTP status code</param>
+    /// <param name="requestUri">The URI that was called</param>
+    /// <param name="command">The command that triggered the error</param>
+    public delegate Exception HttpDispatchErrorHandler(HttpStatusCode statusCode, Uri requestUri, ICommand command);
+    
     /// <summary>
     /// Creates HTTP command dispatcher functions
     /// </summary>
@@ -28,13 +37,14 @@ namespace AzureFromTheTrenches.Commanding.Http
             HttpMethod httpMethod = null,
             Func<string> authenticationHeaderContent = null,
             IHttpCommandSerializer serializer = null,
-            IUriCommandQueryBuilder uriCommandQueryBuilder = null)
+            IUriCommandQueryBuilder uriCommandQueryBuilder = null,
+            HttpDispatchErrorHandler httpDispatchErrorHandler = null)
         {
             return () => 
                 new HttpCommandDispatcherFactoryImpl(
                     serializer ?? new JsonCommandSerializer(),
                     uriCommandQueryBuilder ?? new UriCommandQueryBuilder(),
-                    HttpClientProvider).Create(uri, httpMethod, authenticationHeaderContent);
+                    HttpClientProvider).Create(uri, httpMethod, authenticationHeaderContent, httpDispatchErrorHandler);
         }
     }
 }

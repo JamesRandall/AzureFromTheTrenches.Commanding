@@ -16,14 +16,15 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
         private readonly IHttpCommandSerializer _serializer;
         private readonly IUriCommandQueryBuilder _uriCommandQueryBuilder;
         private readonly IHttpClientProvider _httpClientProvider;
+        private readonly HttpDispatchErrorHandler _httpDispatchErrorHandler;
 
-        public HttpCommandExecuter(
-            Uri uri,
+        public HttpCommandExecuter(Uri uri,
             HttpMethod httpMethod,
             Func<string> authenticationHeaderContent,
             IHttpCommandSerializer serializer,
             IUriCommandQueryBuilder uriCommandQueryBuilder,
-            IHttpClientProvider httpClientProvider)
+            IHttpClientProvider httpClientProvider,
+            HttpDispatchErrorHandler httpDispatchErrorHandler)
         {
             _uri = uri;
             _httpMethod = httpMethod ?? HttpMethod.Post;
@@ -31,6 +32,7 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
             _serializer = serializer;
             _uriCommandQueryBuilder = uriCommandQueryBuilder;
             _httpClientProvider = httpClientProvider;
+            _httpDispatchErrorHandler = httpDispatchErrorHandler;
         }
 
         public async Task<TResult> ExecuteAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
@@ -65,7 +67,22 @@ namespace AzureFromTheTrenches.Commanding.Http.Implementation
             }
 
             HttpResponseMessage responseMessage = await _httpClientProvider.Client.SendAsync(requestMessage, cancellationToken);
-            responseMessage.EnsureSuccessStatusCode();
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                if (_httpDispatchErrorHandler != null)
+                {
+                    Exception exception = _httpDispatchErrorHandler.Invoke(responseMessage.StatusCode, requestMessage.RequestUri, command);
+                    if (exception != null)
+                    {
+                        throw exception;
+                    }
+                }
+                
+                // if we don't throw an exception from the custom handler then have the build in HTTP error handling
+                // kick in
+                responseMessage.EnsureSuccessStatusCode();
+            }
+            
             string result = await responseMessage.Content.ReadAsStringAsync();
             return _serializer.Deserialize<TResult>(result);
         }
