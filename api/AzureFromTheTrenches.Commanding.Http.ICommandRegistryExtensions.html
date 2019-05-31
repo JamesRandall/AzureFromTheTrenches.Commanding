@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ICommandRegistryExtensions
    ">
-    <meta name="generator" content="docfx 2.40.11.0">
+    <meta name="generator" content="docfx 2.42.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -90,18 +90,18 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand%60%602(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry%2CUri%2CHttpMethod%2CFunc%7BSystem.String%7D%2CAzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer%2CAzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand%60%602(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry%2CUri%2CHttpMethod%2CFunc%7BSystem.String%7D%2CAzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer%2CAzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder%2CAzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.Http/ICommandRegistryExtensions.cs/#L11">View Source</a>
   </span>
   <a id="AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand_" data-uid="AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand*"></a>
-  <h4 id="AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_" data-uid="AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)">RegisterHttpCommand&lt;TCommand, TResult&gt;(ICommandRegistry, Uri, HttpMethod, Func&lt;String&gt;, IHttpCommandSerializer, IUriCommandQueryBuilder)</h4>
+  <h4 id="AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_" data-uid="AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder,AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)">RegisterHttpCommand&lt;TCommand, TResult&gt;(ICommandRegistry, Uri, HttpMethod, Func&lt;String&gt;, IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterHttpCommand&lt;TCommand, TResult&gt;(this ICommandRegistry registry, Uri uri, HttpMethod httpMethod = null, Func&lt;string&gt; authenticationHeaderContent = null, IHttpCommandSerializer httpCommandSerializer = null, IUriCommandQueryBuilder uriCommandQueryBuilder = null)
+    <pre><code class="lang-csharp hljs">public static void RegisterHttpCommand&lt;TCommand, TResult&gt;(this ICommandRegistry registry, Uri uri, HttpMethod httpMethod = null, Func&lt;string&gt; authenticationHeaderContent = null, IHttpCommandSerializer httpCommandSerializer = null, IUriCommandQueryBuilder uriCommandQueryBuilder = null, HttpDispatchErrorHandler httpDispatchErrorHandler = null)
     where TCommand : ICommand&lt;TResult&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -142,6 +142,11 @@
       <tr>
         <td><a class="xref" href="AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder.html">IUriCommandQueryBuilder</a></td>
         <td><span class="parametername">uriCommandQueryBuilder</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler.html">HttpDispatchErrorHandler</a></td>
+        <td><span class="parametername">httpDispatchErrorHandler</span></td>
         <td></td>
       </tr>
     </tbody>

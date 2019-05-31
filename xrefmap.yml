@@ -5406,15 +5406,15 @@ references:
   commentId: T:AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory
   fullName: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory
   nameWithType: HttpCommandDispatcherFactory
-- uid: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  name: Create(Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder)
-  href: api/AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_HttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_
-  commentId: M:AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  name.vb: Create(Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder)
-  fullName: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<System.String>, AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  fullName.vb: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of System.String), AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  nameWithType: HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder)
-  nameWithType.vb: HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder)
+- uid: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder,AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name: Create(Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  href: api/AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_HttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_
+  commentId: M:AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder,AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name.vb: Create(Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  fullName: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<System.String>, AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder, AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  fullName.vb: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of System.String), AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder, AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  nameWithType: HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  nameWithType.vb: HttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
 - uid: AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.Create*
   name: Create
   href: api/AzureFromTheTrenches.Commanding.Http.HttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_HttpCommandDispatcherFactory_Create_
@@ -5472,6 +5472,12 @@ references:
   fullName.vb: AzureFromTheTrenches.Commanding.Http.HttpCommandingDependencies.UseHttpCommanding(Of TSerializer)(AzureFromTheTrenches.Commanding.Abstractions.ICommandingDependencyResolver, HttpClient)
   nameWithType: HttpCommandingDependencies.UseHttpCommanding<TSerializer>(ICommandingDependencyResolver, HttpClient)
   nameWithType.vb: HttpCommandingDependencies.UseHttpCommanding(Of TSerializer)(ICommandingDependencyResolver, HttpClient)
+- uid: AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler
+  name: HttpDispatchErrorHandler
+  href: api/AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler.html
+  commentId: T:AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler
+  fullName: AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler
+  nameWithType: HttpDispatchErrorHandler
 - uid: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions
   name: ICommandRegistryExtensions
   href: api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html
@@ -5485,30 +5491,30 @@ references:
   isSpec: "True"
   fullName: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand
   nameWithType: ICommandRegistryExtensions.RegisterHttpCommand
-- uid: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  name: RegisterHttpCommand<TCommand, TResult>(ICommandRegistry, Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder)
-  href: api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html#AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_
-  commentId: M:AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  name.vb: RegisterHttpCommand(Of TCommand, TResult)(ICommandRegistry, Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder)
-  fullName: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand<TCommand, TResult>(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry, Uri, HttpMethod, Func<System.String>, AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  fullName.vb: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand(Of TCommand, TResult)(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry, Uri, HttpMethod, Func(Of System.String), AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder)
-  nameWithType: ICommandRegistryExtensions.RegisterHttpCommand<TCommand, TResult>(ICommandRegistry, Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder)
-  nameWithType.vb: ICommandRegistryExtensions.RegisterHttpCommand(Of TCommand, TResult)(ICommandRegistry, Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder)
+- uid: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder,AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name: RegisterHttpCommand<TCommand, TResult>(ICommandRegistry, Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  href: api/AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.html#AzureFromTheTrenches_Commanding_Http_ICommandRegistryExtensions_RegisterHttpCommand__2_AzureFromTheTrenches_Commanding_Abstractions_ICommandRegistry_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_IHttpCommandSerializer_AzureFromTheTrenches_Commanding_Http_IUriCommandQueryBuilder_AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_
+  commentId: M:AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand``2(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry,Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer,AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder,AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name.vb: RegisterHttpCommand(Of TCommand, TResult)(ICommandRegistry, Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  fullName: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand<TCommand, TResult>(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry, Uri, HttpMethod, Func<System.String>, AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder, AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  fullName.vb: AzureFromTheTrenches.Commanding.Http.ICommandRegistryExtensions.RegisterHttpCommand(Of TCommand, TResult)(AzureFromTheTrenches.Commanding.Abstractions.ICommandRegistry, Uri, HttpMethod, Func(Of System.String), AzureFromTheTrenches.Commanding.Http.IHttpCommandSerializer, AzureFromTheTrenches.Commanding.Http.IUriCommandQueryBuilder, AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  nameWithType: ICommandRegistryExtensions.RegisterHttpCommand<TCommand, TResult>(ICommandRegistry, Uri, HttpMethod, Func<String>, IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
+  nameWithType.vb: ICommandRegistryExtensions.RegisterHttpCommand(Of TCommand, TResult)(ICommandRegistry, Uri, HttpMethod, Func(Of String), IHttpCommandSerializer, IUriCommandQueryBuilder, HttpDispatchErrorHandler)
 - uid: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory
   name: IHttpCommandDispatcherFactory
   href: api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html
   commentId: T:AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory
   fullName: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory
   nameWithType: IHttpCommandDispatcherFactory
-- uid: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String})
-  name: Create(Uri, HttpMethod, Func<String>)
-  href: api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__
-  commentId: M:AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String})
-  name.vb: Create(Uri, HttpMethod, Func(Of String))
-  fullName: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<System.String>)
-  fullName.vb: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of System.String))
-  nameWithType: IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<String>)
-  nameWithType.vb: IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of String))
+- uid: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name: Create(Uri, HttpMethod, Func<String>, HttpDispatchErrorHandler)
+  href: api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_
+  commentId: M:AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  name.vb: Create(Uri, HttpMethod, Func(Of String), HttpDispatchErrorHandler)
+  fullName: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<System.String>, AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  fullName.vb: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of System.String), AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)
+  nameWithType: IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func<String>, HttpDispatchErrorHandler)
+  nameWithType.vb: IHttpCommandDispatcherFactory.Create(Uri, HttpMethod, Func(Of String), HttpDispatchErrorHandler)
 - uid: AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create*
   name: Create
   href: api/AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.html#AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_

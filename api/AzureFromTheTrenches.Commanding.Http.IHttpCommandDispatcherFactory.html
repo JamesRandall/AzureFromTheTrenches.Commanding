@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IHttpCommandDispatcherFactory
    ">
-    <meta name="generator" content="docfx 2.40.11.0">
+    <meta name="generator" content="docfx 2.42.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -85,18 +85,18 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri%2CHttpMethod%2CFunc%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri%2CHttpMethod%2CFunc%7BSystem.String%7D%2CAzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.Http/IHttpCommandDispatcherFactory.cs/#L9">View Source</a>
   </span>
   <a id="AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_" data-uid="AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create*"></a>
-  <h4 id="AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__" data-uid="AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String})">Create(Uri, HttpMethod, Func&lt;String&gt;)</h4>
+  <h4 id="AzureFromTheTrenches_Commanding_Http_IHttpCommandDispatcherFactory_Create_Uri_HttpMethod_Func_System_String__AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_" data-uid="AzureFromTheTrenches.Commanding.Http.IHttpCommandDispatcherFactory.Create(Uri,HttpMethod,Func{System.String},AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler)">Create(Uri, HttpMethod, Func&lt;String&gt;, HttpDispatchErrorHandler)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICommandDispatcher Create(Uri uri, HttpMethod httpMethod = null, Func&lt;string&gt; authenticationHeaderContent = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ICommandDispatcher Create(Uri uri, HttpMethod httpMethod = null, Func&lt;string&gt; authenticationHeaderContent = null, HttpDispatchErrorHandler httpDispatchErrorHandler = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -121,6 +121,11 @@
       <tr>
         <td><span class="xref">Func</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">authenticationHeaderContent</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler.html">HttpDispatchErrorHandler</a></td>
+        <td><span class="parametername">httpDispatchErrorHandler</span></td>
         <td></td>
       </tr>
     </tbody>

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IAzureStorageAuditQueueProcessor
+    <title>Delegate HttpDispatchErrorHandler
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IAzureStorageAuditQueueProcessor
+    <meta name="title" content="Delegate HttpDispatchErrorHandler
    ">
     <meta name="generator" content="docfx 2.42.4.0">
     
@@ -68,37 +68,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor">
+            <article class="content wrap" id="_content" data-uid="AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler">
   
   
-  <h1 id="AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor" data-uid="AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor" class="text-break">Interface IAzureStorageAuditQueueProcessor
+  <h1 id="AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler" data-uid="AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler" class="text-break">Delegate HttpDispatchErrorHandler
   </h1>
-  <div class="markdown level0 summary"><p>Represents a queue processor that pulls items from the audit queue and processes them into
-the configured auditors</p>
+  <div class="markdown level0 summary"><p>A delegate used for custom exception raising when HTTP calls fail</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AzureFromTheTrenches.Commanding.AzureStorage.html">AzureFromTheTrenches.Commanding.AzureStorage</a></h6>
-  <h6><strong>Assembly</strong>: AzureFromTheTrenches.Commanding.AzureStorage.dll</h6>
-  <h5 id="AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AzureFromTheTrenches.Commanding.Http.html">AzureFromTheTrenches.Commanding.Http</a></h6>
+  <h6><strong>Assembly</strong>: AzureFromTheTrenches.Commanding.Http.dll</h6>
+  <h5 id="AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IAzureStorageAuditQueueProcessor</code></pre>
-  </div>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor_Start_CancellationTokenSource_.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.Start(CancellationTokenSource)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AzureStorage/IAzureStorageAuditQueueProcessor.cs/#L12">View Source</a>
-  </span>
-  <a id="AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor_Start_" data-uid="AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.Start*"></a>
-  <h4 id="AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor_Start_CancellationTokenSource_" data-uid="AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor.Start(CancellationTokenSource)">Start(CancellationTokenSource)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task Start(CancellationTokenSource cancellationTokenSource)</code></pre>
+    <pre><code class="lang-csharp hljs">public delegate Exception HttpDispatchErrorHandler(HttpStatusCode statusCode, Uri requestUri, ICommand command);</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -111,9 +93,22 @@ the configured auditors</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationTokenSource</span></td>
-        <td><span class="parametername">cancellationTokenSource</span></td>
-        <td></td>
+        <td><span class="xref">HttpStatusCode</span></td>
+        <td><span class="parametername">statusCode</span></td>
+        <td><p>The (non-success) HTTP status code</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Uri</span></td>
+        <td><span class="parametername">requestUri</span></td>
+        <td><p>The URI that was called</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AzureFromTheTrenches.Commanding.Abstractions.ICommand.html">ICommand</a></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>The command that triggered the error</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -127,7 +122,7 @@ the configured auditors</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">Exception</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -141,10 +136,10 @@ the configured auditors</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_AzureStorage_IAzureStorageAuditQueueProcessor.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.AzureStorage.IAzureStorageAuditQueueProcessor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/new/master/apiSpec/new?filename=AzureFromTheTrenches_Commanding_Http_HttpDispatchErrorHandler.md&amp;value=---%0Auid%3A%20AzureFromTheTrenches.Commanding.Http.HttpDispatchErrorHandler%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.AzureStorage/IAzureStorageAuditQueueProcessor.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/blob/master/Source/AzureFromTheTrenches.Commanding.Http/HttpCommandDispatcherFactory.cs/#L15" class="contribution-link">View Source</a>
                   </li>
                   <li>
                     <a href="#disqus_thread" class="contribution-link">0 Comments</a>
