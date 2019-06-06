@@ -1,6 +1,8 @@
 # RabbitMQ Quickstart
 
-This quickstart walks through how to configure the commanding system to dispatch commands over RabbitMQ either from a docker container or local installation and then execute them from Queues and Subscriptions.
+This quickstart walks through how to configure the commanding system to dispatch commands over RabbitMQ then execute them from queue.
+
+RabbitMQ can be useful in development scenarios where connection to Azure Queue services are not available.
 
 A simple sample is available here:
 
