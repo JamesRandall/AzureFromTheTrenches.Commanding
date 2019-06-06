@@ -21,8 +21,8 @@ namespace RabbitMQDispatchAndDequeue
         static void Main(string[] args)
         {
             Console.WriteLine("1. Queue command");
-            Console.WriteLine("2. Launch queue processor");
             Console.WriteLine("Esc - quit");
+            LaunchQueueProcessor();
 
             ConsoleKeyInfo keyInfo;
             do
@@ -34,12 +34,6 @@ namespace RabbitMQDispatchAndDequeue
                     case ConsoleKey.D1:
 #pragma warning disable 4014
                         RunDispatchDemo();
-#pragma warning restore 4014
-                        break;
-
-                    case ConsoleKey.D2:
-#pragma warning disable 4014
-                        LaunchQueueProcessor();
 #pragma warning restore 4014
                         break;
                 }
