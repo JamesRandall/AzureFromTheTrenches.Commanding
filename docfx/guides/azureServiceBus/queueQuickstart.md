@@ -1,6 +1,6 @@
 # Azure Service Bus Quickstart
 
-This quickstart walks through how to configure the commanding system to dispatch commands over Azure Service Bus Queues and Topics and then execute them from Queues and Subscriptins.
+This quickstart walks through how to configure the commanding system to dispatch commands over Azure Service Bus Queues and Topics and then execute them from Queues and Subscriptions.
 
 A simple sample is available here:
 
