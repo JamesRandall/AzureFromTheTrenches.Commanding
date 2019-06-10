@@ -90,10 +90,13 @@ Documentation can be [found in the wiki](https://github.com/JamesRandall/AzureFr
 4. Dispatching to and executing from Azure Storage queues
 <https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureStorageQueueCommanding>
 
-5. Azure storage auditing
+5. Dispatching to and executing from RabbiqMQ queues
+<https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/RabbitMQDispatchingaAndDequeue>
+
+6. Azure storage auditing
 <https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureStorageAuditing>
 
-6. Azure event hub auditing
+7. Azure event hub auditing
 <https://github.com/JamesRandall/AzureFromTheTrenches.Commanding/tree/master/Samples/AzureEventHubAuditing>
 
 ## Advanced Usage
