@@ -3321,6 +3321,15 @@ references:
   isSpec: "True"
   fullName: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcher
   nameWithType: QueueClientExtensions.CreateCommandDispatcher
+- uid: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcher``1(QueueClient,AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer,Func{``0,System.String})
+  name: CreateCommandDispatcher<TCommand>(QueueClient, IServiceBusMessageSerializer, Func<TCommand, String>)
+  href: api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.html#AzureFromTheTrenches_Commanding_AzureServiceBus_QueueClientExtensions_CreateCommandDispatcher__1_QueueClient_AzureFromTheTrenches_Commanding_AzureServiceBus_IServiceBusMessageSerializer_Func___0_System_String__
+  commentId: M:AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcher``1(QueueClient,AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer,Func{``0,System.String})
+  name.vb: CreateCommandDispatcher(Of TCommand)(QueueClient, IServiceBusMessageSerializer, Func(Of TCommand, String))
+  fullName: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcher<TCommand>(QueueClient, AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer, Func<TCommand, System.String>)
+  fullName.vb: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcher(Of TCommand)(QueueClient, AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer, Func(Of TCommand, System.String))
+  nameWithType: QueueClientExtensions.CreateCommandDispatcher<TCommand>(QueueClient, IServiceBusMessageSerializer, Func<TCommand, String>)
+  nameWithType.vb: QueueClientExtensions.CreateCommandDispatcher(Of TCommand)(QueueClient, IServiceBusMessageSerializer, Func(Of TCommand, String))
 - uid: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory(QueueClient,AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer)
   name: CreateCommandDispatcherFactory(QueueClient, IServiceBusMessageSerializer)
   href: api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.html#AzureFromTheTrenches_Commanding_AzureServiceBus_QueueClientExtensions_CreateCommandDispatcherFactory_QueueClient_AzureFromTheTrenches_Commanding_AzureServiceBus_IServiceBusMessageSerializer_
@@ -3334,6 +3343,15 @@ references:
   isSpec: "True"
   fullName: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory
   nameWithType: QueueClientExtensions.CreateCommandDispatcherFactory
+- uid: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory``1(QueueClient,AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer,Func{``0,System.String})
+  name: CreateCommandDispatcherFactory<TCommand>(QueueClient, IServiceBusMessageSerializer, Func<TCommand, String>)
+  href: api/AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.html#AzureFromTheTrenches_Commanding_AzureServiceBus_QueueClientExtensions_CreateCommandDispatcherFactory__1_QueueClient_AzureFromTheTrenches_Commanding_AzureServiceBus_IServiceBusMessageSerializer_Func___0_System_String__
+  commentId: M:AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory``1(QueueClient,AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer,Func{``0,System.String})
+  name.vb: CreateCommandDispatcherFactory(Of TCommand)(QueueClient, IServiceBusMessageSerializer, Func(Of TCommand, String))
+  fullName: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory<TCommand>(QueueClient, AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer, Func<TCommand, System.String>)
+  fullName.vb: AzureFromTheTrenches.Commanding.AzureServiceBus.QueueClientExtensions.CreateCommandDispatcherFactory(Of TCommand)(QueueClient, AzureFromTheTrenches.Commanding.AzureServiceBus.IServiceBusMessageSerializer, Func(Of TCommand, System.String))
+  nameWithType: QueueClientExtensions.CreateCommandDispatcherFactory<TCommand>(QueueClient, IServiceBusMessageSerializer, Func<TCommand, String>)
+  nameWithType.vb: QueueClientExtensions.CreateCommandDispatcherFactory(Of TCommand)(QueueClient, IServiceBusMessageSerializer, Func(Of TCommand, String))
 - uid: AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientDispatcherFactory
   name: TopicClientDispatcherFactory
   href: api/AzureFromTheTrenches.Commanding.AzureServiceBus.TopicClientDispatcherFactory.html
